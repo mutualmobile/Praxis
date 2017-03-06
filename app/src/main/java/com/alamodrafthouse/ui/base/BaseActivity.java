@@ -30,7 +30,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmView
   public void bindContentView(int layoutId) {
     binding = DataBindingUtil.setContentView(this, layoutId);
     viewModel.attachView((MvvmView) this);
-   // binding.setVariable(BR.viewModel, viewModel);
+    // binding.setVariable(BR.viewModel, viewModel);
   }
 
   @Override protected void onDestroy() {

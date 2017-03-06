@@ -6,5 +6,5 @@ import retrofit2.http.GET;
 import rx.Observable;
 
 public interface ApiService {
-    @GET("/categories/") Observable<List<CategoryModel>> getCategorys();
+  @GET("/categories/") Observable<List<CategoryModel>> getCategorys();
 }

@@ -10,14 +10,14 @@ import rx.Observable;
  */
 
 public class DataManager {
-    private ApiService mApiService;
+  private ApiService mApiService;
 
-    public DataManager(ApiService apiService) {
+  public DataManager(ApiService apiService) {
 
-        mApiService = apiService;
-    }
+    mApiService = apiService;
+  }
 
-    public Observable<List<CategoryModel>> getCategorys() {
-        return mApiService.getCategorys();
-    }
+  public Observable<List<CategoryModel>> getCategorys() {
+    return mApiService.getCategorys();
+  }
 }

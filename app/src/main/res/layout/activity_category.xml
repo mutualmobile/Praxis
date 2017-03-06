@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <data>
-    <import type="android.view.View" />
+    <import type="android.view.View"/>
     <variable
         name="viewModel"
         type="com.alamodrafthouse.ui.category.CategoryViewModel"
@@ -21,8 +21,9 @@
         />
 
     <include
+        layout="@layout/common_error_view"
         android:id="@+id/error_binding"
-        layout="@layout/common_error_view"/>
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
