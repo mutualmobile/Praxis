@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+  defaultConfig {
+    applicationId "com.alamodrafthouse"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    buildConfigField "String", "BASE_URL", "\"http://api-v2.hearthis.at\""
+  }
+  dataBinding {
+    enabled = true
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+// Required for annotation processing plugins like Dagger
+kapt {
+  generateStubs = true
+}
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+
+  // Android Support Libs
+  compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
+  compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibraryVersion}"
+
+  //DataBinding
+  kapt 'com.android.databinding:compiler:2.2.3'
+
+  //Dagger2
+  compile "com.google.dagger:dagger:${dagger2Version}"
+  kapt "com.google.dagger:dagger-compiler:${dagger2Version}"
+  provided 'org.glassfish:javax.annotation:10.0-b28'
+
+  //Retrofit2
+  compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+  compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+  compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+  compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+
+  //Rx
+  compile "io.reactivex:rxandroid:${rxAndroidVersion}"
+
+  //Timber
+  compile "com.jakewharton.timber:timber:${timberVersion}"
+
+  //Glide
+  compile "com.github.bumptech.glide:glide:${glideVersion}"
+
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+
+  //Kotlin
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+  testCompile 'junit:junit:4.12'
+}
+repositories {
+  mavenCentral()
+}
+
