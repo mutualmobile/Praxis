@@ -1,5 +1,6 @@
 package com.alamodrafthouse.ui.category;
 
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import com.alamodrafthouse.data.DataManager;
 import com.alamodrafthouse.data.model.CategoryModel;
@@ -17,7 +18,9 @@ import timber.log.Timber;
  */
 
 public class CategoryViewModel extends BaseViewModel<CategoryView> {
-  public final ObservableBoolean loaded = new ObservableBoolean();
+  public final ObservableBoolean showProgress = new ObservableBoolean();
+  public final ObservableBoolean showError = new ObservableBoolean(false);
+  public ObservableArrayList<CategoryModel> categoryModelList = new ObservableArrayList<>();
   private CompositeSubscription compositeSubscription;
   private DataManager mDataManager;
 
@@ -29,7 +32,7 @@ public class CategoryViewModel extends BaseViewModel<CategoryView> {
     if (compositeSubscription == null) {
       compositeSubscription = new CompositeSubscription();
     }
-    loaded.set(false);
+    showProgress.set(true);
     compositeSubscription.add(mDataManager.getCategorys()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -38,19 +41,20 @@ public class CategoryViewModel extends BaseViewModel<CategoryView> {
           }
 
           @Override public void onError(Throwable e) {
-            loaded.set(true);
-            //getMvvmView().showError();
+            showProgress.set(false);
+            showError.set(true);
           }
 
           @Override public void onNext(List<CategoryModel> categoryModels) {
-            loaded.set(true);
-            //getMvvmView().showContent(categoryModels);
+            showProgress.set(false);
+            showError.set(false);
+            categoryModelList.addAll(categoryModels);
           }
         }));
   }
 
   public ObservableBoolean isLoaded() {
-    return loaded;
+    return showProgress;
   }
 
   @Override public void unsubscribeFromDataStore() {

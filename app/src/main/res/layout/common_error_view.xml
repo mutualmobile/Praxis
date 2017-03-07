@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     >
-
+  <data>
+    <variable
+        name="viewModel"
+        type="com.alamodrafthouse.ui.category.CategoryViewModel"
+        />
+  </data>
   <TextView
       android:id="@+id/errorView"
       android:layout_width="wrap_content"
@@ -16,7 +20,6 @@
       android:text="An error has occurred! click here to retry"
       android:textColor="#656565"
       android:textSize="20sp"
-      android:visibility="gone"
+      bind:visibility="@{viewModel.showError}"
       />
-
-</merge>
+</layout>

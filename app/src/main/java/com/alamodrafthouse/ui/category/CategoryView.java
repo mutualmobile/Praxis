@@ -7,5 +7,5 @@ import com.alamodrafthouse.ui.base.MvvmView;
  */
 
 interface CategoryView extends MvvmView {
-  //void showContent(List<CategoryModel> data);
+  //Use this to show something like toast etc, XML UI stuff can be done by data binding
 }
