@@ -1,7 +1,7 @@
 package com.alamodrafthouse.data.model;
 
 public class CategoryModel {
-  private String apiurl;
+  private String api_url;
 
   private String id;
 
@@ -9,12 +9,12 @@ public class CategoryModel {
 
   private String url;
 
-  public String getApiurl() {
-    return apiurl;
+  public String getApi_url() {
+    return api_url;
   }
 
-  public void setApiurl(String apiurl) {
-    this.apiurl = apiurl;
+  public void setApi_url(String api_url) {
+    this.api_url = api_url;
   }
 
   public String getId() {
@@ -42,7 +42,7 @@ public class CategoryModel {
   }
 
   @Override public String toString() {
-    return "ClassPojo [apiurl = " + apiurl
+    return "ClassPojo [api_url = " + api_url
         + ", id = "
         + id
         + ", name = "

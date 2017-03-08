@@ -56,7 +56,8 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     vectorDrawables.useSupportLibrary = true
-    buildConfigField 'String', "BASE_URL", '\"https://test-web.drafthouse.com/s/mother/v1/\"'
+    //buildConfigField 'String', "BASE_URL", '\"https://test-web.drafthouse.com/s/mother/v1/\"'
+    buildConfigField "String", "BASE_URL", "\"http://api-v2.hearthis.at\""
   }
   packagingOptions {
     exclude 'META-INF/LICENSE.txt'
@@ -93,7 +94,7 @@ android {
     htmlOutput file("$project.buildDir/reports/lint/lint-reports.html")
     xmlOutput file("$project.buildDir/reports/lint/lint-reports.xml")
 
-    abortOnError true
+    abortOnError false
   }
 }
 // Used to name our output apk

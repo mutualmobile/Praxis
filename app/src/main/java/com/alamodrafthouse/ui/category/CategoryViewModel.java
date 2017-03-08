@@ -1,5 +1,6 @@
 package com.alamodrafthouse.ui.category;
 
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import com.alamodrafthouse.data.DataManager;
 import com.alamodrafthouse.data.model.CategoryModel;
