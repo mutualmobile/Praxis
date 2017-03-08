@@ -1,9 +1,5 @@
 package com.alamodrafthouse.ui.cardIO;
 
-/* SampleActivity.java
- * See the file "LICENSE.md" for the full license governing this code.
- */
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.alamodrafthouse.R;
-import io.card.payment.CardIOActivity;
 import io.card.payment.CardType;
 import io.card.payment.CreditCard;
 import io.card.payment.i18n.StringKey;
@@ -28,9 +23,9 @@ import io.card.payment.i18n.locales.LocalizedStringsList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SampleActivity extends Activity {
+public class CardIOActivity extends Activity {
 
-  protected static final String TAG = SampleActivity.class.getSimpleName();
+  protected static final String TAG = CardIOActivity.class.getSimpleName();
 
   private static final int REQUEST_SCAN = 100;
   private static final int REQUEST_AUTOTEST = 200;
@@ -60,7 +55,7 @@ public class SampleActivity extends Activity {
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.sample_activity);
+    setContentView(R.layout.cardIO_activity);
 
     mManualToggle = (CheckBox) findViewById(R.id.force_manual);
     mEnableExpiryToggle = (CheckBox) findViewById(R.id.gather_expiry);
@@ -85,11 +80,9 @@ public class SampleActivity extends Activity {
     mResultCardTypeImage = (ImageView) findViewById(R.id.result_card_type_image);
 
     TextView version = (TextView) findViewById(R.id.version);
-    version.setText("card.io library: "
-        + CardIOActivity.sdkVersion()
+    version.setText("card.io library: " + io.card.payment.CardIOActivity.sdkVersion()
         + "\n"
-        + "Build date: "
-        + CardIOActivity.sdkBuildDate());
+        + "Build date: " + io.card.payment.CardIOActivity.sdkBuildDate());
 
     setScanExpiryEnabled();
     setupLanguageList();
@@ -104,32 +97,39 @@ public class SampleActivity extends Activity {
   }
 
   public void onScan(View pressed) {
-    Intent intent = new Intent(this, CardIOActivity.class).putExtra(CardIOActivity.EXTRA_NO_CAMERA,
+    Intent intent = new Intent(this, io.card.payment.CardIOActivity.class).putExtra(
+        io.card.payment.CardIOActivity.EXTRA_NO_CAMERA,
         mManualToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, mEnableExpiryToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, mScanExpiryToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, mCvvToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, mPostalCodeToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_RESTRICT_POSTAL_CODE_TO_NUMERIC_ONLY,
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_REQUIRE_EXPIRY,
+            mEnableExpiryToggle.isChecked())
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_SCAN_EXPIRY, mScanExpiryToggle.isChecked())
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_REQUIRE_CVV, mCvvToggle.isChecked())
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE,
+            mPostalCodeToggle.isChecked())
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_RESTRICT_POSTAL_CODE_TO_NUMERIC_ONLY,
             mPostalCodeNumericOnlyToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, mCardholderNameToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, mSuppressManualToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, mUseCardIOLogoToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_LANGUAGE_OR_LOCALE,
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME,
+            mCardholderNameToggle.isChecked())
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY,
+            mSuppressManualToggle.isChecked())
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_USE_CARDIO_LOGO,
+            mUseCardIOLogoToggle.isChecked())
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_LANGUAGE_OR_LOCALE,
             (String) mLanguageSpinner.getSelectedItem())
-        .putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON,
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON,
             mShowPayPalActionBarIconToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME,
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_KEEP_APPLICATION_THEME,
             mKeepApplicationThemeToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_GUIDE_COLOR, Color.GREEN)
-        .putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION,
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_GUIDE_COLOR, Color.GREEN)
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION,
             mSuppressConfirmationToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_SUPPRESS_SCAN, mSuppressScanToggle.isChecked())
-        .putExtra(CardIOActivity.EXTRA_RETURN_CARD_IMAGE, true);
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_SUPPRESS_SCAN,
+            mSuppressScanToggle.isChecked())
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_RETURN_CARD_IMAGE, true);
 
     try {
       int unblurDigits = Integer.parseInt(mUnblurEdit.getText().toString());
-      intent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, unblurDigits);
+      intent.putExtra(io.card.payment.CardIOActivity.EXTRA_UNBLUR_DIGITS, unblurDigits);
     } catch (NumberFormatException ignored) {
     }
 
@@ -143,11 +143,11 @@ public class SampleActivity extends Activity {
         + " tests\n"
         + "beginning new test run\n");
 
-    Intent intent =
-        new Intent(this, CardIOActivity.class).putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, false)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, false)
+    Intent intent = new Intent(this, io.card.payment.CardIOActivity.class).putExtra(
+        io.card.payment.CardIOActivity.EXTRA_REQUIRE_EXPIRY, false)
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_REQUIRE_CVV, false)
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false)
+        .putExtra(io.card.payment.CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, false)
             .putExtra("debug_autoAcceptResult", true);
 
     startActivityForResult(intent, REQUEST_AUTOTEST);
@@ -169,9 +169,8 @@ public class SampleActivity extends Activity {
     Bitmap cardTypeImage = null;
 
     if ((requestCode == REQUEST_SCAN || requestCode == REQUEST_AUTOTEST)
-        && data != null
-        && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
-      CreditCard result = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+        && data != null && data.hasExtra(io.card.payment.CardIOActivity.EXTRA_SCAN_RESULT)) {
+      CreditCard result = data.getParcelableExtra(io.card.payment.CardIOActivity.EXTRA_SCAN_RESULT);
       if (result != null) {
         outStr += "Card number: " + result.getRedactedCardNumber() + "\n";
 
@@ -212,7 +211,7 @@ public class SampleActivity extends Activity {
       autotestMode = false;
     }
 
-    Bitmap card = CardIOActivity.getCapturedCardImage(data);
+    Bitmap card = io.card.payment.CardIOActivity.getCapturedCardImage(data);
     mResultImage.setImageBitmap(card);
     mResultCardTypeImage.setImageBitmap(cardTypeImage);
 
