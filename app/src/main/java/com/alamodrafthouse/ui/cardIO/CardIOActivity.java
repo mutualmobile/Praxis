@@ -55,7 +55,7 @@ public class CardIOActivity extends Activity {
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.cardIO_activity);
+    setContentView(R.layout.card_io_activity);
 
     mManualToggle = (CheckBox) findViewById(R.id.force_manual);
     mEnableExpiryToggle = (CheckBox) findViewById(R.id.gather_expiry);
