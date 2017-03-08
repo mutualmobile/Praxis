@@ -1,0 +1,10 @@
+#!/bin/sh
+# Pre-push hook to run checkstyle, lint and tests before pushing to remote
+#
+# See README for installation instructions
+
+echo ">>> Running pre-push hooks..."
+
+./gradlew app:checkstyle lintDevServerDebug
+
+exit $?
