@@ -14,10 +14,10 @@ import java.util.List;
  * Created by Sekhar on 4/6/15.
  */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-  private List<CategoryModel> mData = new ArrayList<>();
+  private List<CategoryModel> data = new ArrayList<>();
 
   public void setData(List<CategoryModel> data) {
-    this.mData = data;
+    this.data = data;
     notifyDataSetChanged();
   }
 
@@ -29,20 +29,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
-    holder.mTextView.setText(mData.get(position).getName());
+    holder.textView.setText(data.get(position).getName());
   }
 
   @Override public int getItemCount() {
 
-    return mData.size();
+    return data.size();
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    public TextView mTextView;
+    public TextView textView;
 
     public ViewHolder(View v) {
       super(v);
-      mTextView = (TextView) v;
+      textView = (TextView) v;
     }
   }
 }

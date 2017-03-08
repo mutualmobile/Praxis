@@ -1,6 +1,7 @@
 package com.alamodrafthouse.ui.category;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import com.alamodrafthouse.R;
 import com.alamodrafthouse.databinding.ActivityCategoryBinding;
 import com.alamodrafthouse.injection.component.ActivityComponent;
@@ -15,7 +16,7 @@ import javax.inject.Inject;
 public class CategoryActivity extends BaseActivity<ActivityCategoryBinding, CategoryViewModel>
     implements CategoryView {
 
-  @Inject CategoryAdapter mAdapter;
+  @Inject CategoryAdapter adapter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -37,10 +38,9 @@ public class CategoryActivity extends BaseActivity<ActivityCategoryBinding, Cate
   }
 
   private void setUI() {
-    throw new RuntimeException("This is a crash");
-    //binding.recyclerView.setHasFixedSize(true);
-    //binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    //binding.recyclerView.setAdapter(mAdapter);
+    binding.recyclerView.setHasFixedSize(true);
+    binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    binding.recyclerView.setAdapter(adapter);
   }
 
   @Override protected void onDestroy() {

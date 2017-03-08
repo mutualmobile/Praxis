@@ -19,10 +19,10 @@ import timber.log.Timber;
 public class CategoryViewModel extends BaseViewModel<CategoryView> {
   public final ObservableBoolean loaded = new ObservableBoolean();
   private CompositeSubscription compositeSubscription;
-  private DataManager mDataManager;
+  private DataManager dataManager;
 
   @Inject public CategoryViewModel(DataManager dataManager) {
-    mDataManager = dataManager;
+    this.dataManager = dataManager;
   }
 
   public void loadData() {
@@ -30,7 +30,7 @@ public class CategoryViewModel extends BaseViewModel<CategoryView> {
       compositeSubscription = new CompositeSubscription();
     }
     loaded.set(false);
-    compositeSubscription.add(mDataManager.getCategorys()
+    compositeSubscription.add(dataManager.getCategorys()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Subscriber<List<CategoryModel>>() {
