@@ -148,7 +148,7 @@ dependencies {
   compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibraryVersion}"
 
   //DataBinding
-  kapt 'com.android.databinding:compiler:2.2.3'
+  kapt 'com.android.databinding:compiler:2.3.0'
 
   //Dagger2
   compile "com.google.dagger:dagger:${dagger2Version}"
