@@ -1,12 +1,13 @@
 package com.alamodrafthouse.ui.category;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import com.alamodrafthouse.R;
 import com.alamodrafthouse.data.model.CategoryModel;
+import com.alamodrafthouse.databinding.ExampleListItemBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,10 @@ import java.util.List;
  * Created by Sekhar on 4/6/15.
  */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-  private List<CategoryModel> mData = new ArrayList<>();
+  private List<CategoryModel> data = new ArrayList<>();
 
   public void setData(List<CategoryModel> data) {
-    this.mData = data;
+    this.data = data;
     notifyDataSetChanged();
   }
 
@@ -29,20 +30,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
-    holder.mTextView.setText(mData.get(position).getName());
+    holder.binder.setViewModel(data.get(position));
+    holder.binder.executePendingBindings();
   }
 
   @Override public int getItemCount() {
-
-    return mData.size();
+    return data.size();
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    public TextView mTextView;
+    private final ExampleListItemBinding binder;
 
     public ViewHolder(View v) {
       super(v);
-      mTextView = (TextView) v;
+      binder = DataBindingUtil.bind(v);
     }
   }
 }

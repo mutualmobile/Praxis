@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+
+  <issue id="UnusedResources" severity="error"/>
+
+  <issue id="RtlHardcoded" severity="ignore"/>
+  <issue id="RtlSymmetry" severity="ignore"/>
+
+  <issue id="AllowBackup" severity="ignore"/>
+  <issue id="GoogleAppIndexingWarning" severity="ignore"/>
+
+  <issue id="IconMissingDensityFolder" severity="ignore"/>
+
+  <issue id="InvalidPackage">
+    <ignore regexp="okio-[\d\.]+.jar"/>
+    <ignore regexp="retrofit-[\d\.]+.jar"/>
+  </issue>
+
+  <issue id="ContentDescription" severity="ignore"/>
+  <issue id="RelativeOverlap" severity="ignore"/>
+
+  <issue id="ParcelCreator" severity="ignore"/>
+
+  <!-- Ignore the UnusedResources issue for the given ids -->
+  <issue id="UnusedResources">
+    <ignore regexp="ga_trackingId|google_crash_reporting_api_key"/>
+  </issue>
+
+</lint>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import com.alamodrafthouse.AlamoApplication;
+import com.alamodrafthouse.BR;
 import com.alamodrafthouse.injection.component.ActivityComponent;
 import com.alamodrafthouse.injection.component.DaggerActivityComponent;
 import com.alamodrafthouse.injection.module.ActivityModule;
@@ -30,7 +31,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmView
   public void bindContentView(int layoutId) {
     binding = DataBindingUtil.setContentView(this, layoutId);
     viewModel.attachView((MvvmView) this);
-    // binding.setVariable(BR.viewModel, viewModel);
+    binding.setVariable(BR.viewModel, viewModel);
   }
 
   @Override protected void onDestroy() {

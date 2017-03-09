@@ -6,6 +6,8 @@ import com.alamodrafthouse.R;
 import com.alamodrafthouse.databinding.ActivityCategoryBinding;
 import com.alamodrafthouse.injection.component.ActivityComponent;
 import com.alamodrafthouse.ui.base.BaseActivity;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
 
 /**
@@ -14,10 +16,11 @@ import javax.inject.Inject;
 public class CategoryActivity extends BaseActivity<ActivityCategoryBinding, CategoryViewModel>
     implements CategoryView {
 
-  @Inject CategoryAdapter mAdapter;
+  @Inject CategoryAdapter adapter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Fabric.with(this, new Crashlytics());
     setUI();
     loadData();
   }
@@ -37,7 +40,7 @@ public class CategoryActivity extends BaseActivity<ActivityCategoryBinding, Cate
   private void setUI() {
     binding.recyclerView.setHasFixedSize(true);
     binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    binding.recyclerView.setAdapter(mAdapter);
+    binding.recyclerView.setAdapter(adapter);
   }
 
   @Override protected void onDestroy() {

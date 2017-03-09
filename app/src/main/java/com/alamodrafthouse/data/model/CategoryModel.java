@@ -42,8 +42,7 @@ public class CategoryModel {
   }
 
   @Override public String toString() {
-    return "ClassPojo [api_url = "
-        + api_url
+    return "ClassPojo [api_url = " + api_url
         + ", id = "
         + id
         + ", name = "
