@@ -148,12 +148,11 @@ dependencies {
   compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibraryVersion}"
 
   //DataBinding
-  kapt 'com.android.databinding:compiler:2.3.0'
+  kapt 'com.android.databinding:compiler:2.2.3'
 
   //Dagger2
   compile "com.google.dagger:dagger:${dagger2Version}"
   kapt "com.google.dagger:dagger-compiler:${dagger2Version}"
-  provided 'org.glassfish:javax.annotation:10.0-b28'
 
   //Retrofit2
   compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
@@ -175,7 +174,7 @@ dependencies {
   })
 
   //Kotlin
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   //Card IO
   compile 'io.card:android-sdk:5.5.0'

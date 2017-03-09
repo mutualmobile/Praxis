@@ -1,5 +1,6 @@
 package com.alamodrafthouse.ui.category;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import com.alamodrafthouse.R;
 import com.alamodrafthouse.data.model.CategoryModel;
 import com.alamodrafthouse.databinding.ExampleListItemBinding;
+import com.alamodrafthouse.ui.kotlinsample.KotlinActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
     holder.binder.setViewModel(data.get(position));
     holder.binder.executePendingBindings();
+    holder.binder.getRoot().setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        v.getContext().startActivity(new Intent(v.getContext(), KotlinActivity.class));
+      }
+    });
   }
 
   @Override public int getItemCount() {

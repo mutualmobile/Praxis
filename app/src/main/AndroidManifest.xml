@@ -10,13 +10,18 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".ui.cardIO.CardIOActivity">
+    <activity android:name=".ui.category.CategoryActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <activity android:name=".ui.cardIO.CardIOActivity"/>
+    <activity android:name=".ui.kotlinsample.KotlinActivity">
+
+    </activity>
+
     <meta-data
         android:name="io.fabric.ApiKey"
         android:value="9033e6cb73cf123a9688b79c918643d1cb4a505d"/>

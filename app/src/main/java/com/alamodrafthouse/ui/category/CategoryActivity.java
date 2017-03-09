@@ -13,7 +13,8 @@ import javax.inject.Inject;
 /**
  * Created by Sekhar on 4/6/15.
  */
-public class CategoryActivity extends BaseActivity<ActivityCategoryBinding, CategoryViewModel>
+public class CategoryActivity
+    extends BaseActivity<ActivityCategoryBinding, CategoryView, CategoryViewModel>
     implements CategoryView {
 
   @Inject CategoryAdapter adapter;
