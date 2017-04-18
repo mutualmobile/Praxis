@@ -9,7 +9,7 @@ import com.alamodrafthouse.ui.base.BaseActivity
 
 class KotlinActivity : BaseActivity<ActivityKotlinBinding, KotlinView, KotlinViewModel>(), KotlinView {
   override fun showToast() {
-    Toast.makeText(this, "Woooooooooow", Toast.LENGTH_LONG).show()
+    Toast.makeText(this, "Toast", Toast.LENGTH_LONG).show()
   }
 
   override fun onComponentCreated(component: ActivityComponent?) {
