@@ -35,6 +35,8 @@ public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmView
   @Override protected void onDestroy() {
     super.onDestroy();
     viewModel.detachView();
+
+    component = null;
   }
 
   public ActivityComponent getComponent() {
