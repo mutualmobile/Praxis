@@ -4,13 +4,13 @@ buildscript {
   }
 
   dependencies {
-    classpath 'io.fabric.tools:gradle:1.+'
+    classpath 'io.fabric.tools:gradle:1.22.2'
   }
 }
 // Manifest version information!
-def versionMajor = 1
+def versionMajor = 0
 def versionMinor = 0
-def versionPatch = 0
+def versionPatch = 1
 def versionBuild = 0
 
 apply plugin: 'com.android.application'
@@ -25,18 +25,22 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../analysis/analysis.gradle'
 
-def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
-def projectName = "alamo-drafthouse-android"
+def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
+// ToDo Update project name
+def projectName = "praxis-mvvm-kotlin"
+
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+  compileSdkVersion COMPILE_SDK_VERSION
+  buildToolsVersion BUILD_TOOLS_VERSION
   signingConfigs {
+    // ToDo: Generate new DEBUG key
     debug {
       keyAlias 'alamo-android-debug'
       keyPassword 'alamod'
       storeFile file('keystores/alamo-android-debug.jks')
       storePassword 'alamod'
     }
+    // ToDo: Generate new RELEASE key
     release {
       keyAlias 'alamo-android-release'
       keyPassword 'alamor'
@@ -44,11 +48,12 @@ android {
       storePassword 'alamor'
     }
   }
-  defaultConfig {
-    applicationId "com.alamodrafthouse"
 
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion rootProject.ext.targetSdkVersion
+  defaultConfig {
+    applicationId "com.mutualmobile.praxis"
+
+    minSdkVersion MIN_SDK_VERSION
+    targetSdkVersion TARGET_SDK_VERSION
 
     versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
     versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -56,39 +61,48 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     vectorDrawables.useSupportLibrary = true
-    //buildConfigField 'String', "BASE_URL", '\"https://test-web.drafthouse.com/s/mother/v1/\"'
-    buildConfigField "String", "BASE_URL", "\"http://api-v2.hearthis.at\""
   }
+
   packagingOptions {
     exclude 'META-INF/LICENSE.txt'
     exclude 'META-INF/NOTICE.txt'
     exclude 'LICENSE.txt'
   }
+
   dexOptions {
     preDexLibraries = preDexEnabled
   }
+
   dataBinding {
     enabled = true
   }
+
   buildTypes {
     release {
       debuggable false
       versionNameSuffix '-release'
+
       minifyEnabled true
       shrinkResources true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.txt',
-          'proguard-specific.txt'
+
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.txt', 'proguard-specific.txt'
+
       signingConfig signingConfigs.release
+
       buildConfigField 'boolean', "ENABLE_LOGGING", 'false'
     }
     debug {
       debuggable true
+
       versionNameSuffix '-debug'
       applicationIdSuffix '.debug'
+
       signingConfig signingConfigs.debug
+
       buildConfigField 'boolean', "ENABLE_LOGGING", 'true'
     }
   }
+
   lintOptions {
     lintConfig file('../analysis/lint/lint.xml')
     htmlOutput file("$project.buildDir/reports/lint/lint-reports.html")
@@ -97,6 +111,7 @@ android {
     abortOnError false
   }
 }
+
 // Used to name our output apk
 task renameApkFilesToAddVersionInfo {
   if (System.getenv()["bamboo_buildNumber"] != null) {
@@ -119,69 +134,72 @@ task renameApkFilesToAddVersionInfo {
 
     // Used to name our output apk
     android.applicationVariants.all { variant ->
-      variant.mergedFlavor.versionName =
-          "${versionMajor}.${versionMinor}.${versionPatch}-${gitBranchName}-${gitSha}-${bambooBuildNumber}";
+      variant.mergedFlavor.versionName = "${versionMajor}.${versionMinor}.${versionPatch}-${gitBranchName}-${gitSha}-${bambooBuildNumber}";
       variant.outputs.each { output ->
         def outputFile = output.outputFile
         if (outputFile != null && outputFile.name.endsWith('.apk')) {
-          output.outputFile = file(
-              "$project.buildDir/${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
+          output.outputFile = file("$project.buildDir/${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
         }
       }
       variableFile.withWriterAppend { out ->
-        out.writeLine(
-            "${variant.name}=${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
+        out.writeLine("${variant.name}=${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
         out.writeLine("${variant.name}LpName=${gitSha}-${variant.name}-${gitBranchName}")
       }
     }
   }
 }
+
 // Required for annotation processing plugins like Dagger
 kapt {
   generateStubs = true
 }
+
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
+
+  // Kotlin
+  compile deps.kotlinsdk
 
   // Android Support Libs
-  compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
-  compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibraryVersion}"
+  compile deps.appcompatv7
+  compile deps.design
 
-  //DataBinding
-  kapt 'com.android.databinding:compiler:2.3.0'
+  // Data Binding
+  kapt deps.databinding
 
-  //Dagger2
-  compile "com.google.dagger:dagger:${dagger2Version}"
-  kapt "com.google.dagger:dagger-compiler:${dagger2Version}"
+  // Crashlytics
+  compile(deps.crashlytics) {
+    transitive = true;
+  }
 
-  //Retrofit2
-  compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-  compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
-  compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
-  compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+  // Dagger 2
+  compile deps.dagger
+  kapt deps.daggercompiler
 
-  //Rx
-  compile "io.reactivex:rxandroid:${rxAndroidVersion}"
+  // Retrofit 2
+  compile deps.retrofit
+  compile deps.retrofitmoshi
+  compile deps.retrofitrx
+  compile deps.okhttplogger
 
-  //Timber
-  compile "com.jakewharton.timber:timber:${timberVersion}"
+  // Rx
+  compile deps.rxjava2
+  compile deps.rxandroid2
 
-  //Glide
-  compile "com.github.bumptech.glide:glide:${glideVersion}"
+  // Rx Plugins
+  compile deps.rxpermissions
 
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+  // Timber
+  compile deps.timber
+
+  // Glide
+  compile deps.glide
+
+  // UI Testing
+  androidTestCompile(deps.espressocore, {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
 
-  //Kotlin
-  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-  //Card IO
-  compile 'io.card:android-sdk:5.5.0'
-
-  testCompile 'junit:junit:4.12'
-  compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
-    transitive = true;
-  }
+  // Unit Testing
+  testCompile deps.junit
 }
 
