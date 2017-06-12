@@ -12,8 +12,8 @@ class KotlinActivity : BaseActivity<ActivityKotlinBinding, KotlinView, KotlinVie
     Toast.makeText(this, string, Toast.LENGTH_LONG).show()
   }
 
-  override fun onComponentCreated(component: ActivityComponent?) {
-    component?.inject(this)
+  override fun onComponentCreated(component: ActivityComponent) {
+    component.inject(this)
   }
 
   override fun layoutId(): Int {
