@@ -1,8 +1,8 @@
 package com.mutualmobile.praxis.injection.module
 
-import android.app.Activity
 import android.app.FragmentManager
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import com.mutualmobile.praxis.injection.scope.ActivityScope
 import com.mutualmobile.praxis.injection.scope.FragmentScope
 import dagger.Module
@@ -17,7 +17,7 @@ import dagger.Provides
     return fragmentManager
   }
 
-  @Provides @FragmentScope fun providesActivity(): Activity {
+  @Provides @FragmentScope fun providesActivity(): FragmentActivity? {
     return fragment.activity
   }
 }

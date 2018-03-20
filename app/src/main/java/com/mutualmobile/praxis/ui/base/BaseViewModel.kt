@@ -5,7 +5,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
-abstract class BaseViewModel<T : MvvmView> : BaseObservable(), MvvmViewModel<T> {
+abstract class BaseViewModel<T : MvvmView> : BaseObservable(), MvvmViewModel<T>{
 
   private var compositeDisposable: CompositeDisposable? = null
   var mvvmView: T? = null
