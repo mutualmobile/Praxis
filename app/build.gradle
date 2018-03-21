@@ -1,12 +1,12 @@
 buildscript {
-    repositories {
-        google()
-        maven { url 'https://maven.fabric.io/public' }
-    }
+  repositories {
+    google()
+    maven { url 'https://maven.fabric.io/public' }
+  }
 
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.24.1'
-    }
+  dependencies {
+    classpath 'io.fabric.tools:gradle:1.24.1'
+  }
 }
 // Manifest version information!
 def versionMajor = 0
@@ -18,7 +18,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 repositories {
-    maven { url 'https://maven.fabric.io/public' }
+  maven { url 'https://maven.fabric.io/public' }
 }
 
 apply plugin: 'kotlin-android'
@@ -31,182 +31,182 @@ def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 def projectName = "praxis-mvvm-kotlin"
 
 android {
-    compileSdkVersion COMPILE_SDK_VERSION
-    buildToolsVersion BUILD_TOOLS_VERSION
-    signingConfigs {
-        // ToDo: Generate new DEBUG key
-        debug {
-            keyAlias 'alamo-android-debug'
-            keyPassword 'alamod'
-            storeFile file('keystores/alamo-android-debug.jks')
-            storePassword 'alamod'
-        }
-        // ToDo: Generate new RELEASE key
-        release {
-            keyAlias 'alamo-android-release'
-            keyPassword 'alamor'
-            storeFile file('keystores/alamo-android-release.jks')
-            storePassword 'alamor'
-        }
+  compileSdkVersion COMPILE_SDK_VERSION
+  buildToolsVersion BUILD_TOOLS_VERSION
+  signingConfigs {
+    // ToDo: Generate new DEBUG key
+    debug {
+      keyAlias 'alamo-android-debug'
+      keyPassword 'alamod'
+      storeFile file('keystores/alamo-android-debug.jks')
+      storePassword 'alamod'
     }
-
-    defaultConfig {
-        applicationId "com.mutualmobile.praxis"
-
-        minSdkVersion MIN_SDK_VERSION
-        targetSdkVersion TARGET_SDK_VERSION
-
-        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        vectorDrawables.useSupportLibrary = true
+    // ToDo: Generate new RELEASE key
+    release {
+      keyAlias 'alamo-android-release'
+      keyPassword 'alamor'
+      storeFile file('keystores/alamo-android-release.jks')
+      storePassword 'alamor'
     }
+  }
 
-    packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'LICENSE.txt'
+  defaultConfig {
+    applicationId "com.mutualmobile.praxis"
+
+    minSdkVersion MIN_SDK_VERSION
+    targetSdkVersion TARGET_SDK_VERSION
+
+    versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+    versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    vectorDrawables.useSupportLibrary = true
+  }
+
+  packagingOptions {
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+    exclude 'LICENSE.txt'
+  }
+
+  dexOptions {
+    preDexLibraries = preDexEnabled
+  }
+
+  dataBinding {
+    enabled = true
+  }
+
+  buildTypes {
+    release {
+      debuggable false
+      versionNameSuffix '-release'
+
+      minifyEnabled true
+      shrinkResources true
+
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.txt', 'proguard-specific.txt'
+
+      signingConfig signingConfigs.release
+
+      buildConfigField 'boolean', "ENABLE_LOGGING", 'false'
     }
+    debug {
+      debuggable true
 
-    dexOptions {
-        preDexLibraries = preDexEnabled
+      versionNameSuffix '-debug'
+      applicationIdSuffix '.debug'
+
+      signingConfig signingConfigs.debug
+
+      buildConfigField 'boolean', "ENABLE_LOGGING", 'true'
     }
+  }
 
-    dataBinding {
-        enabled = true
-    }
+  lintOptions {
+    lintConfig file('../analysis/lint/lint.xml')
+    htmlOutput file("$project.buildDir/reports/lint/lint-reports.html")
+    xmlOutput file("$project.buildDir/reports/lint/lint-reports.xml")
 
-    buildTypes {
-        release {
-            debuggable false
-            versionNameSuffix '-release'
-
-            minifyEnabled true
-            shrinkResources true
-
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.txt', 'proguard-specific.txt'
-
-            signingConfig signingConfigs.release
-
-            buildConfigField 'boolean', "ENABLE_LOGGING", 'false'
-        }
-        debug {
-            debuggable true
-
-            versionNameSuffix '-debug'
-            applicationIdSuffix '.debug'
-
-            signingConfig signingConfigs.debug
-
-            buildConfigField 'boolean', "ENABLE_LOGGING", 'true'
-        }
-    }
-
-    lintOptions {
-        lintConfig file('../analysis/lint/lint.xml')
-        htmlOutput file("$project.buildDir/reports/lint/lint-reports.html")
-        xmlOutput file("$project.buildDir/reports/lint/lint-reports.xml")
-
-        abortOnError false
-    }
+    abortOnError false
+  }
 }
 
 // Used to name our output apk
 task renameApkFilesToAddVersionInfo {
-    if (System.getenv()["bamboo_buildNumber"] != null) {
+  if (System.getenv()["bamboo_buildNumber"] != null) {
 
-        def bambooBuildNumber = System.getenv()["bamboo_buildNumber"];
-        def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
-        def gitBranchName = 'git rev-parse --abbrev-ref HEAD'.execute([], project.rootDir).text.trim()
-        def apkSuffix = versionMajor + '.' + versionMinor + '.' + versionPatch;
-        def variableFile = new File("build/variables.var")
-        // Ugly - find a way to refactor to do this.
-        if (variableFile.exists()) {
-            variableFile.delete();
-        } else {
-            def buildDir = new File("build")
-            if (!buildDir.exists()) {
-                buildDir.mkdir()
-            }
-            variableFile.createNewFile();
-        }
-
-        // Used to name our output apk
-        android.applicationVariants.all { variant ->
-            variant.mergedFlavor.versionName = "${versionMajor}.${versionMinor}.${versionPatch}-${gitBranchName}-${gitSha}-${bambooBuildNumber}";
-            variant.outputs.each { output ->
-                def outputFile = output.outputFile
-                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                    output.outputFile = file("$project.buildDir/${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
-                }
-            }
-            variableFile.withWriterAppend { out ->
-                out.writeLine("${variant.name}=${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
-                out.writeLine("${variant.name}LpName=${gitSha}-${variant.name}-${gitBranchName}")
-            }
-        }
+    def bambooBuildNumber = System.getenv()["bamboo_buildNumber"];
+    def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+    def gitBranchName = 'git rev-parse --abbrev-ref HEAD'.execute([], project.rootDir).text.trim()
+    def apkSuffix = versionMajor + '.' + versionMinor + '.' + versionPatch;
+    def variableFile = new File("build/variables.var")
+    // Ugly - find a way to refactor to do this.
+    if (variableFile.exists()) {
+      variableFile.delete();
+    } else {
+      def buildDir = new File("build")
+      if (!buildDir.exists()) {
+        buildDir.mkdir()
+      }
+      variableFile.createNewFile();
     }
+
+    // Used to name our output apk
+    android.applicationVariants.all { variant ->
+      variant.mergedFlavor.versionName = "${versionMajor}.${versionMinor}.${versionPatch}-${gitBranchName}-${gitSha}-${bambooBuildNumber}";
+      variant.outputs.each { output ->
+        def outputFile = output.outputFile
+        if (outputFile != null && outputFile.name.endsWith('.apk')) {
+          output.outputFile = file("$project.buildDir/${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
+        }
+      }
+      variableFile.withWriterAppend { out ->
+        out.writeLine("${variant.name}=${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
+        out.writeLine("${variant.name}LpName=${gitSha}-${variant.name}-${gitBranchName}")
+      }
+    }
+  }
 }
 
 // Required for annotation processing plugins like Dagger
 kapt {
-    generateStubs = true
+  generateStubs = true
 }
 
 dependencies {
 
-    // Kotlin
-    compile deps.kotlinsdk
+  // Kotlin
+  compile deps.kotlinsdk
 
-    // Android Support Libs
-    compile deps.appcompatv7
-    compile deps.design
+  // Android Support Libs
+  compile deps.appcompatv7
+  compile deps.design
 
-    // Data Binding
-    kapt deps.databinding
+  // Data Binding
+  kapt deps.databinding
 
-    // Crashlytics
-    compile(deps.crashlytics) {
-        transitive = true
-    }
+  // Crashlytics
+  compile(deps.crashlytics) {
+    transitive = true
+  }
 
-    // Dagger 2
-    compile deps.dagger
-    kapt deps.daggercompiler
+  // Dagger 2
+  compile deps.dagger
+  kapt deps.daggercompiler
 
-    // Retrofit 2
-    compile deps.retrofit
-    compile deps.retrofitmoshi
-    compile deps.retrofitrx
-    compile deps.okhttplogger
+  // Retrofit 2
+  compile deps.retrofit
+  compile deps.retrofitmoshi
+  compile deps.retrofitrx
+  compile deps.okhttplogger
 
-    // Rx
-    compile deps.rxjava2
-    compile deps.rxandroid2
+  // Rx
+  compile deps.rxjava2
+  compile deps.rxandroid2
 
-    // Rx Plugins
-    compile deps.rxpermissions
+  // Rx Plugins
+  compile deps.rxpermissions
 
-    // Timber
-    compile deps.timber
+  // Timber
+  compile deps.timber
 
-    // Glide
-    compile deps.glide
+  // Glide
+  compile deps.glide
 
-    implementation deps.archExtenstion
-    implementation deps.archViewmmodel
-    implementation deps.archLivdata
-    implementation deps.reactiveStreams
-    annotationProcessor deps.archAnnotations
+  implementation deps.archExtenstion
+  implementation deps.archViewmmodel
+  implementation deps.archLivdata
+  implementation deps.reactiveStreams
+  kapt deps.archCompiler
 
-    // UI Testing
-    androidTestCompile(deps.espressocore, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+  // UI Testing
+  androidTestCompile(deps.espressocore, {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
 
-    // Unit Testing
-    testCompile deps.junit
+  // Unit Testing
+  testCompile deps.junit
 }
 

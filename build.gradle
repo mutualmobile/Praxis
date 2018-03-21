@@ -49,7 +49,7 @@ ext.deps = [
         archExtenstion    : "android.arch.lifecycle:extensions:$ARCH_VERSION",
         archViewmmodel    : "android.arch.lifecycle:viewmodel:$ARCH_VERSION",
         archLivdata       : "android.arch.lifecycle:livedata:$ARCH_VERSION",
-        archAnnotations   : "android.arch.lifecycle:compiler:$ARCH_VERSION",
+        archCompiler   : "android.arch.lifecycle:compiler:$ARCH_VERSION",
         reactiveStreams   : "android.arch.lifecycle:reactivestreams:$ARCH_VERSION",
 
         rxjava2           : "io.reactivex.rxjava2:rxjava:$RX_VERSION",
@@ -57,7 +57,7 @@ ext.deps = [
 
         kotlinsdk         : "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION",
 
-        databinding       : 'com.android.databinding:compiler:2.3.0',
+        databinding       : 'com.android.databinding:compiler:2.3.3',
 
         supportannotations: "com.android.support:support-annotations:${SUPPORT_LIB_VERSION}",
         appcompatv7       : "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}",

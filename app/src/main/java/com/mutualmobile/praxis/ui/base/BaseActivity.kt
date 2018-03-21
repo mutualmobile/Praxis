@@ -1,5 +1,8 @@
 package com.mutualmobile.praxis.ui.base
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -11,12 +14,13 @@ import com.mutualmobile.praxis.injection.component.ActivityComponent
 import com.mutualmobile.praxis.injection.module.ActivityModule
 import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewDataBinding, V : MvvmView, VM : MvvmViewModel<V>> : AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : AppCompatActivity() {
   private var component: ActivityComponent? = null
-
-  @Inject lateinit var viewModel: VM
-
   protected lateinit var binding: B
+  lateinit var viewModel: VM
+
+  @Inject
+  lateinit var mViewModelFactory: ViewModelProvider.Factory
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -28,15 +32,14 @@ abstract class BaseActivity<B : ViewDataBinding, V : MvvmView, VM : MvvmViewMode
 
   fun bindContentView(layoutId: Int) {
     binding = DataBindingUtil.setContentView(this, layoutId)
-    @Suppress("UNCHECKED_CAST")
-    viewModel.attachView(this as V)
+    viewModel = ViewModelProviders.of(this, mViewModelFactory).get(getViewModelClass())
     binding.setVariable(BR.viewModel, viewModel)
   }
 
+  abstract fun getViewModelClass(): Class<VM>
+
   override fun onDestroy() {
     super.onDestroy()
-    viewModel.detachView()
-
     component = null
   }
 

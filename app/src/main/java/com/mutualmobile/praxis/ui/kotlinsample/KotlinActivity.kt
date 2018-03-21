@@ -1,16 +1,14 @@
 package com.mutualmobile.praxis.ui.kotlinsample
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.widget.Toast
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.ActivityKotlinBinding
 import com.mutualmobile.praxis.injection.component.ActivityComponent
 import com.mutualmobile.praxis.ui.base.BaseActivity
 
-class KotlinActivity : BaseActivity<ActivityKotlinBinding, KotlinView, KotlinViewModel>(), KotlinView {
-  override fun showToast(string: String) {
-    Toast.makeText(this, string, Toast.LENGTH_LONG).show()
-  }
+class KotlinActivity : BaseActivity<ActivityKotlinBinding, KotlinViewModel>() {
+  override fun getViewModelClass(): Class<KotlinViewModel> = KotlinViewModel::class.java
 
   override fun onComponentCreated(component: ActivityComponent) {
     component.inject(this)
@@ -22,6 +20,9 @@ class KotlinActivity : BaseActivity<ActivityKotlinBinding, KotlinView, KotlinVie
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    viewModel.joke.observe(this, Observer { joke ->
+      binding.jokeTV.text = joke
+    })
     viewModel.loadData()
   }
 }
