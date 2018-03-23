@@ -1,15 +1,14 @@
-package com.mutualmobile.praxis.ui.kotlinsample
+package com.mutualmobile.praxis.ui.joke
 
 import android.arch.lifecycle.MutableLiveData
 import com.mutualmobile.praxis.data.services.ApiService
 import com.mutualmobile.praxis.ui.base.BaseViewModel
 import com.mutualmobile.praxis.utils.IRxSchedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
 import timber.log.Timber
 import javax.inject.Inject
 
 
-class KotlinViewModel @Inject constructor() : BaseViewModel() {
+class ShowJokeViewModel @Inject constructor() : BaseViewModel() {
 
   @Inject lateinit var service: ApiService
   @Inject lateinit var schedulers: IRxSchedulers
@@ -19,7 +18,7 @@ class KotlinViewModel @Inject constructor() : BaseViewModel() {
   fun loadData() {
     addDisposable(service.getRandomJoke()
         .subscribeOn(schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+        .observeOn(schedulers.main())
         .subscribe({ response ->
           joke.postValue(response.value.joke)
         }, { Timber.e(it) }))

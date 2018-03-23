@@ -7,15 +7,12 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
 import com.mutualmobile.praxis.BR
-import com.mutualmobile.praxis.BaseApplication
-import com.mutualmobile.praxis.injection.component.ActivityComponent
-import com.mutualmobile.praxis.injection.module.ActivityModule
+import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : AppCompatActivity() {
-  private var component: ActivityComponent? = null
+abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppCompatActivity() {
   protected lateinit var binding: B
   lateinit var viewModel: VM
 
@@ -25,7 +22,8 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : AppCompatActi
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     // Inject dependencies
-    onComponentCreated(getComponent())
+    AndroidInjection.inject(this)
+    onComponentCreated()
     // Bind the view and bind the viewModel to layout
     bindContentView(layoutId())
   }
@@ -38,20 +36,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : AppCompatActi
 
   abstract fun getViewModelClass(): Class<VM>
 
-  override fun onDestroy() {
-    super.onDestroy()
-    component = null
-  }
-
-  protected fun getComponent(): ActivityComponent {
-    if (component == null) {
-      component = (application as BaseApplication).getComponent().plusActivityComponent(ActivityModule(this))
-    }
-
-    return component!!
-  }
-
   @LayoutRes protected abstract fun layoutId(): Int
 
-  protected abstract fun onComponentCreated(component: ActivityComponent)
+  protected abstract fun onComponentCreated()
 }

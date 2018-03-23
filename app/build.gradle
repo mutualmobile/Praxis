@@ -158,42 +158,44 @@ kapt {
 dependencies {
 
   // Kotlin
-  compile deps.kotlinsdk
+  implementation deps.kotlinsdk
 
   // Android Support Libs
-  compile deps.appcompatv7
-  compile deps.design
+  implementation deps.appcompatv7
+  implementation deps.design
 
   // Data Binding
   kapt deps.databinding
 
   // Crashlytics
-  compile(deps.crashlytics) {
+  implementation(deps.crashlytics) {
     transitive = true
   }
 
   // Dagger 2
-  compile deps.dagger
-  kapt deps.daggercompiler
+  implementation deps.dagger
+  implementation deps.daggerSupport
+  kapt deps.daggerCompiler
+  kapt deps.daggerProcessor
 
   // Retrofit 2
-  compile deps.retrofit
-  compile deps.retrofitmoshi
-  compile deps.retrofitrx
-  compile deps.okhttplogger
+  implementation deps.retrofit
+  implementation deps.retrofitmoshi
+  implementation deps.retrofitrx
+  implementation deps.okhttplogger
 
   // Rx
-  compile deps.rxjava2
-  compile deps.rxandroid2
+  implementation deps.rxjava2
+  implementation deps.rxandroid2
 
   // Rx Plugins
-  compile deps.rxpermissions
+  implementation deps.rxpermissions
 
   // Timber
-  compile deps.timber
+  implementation deps.timber
 
   // Glide
-  compile deps.glide
+  implementation deps.glide
 
   implementation deps.archExtenstion
   implementation deps.archViewmmodel
@@ -202,11 +204,11 @@ dependencies {
   kapt deps.archCompiler
 
   // UI Testing
-  androidTestCompile(deps.espressocore, {
+  androidTestImplementation(deps.espressocore, {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
 
   // Unit Testing
-  testCompile deps.junit
+  testImplementation deps.junit
 }
 

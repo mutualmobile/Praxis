@@ -1,16 +1,16 @@
 package com.mutualmobile.praxis
 
-import android.app.Application
 import com.crashlytics.android.Crashlytics
-import com.mutualmobile.praxis.injection.component.ApplicationComponent
-import com.mutualmobile.praxis.injection.component.DaggerApplicationComponent
-import com.mutualmobile.praxis.injection.module.AppModule
+import com.mutualmobile.praxis.injection.component.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
 
-class BaseApplication : Application() {
-
-  private var component: ApplicationComponent? = null
+class BaseApplication : DaggerApplication() {
+  override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+    return DaggerAppComponent.builder().create(this)
+  }
 
   override fun onCreate() {
     super.onCreate()
@@ -22,10 +22,4 @@ class BaseApplication : Application() {
     }
   }
 
-  fun getComponent(): ApplicationComponent {
-    if (component == null) {
-      component = DaggerApplicationComponent.builder().appModule(AppModule(this)).build()
-    }
-    return component!!
-  }
 }

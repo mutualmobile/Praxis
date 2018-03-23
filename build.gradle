@@ -1,90 +1,91 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.KOTLIN_VERSION = '1.1.51'
-    repositories {
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+  ext.KOTLIN_VERSION = '1.1.51'
+  repositories {
+    jcenter()
+    google()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.0.1'
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    classpath 'me.tatarka:gradle-retrolambda:3.6.1'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
+    // NOTE: Do not place your application dependencies here; they belong
+    // in the individual module build.gradle files
+  }
 }
 
 allprojects {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-    }
+  repositories {
+    google()
+    jcenter()
+    mavenCentral()
+  }
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir
+  delete rootProject.buildDir
 }
 
 ext {
-    MIN_SDK_VERSION = 19
-    TARGET_SDK_VERSION = 27
-    COMPILE_SDK_VERSION = 27
-    BUILD_TOOLS_VERSION = '27.0.3'
+  MIN_SDK_VERSION = 19
+  TARGET_SDK_VERSION = 27
+  COMPILE_SDK_VERSION = 27
+  BUILD_TOOLS_VERSION = '27.0.3'
 
-    SUPPORT_LIB_VERSION = '27.1.0'
+  SUPPORT_LIB_VERSION = '27.1.0'
 
-    RETROFIT_VERSION = '2.4.0'
-    OKHTTP_VERSION = '3.10.0'
-    DAGGER_VERSION = '2.15'
-    RX_VERSION = '2.1.10'
-    RX_ANDROID_VERSION = '2.0.2'
-    ARCH_VERSION = '1.1.0'
+  RETROFIT_VERSION = '2.4.0'
+  OKHTTP_VERSION = '3.10.0'
+  DAGGER_VERSION = '2.15'
+  RX_VERSION = '2.1.10'
+  RX_ANDROID_VERSION = '2.0.2'
+  ARCH_VERSION = '1.1.0'
 }
 
-ext.deps = [
-        archExtenstion    : "android.arch.lifecycle:extensions:$ARCH_VERSION",
-        archViewmmodel    : "android.arch.lifecycle:viewmodel:$ARCH_VERSION",
-        archLivdata       : "android.arch.lifecycle:livedata:$ARCH_VERSION",
-        archCompiler   : "android.arch.lifecycle:compiler:$ARCH_VERSION",
-        reactiveStreams   : "android.arch.lifecycle:reactivestreams:$ARCH_VERSION",
+ext.deps = [archExtenstion    : "android.arch.lifecycle:extensions:$ARCH_VERSION",
+            archViewmmodel    : "android.arch.lifecycle:viewmodel:$ARCH_VERSION",
+            archLivdata       : "android.arch.lifecycle:livedata:$ARCH_VERSION",
+            archCompiler      : "android.arch.lifecycle:compiler:$ARCH_VERSION",
+            reactiveStreams   : "android.arch.lifecycle:reactivestreams:$ARCH_VERSION",
 
-        rxjava2           : "io.reactivex.rxjava2:rxjava:$RX_VERSION",
-        rxandroid2        : "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
+            rxjava2           : "io.reactivex.rxjava2:rxjava:$RX_VERSION",
+            rxandroid2        : "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION",
 
-        kotlinsdk         : "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION",
+            kotlinsdk         : "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION",
 
-        databinding       : 'com.android.databinding:compiler:2.3.3',
+            databinding       : 'com.android.databinding:compiler:2.3.3',
 
-        supportannotations: "com.android.support:support-annotations:${SUPPORT_LIB_VERSION}",
-        appcompatv7       : "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}",
-        supportv13        : "com.android.support:support-v13:${SUPPORT_LIB_VERSION}",
-        design            : "com.android.support:design:${SUPPORT_LIB_VERSION}",
+            supportannotations: "com.android.support:support-annotations:${SUPPORT_LIB_VERSION}",
+            appcompatv7       : "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}",
+            supportv13        : "com.android.support:support-v13:${SUPPORT_LIB_VERSION}",
+            design            : "com.android.support:design:${SUPPORT_LIB_VERSION}",
 
-        retrofit          : "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}",
-        retrofitmoshi     : "com.squareup.retrofit2:converter-moshi:${RETROFIT_VERSION}",
-        retrofitrx        : "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}",
+            retrofit          : "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}",
+            retrofitmoshi     : "com.squareup.retrofit2:converter-moshi:${RETROFIT_VERSION}",
+            retrofitrx        : "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}",
 
-        okhttp            : "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}",
-        okhttplogger      : "com.squareup.okhttp3:logging-interceptor:${OKHTTP_VERSION}",
+            okhttp            : "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}",
+            okhttplogger      : "com.squareup.okhttp3:logging-interceptor:${OKHTTP_VERSION}",
 
 
-        rxbinding         : 'com.jakewharton.rxbinding2:rxbinding:2.0.0',
-        rxpermissions     : 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar',
+            rxbinding         : 'com.jakewharton.rxbinding2:rxbinding:2.0.0',
+            rxpermissions     : 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar',
 
-        dagger            : "com.google.dagger:dagger:${DAGGER_VERSION}",
-        daggercompiler    : "com.google.dagger:dagger-compiler:${DAGGER_VERSION}",
+            dagger            : "com.google.dagger:dagger:${DAGGER_VERSION}",
+            daggerCompiler    : "com.google.dagger:dagger-compiler:${DAGGER_VERSION}",
+            daggerSupport     : "com.google.dagger:dagger-android-support:${DAGGER_VERSION}",
+            daggerProcessor   : "com.google.dagger:dagger-android-processor:${DAGGER_VERSION}",
 
-        timber            : 'com.jakewharton.timber:timber:4.5.1',
+            timber            : 'com.jakewharton.timber:timber:4.5.1',
 
-        glide             : "com.github.bumptech.glide:glide:3.8.0",
+            glide             : "com.github.bumptech.glide:glide:3.8.0",
 
-        crashlytics       : 'com.crashlytics.sdk.android:crashlytics:2.6.8@aar',
+            crashlytics       : 'com.crashlytics.sdk.android:crashlytics:2.6.8@aar',
 
-        junit             : 'junit:junit:4.12',
-        truth             : 'com.google.truth:truth:0.32',
-        espressocore      : 'com.android.support.test.espresso:espresso-core:2.2.2',
-        mockitocore       : 'org.mockito:mockito-core:2.7.17']
+            junit             : 'junit:junit:4.12',
+            truth             : 'com.google.truth:truth:0.32',
+            espressocore      : 'com.android.support.test.espresso:espresso-core:2.2.2',
+            mockitocore       : 'org.mockito:mockito-core:2.7.17']
