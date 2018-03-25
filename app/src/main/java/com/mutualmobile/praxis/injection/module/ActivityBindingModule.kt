@@ -26,8 +26,4 @@ abstract class ActivityBindingModule {
   @ContributesAndroidInjector(modules = arrayOf(OnBoardActivityModule::class))
   internal abstract fun bindOnBoardActivity(): OnBoardActivity
 
-//  @Binds
-//  @IntoMap
-//  @ActivityKey(OnBoardActivity::class)
-//  internal abstract fun bindOnBoardctivity(builder: OnBoardActivityComponent.Builder): AndroidInjector.Factory<out Activity>
 }
