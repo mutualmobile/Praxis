@@ -3,6 +3,7 @@
     package="com.mutualmobile.praxis">
 
   <uses-permission android:name="android.permission.INTERNET"/>
+
   <application
       android:name=".BaseApplication"
       android:allowBackup="true"
@@ -10,13 +11,7 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name="com.mutualmobile.praxis.ui.joke.ShowJokeActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
+    <activity android:name=".ui.joke.ShowJokeActivity"/>
 
     <provider
         android:name="android.support.v4.content.FileProvider"
@@ -31,6 +26,17 @@
     <meta-data
         android:name="io.fabric.ApiKey"
         android:value="9033e6cb73cf123a9688b79c918643d1cb4a505d"/>
+
+    <activity
+        android:name=".ui.onboard.OnBoardActivity"
+        android:label="@string/title_activity_splash"
+        android:theme="@style/AppTheme.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
   </application>
 
 </manifest>

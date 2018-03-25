@@ -23,7 +23,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
     super.onCreate(savedInstanceState)
     // Inject dependencies
     AndroidInjection.inject(this)
-    onComponentCreated()
     // Bind the view and bind the viewModel to layout
     bindContentView(layoutId())
   }
@@ -38,5 +37,4 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
 
   @LayoutRes protected abstract fun layoutId(): Int
 
-  protected abstract fun onComponentCreated()
 }

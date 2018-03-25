@@ -3,7 +3,6 @@ package com.mutualmobile.praxis.ui.joke
 import android.content.Context
 import com.mutualmobile.praxis.injection.qualifiers.ActivityContext
 import com.mutualmobile.praxis.injection.scope.ActivityScope
-import com.mutualmobile.praxis.injection.scope.FragmentScope
 import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.Module
 import dagger.Provides
@@ -14,7 +13,6 @@ class ShowJokeActivityModule {
 
   @Module
   interface Declarations {
-    @FragmentScope
     @ContributesAndroidInjector
     fun ShowJokeFragment(): ShowJokeFragment
   }

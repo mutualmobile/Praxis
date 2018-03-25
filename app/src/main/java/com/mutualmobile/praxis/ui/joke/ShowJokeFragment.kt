@@ -38,8 +38,8 @@ class ShowJokeFragment : DaggerFragment(), LifecycleOwner {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    Timber.d("TRDDRT Fragment ::" + showJokeViewModel)
-    Timber.d("TRDDRT Fragment RX ::" + rxP)
+    Timber.d("SCOPECHECK Fragment ::" + showJokeViewModel)
+    Timber.d("SCOPECHECK Fragment RX ::" + rxP)
     showJokeViewModel.joke.observe(this, Observer { joke ->
       view.joke_view.text = joke
     })
