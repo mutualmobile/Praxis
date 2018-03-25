@@ -17,5 +17,4 @@ abstract class ActivityBindingModule {
   @IntoMap
   @ActivityKey(ShowJokeActivity::class)
   internal abstract fun bindShowJokeActivity(builder: ShowJokeActivityComponent.Builder): AndroidInjector.Factory<out Activity>
-
 }

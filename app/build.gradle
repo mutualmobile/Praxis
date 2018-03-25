@@ -165,6 +165,7 @@ dependencies {
   implementation deps.design
 
   // Data Binding
+  implementation 'com.android.support:support-v4:27.1.0'
   kapt deps.databinding
 
   // Crashlytics

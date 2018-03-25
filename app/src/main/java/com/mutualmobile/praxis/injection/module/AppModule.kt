@@ -9,16 +9,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 @Module(subcomponents = arrayOf(ShowJokeActivityComponent::class))
-class AppModule() {
-
-//  @Provides internal fun provideApplication(): Application {
-//    return application
-//  }
-//
-//  @Provides
-//  @ApplicationContext internal fun provideContext(): Context {
-//    return application
-//  }
+class AppModule {
 
   @Provides
   @Singleton internal fun provideRxSchedulers(): IRxSchedulers {

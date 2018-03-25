@@ -10,12 +10,24 @@
         />
   </data>
 
-  <TextView
-      android:id="@+id/jokeTV"
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:hint="Hello "
-      android:text="@{viewModel.joke.value}"
-      android:textColor="@android:color/black"
-      />
+      android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/jokeTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Loading "
+        android:text="@{viewModel.joke.value}"
+        android:textColor="@android:color/black"
+        />
+
+    <FrameLayout
+        android:id="@+id/contentFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"/>
+  </LinearLayout>
 </layout>

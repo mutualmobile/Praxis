@@ -6,8 +6,10 @@ import com.mutualmobile.praxis.ui.base.BaseViewModel
 import com.mutualmobile.praxis.utils.IRxSchedulers
 import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
+@Singleton
 class ShowJokeViewModel @Inject constructor() : BaseViewModel() {
 
   @Inject lateinit var service: ApiService
