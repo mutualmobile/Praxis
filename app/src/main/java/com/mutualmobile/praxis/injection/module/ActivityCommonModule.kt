@@ -11,7 +11,7 @@ import dagger.android.support.DaggerAppCompatActivity
  */
 
 @Module
-class ActivityProviderModule {
+class ActivityCommonModule {
   @ActivityScope
   @Provides internal fun provideRxPermissions(activity: DaggerAppCompatActivity) = RxPermissions(
       activity)

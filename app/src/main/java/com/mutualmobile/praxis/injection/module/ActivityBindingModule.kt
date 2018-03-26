@@ -43,9 +43,8 @@ abstract class ActivityBindingModule {
 /**
  * Base Activity Binds Module
  *
- * Activity specific dependencies should be placed in ActivityProviderModule.kt
- */
-@Module(includes = arrayOf(ActivityProviderModule::class))
+ * Activity specific dependencies should be placed in ActivityCommonModule.kt*/
+@Module(includes = arrayOf(ActivityCommonModule::class))
 abstract internal class BaseActivityBindsModule<in T : DaggerAppCompatActivity> {
   @Binds
   @ActivityScope
