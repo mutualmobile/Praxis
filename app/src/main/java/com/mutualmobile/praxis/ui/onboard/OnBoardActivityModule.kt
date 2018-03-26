@@ -1,15 +1,16 @@
 package com.mutualmobile.praxis.ui.onboard
 
-import com.mutualmobile.praxis.injection.scope.ActivityScope
-import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.Module
 import dagger.Provides
+import java.util.*
 
+/**
+ * Created by Harish on 26/03/18.
+ *
+ * OnBoardActivity specific module
+ */
 @Module
 class OnBoardActivityModule {
   @Provides
-  @ActivityScope
-  internal fun provideRxPermissions(activity: OnBoardActivity): RxPermissions {
-    return RxPermissions(activity)
-  }
+  fun provideUUID() = UUID.randomUUID().toString()
 }

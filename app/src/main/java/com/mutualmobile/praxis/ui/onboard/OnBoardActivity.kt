@@ -12,6 +12,8 @@ import javax.inject.Inject
 
 class OnBoardActivity : BaseActivity<ActivityOnboardBinding, OnBoardViewModel>() {
   @Inject lateinit var rxPermission: RxPermissions
+  @Inject lateinit var uuid: String
+
   override fun getViewModelClass() = OnBoardViewModel::class.java
 
   override fun layoutId() = R.layout.activity_onboard
@@ -20,6 +22,8 @@ class OnBoardActivity : BaseActivity<ActivityOnboardBinding, OnBoardViewModel>()
     super.onCreate(savedInstanceState)
     Timber.d("SCOPECHECK OB Activity VM ::" + viewModel)
     Timber.d("SCOPECHECK OB Activity RX ::" + rxPermission)
+    Timber.d("UUID: {$uuid}")
+
     viewModel.onBoardMessage.observe(this, Observer { message ->
       binding.onBoardMessage.text = message
     })
