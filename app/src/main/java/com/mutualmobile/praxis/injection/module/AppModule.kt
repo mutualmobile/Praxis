@@ -1,6 +1,5 @@
 package com.mutualmobile.praxis.injection.module
 
-import com.mutualmobile.praxis.ui.joke.ShowJokeActivityComponent
 import com.mutualmobile.praxis.utils.IRxSchedulers
 import dagger.Module
 import dagger.Provides
@@ -8,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
-@Module(subcomponents = arrayOf(ShowJokeActivityComponent::class))
+@Module
 class AppModule {
 
   @Provides

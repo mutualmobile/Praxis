@@ -1,52 +1,37 @@
 package com.mutualmobile.praxis.injection.module
 
-import android.app.Activity
 import com.mutualmobile.praxis.injection.scope.ActivityScope
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
-import com.mutualmobile.praxis.ui.joke.ShowJokeActivityComponent
+import com.mutualmobile.praxis.ui.joke.ShowJokeActivityModule
 import com.mutualmobile.praxis.ui.onboard.OnBoardActivity
 import com.mutualmobile.praxis.ui.onboard.OnBoardActivityModule
-import dagger.Binds
+import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.Module
-import dagger.android.ActivityKey
-import dagger.android.AndroidInjector
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.DaggerAppCompatActivity
-import dagger.multibindings.IntoMap
 
 
 @Module
 abstract class ActivityBindingModule {
 
-  @Binds
-  @IntoMap
-  @ActivityKey(ShowJokeActivity::class)
-  internal abstract fun bindShowJokeActivity(
-      builder: ShowJokeActivityComponent.Builder): AndroidInjector.Factory<out Activity>
+  @ActivityScope
+  @ContributesAndroidInjector(
+      modules = arrayOf(ShowJokeActivityModule::class))
+  internal abstract fun bindShowJokeActivity(): ShowJokeActivity
 
   @ActivityScope
   @ContributesAndroidInjector(
-      modules = arrayOf(BaseOnBoardActivityModule::class, OnBoardActivityModule::class))
+      modules = arrayOf(OnBoardActivityModule::class))
   internal abstract fun bindOnBoardActivity(): OnBoardActivity
 }
 
-
 /**
- * Activities Common Modules
- * Should be declared for each activity
- *
- * Activity Specified should be created separately
+ * Activity specific common dependencies should be placed here
  */
-@Module internal abstract class BaseOnBoardActivityModule : BaseActivityBindsModule<OnBoardActivity>()
-
-
-/**
- * Base Activity Binds Module
- *
- * Activity specific dependencies should be placed in ActivityCommonModule.kt*/
-@Module(includes = arrayOf(ActivityCommonModule::class))
-abstract internal class BaseActivityBindsModule<in T : DaggerAppCompatActivity> {
-  @Binds
+@Module
+open class ActivityCommonModule {
   @ActivityScope
-  protected abstract fun providesAppCompatActivity(t: T): DaggerAppCompatActivity
+  @Provides internal fun provideRxPermissions(activity: DaggerAppCompatActivity) = RxPermissions(
+      activity)
 }
