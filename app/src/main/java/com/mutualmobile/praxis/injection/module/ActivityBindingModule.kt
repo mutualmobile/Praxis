@@ -1,6 +1,5 @@
 package com.mutualmobile.praxis.injection.module
 
-import android.app.Activity
 import com.mutualmobile.praxis.injection.scope.ActivityScope
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivityModule
@@ -23,21 +22,27 @@ abstract class ActivityBindingModule {
 
   @ActivityScope
   @ContributesAndroidInjector(
-      modules = arrayOf(ActivityModule::class))
+      modules = arrayOf(OnBoardActivityModule::class))
   internal abstract fun bindOnBoardActivity(): OnBoardActivity
 
-//  This is needed only when we use ActivityModule which is used when we don't Activity Specific module
+}
+
+@Module internal abstract class OnBoardActivityModule : ActivityModule<OnBoardActivity>()
+
+
+@Module(includes = arrayOf(BaseActivityModule::class))
+abstract class ActivityModule<in T : DaggerAppCompatActivity> {
   @Binds
   @ActivityScope
-  internal abstract fun bindOBoardActivity(onBoardActivity: OnBoardActivity): DaggerAppCompatActivity
+  internal abstract fun bindActivity(activity: T): DaggerAppCompatActivity
 }
 
 /**
  * Activity specific common dependencies should be placed here
  */
 @Module
-open class ActivityCommonModule {
+open class BaseActivityModule {
   @ActivityScope
-  @Provides internal fun provideRxPermissions(activity: Activity) = RxPermissions(
+  @Provides internal fun provideRxPermissions(activity: DaggerAppCompatActivity) = RxPermissions(
       activity)
 }
