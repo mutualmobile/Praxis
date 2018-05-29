@@ -1,13 +1,3 @@
-buildscript {
-  repositories {
-    google()
-    maven { url 'https://maven.fabric.io/public' }
-  }
-
-  dependencies {
-    classpath 'io.fabric.tools:gradle:1.24.1'
-  }
-}
 // Manifest version information!
 def versionMajor = 0
 def versionMinor = 0
@@ -15,11 +5,7 @@ def versionPatch = 1
 def versionBuild = 0
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 
-repositories {
-  maven { url 'https://maven.fabric.io/public' }
-}
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -33,22 +19,6 @@ def projectName = "praxis-mvvm-kotlin"
 android {
   compileSdkVersion COMPILE_SDK_VERSION
   buildToolsVersion BUILD_TOOLS_VERSION
-  signingConfigs {
-    // ToDo: Generate new DEBUG key
-    debug {
-      keyAlias 'alamo-android-debug'
-      keyPassword 'alamod'
-      storeFile file('keystores/alamo-android-debug.jks')
-      storePassword 'alamod'
-    }
-    // ToDo: Generate new RELEASE key
-    release {
-      keyAlias 'alamo-android-release'
-      keyPassword 'alamor'
-      storeFile file('keystores/alamo-android-release.jks')
-      storePassword 'alamor'
-    }
-  }
 
   defaultConfig {
     applicationId "com.mutualmobile.praxis"
@@ -88,8 +58,6 @@ android {
 
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.txt', 'proguard-specific.txt'
 
-      signingConfig signingConfigs.release
-
       buildConfigField 'boolean', "ENABLE_LOGGING", 'false'
     }
     debug {
@@ -97,8 +65,6 @@ android {
 
       versionNameSuffix '-debug'
       applicationIdSuffix '.debug'
-
-      signingConfig signingConfigs.debug
 
       buildConfigField 'boolean', "ENABLE_LOGGING", 'true'
     }
@@ -110,43 +76,6 @@ android {
     xmlOutput file("$project.buildDir/reports/lint/lint-reports.xml")
 
     abortOnError false
-  }
-}
-
-// Used to name our output apk
-task renameApkFilesToAddVersionInfo {
-  if (System.getenv()["bamboo_buildNumber"] != null) {
-
-    def bambooBuildNumber = System.getenv()["bamboo_buildNumber"];
-    def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
-    def gitBranchName = 'git rev-parse --abbrev-ref HEAD'.execute([], project.rootDir).text.trim()
-    def apkSuffix = versionMajor + '.' + versionMinor + '.' + versionPatch;
-    def variableFile = new File("build/variables.var")
-    // Ugly - find a way to refactor to do this.
-    if (variableFile.exists()) {
-      variableFile.delete();
-    } else {
-      def buildDir = new File("build")
-      if (!buildDir.exists()) {
-        buildDir.mkdir()
-      }
-      variableFile.createNewFile();
-    }
-
-    // Used to name our output apk
-    android.applicationVariants.all { variant ->
-      variant.mergedFlavor.versionName = "${versionMajor}.${versionMinor}.${versionPatch}-${gitBranchName}-${gitSha}-${bambooBuildNumber}";
-      variant.outputs.each { output ->
-        def outputFile = output.outputFile
-        if (outputFile != null && outputFile.name.endsWith('.apk')) {
-          output.outputFile = file("$project.buildDir/${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
-        }
-      }
-      variableFile.withWriterAppend { out ->
-        out.writeLine("${variant.name}=${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
-        out.writeLine("${variant.name}LpName=${gitSha}-${variant.name}-${gitBranchName}")
-      }
-    }
   }
 }
 
@@ -169,11 +98,6 @@ dependencies {
   implementation 'com.android.support.constraint:constraint-layout:1.0.2'
   kapt deps.databinding
 
-  // Crashlytics
-  implementation(deps.crashlytics) {
-    transitive = true
-  }
-
   // Dagger 2
   implementation deps.dagger
   implementation deps.daggerSupport
@@ -195,9 +119,6 @@ dependencies {
 
   // Timber
   implementation deps.timber
-
-  // Glide
-  implementation deps.glide
 
   implementation deps.archExtenstion
   implementation deps.archViewmmodel

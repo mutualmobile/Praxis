@@ -2,4 +2,7 @@
   <string name="app_name">Praxis</string>
   <string name="action_settings">Settings</string>
   <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="show_random_jokes">Show 5 Random Jokes </string>
+  <string name="about">About</string>
+  <string name="heading">Chuck Norris Random Joke Generator</string>
 </resources>

@@ -3,6 +3,7 @@ package com.mutualmobile.praxis.injection.module
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.mutualmobile.praxis.injection.scope.ViewModelScope
+import com.mutualmobile.praxis.ui.home.HomeViewModel
 import com.mutualmobile.praxis.ui.joke.ShowJokeViewModel
 import com.mutualmobile.praxis.ui.onboard.OnBoardViewModel
 import com.mutualmobile.praxis.utils.ViewModelFactory
@@ -22,6 +23,11 @@ abstract class ViewModelFactoryModule {
   @IntoMap
   @ViewModelScope(OnBoardViewModel::class)
   abstract fun bindOnBoardViewModel(onBoardViewModel: OnBoardViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelScope(HomeViewModel::class)
+  abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
 
 
   @Binds
