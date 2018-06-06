@@ -13,10 +13,6 @@ import dagger.android.support.DaggerAppCompatActivity
 @Module(includes = arrayOf(BaseActivityModule::class))
 abstract class ShowJokeActivityModule {
 
-  @FragmentScoped
-  @ContributesAndroidInjector
-  internal abstract fun ShowJokeFragment(): ShowJokeFragment
-
   @Binds
   @ActivityContext abstract fun provideActivityContext(activity: ShowJokeActivity): Context
 
@@ -24,23 +20,3 @@ abstract class ShowJokeActivityModule {
   @ActivityScope
   abstract fun provideActivity(showJokeActivity: ShowJokeActivity): DaggerAppCompatActivity
 }
-
-//Use the following approach if there is need to use non abstract function
-//@Module(includes = arrayOf(ShowJokeActivityModule.Declarations::class, ActivityCommonModule::class))
-//class ShowJokeActivityModule {
-//
-//  @Module
-//  interface Declarations {
-//    @ContributesAndroidInjector
-//    fun ShowJokeFragment(): ShowJokeFragment
-//  }
-//
-//  @Provides
-//  @ActivityContext internal fun provideActivityContext(activity: ShowJokeActivity): Context {
-//    return activity
-//  }
-//
-//  @Provides
-//  @ActivityScope
-//  fun provideActivity(showJokeActivity: ShowJokeActivity) = showJokeActivity
-//}

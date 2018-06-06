@@ -23,6 +23,8 @@
 
     <activity android:name=".ui.jokelist.JokeListActivity"/>
 
+    <activity android:name=".ui.joke.ShowJokeActivity"/>
+
   </application>
 
 </manifest>

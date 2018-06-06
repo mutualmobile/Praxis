@@ -44,6 +44,10 @@ android {
     preDexLibraries = preDexEnabled
   }
 
+  androidExtensions {
+    experimental = true
+  }
+
   dataBinding {
     enabled = true
   }
@@ -106,7 +110,7 @@ dependencies {
 
   // Retrofit 2
   implementation deps.retrofit
-  implementation deps.retrofitmoshi
+  implementation deps.retrofitgson
   implementation deps.retrofitrx
   implementation deps.okhttplogger
 

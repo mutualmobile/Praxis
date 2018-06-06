@@ -1,3 +1,9 @@
 package com.mutualmobile.praxis.data.model
 
-data class JokeListResponse(val type: String, val value: List<Joke>)
+import com.google.gson.annotations.SerializedName
+
+data class JokeListResponse(
+  @SerializedName("type")
+  val type: String,
+  @SerializedName("value")
+  val value: ArrayList<out Joke>)

@@ -18,15 +18,9 @@
         android:id="@+id/jokeTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Loading "
-        android:text="@{viewModel.joke.value}"
         android:textColor="@android:color/black"
+        android:textSize="16sp"
         />
 
-    <FrameLayout
-        android:id="@+id/contentFrame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"/>
   </LinearLayout>
 </layout>
