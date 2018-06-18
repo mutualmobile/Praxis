@@ -7,7 +7,6 @@ import com.mutualmobile.praxis.ui.home.HomeActivity
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivityModule
 import com.tbruyelle.rxpermissions2.RxPermissions
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -23,28 +22,20 @@ abstract class ActivityBindingModule {
   internal abstract fun bindShowJokeActivity(): ShowJokeActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(
-      modules = arrayOf(HomeActivityModule::class)
-  )
+  @ContributesAndroidInjector(modules = arrayOf(HomeActivityModule::class))
   internal abstract fun bindHomeActivity(): HomeActivity
 
 }
 
 @Module
-internal abstract class HomeActivityModule : ActivityModule<HomeActivity>()
+internal abstract class HomeActivityModule : BaseActivityModule<HomeActivity>()
 
-@Module(includes = arrayOf(BaseActivityModule::class))
-abstract class ActivityModule<in T : DaggerAppCompatActivity> {
-  @Binds
-  @ActivityScope
-  internal abstract fun bindActivity(activity: T): DaggerAppCompatActivity
-}
 
 /**
  * Activity specific common dependencies should be placed here
  */
 @Module
-open class BaseActivityModule {
+open class BaseActivityModule<in T : DaggerAppCompatActivity> {
   @ActivityScope
   @Provides internal fun provideRxPermissions(activity: DaggerAppCompatActivity) = RxPermissions(
       activity
