@@ -4,6 +4,7 @@ import com.mutualmobile.praxis.injection.scope.ActivityScope
 import com.mutualmobile.praxis.ui.base.navigator.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.navigator.Navigator
 import com.mutualmobile.praxis.ui.home.HomeActivity
+import com.mutualmobile.praxis.ui.home.HomeActivityModule
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivityModule
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -28,8 +29,6 @@ abstract class ActivityBindingModule {
 
 }
 
-@Module
-internal abstract class HomeActivityModule : ActivityModule<HomeActivity>()
 
 @Module(includes = arrayOf(BaseActivityModule::class))
 abstract class ActivityModule<in T : DaggerAppCompatActivity> {
