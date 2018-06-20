@@ -17,7 +17,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
   lateinit var viewModel: VM
 
   @Inject
-  lateinit var mViewModelFactory: ViewModelProvider.Factory
+  lateinit var viewModelFactory: ViewModelProvider.Factory
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
 
   fun bindContentView(layoutId: Int) {
     binding = DataBindingUtil.setContentView(this, layoutId)
-    viewModel = ViewModelProviders.of(this, mViewModelFactory).get(getViewModelClass())
+    viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModelClass())
     binding.setVariable(BR.viewModel, viewModel)
   }
 

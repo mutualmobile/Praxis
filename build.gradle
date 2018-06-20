@@ -64,7 +64,7 @@ ext.deps = [archExtenstion    : "android.arch.lifecycle:extensions:$ARCH_VERSION
             design            : "com.android.support:design:${SUPPORT_LIB_VERSION}",
 
             retrofit          : "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}",
-            retrofitmoshi     : "com.squareup.retrofit2:converter-moshi:${RETROFIT_VERSION}",
+            retrofitgson     : "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}",
             retrofitrx        : "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}",
 
             okhttp            : "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}",

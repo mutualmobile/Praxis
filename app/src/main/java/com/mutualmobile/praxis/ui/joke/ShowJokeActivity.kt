@@ -1,21 +1,16 @@
 package com.mutualmobile.praxis.ui.joke
 
-import android.app.Activity
-import android.arch.lifecycle.Observer
-import android.content.Intent
 import android.os.Bundle
 import com.mutualmobile.praxis.R
+import com.mutualmobile.praxis.data.model.Joke
 import com.mutualmobile.praxis.databinding.ActivityShowjokeBinding
 import com.mutualmobile.praxis.ui.base.BaseActivity
-import com.mutualmobile.praxis.ui.onboard.OnBoardViewModel
-import com.tbruyelle.rxpermissions2.RxPermissions
-import timber.log.Timber
-import javax.inject.Inject
 
 class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel>() {
 
-  @Inject lateinit var rxPermission: RxPermissions
-  @Inject lateinit var onBoardViewModel: OnBoardViewModel
+  companion object {
+    const val JOKE_LIST_INTENT = "Joke_list_intent"
+  }
 
   override fun getViewModelClass(): Class<ShowJokeViewModel> = ShowJokeViewModel::class.java
 
@@ -25,28 +20,16 @@ class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    rxPermission.setLogging(true)
-    var showJokeFragment: ShowJokeFragment? = supportFragmentManager.findFragmentById(R.id.contentFrame) as ShowJokeFragment?
-
-    if (showJokeFragment == null) {
-      showJokeFragment = ShowJokeFragment()
-      val transaction = supportFragmentManager.beginTransaction()
-      transaction.add(R.id.contentFrame, showJokeFragment)
-      transaction.commit()
-    }
-
-    Timber.d("SCOPECHECK SJ Activity VM ::" + viewModel)
-    Timber.d("SCOPECHECK SJ Activity RX ::" + rxPermission)
-    Timber.d("SCOPECHECK SJ Activity OBVM::" + onBoardViewModel)
-    viewModel.joke.observe(this, Observer { joke ->
-      binding.jokeTV.text = joke
-    })
-    viewModel.loadData()
+    val jokeList = intent.getParcelableArrayListExtra<Joke>(JOKE_LIST_INTENT)
+    showJoke(jokeList)
   }
 
-  companion object {
-    fun start(activity: Activity) {
-      activity.startActivity(Intent(activity, ShowJokeActivity::class.java))
+  fun showJoke(jokeList: ArrayList<Joke>) {
+    var jokeString = ""
+    for (joke in jokeList) {
+      jokeString = jokeString + joke.joke + "\n\n"
     }
+    binding.jokeTV.text = jokeString
   }
+
 }
