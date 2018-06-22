@@ -5,5 +5,7 @@
   <color name="colorAccent">#FF4081</color>
   <color name="white">#ffffff</color>
   <color name="button">#009688</color>
+  <color name="hyperlink_color">#0645AD</color>
+  <color name="color_black">#000</color>
 
 </resources>
