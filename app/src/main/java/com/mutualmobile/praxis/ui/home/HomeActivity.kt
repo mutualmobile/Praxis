@@ -15,8 +15,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding.randomJokesButton.setOnClickListener { viewModel.loadData() }
+    binding.aboutButton.setOnClickListener { showAboutFragment() }
 
     viewModel.dataLoading.observe(this, Observer { handleDataLoadingUi(it!!) })
+  }
+
+  private fun showAboutFragment() {
+    val fragment = AboutFragment.newInstance()
+    fragment.show(fragmentManager,  "dialog")
   }
 
   private fun handleDataLoadingUi(loading: Boolean) {

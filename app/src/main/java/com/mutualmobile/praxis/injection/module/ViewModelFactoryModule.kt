@@ -3,6 +3,7 @@ package com.mutualmobile.praxis.injection.module
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.mutualmobile.praxis.injection.scope.ViewModelScope
+import com.mutualmobile.praxis.ui.home.AboutViewModel
 import com.mutualmobile.praxis.ui.home.HomeViewModel
 import com.mutualmobile.praxis.ui.joke.ShowJokeViewModel
 import com.mutualmobile.praxis.utils.ViewModelFactory
@@ -25,5 +26,10 @@ abstract class ViewModelFactoryModule {
 
   @Binds
   internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
+  @Binds
+  @IntoMap
+  @ViewModelScope(AboutViewModel::class)
+  abstract fun bindAboutViewModel(aboutViewModel: AboutViewModel): ViewModel
 
 }
