@@ -1,54 +1,40 @@
 package com.mutualmobile.praxis.ui.base
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
 import com.mutualmobile.praxis.BR
-import com.mutualmobile.praxis.BaseApplication
-import com.mutualmobile.praxis.injection.component.ActivityComponent
-import com.mutualmobile.praxis.injection.module.ActivityModule
+import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewDataBinding, V : MvvmView, VM : MvvmViewModel<V>> : AppCompatActivity() {
-  private var component: ActivityComponent? = null
-
-  @Inject lateinit var viewModel: VM
-
+abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppCompatActivity() {
   protected lateinit var binding: B
+  lateinit var viewModel: VM
+
+  @Inject
+  lateinit var viewModelFactory: ViewModelProvider.Factory
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     // Inject dependencies
-    onComponentCreated(getComponent())
+    AndroidInjection.inject(this)
     // Bind the view and bind the viewModel to layout
     bindContentView(layoutId())
   }
 
   fun bindContentView(layoutId: Int) {
     binding = DataBindingUtil.setContentView(this, layoutId)
-    @Suppress("UNCHECKED_CAST")
-    viewModel.attachView(this as V)
+    viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModelClass())
     binding.setVariable(BR.viewModel, viewModel)
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    viewModel.detachView()
-
-    component = null
-  }
-
-  protected fun getComponent(): ActivityComponent {
-    if (component == null) {
-      component = (application as BaseApplication).getComponent().plusActivityComponent(ActivityModule(this))
-    }
-
-    return component!!
-  }
+  abstract fun getViewModelClass(): Class<VM>
 
   @LayoutRes protected abstract fun layoutId(): Int
 
-  protected abstract fun onComponentCreated(component: ActivityComponent)
 }

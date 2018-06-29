@@ -3,6 +3,7 @@
     package="com.mutualmobile.praxis">
 
   <uses-permission android:name="android.permission.INTERNET"/>
+
   <application
       android:name=".BaseApplication"
       android:allowBackup="true"
@@ -10,7 +11,9 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name="com.mutualmobile.praxis.ui.kotlinsample.KotlinActivity">
+
+    <activity
+        android:name=".ui.home.HomeActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -18,19 +21,10 @@
       </intent-filter>
     </activity>
 
-    <provider
-        android:name="android.support.v4.content.FileProvider"
-        android:authorities="${applicationId}"
-        android:exported="false"
-        android:grantUriPermissions="true">
-      <meta-data
-          android:name="android.support.FILE_PROVIDER_PATHS"
-          android:resource="@xml/provider_paths"/>
-    </provider>
+    <activity android:name=".ui.jokelist.JokeListActivity"/>
 
-    <meta-data
-        android:name="io.fabric.ApiKey"
-        android:value="9033e6cb73cf123a9688b79c918643d1cb4a505d"/>
+    <activity android:name=".ui.joke.ShowJokeActivity"/>
+
   </application>
 
 </manifest>

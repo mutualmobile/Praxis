@@ -1,12 +1,3 @@
-buildscript {
-  repositories {
-    maven { url 'https://maven.fabric.io/public' }
-  }
-
-  dependencies {
-    classpath 'io.fabric.tools:gradle:1.22.2'
-  }
-}
 // Manifest version information!
 def versionMajor = 0
 def versionMinor = 0
@@ -14,11 +5,7 @@ def versionPatch = 1
 def versionBuild = 0
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 
-repositories {
-  maven { url 'https://maven.fabric.io/public' }
-}
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -32,22 +19,6 @@ def projectName = "praxis-mvvm-kotlin"
 android {
   compileSdkVersion COMPILE_SDK_VERSION
   buildToolsVersion BUILD_TOOLS_VERSION
-  signingConfigs {
-    // ToDo: Generate new DEBUG key
-    debug {
-      keyAlias 'alamo-android-debug'
-      keyPassword 'alamod'
-      storeFile file('keystores/alamo-android-debug.jks')
-      storePassword 'alamod'
-    }
-    // ToDo: Generate new RELEASE key
-    release {
-      keyAlias 'alamo-android-release'
-      keyPassword 'alamor'
-      storeFile file('keystores/alamo-android-release.jks')
-      storePassword 'alamor'
-    }
-  }
 
   defaultConfig {
     applicationId "com.mutualmobile.praxis"
@@ -73,6 +44,10 @@ android {
     preDexLibraries = preDexEnabled
   }
 
+  androidExtensions {
+    experimental = true
+  }
+
   dataBinding {
     enabled = true
   }
@@ -87,8 +62,6 @@ android {
 
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.txt', 'proguard-specific.txt'
 
-      signingConfig signingConfigs.release
-
       buildConfigField 'boolean', "ENABLE_LOGGING", 'false'
     }
     debug {
@@ -96,8 +69,6 @@ android {
 
       versionNameSuffix '-debug'
       applicationIdSuffix '.debug'
-
-      signingConfig signingConfigs.debug
 
       buildConfigField 'boolean', "ENABLE_LOGGING", 'true'
     }
@@ -112,43 +83,6 @@ android {
   }
 }
 
-// Used to name our output apk
-task renameApkFilesToAddVersionInfo {
-  if (System.getenv()["bamboo_buildNumber"] != null) {
-
-    def bambooBuildNumber = System.getenv()["bamboo_buildNumber"];
-    def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
-    def gitBranchName = 'git rev-parse --abbrev-ref HEAD'.execute([], project.rootDir).text.trim()
-    def apkSuffix = versionMajor + '.' + versionMinor + '.' + versionPatch;
-    def variableFile = new File("build/variables.var")
-    // Ugly - find a way to refactor to do this.
-    if (variableFile.exists()) {
-      variableFile.delete();
-    } else {
-      def buildDir = new File("build")
-      if (!buildDir.exists()) {
-        buildDir.mkdir()
-      }
-      variableFile.createNewFile();
-    }
-
-    // Used to name our output apk
-    android.applicationVariants.all { variant ->
-      variant.mergedFlavor.versionName = "${versionMajor}.${versionMinor}.${versionPatch}-${gitBranchName}-${gitSha}-${bambooBuildNumber}";
-      variant.outputs.each { output ->
-        def outputFile = output.outputFile
-        if (outputFile != null && outputFile.name.endsWith('.apk')) {
-          output.outputFile = file("$project.buildDir/${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
-        }
-      }
-      variableFile.withWriterAppend { out ->
-        out.writeLine("${variant.name}=${projectName}-${variant.name}-${apkSuffix}-${gitSha}-${bambooBuildNumber}.apk")
-        out.writeLine("${variant.name}LpName=${gitSha}-${variant.name}-${gitBranchName}")
-      }
-    }
-  }
-}
-
 // Required for annotation processing plugins like Dagger
 kapt {
   generateStubs = true
@@ -157,49 +91,50 @@ kapt {
 dependencies {
 
   // Kotlin
-  compile deps.kotlinsdk
+  implementation deps.kotlinsdk
 
   // Android Support Libs
-  compile deps.appcompatv7
-  compile deps.design
+  implementation deps.appcompatv7
+  implementation deps.design
 
   // Data Binding
-  kapt deps.databinding
-
-  // Crashlytics
-  compile(deps.crashlytics) {
-    transitive = true;
-  }
+  implementation 'com.android.support:support-v4:27.1.0'
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
   // Dagger 2
-  compile deps.dagger
-  kapt deps.daggercompiler
+  implementation deps.dagger
+  implementation deps.daggerSupport
+  kapt deps.daggerCompiler
+  kapt deps.daggerProcessor
 
   // Retrofit 2
-  compile deps.retrofit
-  compile deps.retrofitmoshi
-  compile deps.retrofitrx
-  compile deps.okhttplogger
+  implementation deps.retrofit
+  implementation deps.retrofitgson
+  implementation deps.retrofitrx
+  implementation deps.okhttplogger
 
   // Rx
-  compile deps.rxjava2
-  compile deps.rxandroid2
+  implementation deps.rxjava2
+  implementation deps.rxandroid2
 
   // Rx Plugins
-  compile deps.rxpermissions
+  implementation deps.rxpermissions
 
   // Timber
-  compile deps.timber
+  implementation deps.timber
 
-  // Glide
-  compile deps.glide
+  implementation deps.archExtenstion
+  implementation deps.archViewmmodel
+  implementation deps.archLivdata
+  implementation deps.reactiveStreams
+  kapt deps.archCompiler
 
   // UI Testing
-  androidTestCompile(deps.espressocore, {
+  androidTestImplementation(deps.espressocore, {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
 
   // Unit Testing
-  testCompile deps.junit
+  testImplementation deps.junit
 }
 
