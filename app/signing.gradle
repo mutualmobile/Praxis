@@ -1,0 +1,19 @@
+apply plugin: 'com.android.application'
+
+android {
+  signingConfigs {
+    release {
+      keyAlias 'praxis'
+      keyPassword 'praxis0'
+      storeFile file(' ')
+      storePassword 'praxis01'
+    }
+
+    debug {
+      keyAlias 'praxisDebug'
+      keyPassword 'praxisDebug0'
+      storeFile file(' ')
+      storePassword 'praxisDebug01'
+    }
+  }
+}
