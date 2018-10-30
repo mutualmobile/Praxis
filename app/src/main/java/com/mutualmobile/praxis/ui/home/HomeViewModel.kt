@@ -1,12 +1,11 @@
 package com.mutualmobile.praxis.ui.home
 
 import android.arch.lifecycle.MutableLiveData
-import android.os.Bundle
+import com.mutualmobile.praxis.data.model.JokeListResponse
 import com.mutualmobile.praxis.data.services.ApiService
 import com.mutualmobile.praxis.injection.scope.ActivityScope
 import com.mutualmobile.praxis.ui.base.BaseViewModel
 import com.mutualmobile.praxis.ui.base.navigator.Navigator
-import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
 import com.mutualmobile.praxis.utils.IRxSchedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,6 +20,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
   lateinit var navigator: Navigator
 
   var dataLoading: MutableLiveData<Boolean> = MutableLiveData()
+  var dataJokes: MutableLiveData<JokeListResponse> = MutableLiveData()
 
   fun loadData() {
     dataLoading.postValue(true)
@@ -29,10 +29,9 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         .observeOn(schedulers.main())
         .doFinally { dataLoading.postValue(false) }
         .subscribe({ response ->
-          //TODO: If list of joke, send it to JokeListActivity
-          val bundle = Bundle()
-          bundle.putParcelableArrayList(ShowJokeActivity.JOKE_LIST_INTENT, response.value)
-          navigator.startActivityWithData(ShowJokeActivity::class.java, bundle)
-        }, { Timber.e(it) }))
+          //TODO: send response object here, remove temp logic
+          dataJokes.postValue(JokeListResponse())
+        }, { Timber.e(it) })
+    )
   }
 }

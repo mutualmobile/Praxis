@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.ui.joke
+package com.mutualmobile.praxis.ui.profile
 
 import android.content.Context
 import com.mutualmobile.praxis.injection.module.BaseActivityModule
@@ -9,12 +9,12 @@ import dagger.Module
 import dagger.android.support.DaggerAppCompatActivity
 
 @Module(includes = [BaseActivityModule::class])
-abstract class ShowJokeActivityModule {
+abstract class ProfileActivityModule {
 
   @Binds
-  @ActivityContext abstract fun provideActivityContext(activity: ShowJokeActivity): Context
+  @ActivityContext abstract fun provideActivityContext(activity: ProfileActivity): Context
 
   @Binds
   @ActivityScope
-  abstract fun provideActivity(showJokeActivity: ShowJokeActivity): DaggerAppCompatActivity
+  abstract fun provideActivity(showJokeActivity: ProfileActivity): DaggerAppCompatActivity
 }

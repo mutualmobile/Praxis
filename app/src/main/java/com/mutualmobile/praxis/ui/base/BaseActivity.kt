@@ -8,6 +8,7 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import com.mutualmobile.praxis.BR
+import com.mutualmobile.praxis.ui.base.navigator.Navigator
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -18,6 +19,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
 
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
+
+  @Inject
+  lateinit var navigator: Navigator
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

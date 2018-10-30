@@ -10,7 +10,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.DaggerAppCompatActivity
 
-@Module(includes = arrayOf(BaseActivityModule::class))
+@Module(includes = [BaseActivityModule::class])
 abstract class HomeActivityModule {
 
   @FragmentScoped
