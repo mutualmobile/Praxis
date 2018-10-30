@@ -5,25 +5,26 @@ def versionPatch = 1
 def versionBuild = 0
 
 apply plugin: 'com.android.application'
+
+
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../analysis/analysis.gradle'
-apply from: 'variants.gradle'
 
 def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 // ToDo Update project name
 def projectName = "praxis-mvvm-kotlin"
 
 android {
-  compileSdkVersion versions.compileSdkVersion
-  buildToolsVersion versions.buildToolVersion
+  compileSdkVersion COMPILE_SDK_VERSION
+  buildToolsVersion BUILD_TOOLS_VERSION
 
   defaultConfig {
     applicationId "com.mutualmobile.praxis"
 
-    minSdkVersion versions.minSdkVersion
-    targetSdkVersion versions.targetSdkVersion
+    minSdkVersion MIN_SDK_VERSION
+    targetSdkVersion TARGET_SDK_VERSION
 
     versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
     versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -51,10 +52,33 @@ android {
     enabled = true
   }
 
+  buildTypes {
+    release {
+      debuggable false
+      versionNameSuffix '-release'
+
+      minifyEnabled true
+      shrinkResources true
+
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.txt', 'proguard-specific.txt'
+
+      buildConfigField 'boolean', "ENABLE_LOGGING", 'false'
+    }
+    debug {
+      debuggable true
+
+      versionNameSuffix '-debug'
+      applicationIdSuffix '.debug'
+
+      buildConfigField 'boolean', "ENABLE_LOGGING", 'true'
+    }
+  }
+
   lintOptions {
     lintConfig file('../analysis/lint/lint.xml')
     htmlOutput file("$project.buildDir/reports/lint/lint-reports.html")
     xmlOutput file("$project.buildDir/reports/lint/lint-reports.xml")
+
     abortOnError false
   }
 }
@@ -67,48 +91,50 @@ kapt {
 dependencies {
 
   // Kotlin
-  implementation deps.kotlin.kotlinSDK
+  implementation deps.kotlinsdk
 
   // Android Support Libs
-  implementation deps.android.support.supportv4
-  implementation deps.android.support.appcompatv7
-  implementation deps.android.support.design
-  implementation deps.android.support.constraintLayout
+  implementation deps.appcompatv7
+  implementation deps.design
+
+  // Data Binding
+  implementation 'com.android.support:support-v4:27.1.0'
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
   // Dagger 2
-  implementation deps.dagger.dagger
-  implementation deps.dagger.daggerSupport
-  kapt deps.dagger.daggerCompiler
-  kapt deps.dagger.daggerProcessor
+  implementation deps.dagger
+  implementation deps.daggerSupport
+  kapt deps.daggerCompiler
+  kapt deps.daggerProcessor
 
   // Retrofit 2
-  implementation deps.network.retrofit
-  implementation deps.network.retrofitgson
-  implementation deps.network.retrofitrx
-  implementation deps.network.okhttplogger
+  implementation deps.retrofit
+  implementation deps.retrofitgson
+  implementation deps.retrofitrx
+  implementation deps.okhttplogger
 
   // Rx
-  implementation deps.rx.java2
-  implementation deps.rx.android2
+  implementation deps.rxjava2
+  implementation deps.rxandroid2
 
   // Rx Plugins
-  implementation deps.rx.permissions
+  implementation deps.rxpermissions
 
   // Timber
-  implementation deps.logger.timber
+  implementation deps.timber
 
-  implementation deps.android.arch.extentions
-  implementation deps.android.arch.viewModel
-  implementation deps.android.arch.liveData
-  implementation deps.android.arch.reactiveStreams
-  kapt deps.android.arch.compiler
+  implementation deps.archExtenstion
+  implementation deps.archViewmmodel
+  implementation deps.archLivdata
+  implementation deps.reactiveStreams
+  kapt deps.archCompiler
 
   // UI Testing
-  androidTestImplementation(deps.test.espressocore, {
+  androidTestImplementation(deps.espressocore, {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
 
   // Unit Testing
-  testImplementation deps.test.junit
+  testImplementation deps.junit
 }
 
