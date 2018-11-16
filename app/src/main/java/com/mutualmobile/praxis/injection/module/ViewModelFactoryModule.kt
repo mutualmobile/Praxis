@@ -6,6 +6,7 @@ import com.mutualmobile.praxis.injection.scope.ViewModelScope
 import com.mutualmobile.praxis.ui.home.AboutViewModel
 import com.mutualmobile.praxis.ui.home.HomeViewModel
 import com.mutualmobile.praxis.ui.joke.ShowJokeViewModel
+import com.mutualmobile.praxis.ui.profile.ProfileViewModel
 import com.mutualmobile.praxis.utils.ViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -32,4 +33,8 @@ abstract class ViewModelFactoryModule {
   @ViewModelScope(AboutViewModel::class)
   abstract fun bindAboutViewModel(aboutViewModel: AboutViewModel): ViewModel
 
+  @Binds
+  @IntoMap
+  @ViewModelScope(ProfileViewModel::class)
+  abstract fun bindProfileViewModel(homeViewModel: ProfileViewModel): ViewModel
 }

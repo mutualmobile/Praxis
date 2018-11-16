@@ -1,9 +1,9 @@
 package com.mutualmobile.praxis.ui.base.navigator
 
-import android.app.Activity
+import android.support.v7.app.AppCompatActivity
 
-class ActivityNavigator constructor(private val activity: Activity) : Navigator() {
+class ActivityNavigator constructor(private val activity: AppCompatActivity) : Navigator() {
 
-  override fun getActivity(): Activity = activity
+  override fun getActivity(): AppCompatActivity = activity
 
 }
