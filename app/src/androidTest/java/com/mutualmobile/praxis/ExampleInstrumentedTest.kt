@@ -17,6 +17,6 @@ import org.junit.runner.RunWith
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getTargetContext()
 
-    assertEquals("com.alamodrafthouse", appContext.packageName)
+    assertEquals("com.mutualmobile.praxis", appContext.packageName)
   }
 }

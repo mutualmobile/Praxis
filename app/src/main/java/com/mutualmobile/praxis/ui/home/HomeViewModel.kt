@@ -29,8 +29,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         .observeOn(schedulers.main())
         .doFinally { dataLoading.postValue(false) }
         .subscribe({ response ->
-          //TODO: send response object here, remove temp logic
-          dataJokes.postValue(JokeListResponse())
+          dataJokes.postValue(response)
         }, { Timber.e(it) })
     )
   }
