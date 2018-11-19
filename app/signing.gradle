@@ -5,14 +5,14 @@ android {
     release {
       keyAlias 'praxis-release'
       keyPassword 'ITHOmptI'
-      storeFile file('keystores/praxis-release')
+      storeFile file('keystore/praxis-release.jks')
       storePassword 'PoTHatHR'
     }
 
     debug {
       keyAlias 'praxis-debug'
       keyPassword 'utherNiC'
-      storeFile file('keystores/praxis-debug')
+      storeFile file('keystore/praxis-debug.jks')
       storePassword 'uRgeSCIt'
     }
   }
