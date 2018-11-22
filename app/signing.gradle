@@ -3,17 +3,17 @@ apply plugin: 'com.android.application'
 android {
   signingConfigs {
     release {
-      keyAlias 'praxis'
-      keyPassword 'praxis0'
-      storeFile file(' ')
-      storePassword 'praxis01'
+      keyAlias 'praxis-release'
+      keyPassword 'ITHOmptI'
+      storeFile file('keystore/praxis-release.jks')
+      storePassword 'PoTHatHR'
     }
 
     debug {
-      keyAlias 'praxisDebug'
-      keyPassword 'praxisDebug0'
-      storeFile file(' ')
-      storePassword 'praxisDebug01'
+      keyAlias 'praxis-debug'
+      keyPassword 'utherNiC'
+      storeFile file('keystore/praxis-debug.jks')
+      storePassword 'uRgeSCIt'
     }
   }
 }

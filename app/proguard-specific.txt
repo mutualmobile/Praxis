@@ -46,11 +46,15 @@
 -keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
+-keepattributes Annotation
 
 -dontwarn android.databinding.**
 -keep class android.databinding.** { *; }
+-dontwarn com.google.errorprone.annotations.**
 
--keep class com.wuu.android.model.** { *; }
 
-
--dontwarn com.squareup.okhttp.**
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation**
