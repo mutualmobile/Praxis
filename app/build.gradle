@@ -28,7 +28,7 @@ android {
     versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
     versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     vectorDrawables.useSupportLibrary = true
   }
@@ -69,11 +69,10 @@ dependencies {
   // Kotlin
   implementation deps.kotlin.kotlinSDK
 
-  // Android Support Libs
-  implementation deps.android.support.supportv4
-  implementation deps.android.support.appcompatv7
-  implementation deps.android.support.design
-  implementation deps.android.support.constraintLayout
+  implementation deps.androidx.legacy
+  implementation deps.androidx.appcompat
+  implementation deps.androidx.constraintlayout
+  implementation deps.design.material
 
   // Dagger 2
   implementation deps.dagger.dagger
@@ -97,16 +96,14 @@ dependencies {
   // Timber
   implementation deps.logger.timber
 
-  implementation deps.android.arch.extentions
-  implementation deps.android.arch.viewModel
-  implementation deps.android.arch.liveData
-  implementation deps.android.arch.reactiveStreams
-  kapt deps.android.arch.compiler
+  implementation deps.androidx.lifecycle.extensions
+  implementation deps.androidx.lifecycle.viewmodel
+  implementation deps.androidx.lifecycle.livedata
+  implementation deps.androidx.lifecycle.reactivestreams
+  kapt deps.androidx.lifecycle.compiler
 
   // UI Testing
-  androidTestImplementation(deps.test.espressocore, {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
   // Unit Testing
   testImplementation deps.test.junit

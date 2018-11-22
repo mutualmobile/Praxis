@@ -14,6 +14,9 @@
       android:theme="@style/AppTheme"
       tools:ignore="GoogleAppIndexingWarning">
 
+    <!-- Required if using Maps -->
+    <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
     <activity
         android:name=".ui.home.HomeActivity">
       <intent-filter>

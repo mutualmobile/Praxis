@@ -1,8 +1,8 @@
 package com.mutualmobile.praxis.ui.profile
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.content.SharedPreferences
-import android.databinding.InverseMethod
+import androidx.databinding.InverseMethod
 import com.mutualmobile.praxis.data.model.User
 import com.mutualmobile.praxis.ui.base.BaseViewModel
 import javax.inject.Inject

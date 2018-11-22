@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.ui.home
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.mutualmobile.praxis.R
