@@ -1,7 +1,7 @@
 package com.mutualmobile.praxis.ui.base
 
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber

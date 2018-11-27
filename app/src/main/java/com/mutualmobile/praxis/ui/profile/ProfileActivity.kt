@@ -1,9 +1,9 @@
 package com.mutualmobile.praxis.ui.profile
 
 import android.app.Activity
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.mutualmobile.praxis.R

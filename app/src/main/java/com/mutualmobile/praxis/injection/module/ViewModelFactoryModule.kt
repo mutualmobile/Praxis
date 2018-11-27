@@ -1,7 +1,7 @@
 package com.mutualmobile.praxis.injection.module
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.mutualmobile.praxis.injection.scope.ViewModelScope
 import com.mutualmobile.praxis.ui.home.AboutViewModel
 import com.mutualmobile.praxis.ui.home.HomeViewModel

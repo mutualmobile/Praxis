@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.utils
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.view.View
 
 object BindingAdapters {

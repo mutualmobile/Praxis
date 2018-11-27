@@ -1,8 +1,8 @@
 package com.mutualmobile.praxis.ui.home
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater

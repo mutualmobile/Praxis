@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.ui.home
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.mutualmobile.praxis.data.model.JokeListResponse
 import com.mutualmobile.praxis.data.services.ApiService
 import com.mutualmobile.praxis.injection.scope.ActivityScope
