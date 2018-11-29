@@ -25,6 +25,19 @@ abstract class Navigator {
     activity.startActivity(intent)
   }
 
+  fun startActivityWithDataAndAnimation(
+    activityClass: Class<out Activity>,
+    bundle: Bundle,
+    inAnimation: Int,
+    outAnimation: Int
+  ) {
+    val activity = getActivity()
+    val intent = Intent(activity, activityClass)
+    intent.putExtras(bundle)
+    activity.startActivity(intent)
+    getActivity().overridePendingTransition(inAnimation, outAnimation)
+  }
+
   fun addFragment(
     containerId: Int,
     fragment: Fragment
@@ -43,6 +56,14 @@ abstract class Navigator {
         .add(containerId, fragment)
         .addToBackStack(fragment::class.java.simpleName)
         .commit()
+  }
+
+  fun finishActivityWithAnimation(
+    inAnimation: Int,
+    outAnimation: Int
+  ) {
+    getActivity().finish()
+    getActivity().overridePendingTransition(inAnimation, outAnimation)
   }
 
   //Add more methods here... like add with animation
