@@ -12,8 +12,6 @@ apply from: '../analysis/analysis.gradle'
 apply from: 'variants.gradle'
 
 def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
-// ToDo Update project name
-def projectName = "praxis-mvvm-kotlin"
 
 android {
   compileSdkVersion versions.compileSdkVersion

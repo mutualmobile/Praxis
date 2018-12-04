@@ -31,7 +31,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
     bindContentView(layoutId())
   }
 
-  fun bindContentView(layoutId: Int) {
+  private fun bindContentView(layoutId: Int) {
     binding = DataBindingUtil.setContentView(this, layoutId)
     viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModelClass())
     binding.setVariable(BR.viewModel, viewModel)
