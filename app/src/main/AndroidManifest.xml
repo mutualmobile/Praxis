@@ -26,11 +26,8 @@
       </intent-filter>
     </activity>
 
-    <activity android:name=".ui.jokelist.JokeListActivity"/>
-
     <activity android:name=".ui.joke.ShowJokeActivity"/>
 
-    <activity android:name=".ui.profile.ProfileActivity"/>
   </application>
 
 </manifest>

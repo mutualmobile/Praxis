@@ -7,8 +7,6 @@ import com.mutualmobile.praxis.ui.home.HomeActivity
 import com.mutualmobile.praxis.ui.home.HomeActivityModule
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivityModule
-import com.mutualmobile.praxis.ui.profile.ProfileActivity
-import com.mutualmobile.praxis.ui.profile.ProfileActivityModule
 import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.Binds
 import dagger.Module
@@ -32,11 +30,7 @@ abstract class ActivityBindingModule {
   @ContributesAndroidInjector(modules = [HomeActivityModule::class])
   internal abstract fun bindHomeActivity(): HomeActivity
 
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [ProfileActivityModule::class])
-  internal abstract fun bindProfileActivity(): ProfileActivity
 }
-
 
 @Module(includes = [BaseActivityModule::class])
 abstract class ActivityModule<in T : DaggerAppCompatActivity> {
@@ -44,7 +38,6 @@ abstract class ActivityModule<in T : DaggerAppCompatActivity> {
   @ActivityScope
   internal abstract fun bindActivity(activity: T): DaggerAppCompatActivity
 }
-
 
 /**
  * Activity specific common dependencies should be placed here

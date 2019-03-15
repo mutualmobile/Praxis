@@ -5,6 +5,7 @@ import com.mutualmobile.praxis.injection.module.BaseActivityModule
 import com.mutualmobile.praxis.injection.qualifiers.ActivityContext
 import com.mutualmobile.praxis.injection.scope.ActivityScope
 import com.mutualmobile.praxis.injection.scope.FragmentScoped
+import com.mutualmobile.praxis.ui.home.about.AboutFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

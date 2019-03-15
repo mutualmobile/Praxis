@@ -8,13 +8,12 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:padding="@dimen/dimen_20dp"
-
   >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_20dp"
-        android:text="About"
+        android:text="@string/about"
         android:textSize="@dimen/dimen_26sp"
         android:textColor="@color/color_black"
         android:textStyle="bold"/>
@@ -23,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_text"
-        android:textSize="@dimen/dimen_18sp"
+        android:textSize="@dimen/dimen_16sp"
         android:layout_gravity="center"
     />
 

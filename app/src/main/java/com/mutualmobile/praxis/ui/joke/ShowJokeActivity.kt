@@ -21,15 +21,20 @@ class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val jokeList = intent.getParcelableArrayListExtra<Joke>(JOKE_LIST_INTENT)
-    showJoke(jokeList)
+    binding.setLifecycleOwner(this)
+    viewModel.showJoke(jokeList)
+    initToolbar()
   }
 
-  fun showJoke(jokeList: ArrayList<Joke>) {
-    var jokeString = ""
-    for (joke in jokeList) {
-      jokeString = jokeString + joke.joke + "\n\n"
-    }
-    binding.jokeTV.text = jokeString
+  private fun initToolbar() {
+    setSupportActionBar(binding.toolbar)
+    supportActionBar?.setHomeButtonEnabled(true)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    binding.toolbar.setNavigationOnClickListener { onBackPressed() }
+  }
+
+  override fun onBackPressed() {
+    navigator.finishActivityWithAnimation(R.anim.slide_right_in, R.anim.slide_right_out)
   }
 
 }

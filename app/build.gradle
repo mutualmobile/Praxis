@@ -12,8 +12,6 @@ apply from: '../analysis/analysis.gradle'
 apply from: 'variants.gradle'
 
 def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
-// ToDo Update project name
-def projectName = "praxis-mvvm-kotlin"
 
 android {
   compileSdkVersion versions.compileSdkVersion
@@ -103,7 +101,7 @@ dependencies {
   kapt deps.androidx.lifecycle.compiler
 
   // UI Testing
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+  androidTestImplementation deps.test.espressocore
 
   // Unit Testing
   testImplementation deps.test.junit

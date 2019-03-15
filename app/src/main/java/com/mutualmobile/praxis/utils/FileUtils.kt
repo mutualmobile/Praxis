@@ -9,10 +9,10 @@ import java.io.File
 
 object FileUtils {
   fun getFileUri(file: File, context: Context): Uri {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID, file)
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID, file)
     } else {
-      return Uri.fromFile(file)
+      Uri.fromFile(file)
     }
   }
 }
