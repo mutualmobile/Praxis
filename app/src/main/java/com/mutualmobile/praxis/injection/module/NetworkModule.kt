@@ -1,5 +1,6 @@
 package com.mutualmobile.praxis.injection.module
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.mutualmobile.praxis.AppConstants
 import com.mutualmobile.praxis.BuildConfig
 import com.mutualmobile.praxis.data.services.ApiService
@@ -17,7 +18,7 @@ class NetworkModule {
 
   @Provides @Singleton internal fun provideOkHttpClient(): OkHttpClient {
     val httpBuilder = OkHttpClient.Builder()
-    if (BuildConfig.ENABLE_LOGGING) {
+    if (BuildConfig.DEBUG) {
       val httpLoggingInterceptor = HttpLoggingInterceptor()
       httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
       httpBuilder.interceptors()
@@ -30,7 +31,7 @@ class NetworkModule {
     return Retrofit.Builder()
         .baseUrl(AppConstants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttpClient)
         .build()
   }

@@ -6,8 +6,10 @@ import com.mutualmobile.praxis.data.services.ApiService
 import com.mutualmobile.praxis.injection.scope.ActivityScope
 import com.mutualmobile.praxis.ui.base.BaseViewModel
 import com.mutualmobile.praxis.ui.base.navigator.Navigator
-import com.mutualmobile.praxis.utils.IRxSchedulers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.Exception
 import javax.inject.Inject
 
 @ActivityScope
@@ -15,22 +17,25 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
   @Inject
   lateinit var service: ApiService
   @Inject
-  lateinit var schedulers: IRxSchedulers
-  @Inject
   lateinit var navigator: Navigator
 
   var dataLoading: MutableLiveData<Boolean> = MutableLiveData()
   var dataJokes: MutableLiveData<JokeListResponse> = MutableLiveData()
 
-  fun loadData() {
+  suspend fun loadData() {
     dataLoading.postValue(true)
-    addDisposable(service.getFiveRandomJokes()
-        .subscribeOn(schedulers.io())
-        .observeOn(schedulers.main())
-        .doFinally { dataLoading.postValue(false) }
-        .subscribe({ response ->
-          dataJokes.postValue(response)
-        }, { Timber.e(it) })
-    )
+    dataLoading.postValue(true)
+    coroutineScope {
+      workerScope.launch {
+       try{
+        val response = service.getFiveRandomJokes().await()
+         dataJokes.postValue(response)
+      }catch (e:Exception){
+         Timber.e(e)
+       }finally {
+         dataLoading.postValue(false)
+       }
+      }
+    }
   }
 }
