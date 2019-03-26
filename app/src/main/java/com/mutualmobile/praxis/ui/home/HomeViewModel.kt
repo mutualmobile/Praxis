@@ -1,6 +1,7 @@
 package com.mutualmobile.praxis.ui.home
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.mutualmobile.praxis.data.model.JokeListResponse
 import com.mutualmobile.praxis.data.services.ApiService
 import com.mutualmobile.praxis.injection.scope.ActivityScope
@@ -25,7 +26,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
    fun loadData() {
     dataLoading.postValue(true)
     dataLoading.postValue(true)
-     workerScope.launch {
+     viewModelScope.launch {
        try{
         val response = service.getFiveRandomJokes().await()
          dataJokes.postValue(response)

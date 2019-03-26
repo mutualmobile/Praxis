@@ -11,7 +11,7 @@ def versions = ['minSdkVersion': 19,
     'rxVersion': '2.1.10',
     'rxAndroidVersion': '2.0.2',
     'archVersion': '1.1.0',
-    'lifecycleVersion': '2.0.0']
+    'lifecycleVersion': '2.1.0-alpha03']
 
 // Make versions an extra property
 ext.versions = versions
@@ -19,7 +19,7 @@ ext.deps = [
     android: [
         arch: [
             extentions: "android.arch.lifecycle:extensions:${versions.archVersion}",
-            viewModel: "android.arch.lifecycle:viewmodel:${versions.archVersion}",
+            viewModel: "android.arch.lifecycle:viewmodel-ktx:${versions.archVersion}",
             liveData: "android.arch.lifecycle:livedata:${versions.archVersion}",
             compiler: "android.arch.lifecycle:compiler:${versions.archVersion}",
             reactiveStreams: "android.arch.lifecycle:reactivestreams:${versions.archVersion}"
@@ -68,7 +68,7 @@ ext.deps = [
         constraintlayout: 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2',
         lifecycle: [
             extensions: "androidx.lifecycle:lifecycle-extensions:${versions.lifecycleVersion}",
-            viewmodel: "androidx.lifecycle:lifecycle-viewmodel:${versions.lifecycleVersion}",
+            viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycleVersion}",
             livedata: "androidx.lifecycle:lifecycle-livedata:${versions.lifecycleVersion}",
             reactivestreams: "androidx.lifecycle:lifecycle-reactivestreams:${versions.lifecycleVersion}",
             compiler: "androidx.lifecycle:lifecycle-compiler:${versions.lifecycleVersion}"

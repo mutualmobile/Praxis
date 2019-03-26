@@ -10,7 +10,7 @@ import timber.log.Timber
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
   private var viewModelJob = SupervisorJob()
-  protected val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+  //Use viewModelScope of Co-routines to perform any job on main thread.
   protected val workerScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
   override fun onCleared() {

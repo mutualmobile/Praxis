@@ -8,8 +8,6 @@ import com.mutualmobile.praxis.databinding.ActivityHomeBinding
 import com.mutualmobile.praxis.ui.base.BaseActivity
 import com.mutualmobile.praxis.ui.home.about.AboutFragment
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
   override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
