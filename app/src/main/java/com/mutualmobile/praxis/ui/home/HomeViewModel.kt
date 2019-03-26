@@ -22,11 +22,10 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
   var dataLoading: MutableLiveData<Boolean> = MutableLiveData()
   var dataJokes: MutableLiveData<JokeListResponse> = MutableLiveData()
 
-  suspend fun loadData() {
+   fun loadData() {
     dataLoading.postValue(true)
     dataLoading.postValue(true)
-    coroutineScope {
-      workerScope.launch {
+     workerScope.launch {
        try{
         val response = service.getFiveRandomJokes().await()
          dataJokes.postValue(response)
@@ -37,5 +36,4 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
        }
       }
     }
-  }
 }

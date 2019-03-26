@@ -18,7 +18,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding.randomJokesButton.setOnClickListener { GlobalScope.launch { viewModel.loadData() } }
+    binding.randomJokesButton.setOnClickListener { viewModel.loadData() }
     binding.aboutButton.setOnClickListener { showAboutFragment() }
 
     viewModel.dataLoading.observe(this, Observer { handleDataLoadingUi(it!!) })
