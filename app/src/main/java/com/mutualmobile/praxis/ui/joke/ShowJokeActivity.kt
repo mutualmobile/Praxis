@@ -20,7 +20,7 @@ class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val jokeList = intent.getParcelableArrayListExtra<Joke>(JOKE_LIST_INTENT)
+    val jokeList = intent.getParcelableArrayListExtra<com.mutualmobile.praxis.data.model.Joke>(JOKE_LIST_INTENT)
     binding.setLifecycleOwner(this)
     viewModel.showJoke(jokeList)
     initToolbar()

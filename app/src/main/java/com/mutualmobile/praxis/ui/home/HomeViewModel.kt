@@ -2,39 +2,38 @@ package com.mutualmobile.praxis.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.mutualmobile.praxis.data.model.JokeListResponse
-import com.mutualmobile.praxis.data.services.ApiService
+import com.mutualmobile.praxis.NetworkResult
 import com.mutualmobile.praxis.injection.scope.ActivityScope
+import com.mutualmobile.praxis.repo.JokeRepo
 import com.mutualmobile.praxis.ui.base.BaseViewModel
 import com.mutualmobile.praxis.ui.base.navigator.Navigator
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 @ActivityScope
 class HomeViewModel @Inject constructor() : BaseViewModel() {
   @Inject
-  lateinit var service: ApiService
+  lateinit var jokeRepo: JokeRepo
   @Inject
   lateinit var navigator: Navigator
 
   var dataLoading: MutableLiveData<Boolean> = MutableLiveData()
-  var dataJokes: MutableLiveData<JokeListResponse> = MutableLiveData()
+  var dataJokes: MutableLiveData<com.mutualmobile.praxis.data.model.JokeListResponse> = MutableLiveData()
 
-   fun loadData() {
+  fun loadData() {
     dataLoading.postValue(true)
-    dataLoading.postValue(true)
-     viewModelScope.launch {
-       try{
-        val response = service.getFiveRandomJokes().await()
-         dataJokes.postValue(response)
-      }catch (e:Exception){
-         Timber.e(e)
-       }finally {
-         dataLoading.postValue(false)
-       }
+    viewModelScope.launch {
+      val jokeListResult = jokeRepo.getFiveRandomJokes()
+      dataLoading.postValue(false)
+      when (jokeListResult) {
+        is NetworkResult.Success -> {
+          dataJokes.postValue(jokeListResult.body)
+        }
+        is NetworkResult.Failure -> {
+          Timber.e("onError")
+        }
       }
     }
+  }
 }

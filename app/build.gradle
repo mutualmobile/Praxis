@@ -64,6 +64,8 @@ kapt {
 
 dependencies {
 
+  implementation project(':networkmodule')
+
   // Kotlin
   implementation deps.kotlin.kotlinSDK
   implementation deps.kotlin.coroutinesCore

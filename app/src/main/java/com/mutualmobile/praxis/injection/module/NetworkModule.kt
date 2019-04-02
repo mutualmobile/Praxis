@@ -4,12 +4,12 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.mutualmobile.praxis.AppConstants
 import com.mutualmobile.praxis.BuildConfig
 import com.mutualmobile.praxis.data.services.ApiService
+import com.mutualmobile.praxis.repo.JokeRepo
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -37,6 +37,10 @@ class NetworkModule {
   }
 
   @Provides @Singleton internal fun provideApiService(restAdapter: Retrofit): ApiService {
-    return restAdapter.create(ApiService::class.java)
+    return restAdapter.create(com.mutualmobile.praxis.data.services.ApiService::class.java)
+  }
+
+  @Provides @Singleton internal fun provideJokeRepo(apiService: ApiService): JokeRepo {
+    return JokeRepo(apiService)
   }
 }
