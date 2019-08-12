@@ -1,8 +1,6 @@
 package com.mutualmobile.praxis.injection.module
 
 import com.mutualmobile.praxis.injection.scope.ActivityScope
-import com.mutualmobile.praxis.ui.base.navigator.ActivityNavigator
-import com.mutualmobile.praxis.ui.base.navigator.Navigator
 import com.mutualmobile.praxis.ui.home.HomeActivity
 import com.mutualmobile.praxis.ui.home.HomeActivityModule
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
@@ -48,8 +46,4 @@ open class BaseActivityModule {
   @Provides internal fun provideRxPermissions(activity: DaggerAppCompatActivity) = RxPermissions(
       activity
   )
-
-  @Provides @ActivityScope internal fun provideNavigator(activity: DaggerAppCompatActivity): Navigator {
-    return ActivityNavigator(activity)
-  }
 }

@@ -7,7 +7,6 @@ import com.mutualmobile.praxis.data.services.RxApiservice
 import com.mutualmobile.praxis.injection.scope.ActivityScope
 import com.mutualmobile.praxis.repo.JokeRepo
 import com.mutualmobile.praxis.ui.base.BaseViewModel
-import com.mutualmobile.praxis.ui.base.navigator.Navigator
 import com.mutualmobile.praxis.utils.IRxSchedulers
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -19,8 +18,6 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
   lateinit var jokeRepo: JokeRepo
   @Inject
   lateinit var rxApiService: RxApiservice
-  @Inject
-  lateinit var navigator: Navigator
   @Inject
   lateinit var schedulers: IRxSchedulers
 

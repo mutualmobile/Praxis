@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.ActivityHomeBinding
+import com.mutualmobile.praxis.ui.base.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.BaseActivity
 import com.mutualmobile.praxis.ui.home.about.AboutFragment
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
@@ -32,7 +33,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
   }
 
   private fun showJokeActivity(bundle: Bundle) {
-    navigator.startActivityWithDataAndAnimation(ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out)
+    ActivityNavigator.startActivityWithDataAndAnimation(ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out, this)
   }
 
   private fun showAboutFragment() {
