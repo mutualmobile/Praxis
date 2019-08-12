@@ -24,9 +24,6 @@ class AboutFragment : DaggerAppCompatDialogFragment(), LifecycleOwner {
   }
 
   private lateinit var binding: FragmentAboutBinding
-  override fun getLifecycle(): Lifecycle {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
 
   override fun onCreateView(
     inflater: LayoutInflater,

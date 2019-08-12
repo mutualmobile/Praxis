@@ -26,10 +26,10 @@ task pmd(type: Pmd) {
     xml.enabled = false
     html.enabled = true
     xml {
-      destination "$project.buildDir/reports/pmd/pmd.xml"
+      destination file("$project.buildDir/reports/pmd/pmd.xml")
     }
     html {
-      destination "$project.buildDir/reports/pmd/pmd.html"
+      destination file("$project.buildDir/reports/pmd/pmd.html")
     }
   }
 }

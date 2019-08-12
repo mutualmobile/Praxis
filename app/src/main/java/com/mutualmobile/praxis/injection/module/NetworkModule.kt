@@ -3,14 +3,17 @@ package com.mutualmobile.praxis.injection.module
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.mutualmobile.praxis.AppConstants
 import com.mutualmobile.praxis.BuildConfig
-import com.mutualmobile.praxis.data.services.ApiService
+import com.mutualmobile.praxis.data.services.CoroutineApiService
+import com.mutualmobile.praxis.data.services.RxApiservice
 import com.mutualmobile.praxis.repo.JokeRepo
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -27,7 +30,7 @@ class NetworkModule {
     return httpBuilder.build()
   }
 
-  @Provides @Singleton internal fun provideRestAdapter(okHttpClient: OkHttpClient): Retrofit {
+  @Provides @Singleton @Named(AppConstants.COROUTINE_RETROFIT) internal fun provideCoroutineRestAdapter(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .baseUrl(AppConstants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -36,11 +39,24 @@ class NetworkModule {
         .build()
   }
 
-  @Provides @Singleton internal fun provideApiService(restAdapter: Retrofit): ApiService {
-    return restAdapter.create(com.mutualmobile.praxis.data.services.ApiService::class.java)
+  @Provides @Singleton internal fun provideCoroutineApiService( @Named(AppConstants.COROUTINE_RETROFIT) restAdapter: Retrofit): CoroutineApiService {
+    return restAdapter.create(CoroutineApiService::class.java)
   }
 
-  @Provides @Singleton internal fun provideJokeRepo(apiService: ApiService): JokeRepo {
-    return JokeRepo(apiService)
+  @Provides @Singleton internal fun provideCoroutineJokeRepo(coroutineApiService: CoroutineApiService): JokeRepo {
+    return JokeRepo(coroutineApiService)
+  }
+
+  @Provides @Singleton @Named(AppConstants.RX_RETROFIT) internal fun provideRxRestAdapter(okHttpClient: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+        .baseUrl(AppConstants.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(okHttpClient)
+        .build()
+  }
+
+  @Provides @Singleton internal fun provideRxApiService( @Named(AppConstants.RX_RETROFIT) restAdapter: Retrofit): RxApiservice {
+    return restAdapter.create(RxApiservice::class.java)
   }
 }
