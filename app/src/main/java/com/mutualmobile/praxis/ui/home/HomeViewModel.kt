@@ -25,13 +25,13 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
   var dataJokes: MutableLiveData<com.mutualmobile.praxis.data.model.JokeListResponse> = MutableLiveData()
 
   fun loadDataCoroutine() {
-    dataLoading.postValue(true)
+    dataLoading.value = true
     viewModelScope.launch {
       val jokeListResult = jokeRepo.getFiveRandomJokes()
-      dataLoading.postValue(false)
+      dataLoading.value = false
       when (jokeListResult) {
         is NetworkResult.Success -> {
-          dataJokes.postValue(jokeListResult.body)
+          dataJokes.value = jokeListResult.body
         }
         is NetworkResult.Failure -> {
           Timber.e("onError")
@@ -41,13 +41,13 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
   }
 
   fun loadDataRx() {
-    dataLoading.postValue(true)
+    dataLoading.value = true
     addDisposable(rxApiService.getFiveRandomJokes()
         .subscribeOn(schedulers.io())
         .observeOn(schedulers.main())
-        .doFinally { dataLoading.postValue(false) }
+        .doFinally { dataLoading.value = false }
         .subscribe({ response ->
-          dataJokes.postValue(response)
+          dataJokes.value = response
         }, { Timber.e(it) })
     )
   }
