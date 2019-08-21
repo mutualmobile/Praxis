@@ -7,6 +7,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface CoroutineApiService {
-  @GET("/jokes/random/") fun getRandomJoke(): Deferred<Response<JokeResponse>>
-  @GET("/jokes/random/5") fun getFiveRandomJokes(): Deferred<Response<JokeListResponse>>
+  @GET("/jokes/random/") suspend fun getRandomJoke(): Response<JokeResponse>
+  @GET("/jokes/random/5") suspend fun getFiveRandomJokes(): Response<JokeListResponse>
 }

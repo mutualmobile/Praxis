@@ -21,8 +21,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    // Inject dependencies
-    AndroidInjection.inject(this)
     // Bind the view and bind the viewModel to layout
     bindContentView(layoutId())
   }
