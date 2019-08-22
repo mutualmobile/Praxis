@@ -1,6 +1,5 @@
 package com.mutualmobile.praxis.injection.module
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.mutualmobile.praxis.AppConstants
 import com.mutualmobile.praxis.BuildConfig
 import com.mutualmobile.praxis.data.services.CoroutineApiService
@@ -34,7 +33,6 @@ class NetworkModule {
     return Retrofit.Builder()
         .baseUrl(AppConstants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttpClient)
         .build()
   }

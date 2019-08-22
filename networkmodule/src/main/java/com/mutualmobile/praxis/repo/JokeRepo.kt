@@ -10,6 +10,11 @@ import kotlinx.coroutines.withContext
 class JokeRepo constructor(private val coroutineApiService: CoroutineApiService) {
 
   suspend fun getFiveRandomJokes(): NetworkResult<JokeListResponse> {
+    /*
+    * Retrofit internally creates a Call<T> object and uses enqueue() method
+    * which makes the call on a background thread. So, it is not really necessary to
+    * switch the dispatcher here, but just to be safe.
+    */
     return withContext(Dispatchers.IO) {
       val response = coroutineApiService.getFiveRandomJokes()
       if (response.isSuccessful) {
