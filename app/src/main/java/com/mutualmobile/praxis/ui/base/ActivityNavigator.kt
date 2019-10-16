@@ -1,25 +1,23 @@
-package com.mutualmobile.praxis.ui.base.navigator
+package com.mutualmobile.praxis.ui.base
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
-abstract class Navigator {
-  abstract fun getActivity(): AppCompatActivity
+object ActivityNavigator{
 
-  fun startActivity(activityClass: Class<out Activity>) {
-    val activity = getActivity()
+
+  fun startActivity(activityClass: Class<out Activity>, activity: Activity) {
     val intent = Intent(activity, activityClass)
     activity.startActivity(intent)
   }
 
   fun startActivityWithData(
     activityClass: Class<out Activity>,
-    bundle: Bundle
+    bundle: Bundle, activity: AppCompatActivity
   ) {
-    val activity = getActivity()
     val intent = Intent(activity, activityClass)
     intent.putExtras(bundle)
     activity.startActivity(intent)
@@ -29,20 +27,21 @@ abstract class Navigator {
     activityClass: Class<out Activity>,
     bundle: Bundle,
     inAnimation: Int,
-    outAnimation: Int
+    outAnimation: Int,
+    activity: AppCompatActivity
   ) {
-    val activity = getActivity()
     val intent = Intent(activity, activityClass)
     intent.putExtras(bundle)
     activity.startActivity(intent)
-    getActivity().overridePendingTransition(inAnimation, outAnimation)
+    activity.overridePendingTransition(inAnimation, outAnimation)
   }
 
   fun addFragment(
     containerId: Int,
-    fragment: Fragment
+    fragment: Fragment,
+    activity: AppCompatActivity
   ) {
-    getActivity().supportFragmentManager.beginTransaction()
+    activity.supportFragmentManager.beginTransaction()
         .add(containerId, fragment)
         .addToBackStack(fragment::class.java.simpleName)
         .commit()
@@ -50,9 +49,10 @@ abstract class Navigator {
 
   fun replaceFragment(
     containerId: Int,
-    fragment: Fragment
+    fragment: Fragment,
+    activity: AppCompatActivity
   ) {
-    getActivity().supportFragmentManager.beginTransaction()
+    activity.supportFragmentManager.beginTransaction()
         .add(containerId, fragment)
         .addToBackStack(fragment::class.java.simpleName)
         .commit()
@@ -60,11 +60,11 @@ abstract class Navigator {
 
   fun finishActivityWithAnimation(
     inAnimation: Int,
-    outAnimation: Int
+    outAnimation: Int,
+    activity: AppCompatActivity
   ) {
-    getActivity().finish()
-    getActivity().overridePendingTransition(inAnimation, outAnimation)
+    activity.finish()
+    activity.overridePendingTransition(inAnimation, outAnimation)
   }
 
-  //Add more methods here... like add with animation
 }

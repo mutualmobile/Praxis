@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.data.model.Joke
 import com.mutualmobile.praxis.databinding.ActivityShowjokeBinding
+import com.mutualmobile.praxis.ui.base.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.BaseActivity
 
 class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel>() {
@@ -21,7 +22,7 @@ class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val jokeList = intent.getParcelableArrayListExtra<Joke>(JOKE_LIST_INTENT)
-    binding.setLifecycleOwner(this)
+    binding.lifecycleOwner = this
     viewModel.showJoke(jokeList)
     initToolbar()
   }
@@ -34,7 +35,7 @@ class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel
   }
 
   override fun onBackPressed() {
-    navigator.finishActivityWithAnimation(R.anim.slide_right_in, R.anim.slide_right_out)
+    ActivityNavigator.finishActivityWithAnimation(R.anim.slide_right_in, R.anim.slide_right_out, this)
   }
 
 }

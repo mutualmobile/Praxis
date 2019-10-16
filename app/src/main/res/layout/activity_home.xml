@@ -38,12 +38,22 @@
         />
 
     <Button
-        android:id="@+id/random_jokes_button"
+        android:id="@+id/random_jokes_button_coroutine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:text="@string/show_random_jokes"
+        android:text="@string/show_random_jokes_coroutine"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        />
+
+    <Button
+        android:id="@+id/random_jokes_button_rx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/show_random_jokes_rx"
         android:textAllCaps="false"
         android:textColor="@color/white"
         />

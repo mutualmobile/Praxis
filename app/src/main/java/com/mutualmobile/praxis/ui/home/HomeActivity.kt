@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.ActivityHomeBinding
+import com.mutualmobile.praxis.ui.base.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.BaseActivity
 import com.mutualmobile.praxis.ui.home.about.AboutFragment
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
@@ -16,7 +17,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding.randomJokesButton.setOnClickListener { viewModel.loadData() }
+    binding.randomJokesButtonCoroutine.setOnClickListener { viewModel.loadDataCoroutine() }
+    binding.randomJokesButtonRx.setOnClickListener { viewModel.loadDataRx() }
     binding.aboutButton.setOnClickListener { showAboutFragment() }
 
     viewModel.dataLoading.observe(this, Observer { handleDataLoadingUi(it!!) })
@@ -31,7 +33,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
   }
 
   private fun showJokeActivity(bundle: Bundle) {
-    navigator.startActivityWithDataAndAnimation(ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out)
+    ActivityNavigator.startActivityWithDataAndAnimation(ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out, this)
   }
 
   private fun showAboutFragment() {
@@ -41,7 +43,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
   private fun handleDataLoadingUi(loading: Boolean) {
     binding.progressbar.visibility = if (loading) View.VISIBLE else View.INVISIBLE
-    binding.randomJokesButton.isEnabled = !loading
+    binding.randomJokesButtonCoroutine.isEnabled = !loading
+    binding.randomJokesButtonRx.isEnabled = !loading
     binding.aboutButton.isEnabled = !loading
   }
 }

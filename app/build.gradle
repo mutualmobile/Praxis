@@ -8,20 +8,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply from: '../analysis/analysis.gradle'
 apply from: 'variants.gradle'
 
 def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
-  compileSdkVersion versions.compileSdkVersion
-  buildToolsVersion versions.buildToolVersion
-
+  compileSdkVersion compileSdk
   defaultConfig {
     applicationId "com.mutualmobile.praxis"
 
-    minSdkVersion versions.minSdkVersion
-    targetSdkVersion versions.targetSdkVersion
+    minSdkVersion minSdk
+    targetSdkVersion targetSdk
 
     versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
     versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -64,46 +61,47 @@ kapt {
 
 dependencies {
 
-  // Kotlin
-  implementation deps.kotlin.kotlinSDK
+  implementation project(':networkmodule')
 
-  implementation deps.androidx.legacy
-  implementation deps.androidx.appcompat
-  implementation deps.androidx.constraintlayout
-  implementation deps.design.material
+  // Kotlin
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+
+  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+  implementation 'androidx.appcompat:appcompat:1.0.2'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+  implementation 'com.google.android.material:material:1.1.0-alpha09'
 
   // Dagger 2
-  implementation deps.dagger.dagger
-  implementation deps.dagger.daggerSupport
-  kapt deps.dagger.daggerCompiler
-  kapt deps.dagger.daggerProcessor
+  implementation "com.google.dagger:dagger:$daggerVersion"
+  implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+  kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+  kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
   // Retrofit 2
-  implementation deps.network.retrofit
-  implementation deps.network.retrofitgson
-  implementation deps.network.retrofitrx
-  implementation deps.network.okhttplogger
+  implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+  implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+  implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+  implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
-  // Rx
-  implementation deps.rx.java2
-  implementation deps.rx.android2
-
-  // Rx Plugins
-  implementation deps.rx.permissions
+  //Rx
+  implementation "io.reactivex.rxjava2:rxjava:$rxVersion"
+  implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+  implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
 
   // Timber
-  implementation deps.logger.timber
+  implementation 'com.jakewharton.timber:timber:4.7.1'
 
-  implementation deps.androidx.lifecycle.extensions
-  implementation deps.androidx.lifecycle.viewmodel
-  implementation deps.androidx.lifecycle.livedata
-  implementation deps.androidx.lifecycle.reactivestreams
-  kapt deps.androidx.lifecycle.compiler
+  implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+  kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+  implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
 
   // UI Testing
-  androidTestImplementation deps.test.espressocore
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
   // Unit Testing
-  testImplementation deps.test.junit
+  testImplementation 'junit:junit:4.12'
 }
 
