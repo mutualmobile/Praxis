@@ -3,7 +3,7 @@ package com.mutualmobile.praxis.injection.module
 import com.mutualmobile.praxis.AppConstants
 import com.mutualmobile.praxis.BuildConfig
 import com.mutualmobile.praxis.data.services.CoroutineApiService
-import com.mutualmobile.praxis.data.services.RxApiservice
+import com.mutualmobile.praxis.data.services.RxApiService
 import com.mutualmobile.praxis.repo.JokeRepo
 import dagger.Module
 import dagger.Provides
@@ -54,7 +54,7 @@ class NetworkModule {
         .build()
   }
 
-  @Provides @Singleton internal fun provideRxApiService( @Named(AppConstants.RX_RETROFIT) restAdapter: Retrofit): RxApiservice {
-    return restAdapter.create(RxApiservice::class.java)
+  @Provides @Singleton internal fun provideRxApiService( @Named(AppConstants.RX_RETROFIT) restAdapter: Retrofit): RxApiService {
+    return restAdapter.create(RxApiService::class.java)
   }
 }

@@ -7,5 +7,4 @@ data class JokeListResponse(
   val type: String,
   @SerializedName("value")
   val value: ArrayList<out Joke>) {
-  constructor() : this("", arrayListOf())
 }

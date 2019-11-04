@@ -11,7 +11,7 @@ class ShowJokeViewModel @Inject constructor() : BaseViewModel() {
 
   val jokeStringLiveData = MutableLiveData<String>()
 
-  fun showJoke(jokeList: ArrayList<com.mutualmobile.praxis.data.model.Joke>) {
+  fun showJoke(jokeList: ArrayList<Joke>) {
     var jokeString = ""
     for (joke in jokeList) {
       jokeString = jokeString + joke.joke.replace("&quot;", "\"") + "\n\n"

@@ -1,14 +1,12 @@
 package com.mutualmobile.praxis.ui.base
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.mutualmobile.praxis.BR
-import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -27,7 +25,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
 
   private fun bindContentView(layoutId: Int) {
     binding = DataBindingUtil.setContentView(this, layoutId)
-    viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModelClass())
+    viewModel = ViewModelProvider(this, viewModelFactory).get(getViewModelClass())
     binding.setVariable(BR.viewModel, viewModel)
   }
 
