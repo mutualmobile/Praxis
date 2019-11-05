@@ -13,14 +13,8 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
   private var compositeDisposable: CompositeDisposable? = null
 
-  private var viewModelJob = SupervisorJob()
-  //Use viewModelScope of Co-routines to perform any job on main thread.
-  protected val workerScope = CoroutineScope(Dispatchers.IO + viewModelJob)
-
   override fun onCleared() {
     super.onCleared()
-    Timber.d("unsubscribeFromDataStore(): ")
-    viewModelJob.cancel()
 
     if (compositeDisposable != null) {
       compositeDisposable!!.dispose()
