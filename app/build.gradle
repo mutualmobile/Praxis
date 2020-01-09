@@ -98,10 +98,16 @@ dependencies {
   implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion"
   implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
 
-  // UI Testing
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+  // Dependencies for local unit tests
+  testImplementation "junit:junit:$junitVersion"
+  testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+  testImplementation "org.robolectric:robolectric:$robolectricVersion"
+  testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
+  testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+  testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
 
-  // Unit Testing
-  testImplementation 'junit:junit:4.12'
+  // AndroidX Test - Instrumented testing
+  androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
+  androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 }
 
