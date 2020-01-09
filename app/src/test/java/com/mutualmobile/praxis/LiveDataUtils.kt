@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp
+package com.mutualmobile.praxis
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
@@ -7,6 +7,13 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
+
+/**
+ * This function observes a LiveData until it receives a new value (via onChanged)
+ * and then it removes the observer. If the LiveData already has a value, it returns it immediately.
+ * Additionally, if the value is never set, it will throw an exception after 2 seconds
+ * (or whatever you set). This prevents tests that never finish when something goes wrong.
+ */
 
 @VisibleForTesting(otherwise = VisibleForTesting.NONE)
 fun <T> LiveData<T>.getOrAwaitValue(
