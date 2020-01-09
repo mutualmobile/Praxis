@@ -46,6 +46,11 @@ android {
     enabled = true
   }
 
+  //this will remove warning from test results
+  testOptions.unitTests {
+    includeAndroidResources = true
+  }
+
   lintOptions {
     lintConfig file('../analysis/lint/lint.xml')
     htmlOutput file("$project.buildDir/reports/lint/lint-reports.html")

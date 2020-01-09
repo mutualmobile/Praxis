@@ -9,7 +9,9 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 class ShowJokeViewModelTest{
 
