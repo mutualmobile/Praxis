@@ -23,7 +23,7 @@ class ShowJokeViewModelTest{
   val instantExecutorRule = InstantTaskExecutorRule()
 
   @Test
-  fun showJoke(){
+  fun showJoke_whenArrayListIsGiven_withFormattedText(){
 
     //Given a fresh viewmodel
     val showJokeViewModel = ShowJokeViewModel()
@@ -42,4 +42,21 @@ class ShowJokeViewModelTest{
     assertThat("Joke but plese don't laugh \"\n\nI am intelligent\n\n",
         `is`(value))
   }
+  @Test
+  fun showJoke_whenEmptyArrayListIsGiven_withEmptyString(){
+
+    //Given a fresh viewmodel
+    val showJokeViewModel = ShowJokeViewModel()
+
+    //when an arraylist of empty joke are passed to showJoke
+    val list = arrayListOf<Joke>()
+
+    showJokeViewModel.showJoke(list)
+
+    //then output value will be formatted
+    val value = showJokeViewModel.jokeStringLiveData.getOrAwaitValue()
+
+    assertThat("", `is`(value))
+  }
+
 }
