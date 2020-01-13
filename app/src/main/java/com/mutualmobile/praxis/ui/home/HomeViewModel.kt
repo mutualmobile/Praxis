@@ -14,13 +14,11 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @ActivityScope
-class HomeViewModel @Inject constructor() : BaseViewModel() {
-  @Inject
-  lateinit var jokeRepo: JokeRepo
-  @Inject
-  lateinit var rxApiService: RxApiService
-  @Inject
-  lateinit var schedulers: IRxSchedulers
+class HomeViewModel @Inject constructor(
+    private val jokeRepo: JokeRepo,
+    private val schedulers: IRxSchedulers
+) : BaseViewModel() {
+
 
   var dataLoading: MutableLiveData<Boolean> = MutableLiveData()
   var dataJokes: MutableLiveData<JokeListResponse> = MutableLiveData()
@@ -28,7 +26,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
   fun loadDataCoroutine() {
     dataLoading.value = true
     viewModelScope.launch {
-      val jokeListResult = jokeRepo.getFiveRandomJokes()
+      val jokeListResult = jokeRepo.getFiveRandomJokesCoroutine()
       dataLoading.value = false
       when (jokeListResult) {
         is NetworkResult.Success -> {
@@ -43,7 +41,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
 
   fun loadDataRx() {
     dataLoading.value = true
-    addDisposable(rxApiService.getFiveRandomJokes()
+    addDisposable(jokeRepo.getFiveRandomJokesRx()
         .subscribeOn(schedulers.io())
         .observeOn(schedulers.main())
         .doFinally { dataLoading.value = false }

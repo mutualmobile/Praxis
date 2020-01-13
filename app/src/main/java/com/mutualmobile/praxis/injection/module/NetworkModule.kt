@@ -41,8 +41,8 @@ class NetworkModule {
     return restAdapter.create(CoroutineApiService::class.java)
   }
 
-  @Provides @Singleton internal fun provideCoroutineJokeRepo(coroutineApiService: CoroutineApiService): JokeRepo {
-    return JokeRepo(coroutineApiService)
+  @Provides @Singleton internal fun provideJokeRepo(coroutineApiService: CoroutineApiService, rxApiService: RxApiService): JokeRepo {
+    return JokeRepo(coroutineApiService,rxApiService)
   }
 
   @Provides @Singleton @Named(AppConstants.RX_RETROFIT) internal fun provideRxRestAdapter(okHttpClient: OkHttpClient): Retrofit {
