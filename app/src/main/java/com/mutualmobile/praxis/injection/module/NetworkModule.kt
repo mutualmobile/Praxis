@@ -5,6 +5,7 @@ import com.mutualmobile.praxis.BuildConfig
 import com.mutualmobile.praxis.data.services.CoroutineApiService
 import com.mutualmobile.praxis.data.services.RxApiService
 import com.mutualmobile.praxis.repo.JokeRepo
+import com.mutualmobile.praxis.utils.IRxSchedulers
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -41,8 +42,8 @@ class NetworkModule {
     return restAdapter.create(CoroutineApiService::class.java)
   }
 
-  @Provides @Singleton internal fun provideCoroutineJokeRepo(coroutineApiService: CoroutineApiService): JokeRepo {
-    return JokeRepo(coroutineApiService)
+  @Provides @Singleton internal fun provideJokeRepo(coroutineApiService: CoroutineApiService, rxApiService: RxApiService, schedulers: IRxSchedulers): JokeRepo {
+    return JokeRepo(coroutineApiService, rxApiService, schedulers)
   }
 
   @Provides @Singleton @Named(AppConstants.RX_RETROFIT) internal fun provideRxRestAdapter(okHttpClient: OkHttpClient): Retrofit {

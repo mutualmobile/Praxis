@@ -9,24 +9,4 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import timber.log.Timber
 
-abstract class BaseViewModel : ViewModel(), LifecycleObserver {
-
-  private var compositeDisposable: CompositeDisposable? = null
-
-  override fun onCleared() {
-    super.onCleared()
-
-    if (compositeDisposable != null) {
-      compositeDisposable!!.dispose()
-      compositeDisposable!!.clear()
-      compositeDisposable = null
-    }
-  }
-
-  protected fun addDisposable(disposable: Disposable) {
-    if (compositeDisposable == null) {
-      compositeDisposable = CompositeDisposable()
-    }
-    compositeDisposable!!.add(disposable)
-  }
-}
+abstract class BaseViewModel : ViewModel(), LifecycleObserver
