@@ -9,16 +9,13 @@ import com.mutualmobile.praxis.data.services.RxApiService
 import com.mutualmobile.praxis.getOrAwaitValue
 import com.mutualmobile.praxis.repo.JokeRepo
 import com.mutualmobile.praxis.utils.IRxSchedulers
-import com.nhaarman.mockitokotlin2.whenever
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.SingleOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
@@ -33,9 +30,11 @@ import retrofit2.Response
 
 class HomeViewModelTest {
 
-
   @get:Rule
   val immediateSchedulersRule = ImmediateSchedulersRule()
+
+  @get: Rule
+  val instantExecutorRule = InstantTaskExecutorRule()
 
   @Mock
   lateinit var rxApiService: RxApiService
@@ -43,19 +42,17 @@ class HomeViewModelTest {
   @Mock
   lateinit var coroutineApiService: CoroutineApiService
 
-
-  @get: Rule
-  val instantExecutorRule = InstantTaskExecutorRule()
-
-  var schedulers=object:IRxSchedulers {
+  val schedulers = object : IRxSchedulers {
     override fun main() = AndroidSchedulers.mainThread()
     override fun io() = Schedulers.io()
   }
 
+  @ExperimentalCoroutinesApi
   private val dispatcher = TestCoroutineDispatcher()
 
+  @ExperimentalCoroutinesApi
   @Before
-  fun setup(){
+  fun setup() {
     MockitoAnnotations.initMocks(this)
     Dispatchers.setMain(dispatcher)
   }
@@ -64,7 +61,6 @@ class HomeViewModelTest {
   fun isFetchDataWorksWithCoroutines() {
 
     val coroutineApiService = mockk<CoroutineApiService>()
-
 
     every { runBlocking { coroutineApiService.getFiveRandomJokes() } } answers {
       Response.success(
@@ -81,10 +77,8 @@ class HomeViewModelTest {
       )
     }
 
-
-    val jokeRepo = JokeRepo(coroutineApiService,rxApiService)
-
-    val homeViewModel = HomeViewModel(jokeRepo,schedulers)
+    val jokeRepo = JokeRepo(coroutineApiService, rxApiService)
+    val homeViewModel = HomeViewModel(jokeRepo, schedulers)
 
     assertThat(null, `is`(homeViewModel.dataLoading.value))
 
@@ -99,7 +93,7 @@ class HomeViewModelTest {
   }
 
   @Test
-  fun isFetchDataWithRx(){
+  fun isFetchDataWithRx() {
 
     val rxApiService = mockk<RxApiService>()
 
@@ -118,21 +112,16 @@ class HomeViewModelTest {
       )
     }
 
-
-    val jokeRepo = JokeRepo(coroutineApiService,rxApiService)
-
-    val homeViewModel = HomeViewModel(jokeRepo,schedulers)
+    val jokeRepo = JokeRepo(coroutineApiService, rxApiService)
+    val homeViewModel = HomeViewModel(jokeRepo, schedulers)
 
     assertThat(null, `is`(homeViewModel.dataLoading.value))
 
-    runBlocking {
-      homeViewModel.loadDataRx()
-    }
+    homeViewModel.loadDataRx()
 
     val data = homeViewModel.dataLoading.getOrAwaitValue()
 
     assertThat(false, `is`(data))
-
 
   }
 
