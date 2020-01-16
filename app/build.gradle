@@ -103,5 +103,7 @@ dependencies {
 
   // Unit Testing
   testImplementation 'junit:junit:4.12'
+  testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+
 }
 
