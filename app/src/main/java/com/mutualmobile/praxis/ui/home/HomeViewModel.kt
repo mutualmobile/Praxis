@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-@ActivityScope
 class HomeViewModel @Inject constructor() : BaseViewModel() {
   @Inject
   lateinit var jokeRepo: JokeRepo

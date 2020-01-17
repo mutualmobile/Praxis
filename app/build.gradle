@@ -104,6 +104,12 @@ dependencies {
   // Unit Testing
   testImplementation 'junit:junit:4.12'
   testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+  testImplementation 'org.robolectric:robolectric:4.3'
+  testImplementation "com.google.dagger:dagger:$daggerVersion"
+  testImplementation "com.google.dagger:dagger-android-support:$daggerVersion"
+  kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+  kaptTest "com.google.dagger:dagger-android-processor:$daggerVersion"
+  testImplementation "androidx.test:core:1.0.0"
 
 }
 
