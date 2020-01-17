@@ -10,7 +10,7 @@ buildscript {
     coroutinesVersion = '1.3.0-RC'
     retrofitVersion = '2.6.1'
     okHttpVersion = '3.10.0'
-    daggerVersion = '2.25.4'
+    daggerVersion = '2.16'
     rxVersion = '2.2.11'
     rxAndroidVersion = '2.1.1'
     lifecycleVersion = '2.2.0-rc01'
