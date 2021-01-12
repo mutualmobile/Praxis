@@ -22,7 +22,7 @@ object BuildPlugins {
 object Lib {
 
   object Kotlin {
-    const val KOTLIN_VERSION = "1.3.71"
+    const val KOTLIN_VERSION = "1.4.21"
     private const val KTX_CORE_VERSION = "1.2.0"
 
     const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
