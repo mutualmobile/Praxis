@@ -45,19 +45,23 @@ android {
   buildFeatures {
     dataBinding = true
   }
-//
-//  lintOptions {
-//    lintConfig file ("../analysis/lint/lint.xml")
-//    htmlOutput file ("$project.buildDir/reports/lint/lint-reports.html")
-//    xmlOutput file ("$project.buildDir/reports/lint/lint-reports.xml")
-//    abortOnError false
-//  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
 }
 
 // Required for annotation processing plugins like Dagger
 kapt {
   generateStubs = true
+  correctErrorTypes = true
 }
+
+
 
 dependencies {
 
@@ -75,13 +79,15 @@ dependencies {
 
   /*DI*/
   implementation(Lib.Di.DAGGER)
+  implementation(Lib.Di.DAGGER_ANDROID)
+  kapt(Lib.Di.DAGGER_PROCESSOR)
   kapt(Lib.Di.DAGGER_COMPILER)
   kaptTest(Lib.Di.DAGGER_COMPILER)
 
   //RxJava
-  implementation ("io.reactivex.rxjava2:rxjava:2.2.11")
-  implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
-  implementation ("com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar")
+  implementation("io.reactivex.rxjava2:rxjava:2.2.11")
+  implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+  implementation("com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar")
 
   /* Logger */
   api(Lib.Logger.TIMBER)
@@ -92,10 +98,13 @@ dependencies {
 
   /* Networking */
   api(Lib.Networking.RETROFIT)
+  api(Lib.Networking.RETROFIT_GSON)
+  api(Lib.Networking.RETROFIT_RXAJAVA)
   api(Lib.Networking.LOGGING)
-  api(Lib.Networking.RETROFIT_KOTLINX)
-  //debugApi(Lib.Networking.CHUCKER)
-  //releaseApi(Lib.Networking.CHUCKER_RELEASE)
+  //api(Lib.Networking.OK_HTTP)
+  implementation("com.google.code.gson:gson:2.8.6")
+
+  //TODO: Chuker to be added.
 
   /* Async */
   api(Lib.Async.COROUTINES)
