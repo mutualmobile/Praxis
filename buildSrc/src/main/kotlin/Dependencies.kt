@@ -52,10 +52,11 @@ object Lib {
   object Di {
     const val DAGGER = "com.google.dagger:dagger:${Versions.LibVersion.DAGGER}"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${Versions.LibVersion.DAGGER}"
-    const val DAGGER_ANDROID = "com.google.dagger:dagger-android-support:${Versions.LibVersion.DAGGER}"
-    const val DAGGER_PROCESSOR = "com.google.dagger:dagger-android-processor:${Versions.LibVersion.DAGGER}"
+    const val DAGGER_ANDROID =
+      "com.google.dagger:dagger-android-support:${Versions.LibVersion.DAGGER}"
+    const val DAGGER_PROCESSOR =
+      "com.google.dagger:dagger-android-processor:${Versions.LibVersion.DAGGER}"
   }
-
 
   object Async {
     const val COROUTINES =
@@ -68,13 +69,10 @@ object Lib {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.LibVersion.RETROFIT}"
     const val RETROFIT_GSON =
       "com.squareup.retrofit2:converter-gson:${Versions.LibVersion.RETROFIT}"
-    const val RETROFIT_RXAJAVA = "com.squareup.retrofit2:adapter-rxjava2:${Versions.LibVersion.RETROFIT}"
-    const val OK_HTTP = "implementation \"com.squareup.okhttp3:okhttp:${Versions.LibVersion.RETROFIT_LOGGING}"
+    const val OK_HTTP =
+      "implementation \"com.squareup.okhttp3:okhttp:${Versions.LibVersion.RETROFIT_LOGGING}"
     const val LOGGING =
       "com.squareup.okhttp3:logging-interceptor:${Versions.LibVersion.RETROFIT_LOGGING}"
-    const val CHUCKER = "com.github.chuckerteam.chucker:library:${Versions.LibVersion.CHUCKER}"
-    const val CHUCKER_RELEASE =
-      "com.github.chuckerteam.chucker:library-no-op:${Versions.LibVersion.CHUCKER}"
   }
 
   object Logger {
@@ -97,7 +95,6 @@ object TestLib {
 }
 
 object DebugLib {
-
   const val LEAK_CANARY =
     "com.squareup.leakcanary:leakcanary-android:${Versions.DebugLibVersion.LEAK_CANARY}"
 }

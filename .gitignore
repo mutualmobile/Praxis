@@ -4,8 +4,10 @@
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
 /captures
 .externalNativeBuild
 .idea
 *.aab
+.cxx
+*/build
+*/.gradle

@@ -37,7 +37,6 @@ dependencies {
   /* Networking */
   api(Lib.Networking.RETROFIT)
   api(Lib.Networking.RETROFIT_GSON)
-  api(Lib.Networking.RETROFIT_RXAJAVA)
   api(Lib.Networking.LOGGING)
   implementation("com.google.code.gson:gson:2.8.6")
 
@@ -46,8 +45,6 @@ dependencies {
   api(Lib.Kotlin.KTX_CORE)
 
   //Rx
-  implementation("io.reactivex.rxjava2:rxjava:2.2.11")
-  implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
   implementation("com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar")
 
 }

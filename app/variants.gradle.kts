@@ -22,7 +22,7 @@ android {
       )
       signingConfig(
           signingConfigs.release
-              //buildConfigField "boolean", "ENABLE_LOGGING", "false"
+              // buildConfigField "boolean", "ENABLE_LOGGING", "false"
       )
     }
     getByName("debug") {
@@ -31,7 +31,7 @@ android {
       applicationIdSuffix = ".debug"
       signingConfig(
           signingConfigs.debug
-              //buildConfigField "boolean", "ENABLE_LOGGING", "true"
+              // buildConfigField "boolean", "ENABLE_LOGGING", "true"
       )
     }
   }

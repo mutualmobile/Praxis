@@ -5,6 +5,7 @@ plugins {
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_EXTENSIONS_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
+  id("org.jlleitschuh.gradle.ktlint")
 }
 
 subprojects {
@@ -13,7 +14,7 @@ subprojects {
   }
 }
 
-//def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
+// def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
   compileSdkVersion(ProjectProperties.COMPILE_SDK)
@@ -61,8 +62,6 @@ kapt {
   correctErrorTypes = true
 }
 
-
-
 dependencies {
 
   implementation(project(":networkmodule"))
@@ -84,11 +83,6 @@ dependencies {
   kapt(Lib.Di.DAGGER_COMPILER)
   kaptTest(Lib.Di.DAGGER_COMPILER)
 
-  //RxJava
-  implementation("io.reactivex.rxjava2:rxjava:2.2.11")
-  implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
-  implementation("com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar")
-
   /* Logger */
   api(Lib.Logger.TIMBER)
 
@@ -99,12 +93,10 @@ dependencies {
   /* Networking */
   api(Lib.Networking.RETROFIT)
   api(Lib.Networking.RETROFIT_GSON)
-  api(Lib.Networking.RETROFIT_RXAJAVA)
   api(Lib.Networking.LOGGING)
-  //api(Lib.Networking.OK_HTTP)
   implementation("com.google.code.gson:gson:2.8.6")
+  implementation("com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar")
 
-  //TODO: Chuker to be added.
 
   /* Async */
   api(Lib.Async.COROUTINES)
@@ -120,4 +112,3 @@ dependencies {
   testImplementation(TestLib.COROUTINES)
   testImplementation(TestLib.MOCKITO_CORE)
 }
-

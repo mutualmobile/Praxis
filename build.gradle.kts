@@ -4,12 +4,14 @@ buildscript {
   repositories {
     jcenter()
     google()
+    maven("https://plugins.gradle.org/m2/")
   }
   dependencies {
     classpath(BuildPlugins.TOOLS_BUILD_GRADLE)
     classpath(BuildPlugins.SAFE_ARGS_GRADLE_PLUGIN)
     classpath(kotlin("gradle-plugin", version = Versions.RootLibVersion.KOTLIN))
     classpath(kotlin("serialization", version = Versions.RootLibVersion.KOTLIN))
+    classpath(BuildPlugins.KTLINT_GRADLE_PLUGIN)
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }
@@ -27,3 +29,10 @@ tasks.register("clean")
     .configure {
       delete(rootProject.buildDir)
     }
+
+apply(from = teamPropsFile("git-hooks.gradle.kts"))
+
+fun teamPropsFile(propsFile: String): File {
+  val teamPropsDir = file("team-props")
+  return File(teamPropsDir, propsFile)
+}

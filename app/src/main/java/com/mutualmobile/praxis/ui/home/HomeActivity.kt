@@ -17,9 +17,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding.randomJokesButtonCoroutine.setOnClickListener { viewModel.loadDataCoroutine() }
-    binding.randomJokesButtonRx.setOnClickListener { viewModel.loadDataRx() }
-    binding.aboutButton.setOnClickListener { showAboutFragment() }
+    addListeners()
 
     viewModel.dataLoading.observe(this, Observer { handleDataLoadingUi(it!!) })
 
@@ -32,8 +30,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
     })
   }
 
+  private fun addListeners() {
+    with(binding) {
+      randomJokesButtonCoroutine.setOnClickListener { viewModel.loadDataCoroutine() }
+      aboutButton.setOnClickListener { showAboutFragment() }
+    }
+
+  }
+
   private fun showJokeActivity(bundle: Bundle) {
-    ActivityNavigator.startActivityWithDataAndAnimation(ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out, this)
+    ActivityNavigator.startActivityWithDataAndAnimation(
+        ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out, this
+    )
   }
 
   private fun showAboutFragment() {
@@ -42,9 +50,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
   }
 
   private fun handleDataLoadingUi(loading: Boolean) {
-    binding.progressbar.visibility = if (loading) View.VISIBLE else View.INVISIBLE
-    binding.randomJokesButtonCoroutine.isEnabled = !loading
-    binding.randomJokesButtonRx.isEnabled = !loading
-    binding.aboutButton.isEnabled = !loading
+    with(binding) {
+      progressbar.visibility = if (loading) View.VISIBLE else View.INVISIBLE
+      randomJokesButtonCoroutine.isEnabled = !loading
+      randomJokesButtonRx.isEnabled = !loading
+      aboutButton.isEnabled = !loading
+    }
   }
 }
