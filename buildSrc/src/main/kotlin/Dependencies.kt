@@ -1,100 +1,112 @@
 /** This file contains versions of all the dependencies used in the module  */
 
 object BuildPlugins {
+  private const val TOOLS_BUILD = "4.0.0"
+  private const val KT_LINT = "9.2.1"
+  private const val SAFE_ARGS = "2.3.0"
 
   const val TOOLS_BUILD_GRADLE =
-    "com.android.tools.build:gradle:${Versions.RootLibVersion.TOOLS_BUILD}"
+    "com.android.tools.build:gradle:${TOOLS_BUILD}"
   const val KTLINT_GRADLE_PLUGIN =
-    "org.jlleitschuh.gradle:ktlint-gradle:${Versions.RootLibVersion.KT_LINT}"
+    "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
   const val SAFE_ARGS_GRADLE_PLUGIN =
-    "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.RootLibVersion.SAFE_ARGS}"
+    "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
   const val KOTLIN_ANDROID_EXTENSIONS_PLUGIN = "kotlin-android-extensions"
   const val KOTLIN_KAPT = "kotlin-kapt"
-  const val KOTLINX_SERIALIZATION = "kotlinx-serialization"
   const val SAFE_ARGS_PLUGIN = "androidx.navigation.safeargs.kotlin"
 }
 
 object Lib {
 
   object Kotlin {
-    const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.RootLibVersion.KOTLIN}"
-    const val KTX_CORE = "androidx.core:core-ktx:${Versions.LibVersion.KTX_CORE}"
+    const val KOTLIN_VERSION = "1.3.71"
+    private const val KTX_CORE_VERSION = "1.2.0"
+
+    const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
+    const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
   }
 
   object Android {
-    const val CONSTRAINT_LAYOUT =
-      "androidx.constraintlayout:constraintlayout:${Versions.LibVersion.CONSTRAINT_LAYOUT}"
-    const val MATERIAL_DESIGN =
-      "com.google.android.material:material:${Versions.LibVersion.MATERIAL_DESIGN}"
-    const val LIFECYCLE_VIEWMODEL_KTX =
-      "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LibVersion.LIFECYCLE_VIEWMODEL_KTX}"
-    const val FRAGMENT =
-      "androidx.fragment:fragment-ktx:${Versions.LibVersion.FRAGMENT_VERSION}"
+    private const val CONSTRAINT_LAYOUT_VERSION = "1.1.3"
+    private const val MATERIAL_DESIGN_VERSION = "1.1.0"
+    private const val LIFECYCLE_VIEWMODEL_KTX_VERSION = "2.2.0"
+    private const val FRAGMENT_VERSION = "1.2.5"
 
-    object Navigation {
-      const val FRAGMENT_KTX =
-        "androidx.navigation:navigation-fragment-ktx:${Versions.LibVersion.NAVIGATION_VERSION}"
-      const val UI_KTX =
-        "androidx.navigation:navigation-ui-ktx:${Versions.LibVersion.NAVIGATION_VERSION}"
-      const val RUN_TIME =
-        "androidx.navigation:navigation-runtime:${Versions.LibVersion.NAVIGATION_VERSION}"
-    }
+    const val CONSTRAINT_LAYOUT =
+      "androidx.constraintlayout:constraintlayout:${CONSTRAINT_LAYOUT_VERSION}"
+    const val MATERIAL_DESIGN =
+      "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
+    const val LIFECYCLE_VIEWMODEL_KTX =
+      "androidx.lifecycle:lifecycle-viewmodel-ktx:${LIFECYCLE_VIEWMODEL_KTX_VERSION}"
+    const val FRAGMENT =
+      "androidx.fragment:fragment-ktx:${FRAGMENT_VERSION}"
   }
 
   object Database {
-    const val ROOM = "androidx.room:room-runtime:${Versions.LibVersion.ROOM}"
-    const val ROOM_DATABASE_COMPILER = "androidx.room:room-compiler:${Versions.LibVersion.ROOM}"
+    private const val ROOM_VERSION = "2.2.5"
+    const val ROOM = "androidx.room:room-runtime:${ROOM_VERSION}"
+    const val ROOM_DATABASE_COMPILER = "androidx.room:room-compiler:${ROOM_VERSION}"
   }
 
   object Di {
-    const val DAGGER = "com.google.dagger:dagger:${Versions.LibVersion.DAGGER}"
-    const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${Versions.LibVersion.DAGGER}"
-    const val DAGGER_ANDROID =
-      "com.google.dagger:dagger-android-support:${Versions.LibVersion.DAGGER}"
-    const val DAGGER_PROCESSOR =
-      "com.google.dagger:dagger-android-processor:${Versions.LibVersion.DAGGER}"
+    private const val DAGGER_VERSION = "2.27"
+    const val DAGGER = "com.google.dagger:dagger:${DAGGER_VERSION}"
+    const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    const val DAGGER_ANDROID = "com.google.dagger:dagger-android-support:${DAGGER_VERSION}"
+    const val DAGGER_PROCESSOR = "com.google.dagger:dagger-android-processor:${DAGGER_VERSION}"
   }
 
   object Async {
+    private const val COROUTINES_VERSION = "1.3.7"
+
     const val COROUTINES =
-      "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.LibVersion.COROUTINES}"
+      "org.jetbrains.kotlinx:kotlinx-coroutines-core:${COROUTINES_VERSION}"
     const val COROUTINES_ANDROID =
-      "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.LibVersion.COROUTINES}"
+      "org.jetbrains.kotlinx:kotlinx-coroutines-android:${COROUTINES_VERSION}"
   }
 
   object Networking {
-    const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.LibVersion.RETROFIT}"
+    private const val RETROFIT_VERSION = "2.9.0"
+    private const val RETROFIT_LOGGING = "4.7.2"
+    const val RETROFIT = "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     const val RETROFIT_GSON =
-      "com.squareup.retrofit2:converter-gson:${Versions.LibVersion.RETROFIT}"
-    const val OK_HTTP =
-      "implementation \"com.squareup.okhttp3:okhttp:${Versions.LibVersion.RETROFIT_LOGGING}"
+      "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     const val LOGGING =
-      "com.squareup.okhttp3:logging-interceptor:${Versions.LibVersion.RETROFIT_LOGGING}"
+      "com.squareup.okhttp3:logging-interceptor:${RETROFIT_LOGGING}"
   }
 
   object Logger {
-    const val TIMBER = "com.jakewharton.timber:timber:${Versions.LibVersion.TIMBER}"
+    private const val TIMBER_VERSION = "4.7.1"
+    const val TIMBER = "com.jakewharton.timber:timber:${TIMBER_VERSION}"
   }
 }
 
 object TestLib {
+  private const val COROUTINES_VERSION = "1.3.7"
+  private const val ANDROID_JUNIT_VERSION = "1.0.0"
+  private const val ROBO_ELECTRIC_VERSION = "4.3"
+  private const val ARCH_CORE_VERSION = "2.1.0"
+  private const val MOCK_WEB_SERVER_VERSION = "4.7.2"
+  private const val CORE_TEST_VERSION = "1.2.0"
+  private const val JUNIT_VERSION = "4.13"
 
   const val COROUTINES =
-    "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.LibVersion.COROUTINES}"
-  const val ROBO_ELECTRIC = "org.robolectric:robolectric:${Versions.TestLibVersion.ROBO_ELECTRIC}"
+    "org.jetbrains.kotlinx:kotlinx-coroutines-test:${COROUTINES_VERSION}"
+  const val ROBO_ELECTRIC = "org.robolectric:robolectric:${ROBO_ELECTRIC_VERSION}"
   const val MOCK_WEB_SERVER =
-    "com.squareup.okhttp3:mockwebserver:${Versions.TestLibVersion.MOCK_WEB_SERVER}"
-  const val CORE_TEST = "androidx.test:core-ktx:${Versions.TestLibVersion.CORE_TEST}"
-  const val JUNIT = "junit:junit:${Versions.TestLibVersion.JUNIT}"
-  const val ANDROID_JUNIT = "androidx.test.ext:junit:${Versions.TestLibVersion.ANDROID_JUNIT}"
-  const val ARCH_CORE = "androidx.arch.core:core-testing:${Versions.TestLibVersion.ARCH_CORE}"
+    "com.squareup.okhttp3:mockwebserver:${MOCK_WEB_SERVER_VERSION}"
+  const val CORE_TEST = "androidx.test:core-ktx:${CORE_TEST_VERSION}"
+  const val JUNIT = "junit:junit:${JUNIT_VERSION}"
+  const val ANDROID_JUNIT = "androidx.test.ext:junit:${ANDROID_JUNIT_VERSION}"
+  const val ARCH_CORE = "androidx.arch.core:core-testing:${ARCH_CORE_VERSION}"
   const val MOCKITO_CORE = "org.mockito:mockito-core:3.3.3"
 }
 
 object DebugLib {
+  private const val LEAK_CANARY_VERSION = "2.3"
   const val LEAK_CANARY =
-    "com.squareup.leakcanary:leakcanary-android:${Versions.DebugLibVersion.LEAK_CANARY}"
+    "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_VERSION}"
 }
