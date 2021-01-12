@@ -1,7 +1,6 @@
 object Versions {
 
   object LibVersion {
-    const val APP_CENTER = "3.2.2"
     const val KTX_CORE = "1.2.0"
     const val CONSTRAINT_LAYOUT = "1.1.3"
     const val MATERIAL_DESIGN = "1.1.0"
@@ -19,7 +18,6 @@ object Versions {
     const val CHUCKER = "3.0.1"
 
     const val TIMBER = "4.7.1"
-    const val TWILIO_VERSION = "5.1.1"
   }
 
   object TestLibVersion {
