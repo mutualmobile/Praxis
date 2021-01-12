@@ -11,3 +11,4 @@
 .cxx
 */build
 */.gradle
+/buildSrc/build
