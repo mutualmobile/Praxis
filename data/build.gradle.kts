@@ -1,7 +1,7 @@
 plugins {
   id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
-  id(BuildPlugins.KOTLIN_ANDROID_EXTENSIONS_PLUGIN)
+  id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
 }
 
@@ -15,10 +15,6 @@ android {
     versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  androidExtensions {
-    isExperimental = true
   }
 
   buildTypes {
