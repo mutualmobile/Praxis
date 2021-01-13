@@ -2,7 +2,7 @@ package com.mutualmobile.praxis.ui.home
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.data.remote.model.Joke
@@ -69,9 +69,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
   private fun handleDataLoadingUi(loading: Boolean) {
     with(binding) {
-      progressbar.visibility = if (loading) View.VISIBLE else View.INVISIBLE
+      progressbar.isVisible = loading
       randomJokesButtonCoroutine.isEnabled = !loading
-      randomJokesButtonRx.isEnabled = !loading
       aboutButton.isEnabled = !loading
     }
   }
