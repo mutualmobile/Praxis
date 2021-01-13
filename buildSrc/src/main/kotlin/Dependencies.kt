@@ -70,12 +70,17 @@ object Lib {
 
   object Networking {
     private const val RETROFIT_VERSION = "2.9.0"
-    private const val RETROFIT_LOGGING = "4.7.2"
+    private const val OKHTTP_LOGGING = "4.7.2"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     const val RETROFIT_GSON =
       "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     const val LOGGING =
-      "com.squareup.okhttp3:logging-interceptor:${RETROFIT_LOGGING}"
+      "com.squareup.okhttp3:logging-interceptor:${OKHTTP_LOGGING}"
+  }
+
+  object Serialization {
+    private const val GSON_VERSION = "2.8.6"
+    const val GSON = "com.google.code.gson:gson:${GSON_VERSION}"
   }
 
   object Logger {

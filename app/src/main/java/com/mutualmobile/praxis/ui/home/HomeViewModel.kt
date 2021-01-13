@@ -1,35 +1,41 @@
 package com.mutualmobile.praxis.ui.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.mutualmobile.praxis.NetworkResult
-import com.mutualmobile.praxis.data.model.JokeListResponse
-import com.mutualmobile.praxis.repo.JokeRepo
+import com.mutualmobile.praxis.data.SafeResult
+import com.mutualmobile.praxis.data.remote.model.Joke
+import com.mutualmobile.praxis.data.repository.JokesRepository
 import com.mutualmobile.praxis.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor() : BaseViewModel() {
-  @Inject
-  lateinit var jokeRepo: JokeRepo
+class HomeViewModel @Inject constructor(
+  private val jokesRepository: JokesRepository
+) : BaseViewModel() {
 
-  var dataLoading: MutableLiveData<Boolean> = MutableLiveData()
-  var dataJokes: MutableLiveData<JokeListResponse> = MutableLiveData()
+  private var _viewState: MutableLiveData<HomeViewState> = MutableLiveData()
+  val viewState: LiveData<HomeViewState> = _viewState
 
-  fun loadDataCoroutine() {
-    dataLoading.value = true
+  fun loadJokes() {
+    _viewState.value = HomeViewState.Loading
     viewModelScope.launch {
-      val jokeListResult = jokeRepo.getFiveRandomJokes()
-      dataLoading.value = false
-      when (jokeListResult) {
-        is NetworkResult.Success -> {
-          dataJokes.value = jokeListResult.body
+      when (val result = jokesRepository.getFiveRandomJokes()) {
+        is SafeResult.Success -> {
+          _viewState.value = HomeViewState.ShowJokes(result.data.value)
         }
-        is NetworkResult.Failure -> {
+        is SafeResult.Failure -> {
           Timber.e("onError")
+          _viewState.value = HomeViewState.Error(result.message)
         }
       }
     }
   }
+}
+
+sealed class HomeViewState {
+  object Loading : HomeViewState()
+  class ShowJokes(val jokes: List<Joke>) : HomeViewState()
+  class Error(val message: String) : HomeViewState()
 }

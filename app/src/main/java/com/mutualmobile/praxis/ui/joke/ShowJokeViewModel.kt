@@ -1,8 +1,7 @@
 package com.mutualmobile.praxis.ui.joke
 
 import androidx.lifecycle.MutableLiveData
-import com.mutualmobile.praxis.data.model.Joke
-import com.mutualmobile.praxis.injection.scope.ActivityScope
+import com.mutualmobile.praxis.data.remote.model.Joke
 import com.mutualmobile.praxis.ui.base.BaseViewModel
 import javax.inject.Inject
 

@@ -2,6 +2,8 @@ package com.mutualmobile.praxis.injection.component
 
 import android.content.Context
 import com.mutualmobile.praxis.BaseApplication
+import com.mutualmobile.praxis.data.injection.RepositoryModule
+import com.mutualmobile.praxis.data.injection.SourcesModule
 import com.mutualmobile.praxis.injection.module.ActivityBindingModule
 import com.mutualmobile.praxis.injection.module.AppModule
 import com.mutualmobile.praxis.injection.module.NetworkModule
@@ -15,7 +17,18 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class, ViewModelFactoryModule::class, AndroidSupportInjectionModule::class, ActivityBindingModule::class, NetworkModule::class, PreferenceModule::class])
+@Component(
+    modules = [
+      AppModule::class,
+      ViewModelFactoryModule::class,
+      AndroidSupportInjectionModule::class,
+      ActivityBindingModule::class,
+      PreferenceModule::class,
+      NetworkModule::class,
+      SourcesModule::class,
+      RepositoryModule::class
+    ]
+)
 interface AppComponent : AndroidInjector<BaseApplication> {
 
   @Component.Builder

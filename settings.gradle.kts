@@ -1,3 +1,3 @@
 include(":domain")
 include(":data")
-include(":app", ":networkmodule")
+include(":app")

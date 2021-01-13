@@ -1,14 +1,20 @@
 package com.mutualmobile.praxis.ui.home
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import androidx.lifecycle.Observer
 import com.mutualmobile.praxis.R
+import com.mutualmobile.praxis.data.remote.model.Joke
 import com.mutualmobile.praxis.databinding.ActivityHomeBinding
 import com.mutualmobile.praxis.ui.base.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.BaseActivity
+import com.mutualmobile.praxis.ui.home.HomeViewState.Error
+import com.mutualmobile.praxis.ui.home.HomeViewState.Loading
+import com.mutualmobile.praxis.ui.home.HomeViewState.ShowJokes
 import com.mutualmobile.praxis.ui.home.about.AboutFragment
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
+import java.util.ArrayList
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
   override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
@@ -17,28 +23,40 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     addListeners()
-
-    viewModel.dataLoading.observe(this, Observer { handleDataLoadingUi(it!!) })
-
-    viewModel.dataJokes.observe(this, Observer { it ->
-      it?.let {
-        val bundle = Bundle()
-        bundle.putParcelableArrayList(ShowJokeActivity.JOKE_LIST_INTENT, it.value)
-        showJokeActivity(bundle)
-      }
-    })
+    addObservers()
   }
 
   private fun addListeners() {
     with(binding) {
-      randomJokesButtonCoroutine.setOnClickListener { viewModel.loadDataCoroutine() }
+      randomJokesButtonCoroutine.setOnClickListener { viewModel.loadJokes() }
       aboutButton.setOnClickListener { showAboutFragment() }
     }
-
   }
 
-  private fun showJokeActivity(bundle: Bundle) {
+  private fun addObservers() {
+    viewModel.viewState.observe(this, Observer { state ->
+      when (state) {
+        is Loading -> {
+          handleDataLoadingUi(true)
+        }
+        is ShowJokes -> {
+          handleDataLoadingUi(false)
+          showJokeActivity(state.jokes)
+        }
+        is Error -> {
+          handleDataLoadingUi(false)
+        }
+      }
+    })
+  }
+
+  private fun showJokeActivity(jokes: List<Joke>) {
+    val bundle = Bundle().apply {
+      putParcelableArrayList(ShowJokeActivity.JOKE_LIST_INTENT, jokes as ArrayList<out Parcelable>)
+    }
+
     ActivityNavigator.startActivityWithDataAndAnimation(
         ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out, this
     )

@@ -64,7 +64,8 @@ kapt {
 
 dependencies {
 
-  implementation(project(":networkmodule"))
+  implementation(project(":data"))
+  implementation(project(":domain"))
 
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)

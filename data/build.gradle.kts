@@ -1,6 +1,8 @@
 plugins {
   id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
+  id(BuildPlugins.KOTLIN_ANDROID_EXTENSIONS_PLUGIN)
+  id(BuildPlugins.KOTLIN_KAPT)
 }
 
 android {
@@ -15,6 +17,10 @@ android {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
+  androidExtensions {
+    isExperimental = true
+  }
+
   buildTypes {
     getByName("release") {
       isMinifyEnabled = false
@@ -27,4 +33,16 @@ dependencies {
 
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
+  api(Lib.Async.COROUTINES)
+
+  /* Networking */
+  api(Lib.Networking.RETROFIT)
+  api(Lib.Networking.RETROFIT_GSON)
+  api(Lib.Networking.LOGGING)
+
+  api(Lib.Serialization.GSON)
+
+  api(Lib.Di.DAGGER)
+  kapt(Lib.Di.DAGGER_PROCESSOR)
+  kapt(Lib.Di.DAGGER_COMPILER)
 }
