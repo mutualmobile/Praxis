@@ -1,6 +1,7 @@
 plugins {
   id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
+  id(BuildPlugins.KOTLIN_KAPT)
 }
 
 android {
@@ -25,6 +26,14 @@ android {
 
 dependencies {
 
+  implementation(project(":data"))
+
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
+  api(Lib.Async.COROUTINES)
+
+  /* Dependency Injection */
+  api(Lib.Di.DAGGER)
+  kapt(Lib.Di.DAGGER_PROCESSOR)
+  kapt(Lib.Di.DAGGER_COMPILER)
 }

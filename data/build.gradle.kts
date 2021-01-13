@@ -42,6 +42,7 @@ dependencies {
 
   api(Lib.Serialization.GSON)
 
+  /* Dependency Injection */
   api(Lib.Di.DAGGER)
   kapt(Lib.Di.DAGGER_PROCESSOR)
   kapt(Lib.Di.DAGGER_COMPILER)
