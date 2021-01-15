@@ -14,7 +14,7 @@ object BuildPlugins {
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
-  const val KOTLIN_ANDROID_EXTENSIONS_PLUGIN = "kotlin-android-extensions"
+  const val KOTLIN_PARCELABLE_PLUGIN = "kotlin-parcelize"
   const val KOTLIN_KAPT = "kotlin-kapt"
   const val SAFE_ARGS_PLUGIN = "androidx.navigation.safeargs.kotlin"
 }
@@ -22,7 +22,7 @@ object BuildPlugins {
 object Lib {
 
   object Kotlin {
-    const val KOTLIN_VERSION = "1.3.71"
+    const val KOTLIN_VERSION = "1.4.21"
     private const val KTX_CORE_VERSION = "1.2.0"
 
     const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
@@ -70,12 +70,17 @@ object Lib {
 
   object Networking {
     private const val RETROFIT_VERSION = "2.9.0"
-    private const val RETROFIT_LOGGING = "4.7.2"
+    private const val OKHTTP_LOGGING = "4.7.2"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     const val RETROFIT_GSON =
       "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     const val LOGGING =
-      "com.squareup.okhttp3:logging-interceptor:${RETROFIT_LOGGING}"
+      "com.squareup.okhttp3:logging-interceptor:${OKHTTP_LOGGING}"
+  }
+
+  object Serialization {
+    private const val GSON_VERSION = "2.8.6"
+    const val GSON = "com.google.code.gson:gson:${GSON_VERSION}"
   }
 
   object Logger {

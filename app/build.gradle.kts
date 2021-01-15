@@ -3,7 +3,7 @@
 plugins {
   id(BuildPlugins.ANDROID_APPLICATION_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
-  id(BuildPlugins.KOTLIN_ANDROID_EXTENSIONS_PLUGIN)
+  id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
   id("org.jlleitschuh.gradle.ktlint")
 }
@@ -39,13 +39,10 @@ android {
     preDexLibraries = true
   }
 
-  androidExtensions {
-    isExperimental = true
-  }
-
   buildFeatures {
     dataBinding = true
   }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -64,7 +61,8 @@ kapt {
 
 dependencies {
 
-  implementation(project(":networkmodule"))
+  implementation(project(":data"))
+  implementation(project(":domain"))
 
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)

@@ -2,7 +2,7 @@ package com.mutualmobile.praxis.ui.joke
 
 import android.os.Bundle
 import com.mutualmobile.praxis.R
-import com.mutualmobile.praxis.data.model.Joke
+import com.mutualmobile.praxis.data.remote.model.Joke
 import com.mutualmobile.praxis.databinding.ActivityShowjokeBinding
 import com.mutualmobile.praxis.ui.base.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.BaseActivity
