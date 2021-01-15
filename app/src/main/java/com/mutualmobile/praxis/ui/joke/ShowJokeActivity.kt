@@ -7,13 +7,13 @@ import com.mutualmobile.praxis.databinding.ActivityShowjokeBinding
 import com.mutualmobile.praxis.ui.base.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.BaseActivity
 
-class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel>() {
+class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeVM>() {
 
   companion object {
     const val JOKE_LIST_INTENT = "Joke_list_intent"
   }
 
-  override fun getViewModelClass(): Class<ShowJokeViewModel> = ShowJokeViewModel::class.java
+  override fun getViewModelClass(): Class<ShowJokeVM> = ShowJokeVM::class.java
 
   override fun layoutId(): Int {
     return R.layout.activity_showjoke

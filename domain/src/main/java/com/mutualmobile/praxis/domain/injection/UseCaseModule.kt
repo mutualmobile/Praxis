@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.domain.injection
 
-import com.mutualmobile.praxis.data.repository.JokesRepository
+import com.mutualmobile.praxis.data.repository.JokesRepo
 import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
 import dagger.Module
 import dagger.Provides
@@ -16,8 +16,8 @@ object UseCaseModule {
   @Provides
   @Singleton
   @JvmStatic
-  fun provideGetFiveRandomJokes(repository: JokesRepository): GetFiveRandomJokesUseCase {
-    return GetFiveRandomJokesUseCase(repository)
+  fun provideGetFiveRandomJokes(repo: JokesRepo): GetFiveRandomJokesUseCase {
+    return GetFiveRandomJokesUseCase(repo)
   }
 
 }

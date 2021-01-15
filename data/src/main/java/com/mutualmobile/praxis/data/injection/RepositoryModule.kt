@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.data.injection
 
-import com.mutualmobile.praxis.data.repository.JokesRepository
+import com.mutualmobile.praxis.data.repository.JokesRepo
 import com.mutualmobile.praxis.data.sources.IJokesRemoteSource
 import dagger.Module
 import dagger.Provides
@@ -16,8 +16,8 @@ object RepositoryModule {
   @Provides
   @Singleton
   @JvmStatic
-  fun provideJokesRepository(networkSource: IJokesRemoteSource): JokesRepository {
-    return JokesRepository(networkSource)
+  fun provideJokesRepository(networkSource: IJokesRemoteSource): JokesRepo {
+    return JokesRepo(networkSource)
   }
 
 }
