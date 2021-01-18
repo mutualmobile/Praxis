@@ -1,8 +1,12 @@
-package com.mutualmobile.praxis.data.remote.model
+package com.mutualmobile.praxis.domain.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
+
+/**
+ * Created by Vipul Asri on 18/01/21.
+ */
 
 @Parcelize
 data class Joke(
