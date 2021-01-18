@@ -8,7 +8,7 @@ import com.mutualmobile.praxis.data.sources.IJokesRemoteSource
  * Created by Vipul Asri on 13/01/21.
  */
 
-class JokesRepository(
+class JokesRepo(
   private val remoteSource: IJokesRemoteSource
 ) {
 
