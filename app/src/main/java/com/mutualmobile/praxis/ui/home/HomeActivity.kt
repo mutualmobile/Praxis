@@ -5,8 +5,8 @@ import android.os.Parcelable
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.mutualmobile.praxis.R
-import com.mutualmobile.praxis.data.remote.model.Joke
 import com.mutualmobile.praxis.databinding.ActivityHomeBinding
+import com.mutualmobile.praxis.domain.model.Joke
 import com.mutualmobile.praxis.ui.base.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.BaseActivity
 import com.mutualmobile.praxis.ui.home.HomeViewState.Error
