@@ -1,3 +1,5 @@
+import Lib.Networking
+
 /** This file contains versions of all the dependencies used in the module  */
 
 object BuildPlugins {
@@ -70,12 +72,12 @@ object Lib {
 
   object Networking {
     private const val RETROFIT_VERSION = "2.9.0"
-    private const val OKHTTP_LOGGING = "4.7.2"
+    const val OKHTTP_VERSION = "4.7.2"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     const val RETROFIT_GSON =
       "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     const val LOGGING =
-      "com.squareup.okhttp3:logging-interceptor:${OKHTTP_LOGGING}"
+      "com.squareup.okhttp3:logging-interceptor:${OKHTTP_VERSION}"
   }
 
   object Serialization {
@@ -94,7 +96,6 @@ object TestLib {
   private const val ANDROID_JUNIT_VERSION = "1.0.0"
   private const val ROBO_ELECTRIC_VERSION = "4.3"
   private const val ARCH_CORE_VERSION = "2.1.0"
-  private const val MOCK_WEB_SERVER_VERSION = "4.7.2"
   private const val CORE_TEST_VERSION = "1.2.0"
   private const val JUNIT_VERSION = "4.13"
 
@@ -102,12 +103,12 @@ object TestLib {
     "org.jetbrains.kotlinx:kotlinx-coroutines-test:${COROUTINES_VERSION}"
   const val ROBO_ELECTRIC = "org.robolectric:robolectric:${ROBO_ELECTRIC_VERSION}"
   const val MOCK_WEB_SERVER =
-    "com.squareup.okhttp3:mockwebserver:${MOCK_WEB_SERVER_VERSION}"
+    "com.squareup.okhttp3:mockwebserver:${Networking.OKHTTP_VERSION}"
   const val CORE_TEST = "androidx.test:core-ktx:${CORE_TEST_VERSION}"
   const val JUNIT = "junit:junit:${JUNIT_VERSION}"
   const val ANDROID_JUNIT = "androidx.test.ext:junit:${ANDROID_JUNIT_VERSION}"
   const val ARCH_CORE = "androidx.arch.core:core-testing:${ARCH_CORE_VERSION}"
-  const val MOCKITO_CORE = "org.mockito:mockito-core:3.3.3"
+  const val MOCKK = "io.mockk:mockk:1.10.5"
 }
 
 object DebugLib {

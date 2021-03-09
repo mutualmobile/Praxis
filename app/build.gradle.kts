@@ -96,5 +96,5 @@ dependencies {
   testImplementation(TestLib.MOCK_WEB_SERVER)
   testImplementation(TestLib.ROBO_ELECTRIC)
   testImplementation(TestLib.COROUTINES)
-  testImplementation(TestLib.MOCKITO_CORE)
+  testImplementation(TestLib.MOCKK)
 }
