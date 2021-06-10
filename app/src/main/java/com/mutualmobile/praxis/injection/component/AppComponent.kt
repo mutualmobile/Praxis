@@ -4,7 +4,7 @@ import android.content.Context
 import com.mutualmobile.praxis.BaseApplication
 import com.mutualmobile.praxis.data.injection.RepositoryModule
 import com.mutualmobile.praxis.data.injection.SourcesModule
-import com.mutualmobile.praxis.domain.injection.UseCaseModule
+import com.mutualmobile.praxis.data.injection.UseCaseModule
 import com.mutualmobile.praxis.injection.module.ActivityBindingModule
 import com.mutualmobile.praxis.injection.module.AppModule
 import com.mutualmobile.praxis.injection.module.NetworkModule

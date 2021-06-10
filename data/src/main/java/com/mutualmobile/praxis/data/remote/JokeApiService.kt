@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.data.remote
 
-import com.mutualmobile.praxis.data.remote.model.JokeListResponse
+import com.mutualmobile.praxis.domain.responsemodels.JokeListResponse
 import retrofit2.Retrofit
 import retrofit2.http.GET
 

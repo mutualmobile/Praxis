@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain.usecases
+package com.mutualmobile.praxis.data.usecases
 
 /**
  * Created by Vipul Asri on 13/01/21.

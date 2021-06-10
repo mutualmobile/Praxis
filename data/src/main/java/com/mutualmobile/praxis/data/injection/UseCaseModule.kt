@@ -1,7 +1,7 @@
-package com.mutualmobile.praxis.domain.injection
+package com.mutualmobile.praxis.data.injection
 
 import com.mutualmobile.praxis.data.repository.JokesRepo
-import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
+import com.mutualmobile.praxis.data.usecases.GetFiveRandomJokesUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain.usecases
+package com.mutualmobile.praxis.data.usecases
 
 import com.mutualmobile.praxis.data.SafeResult
 import com.mutualmobile.praxis.data.SafeResult.Failure
