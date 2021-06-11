@@ -1,8 +1,8 @@
-package com.mutualmobile.praxis.data.injection
+package com.mutualmobile.praxis.injection.module
 
 import com.mutualmobile.praxis.data.remote.JokeApiService
 import com.mutualmobile.praxis.data.sources.IJokesRemoteSource
-import com.mutualmobile.praxis.data.sources.JokesRemoteSource
+import com.mutualmobile.praxis.datasource.JokesRemoteSource
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,7 +19,7 @@ object SourcesModule {
   @JvmStatic
   fun provideJokesNetworkSource(apiService: JokeApiService): IJokesRemoteSource {
     return JokesRemoteSource(
-        apiService
+      apiService
     )
   }
 

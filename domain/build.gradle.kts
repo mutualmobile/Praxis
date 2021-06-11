@@ -27,8 +27,6 @@ android {
 
 dependencies {
 
-  implementation(project(":data"))
-
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
   api(Lib.Async.COROUTINES)
@@ -37,4 +35,6 @@ dependencies {
   api(Lib.Di.DAGGER)
   kapt(Lib.Di.DAGGER_PROCESSOR)
   kapt(Lib.Di.DAGGER_COMPILER)
+
+  api(Lib.Networking.RETROFIT_GSON)
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mutualmobile.praxis.data.SafeResult
 import com.mutualmobile.praxis.domain.model.Joke
-import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
+import com.mutualmobile.praxis.data.usecases.GetFiveRandomJokesUseCase
 import com.mutualmobile.praxis.ui.base.BaseVM
 import kotlinx.coroutines.launch
 import timber.log.Timber

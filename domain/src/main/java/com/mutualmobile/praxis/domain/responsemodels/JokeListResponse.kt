@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.data.remote.model
+package com.mutualmobile.praxis.domain.responsemodels
 
 import com.google.gson.annotations.SerializedName
 
