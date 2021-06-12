@@ -17,5 +17,4 @@ class BaseApplication : DaggerApplication() {
       Timber.plant(Timber.DebugTree())
     }
   }
-
 }

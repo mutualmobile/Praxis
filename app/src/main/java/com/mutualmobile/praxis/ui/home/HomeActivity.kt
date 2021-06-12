@@ -1,39 +1,65 @@
 package com.mutualmobile.praxis.ui.home
 
 import android.os.Bundle
-import android.view.View
+import android.os.Parcelable
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.ActivityHomeBinding
+import com.mutualmobile.praxis.domain.model.Joke
 import com.mutualmobile.praxis.ui.base.ActivityNavigator
 import com.mutualmobile.praxis.ui.base.BaseActivity
+import com.mutualmobile.praxis.ui.home.HomeViewState.Error
+import com.mutualmobile.praxis.ui.home.HomeViewState.Loading
+import com.mutualmobile.praxis.ui.home.HomeViewState.ShowJokes
 import com.mutualmobile.praxis.ui.home.about.AboutFragment
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
+import java.util.ArrayList
 
-class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
-  override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
+class HomeActivity : BaseActivity<ActivityHomeBinding, HomeVM>() {
+  override fun getViewModelClass(): Class<HomeVM> = HomeVM::class.java
 
   override fun layoutId(): Int = R.layout.activity_home
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding.randomJokesButtonCoroutine.setOnClickListener { viewModel.loadDataCoroutine() }
-    binding.randomJokesButtonRx.setOnClickListener { viewModel.loadDataRx() }
-    binding.aboutButton.setOnClickListener { showAboutFragment() }
 
-    viewModel.dataLoading.observe(this, Observer { handleDataLoadingUi(it!!) })
+    addListeners()
+    addObservers()
+  }
 
-    viewModel.dataJokes.observe(this, Observer { it ->
-      it?.let {
-        val bundle = Bundle()
-        bundle.putParcelableArrayList(ShowJokeActivity.JOKE_LIST_INTENT, it.value)
-        showJokeActivity(bundle)
+  private fun addListeners() {
+    with(binding) {
+      randomJokesButtonCoroutine.setOnClickListener { viewModel.loadJokes() }
+      aboutButton.setOnClickListener { showAboutFragment() }
+    }
+  }
+
+  private fun addObservers() {
+    viewModel.viewState.observe(this, Observer { state ->
+      when (state) {
+        is Loading -> {
+          handleDataLoadingUi(true)
+        }
+        is ShowJokes -> {
+          handleDataLoadingUi(false)
+          showJokeActivity(state.jokes)
+        }
+        is Error -> {
+          handleDataLoadingUi(false)
+        }
       }
     })
   }
 
-  private fun showJokeActivity(bundle: Bundle) {
-    ActivityNavigator.startActivityWithDataAndAnimation(ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out, this)
+  private fun showJokeActivity(jokes: List<Joke>) {
+    val bundle = Bundle().apply {
+      putParcelableArrayList(ShowJokeActivity.JOKE_LIST_INTENT, jokes as ArrayList<out Parcelable>)
+    }
+
+    ActivityNavigator.startActivityWithDataAndAnimation(
+        ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out, this
+    )
   }
 
   private fun showAboutFragment() {
@@ -42,9 +68,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
   }
 
   private fun handleDataLoadingUi(loading: Boolean) {
-    binding.progressbar.visibility = if (loading) View.VISIBLE else View.INVISIBLE
-    binding.randomJokesButtonCoroutine.isEnabled = !loading
-    binding.randomJokesButtonRx.isEnabled = !loading
-    binding.aboutButton.isEnabled = !loading
+    with(binding) {
+      progressbar.isVisible = loading
+      randomJokesButtonCoroutine.isEnabled = !loading
+      aboutButton.isEnabled = !loading
+    }
   }
 }
