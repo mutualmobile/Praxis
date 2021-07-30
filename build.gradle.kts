@@ -2,13 +2,12 @@
 
 buildscript {
   repositories {
-    jcenter()
     google()
     maven("https://plugins.gradle.org/m2/")
   }
   dependencies {
     classpath(BuildPlugins.TOOLS_BUILD_GRADLE)
-    classpath(BuildPlugins.SAFE_ARGS_GRADLE_PLUGIN)
+    classpath(BuildPlugins.HILT_GRADLE_PLUGIN)
     classpath(kotlin("gradle-plugin", version = Lib.Kotlin.KOTLIN_VERSION))
     classpath(kotlin("serialization", version = Lib.Kotlin.KOTLIN_VERSION))
     classpath(BuildPlugins.KTLINT_GRADLE_PLUGIN)
@@ -20,7 +19,6 @@ buildscript {
 allprojects {
   repositories {
     google()
-    jcenter()
     mavenCentral()
   }
 }

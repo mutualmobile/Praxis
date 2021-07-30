@@ -5,14 +5,11 @@ plugins {
 }
 
 android {
-  compileSdkVersion(ProjectProperties.COMPILE_SDK)
+  compileSdk = ProjectProperties.COMPILE_SDK
 
   defaultConfig {
-    minSdkVersion(ProjectProperties.MIN_SDK)
-    targetSdkVersion(ProjectProperties.TARGET_SDK)
-    versionCode = 1
-    versionName = "1.0"
-
+    minSdk = ProjectProperties.MIN_SDK
+    targetSdk = ProjectProperties.MIN_SDK
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
@@ -28,7 +25,6 @@ dependencies {
 
   implementation(project(":domain"))
   /*Kotlin*/
-  api(Lib.Kotlin.KT_STD)
   api(Lib.Async.COROUTINES)
 
   /* Networking */
