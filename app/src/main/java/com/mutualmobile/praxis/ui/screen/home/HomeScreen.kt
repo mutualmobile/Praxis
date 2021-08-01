@@ -5,6 +5,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,10 +27,10 @@ fun HomeScreen(modifier: Modifier = Modifier,
                onShowJokeClick: (List<Joke>) -> Unit,
                onAboutClick: () -> Unit) {
 
-    val state = remember { viewModel.viewState.value }
+    val state by remember { viewModel.viewState }
 
     if (state is HomeViewState.ShowJokes) {
-        onShowJokeClick(state.jokes)
+        onShowJokeClick((state as HomeViewState.ShowJokes).jokes)
     }
 
     HomeScreen(modifier = modifier,
@@ -44,7 +45,8 @@ fun HomeScreen(modifier: Modifier = Modifier,
 fun HomeScreenInitialPreview() {
     HomeScreen(state = HomeViewState.Initial,
             onShowJokeClick = { },
-            onAboutClick = {})
+            onAboutClick = { }
+    )
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -53,7 +55,8 @@ fun HomeScreenInitialPreview() {
 fun HomeScreenLoadingPreview() {
     HomeScreen(state = HomeViewState.Loading,
             onShowJokeClick = { },
-            onAboutClick = {})
+            onAboutClick = { }
+    )
 }
 
 @ExperimentalAnimationApi
