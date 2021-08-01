@@ -9,11 +9,10 @@ The purpose of this app to showcase:
  - Performing background task with Kotlin Coroutines
 
 ## Languages, libraries and tools used
-- [Kotlin](https://kotlinlang.org/)
- - AndroidX libraries
+ - [Kotlin](https://kotlinlang.org/)
  - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)
- - [Android Data Binding](https://developer.android.com/topic/libraries/data-binding)
- - [Dagger 2](https://github.com/google/dagger)
+ - [Jetpack Compose](https://developer.android.com/jetpack/compose)
+ - [Dagger Hilt](https://dagger.dev/hilt/)
  - [Retrofit](http://square.github.io/retrofit/)
  - [OkHttp](http://square.github.io/okhttp/)
  - [Gson](https://github.com/google/gson)
