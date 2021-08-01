@@ -68,6 +68,8 @@ dependencies {
 
     /* Android Designing and layout */
     implementation(Lib.Android.LIFECYCLE_VIEWMODEL_KTX)
+    implementation(Lib.Android.NAVIGATION_COMPOSE)
+    implementation(Lib.Android.HILT_NAVIGATION_COMPOSE)
     implementation(Lib.Google.MATERIAL)
 
     /* Compose */
@@ -79,8 +81,7 @@ dependencies {
 
     /*DI*/
     implementation(Lib.Di.HILT)
-    implementation(Lib.Di.HILT_COMPILER)
-    kapt(Lib.Di.ANDROIDX_HILT_COMPILER)
+    kapt(Lib.Di.HILT_COMPILER)
 
     /* Logger */
     api(Lib.Logger.TIMBER)

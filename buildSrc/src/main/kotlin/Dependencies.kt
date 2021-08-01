@@ -29,8 +29,12 @@ object Lib {
 
     object Android {
         private const val LIFECYCLE_VIEWMODEL_KTX_VERSION = "2.3.1"
+        private const val NAVIGATION_COMPOSE_VERSION = "2.4.0-alpha05"
+        private const val HILT_NAVIGATION_COMPOSE_VERSION = "1.0.0-alpha02"
 
         const val LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${LIFECYCLE_VIEWMODEL_KTX_VERSION}"
+        const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:${NAVIGATION_COMPOSE_VERSION}"
+        const val HILT_NAVIGATION_COMPOSE = "androidx.hilt:hilt-navigation-compose:${HILT_NAVIGATION_COMPOSE_VERSION}"
     }
 
     object Google {
@@ -66,15 +70,12 @@ object Lib {
         private const val DAGGER_VERSION = "2.38.1"
         const val DAGGER = "com.google.dagger:dagger:${DAGGER_VERSION}"
         const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
-        const val DAGGER_ANDROID = "com.google.dagger:dagger-android-support:${DAGGER_VERSION}"
         const val DAGGER_PROCESSOR = "com.google.dagger:dagger-android-processor:${DAGGER_VERSION}"
 
         const val HILT =
                 "com.google.dagger:hilt-android:${DAGGER_VERSION}"
         const val HILT_COMPILER =
-                "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
-        const val ANDROIDX_HILT_COMPILER =
-                "androidx.hilt:hilt-compiler:${DAGGER_VERSION}"
+                "com.google.dagger:hilt-compiler:${DAGGER_VERSION}"
     }
 
     object Async {
