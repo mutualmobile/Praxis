@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.ui.screen.joke
 
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.mutualmobile.praxis.domain.model.Joke
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,7 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ShowJokeVM @Inject constructor() : ViewModel() {
 
-    val jokeStringLiveData = MutableLiveData<String>()
+    val jokes = mutableStateOf("")
 
     fun showJoke(jokeList: List<Joke>) {
         var jokeString = ""
@@ -17,7 +17,7 @@ class ShowJokeVM @Inject constructor() : ViewModel() {
             jokeString = jokeString + joke.joke.replace("&quot;", "\"") + "\n\n"
         }
 
-        jokeStringLiveData.postValue(jokeString)
+        jokes.value = jokeString
     }
 
 }

@@ -53,7 +53,7 @@ fun NavGraph(modifier: Modifier = Modifier,
 
         composable(Screen.Joke.id) {
             val list = navController.previousBackStackEntry?.arguments?.getParcelableArrayList<Joke>("list") as List<Joke>
-            JokeScreen(hiltViewModel<ShowJokeVM>(), list)
+            JokeScreen(hiltViewModel<ShowJokeVM>().apply { this.showJoke(list) })
         }
     }
 }
