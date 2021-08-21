@@ -1,7 +1,7 @@
 /** This file contains versions of all the dependencies used in the module  */
 
 object BuildPlugins {
-    private const val TOOLS_BUILD = "7.1.0-alpha05"
+    private const val TOOLS_BUILD = "7.1.0-alpha08"
     private const val KT_LINT = "9.2.1"
     private const val DAGGER_HILT = "2.38.1"
 
@@ -29,7 +29,7 @@ object Lib {
 
     object Android {
         private const val LIFECYCLE_VIEWMODEL_KTX_VERSION = "2.3.1"
-        private const val NAVIGATION_COMPOSE_VERSION = "2.4.0-alpha05"
+        private const val NAVIGATION_COMPOSE_VERSION = "2.4.0-alpha07"
         private const val HILT_NAVIGATION_COMPOSE_VERSION = "1.0.0-alpha02"
 
         const val LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${LIFECYCLE_VIEWMODEL_KTX_VERSION}"

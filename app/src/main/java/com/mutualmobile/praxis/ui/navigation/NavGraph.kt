@@ -8,6 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import com.mutualmobile.praxis.domain.model.Joke
 import com.mutualmobile.praxis.ui.screen.home.HomeScreen
@@ -47,7 +48,7 @@ fun NavGraph(modifier: Modifier = Modifier,
                     })
         }
 
-        composable(Screen.About.id) {
+        dialog(Screen.About.id) {
             AboutScreen(hiltViewModel<AboutVM>())
         }
 
