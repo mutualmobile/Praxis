@@ -2,28 +2,34 @@ package com.mutualmobile.praxis.ui.home
 
 import android.os.Bundle
 import android.os.Parcelable
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.mutualmobile.praxis.BR
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.ActivityHomeBinding
 import com.mutualmobile.praxis.domain.model.Joke
 import com.mutualmobile.praxis.ui.base.ActivityNavigator
-import com.mutualmobile.praxis.ui.base.BaseActivity
 import com.mutualmobile.praxis.ui.home.HomeViewState.Error
 import com.mutualmobile.praxis.ui.home.HomeViewState.Loading
 import com.mutualmobile.praxis.ui.home.HomeViewState.ShowJokes
 import com.mutualmobile.praxis.ui.home.about.AboutFragment
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.ArrayList
 
-class HomeActivity : BaseActivity<ActivityHomeBinding, HomeVM>() {
-  override fun getViewModelClass(): Class<HomeVM> = HomeVM::class.java
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity() {
 
-  override fun layoutId(): Int = R.layout.activity_home
+  private lateinit var binding: ActivityHomeBinding
+  private val viewModel: HomeVM by viewModels()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+    binding.setVariable(BR.viewModel, viewModel)
     addListeners()
     addObservers()
   }

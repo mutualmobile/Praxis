@@ -13,6 +13,7 @@ object BuildPlugins {
     "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
   const val SAFE_ARGS_GRADLE_PLUGIN =
     "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
+  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
@@ -33,8 +34,8 @@ object Lib {
   object Android {
     private const val CONSTRAINT_LAYOUT_VERSION = "1.1.3"
     private const val MATERIAL_DESIGN_VERSION = "1.1.0"
-    private const val LIFECYCLE_VIEWMODEL_KTX_VERSION = "2.2.0"
-    private const val FRAGMENT_VERSION = "1.2.5"
+    private const val LIFECYCLE_VIEWMODEL_KTX_VERSION = "2.4.0"
+    private const val FRAGMENT_VERSION = "1.4.0"
 
     const val CONSTRAINT_LAYOUT =
       "androidx.constraintlayout:constraintlayout:${CONSTRAINT_LAYOUT_VERSION}"
@@ -44,6 +45,7 @@ object Lib {
       "androidx.lifecycle:lifecycle-viewmodel-ktx:${LIFECYCLE_VIEWMODEL_KTX_VERSION}"
     const val FRAGMENT =
       "androidx.fragment:fragment-ktx:${FRAGMENT_VERSION}"
+    const val ACT_KTX = "androidx.activity:activity-ktx:1.4.0"
   }
 
   object Database {
@@ -53,11 +55,9 @@ object Lib {
   }
 
   object Di {
-    private const val DAGGER_VERSION = "2.24"
-    const val DAGGER = "com.google.dagger:dagger:${DAGGER_VERSION}"
-    const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
-    const val DAGGER_ANDROID = "com.google.dagger:dagger-android-support:${DAGGER_VERSION}"
-    const val DAGGER_PROCESSOR = "com.google.dagger:dagger-android-processor:${DAGGER_VERSION}"
+    private const val DAGGER_VERSION = "2.38.1"
+    const val DAGGER = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
+    const val DAGGER_COMPILER = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
   }
 
   object Async {

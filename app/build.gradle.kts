@@ -5,6 +5,7 @@ plugins {
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
   id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
+  id("dagger.hilt.android.plugin")
   id("org.jlleitschuh.gradle.ktlint")
 }
 
@@ -69,11 +70,10 @@ dependencies {
   implementation(Lib.Android.FRAGMENT)
   implementation(Lib.Android.MATERIAL_DESIGN)
   implementation(Lib.Android.LIFECYCLE_VIEWMODEL_KTX)
+  implementation(Lib.Android.ACT_KTX)
 
   /*DI*/
   implementation(Lib.Di.DAGGER)
-  implementation(Lib.Di.DAGGER_ANDROID)
-  kapt(Lib.Di.DAGGER_PROCESSOR)
   kapt(Lib.Di.DAGGER_COMPILER)
   kaptTest(Lib.Di.DAGGER_COMPILER)
 

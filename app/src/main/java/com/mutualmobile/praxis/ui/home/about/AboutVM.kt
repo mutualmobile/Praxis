@@ -1,6 +1,8 @@
 package com.mutualmobile.praxis.ui.home.about
 
-import com.mutualmobile.praxis.ui.base.BaseVM
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class AboutVM @Inject constructor() : BaseVM()
+@HiltViewModel
+class AboutVM @Inject constructor() : ViewModel()

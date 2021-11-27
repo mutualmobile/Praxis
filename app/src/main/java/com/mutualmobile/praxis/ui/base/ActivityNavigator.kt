@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 object ActivityNavigator{
 
 
-  fun startActivity(activityClass: Class<out Activity>, activity: Activity) {
+  fun startActivity(activityClass: Class<out AppCompatActivity>, activity: AppCompatActivity) {
     val intent = Intent(activity, activityClass)
     activity.startActivity(intent)
   }
 
   fun startActivityWithData(
-    activityClass: Class<out Activity>,
+    activityClass: Class<out AppCompatActivity>,
     bundle: Bundle, activity: AppCompatActivity
   ) {
     val intent = Intent(activity, activityClass)
@@ -24,7 +24,7 @@ object ActivityNavigator{
   }
 
   fun startActivityWithDataAndAnimation(
-    activityClass: Class<out Activity>,
+    activityClass: Class<out AppCompatActivity>,
     bundle: Bundle,
     inAnimation: Int,
     outAnimation: Int,

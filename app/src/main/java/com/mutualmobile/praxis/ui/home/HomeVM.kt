@@ -2,18 +2,20 @@ package com.mutualmobile.praxis.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mutualmobile.praxis.data.SafeResult
 import com.mutualmobile.praxis.domain.model.Joke
 import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
-import com.mutualmobile.praxis.ui.base.BaseVM
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@HiltViewModel
 class HomeVM @Inject constructor(
   private val getFiveRandomJokesUseCase: GetFiveRandomJokesUseCase
-) : BaseVM() {
+) : ViewModel() {
 
   private var _viewState: MutableLiveData<HomeViewState> = MutableLiveData()
   val viewState: LiveData<HomeViewState> = _viewState

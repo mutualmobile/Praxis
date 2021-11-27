@@ -5,18 +5,21 @@ import com.mutualmobile.praxis.data.sources.IJokesRemoteSource
 import com.mutualmobile.praxis.data.sources.JokesRemoteSource
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
  * Created by Vipul Asri on 13/01/21.
  */
 
+
 @Module
+@InstallIn(SingletonComponent::class)
 object SourcesModule {
 
   @Provides
   @Singleton
-  @JvmStatic
   fun provideJokesNetworkSource(apiService: JokeApiService): IJokesRemoteSource {
     return JokesRemoteSource(
         apiService
