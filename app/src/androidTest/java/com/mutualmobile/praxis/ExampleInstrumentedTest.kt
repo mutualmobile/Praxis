@@ -11,7 +11,8 @@ import org.junit.runner.RunWith
 
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
-@RunWith(AndroidJUnit4::class) class ExampleInstrumentedTest {
+@RunWith(AndroidJUnit4::class)
+class ExampleInstrumentedTest {
   @Test @Throws(Exception::class)
   fun useAppContext() {
     // Context of the app under test.

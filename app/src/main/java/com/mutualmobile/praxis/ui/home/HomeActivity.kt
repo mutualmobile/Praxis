@@ -1,39 +1,73 @@
 package com.mutualmobile.praxis.ui.home
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.os.Parcelable
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.mutualmobile.praxis.BR
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.ActivityHomeBinding
-import com.mutualmobile.praxis.ui.base.ActivityNavigator
-import com.mutualmobile.praxis.ui.base.BaseActivity
+import com.mutualmobile.praxis.ui.home.HomeViewState.Error
+import com.mutualmobile.praxis.ui.home.HomeViewState.Loading
+import com.mutualmobile.praxis.ui.home.HomeViewState.ShowJokes
 import com.mutualmobile.praxis.ui.home.about.AboutFragment
 import com.mutualmobile.praxis.ui.joke.ShowJokeActivity
+import com.mutualmobile.praxis.ui.model.UIJoke
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.ArrayList
 
-class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
-  override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity() {
 
-  override fun layoutId(): Int = R.layout.activity_home
+  private lateinit var binding: ActivityHomeBinding
+  private val viewModel: HomeVM by viewModels()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding.randomJokesButtonCoroutine.setOnClickListener { viewModel.loadDataCoroutine() }
-    binding.randomJokesButtonRx.setOnClickListener { viewModel.loadDataRx() }
-    binding.aboutButton.setOnClickListener { showAboutFragment() }
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+    binding.setVariable(BR.viewModel, viewModel)
+    addListeners()
+    addObservers()
+  }
 
-    viewModel.dataLoading.observe(this, Observer { handleDataLoadingUi(it!!) })
+  private fun addListeners() {
+    with(binding) {
+      randomJokesButtonCoroutine.setOnClickListener { viewModel.loadJokes() }
+      aboutButton.setOnClickListener { showAboutFragment() }
+    }
+  }
 
-    viewModel.dataJokes.observe(this, Observer { it ->
-      it?.let {
-        val bundle = Bundle()
-        bundle.putParcelableArrayList(ShowJokeActivity.JOKE_LIST_INTENT, it.value)
-        showJokeActivity(bundle)
+  private fun addObservers() {
+    viewModel.viewState.observe(this, Observer { state ->
+      when (state) {
+        is Loading -> {
+          handleDataLoadingUi(true)
+        }
+        is ShowJokes -> {
+          handleDataLoadingUi(false)
+          showJokeActivity(state.jokes)
+        }
+        is Error -> {
+          handleDataLoadingUi(false)
+        }
       }
     })
   }
 
-  private fun showJokeActivity(bundle: Bundle) {
-    ActivityNavigator.startActivityWithDataAndAnimation(ShowJokeActivity::class.java, bundle, R.anim.slide_left_in, R.anim.slide_left_out, this)
+  private fun showJokeActivity(DOMJokes: List<UIJoke>) {
+    val bundle = Bundle().apply {
+      putParcelableArrayList(
+        ShowJokeActivity.JOKE_LIST_INTENT,
+        DOMJokes as ArrayList<out Parcelable>
+      )
+    }
+    startActivity(Intent(this, ShowJokeActivity::class.java).apply {
+      putExtras(bundle)
+    })
   }
 
   private fun showAboutFragment() {
@@ -42,9 +76,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
   }
 
   private fun handleDataLoadingUi(loading: Boolean) {
-    binding.progressbar.visibility = if (loading) View.VISIBLE else View.INVISIBLE
-    binding.randomJokesButtonCoroutine.isEnabled = !loading
-    binding.randomJokesButtonRx.isEnabled = !loading
-    binding.aboutButton.isEnabled = !loading
+    with(binding) {
+      progressbar.isVisible = loading
+      randomJokesButtonCoroutine.isEnabled = !loading
+      aboutButton.isEnabled = !loading
+    }
   }
 }

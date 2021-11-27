@@ -7,7 +7,7 @@
 
     <variable
         name="viewModel"
-        type="com.mutualmobile.praxis.ui.joke.ShowJokeViewModel"
+        type="com.mutualmobile.praxis.ui.joke.ShowJokeVM"
         />
   </data>
 

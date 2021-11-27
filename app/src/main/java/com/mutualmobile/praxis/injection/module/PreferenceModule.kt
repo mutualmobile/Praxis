@@ -3,15 +3,17 @@ package com.mutualmobile.praxis.injection.module
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.mutualmobile.praxis.injection.qualifiers.ApplicationContext
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 
 @Module
+@InstallIn(SingletonComponent::class)
 class PreferenceModule {
 
-  @Provides @Singleton
+  @Provides
   internal fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
     return PreferenceManager.getDefaultSharedPreferences(context)
   }

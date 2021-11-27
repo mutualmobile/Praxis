@@ -1,27 +1,30 @@
 package com.mutualmobile.praxis.ui.joke
 
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.mutualmobile.praxis.BR
 import com.mutualmobile.praxis.R
-import com.mutualmobile.praxis.data.model.Joke
 import com.mutualmobile.praxis.databinding.ActivityShowjokeBinding
-import com.mutualmobile.praxis.ui.base.ActivityNavigator
-import com.mutualmobile.praxis.ui.base.BaseActivity
+import com.mutualmobile.praxis.ui.model.UIJoke
+import dagger.hilt.android.AndroidEntryPoint
 
-class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel>() {
+@AndroidEntryPoint
+class ShowJokeActivity : AppCompatActivity() {
 
   companion object {
     const val JOKE_LIST_INTENT = "Joke_list_intent"
   }
 
-  override fun getViewModelClass(): Class<ShowJokeViewModel> = ShowJokeViewModel::class.java
-
-  override fun layoutId(): Int {
-    return R.layout.activity_showjoke
-  }
+  private val viewModel by viewModels<ShowJokeVM>()
+  private lateinit var binding: ActivityShowjokeBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val jokeList = intent.getParcelableArrayListExtra<Joke>(JOKE_LIST_INTENT)
+    binding = DataBindingUtil.setContentView(this,R.layout.activity_showjoke)
+    binding.setVariable(BR.viewModel, viewModel)
+    val jokeList = intent.getParcelableArrayListExtra<UIJoke>(JOKE_LIST_INTENT)
     binding.lifecycleOwner = this
     viewModel.showJoke(jokeList)
     initToolbar()
@@ -35,7 +38,7 @@ class ShowJokeActivity : BaseActivity<ActivityShowjokeBinding, ShowJokeViewModel
   }
 
   override fun onBackPressed() {
-    ActivityNavigator.finishActivityWithAnimation(R.anim.slide_right_in, R.anim.slide_right_out, this)
+    finish()
   }
 
 }

@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleOwner
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.FragmentAboutBinding
-import dagger.android.support.DaggerAppCompatDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class AboutFragment : DaggerAppCompatDialogFragment(), LifecycleOwner {
+@AndroidEntryPoint
+class AboutFragment : DialogFragment(), LifecycleOwner {
 
   companion object {
     fun newInstance(): AboutFragment {
