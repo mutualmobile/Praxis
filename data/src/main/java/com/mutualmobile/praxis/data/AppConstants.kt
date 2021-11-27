@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis
+package com.mutualmobile.praxis.data
 
 object AppConstants {
   const val BASE_URL = "https://api.icndb.com"

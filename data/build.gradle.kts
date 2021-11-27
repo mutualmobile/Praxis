@@ -2,6 +2,7 @@ plugins {
   id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
+  id(BuildPlugins.DAGGER_HILT)
 }
 
 android {
@@ -21,8 +22,16 @@ android {
   }
 }
 
+// Required for annotation processing plugins like Dagger
+kapt {
+  generateStubs = true
+  correctErrorTypes = true
+}
+
 dependencies {
 
+  implementation(project(":domain"))
+  implementation(project(":baseclean"))
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
   api(Lib.Async.COROUTINES)

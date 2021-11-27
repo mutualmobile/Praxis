@@ -1,7 +1,7 @@
 package com.mutualmobile.praxis.data.remote
 
 import android.util.Log
-import com.mutualmobile.praxis.data.SafeResult
+import com.mutualmobile.baseclean.SafeResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException

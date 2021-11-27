@@ -7,8 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.mutualmobile.praxis.BR
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.ActivityShowjokeBinding
-import com.mutualmobile.praxis.domain.model.Joke
-import com.mutualmobile.praxis.ui.base.ActivityNavigator
+import com.mutualmobile.praxis.ui.model.UIJoke
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,7 +24,7 @@ class ShowJokeActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView(this,R.layout.activity_showjoke)
     binding.setVariable(BR.viewModel, viewModel)
-    val jokeList = intent.getParcelableArrayListExtra<Joke>(JOKE_LIST_INTENT)
+    val jokeList = intent.getParcelableArrayListExtra<UIJoke>(JOKE_LIST_INTENT)
     binding.lifecycleOwner = this
     viewModel.showJoke(jokeList)
     initToolbar()
@@ -39,7 +38,7 @@ class ShowJokeActivity : AppCompatActivity() {
   }
 
   override fun onBackPressed() {
-    ActivityNavigator.finishActivityWithAnimation(R.anim.slide_right_in, R.anim.slide_right_out, this)
+    finish()
   }
 
 }

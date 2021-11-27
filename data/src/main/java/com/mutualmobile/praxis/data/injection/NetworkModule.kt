@@ -1,6 +1,6 @@
-package com.mutualmobile.praxis.injection.module
+package com.mutualmobile.praxis.data.injection
 
-import com.mutualmobile.praxis.AppConstants
+import com.mutualmobile.praxis.data.AppConstants
 import com.mutualmobile.praxis.data.remote.JokeApiService
 import com.mutualmobile.praxis.data.remote.RetrofitHelper
 import dagger.Module
@@ -9,8 +9,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import javax.inject.Singleton
-
 /**
  * Created by Vipul Asri on 13/01/21.
  */
@@ -20,15 +18,11 @@ import javax.inject.Singleton
 object NetworkModule {
 
   @Provides
-  @Singleton
-  @JvmStatic
   fun provideHttpClient(): OkHttpClient {
     return RetrofitHelper.createOkHttpClient()
   }
 
   @Provides
-  @Singleton
-  @JvmStatic
   fun provideRetrofit(
     okHttpClient: OkHttpClient
   ): Retrofit {
@@ -36,8 +30,6 @@ object NetworkModule {
   }
 
   @Provides
-  @Singleton
-  @JvmStatic
   fun provideJokesApiService(retrofit: Retrofit): JokeApiService {
     return JokeApiService.createRetrofitService(retrofit)
   }

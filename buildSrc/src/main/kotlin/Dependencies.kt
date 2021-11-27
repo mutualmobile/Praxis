@@ -5,7 +5,7 @@ import Lib.Networking
 object BuildPlugins {
   private const val TOOLS_BUILD = "7.0.3"
   private const val KT_LINT = "9.2.1"
-  private const val SAFE_ARGS = "2.3.0"
+  private const val SAFE_ARGS = "2.3.5"
 
   const val TOOLS_BUILD_GRADLE =
     "com.android.tools.build:gradle:${TOOLS_BUILD}"
@@ -19,6 +19,7 @@ object BuildPlugins {
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
   const val KOTLIN_PARCELABLE_PLUGIN = "kotlin-parcelize"
   const val KOTLIN_KAPT = "kotlin-kapt"
+  const val DAGGER_HILT = "dagger.hilt.android.plugin"
 }
 
 object Lib {

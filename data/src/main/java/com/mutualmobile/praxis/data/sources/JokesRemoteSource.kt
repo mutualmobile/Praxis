@@ -1,8 +1,8 @@
 package com.mutualmobile.praxis.data.sources
 
-import com.mutualmobile.praxis.data.SafeResult
+import com.mutualmobile.baseclean.SafeResult
 import com.mutualmobile.praxis.data.remote.JokeApiService
-import com.mutualmobile.praxis.data.remote.model.JokeListResponse
+import com.mutualmobile.praxis.data.remote.model.NETJokeListData
 import com.mutualmobile.praxis.data.remote.safeApiCall
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ class JokesRemoteSource(
   private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : IJokesRemoteSource {
 
-  override suspend fun getFiveRandomJokes(): SafeResult<JokeListResponse> {
+  override suspend fun getFiveRandomJokes(): SafeResult<NETJokeListData> {
     return safeApiCall(dispatcher) {
       jokeApiService.getFiveRandomJokes()
     }

@@ -5,7 +5,7 @@ plugins {
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
   id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
-  id("dagger.hilt.android.plugin")
+  id(BuildPlugins.DAGGER_HILT)
   id("org.jlleitschuh.gradle.ktlint")
 }
 
@@ -57,10 +57,9 @@ kapt {
 }
 
 dependencies {
-
   implementation(project(":data"))
   implementation(project(":domain"))
-
+  implementation(project(":baseclean"))
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
   api(Lib.Kotlin.KTX_CORE)
