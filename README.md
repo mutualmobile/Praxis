@@ -26,7 +26,7 @@ Praxis follows the principles of Clean Architecture with Android Architecture Co
 
 ### Architecture's layers & boundaries:
 
-<img src="art/architecture.png" />
+<img src="art/architecture.jpeg" />
 
 **Presentation Layer**  contains  _UI (Activities & Fragments)_  that are coordinated by  _ViewModels which execute 1 or multiple UseCases._  Presentation Layer depends on Domain Layer.
 
