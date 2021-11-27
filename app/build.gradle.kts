@@ -17,12 +17,12 @@ subprojects {
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
-  compileSdkVersion(ProjectProperties.COMPILE_SDK)
+  compileSdk = (ProjectProperties.COMPILE_SDK)
 
   defaultConfig {
     applicationId = (ProjectProperties.APPLICATION_ID)
-    minSdkVersion(ProjectProperties.MIN_SDK)
-    targetSdkVersion(ProjectProperties.TARGET_SDK)
+    minSdk = (ProjectProperties.MIN_SDK)
+    targetSdk = (ProjectProperties.TARGET_SDK)
     versionCode = 1
     versionName = "1.0"
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
@@ -30,13 +30,9 @@ android {
   }
 
   packagingOptions {
-    exclude("META-INF/LICENSE.txt")
-    exclude("META-INF/NOTICE.txt")
-    exclude("LICENSE.txt")
-  }
-
-  dexOptions {
-    preDexLibraries = true
+    resources.excludes.add("META-INF/LICENSE.txt")
+    resources.excludes.add("META-INF/NOTICE.txt")
+    resources.excludes.add("LICENSE.txt")
   }
 
   buildFeatures {

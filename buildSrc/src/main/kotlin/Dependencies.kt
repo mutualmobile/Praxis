@@ -3,7 +3,7 @@ import Lib.Networking
 /** This file contains versions of all the dependencies used in the module  */
 
 object BuildPlugins {
-  private const val TOOLS_BUILD = "4.0.0"
+  private const val TOOLS_BUILD = "7.0.3"
   private const val KT_LINT = "9.2.1"
   private const val SAFE_ARGS = "2.3.0"
 
@@ -18,13 +18,12 @@ object BuildPlugins {
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
   const val KOTLIN_PARCELABLE_PLUGIN = "kotlin-parcelize"
   const val KOTLIN_KAPT = "kotlin-kapt"
-  const val SAFE_ARGS_PLUGIN = "androidx.navigation.safeargs.kotlin"
 }
 
 object Lib {
 
   object Kotlin {
-    const val KOTLIN_VERSION = "1.4.21"
+    const val KOTLIN_VERSION = "1.6.0"
     private const val KTX_CORE_VERSION = "1.2.0"
 
     const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
@@ -54,7 +53,7 @@ object Lib {
   }
 
   object Di {
-    private const val DAGGER_VERSION = "2.27"
+    private const val DAGGER_VERSION = "2.24"
     const val DAGGER = "com.google.dagger:dagger:${DAGGER_VERSION}"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     const val DAGGER_ANDROID = "com.google.dagger:dagger-android-support:${DAGGER_VERSION}"
