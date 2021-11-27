@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mutualmobile.baseclean.SafeResult
+import com.mutualmobile.praxis.domain.SafeResult
 import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
 import com.mutualmobile.praxis.ui.model.UIJoke
 import com.mutualmobile.praxis.ui.model.UIJokeMapper

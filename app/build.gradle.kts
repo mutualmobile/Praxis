@@ -59,7 +59,6 @@ kapt {
 dependencies {
   implementation(project(":data"))
   implementation(project(":domain"))
-  implementation(project(":baseclean"))
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
   api(Lib.Kotlin.KTX_CORE)

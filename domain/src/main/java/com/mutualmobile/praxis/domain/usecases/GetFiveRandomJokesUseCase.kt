@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.domain.usecases
 
-import com.mutualmobile.baseclean.SafeResult
+import com.mutualmobile.praxis.domain.SafeResult
 import com.mutualmobile.praxis.domain.model.DOMJoke
 import com.mutualmobile.praxis.domain.repository.IJokesRepo
 

@@ -1,4 +1,4 @@
-package com.mutualmobile.baseclean
+package com.mutualmobile.praxis.domain
 
 /**
  * A generic class that holds a value with its loading status.

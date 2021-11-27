@@ -32,7 +32,6 @@ kapt {
 
 dependencies {
 
-  implementation(project(":baseclean"))
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
   api(Lib.Async.COROUTINES)
