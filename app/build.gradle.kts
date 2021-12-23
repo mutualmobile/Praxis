@@ -75,6 +75,13 @@ dependencies {
   kapt(Lib.Di.DAGGER_COMPILER)
   kaptTest(Lib.Di.DAGGER_COMPILER)
 
+  /* PAGING */
+  implementation(Lib.Paging.PAGING_3)
+
+  /* GLIDE */
+  implementation(Lib.Glide.GLIDE)
+  kapt(Lib.Glide.GLIDE_COMPILER)
+
   /* Logger */
   api(Lib.Logger.TIMBER)
 

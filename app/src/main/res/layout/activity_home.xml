@@ -46,6 +46,15 @@
       android:textColor="@color/white" />
 
     <Button
+      android:id="@+id/btn_github_trending_repos"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="@string/show_trending_github_repos"
+      android:textAllCaps="false"
+      android:textColor="@color/white" />
+
+    <Button
       android:id="@+id/about_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

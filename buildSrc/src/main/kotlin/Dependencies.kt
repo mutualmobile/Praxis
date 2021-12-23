@@ -61,6 +61,17 @@ object Lib {
     const val DAGGER_COMPILER = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
   }
 
+  object Paging {
+    private const val PAGING_VERSION = "3.1.0"
+    const val PAGING_3 = "androidx.paging:paging-runtime:${PAGING_VERSION}"
+  }
+
+  object Glide {
+    private const val GLIDE_VERSION = "4.12.0"
+    const val GLIDE = "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+    const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
+  }
+
   object Async {
     private const val COROUTINES_VERSION = "1.3.7"
 
@@ -81,7 +92,7 @@ object Lib {
   }
 
   object Serialization {
-    private const val GSON_VERSION = "2.8.6"
+    private const val GSON_VERSION = "2.8.8"
     const val GSON = "com.google.code.gson:gson:${GSON_VERSION}"
   }
 

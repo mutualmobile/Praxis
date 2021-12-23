@@ -8,4 +8,7 @@
   <color name="hyperlink_color">#0645AD</color>
   <color name="color_black">#000</color>
 
+  <color name="colorBackground">#e4e4e2</color>
+  <color name="colorDescription">#838381</color>
+
 </resources>

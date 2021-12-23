@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.mutualmobile.praxis.BR
 import com.mutualmobile.praxis.R
 import com.mutualmobile.praxis.databinding.ActivityHomeBinding
+import com.mutualmobile.praxis.ui.github.GithubReposActivity
 import com.mutualmobile.praxis.ui.home.HomeViewState.Error
 import com.mutualmobile.praxis.ui.home.HomeViewState.Loading
 import com.mutualmobile.praxis.ui.home.HomeViewState.ShowJokes
@@ -37,6 +38,9 @@ class HomeActivity : AppCompatActivity() {
   private fun addListeners() {
     with(binding) {
       randomJokesButtonCoroutine.setOnClickListener { viewModel.loadJokes() }
+      btnGithubTrendingRepos.setOnClickListener {
+        startActivity(Intent(this@HomeActivity, GithubReposActivity::class.java))
+      }
       aboutButton.setOnClickListener { showAboutFragment() }
     }
   }

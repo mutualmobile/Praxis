@@ -28,6 +28,7 @@
     </activity>
 
     <activity android:name=".ui.joke.ShowJokeActivity"/>
+    <activity android:name=".ui.github.GithubReposActivity" />
 
   </application>
 
