@@ -33,15 +33,24 @@ object Lib {
   }
 
   object Android {
-    private const val CONSTRAINT_LAYOUT_VERSION = "1.1.3"
-    private const val MATERIAL_DESIGN_VERSION = "1.1.0"
+    private const val CONSTRAINT_LAYOUT_VERSION = "2.1.2"
+    private const val MATERIAL_DESIGN_VERSION = "1.4.0"
     private const val LIFECYCLE_VIEWMODEL_KTX_VERSION = "2.4.0"
     private const val FRAGMENT_VERSION = "1.4.0"
 
+    const val ACT_COMPOSE = "androidx.activity:activity-compose:1.4.0"
+
+    const val UI_TEST_JUNIT = "androidx.compose.ui:ui-test-junit4:1.1.0-rc01"
     const val CONSTRAINT_LAYOUT =
       "androidx.constraintlayout:constraintlayout:${CONSTRAINT_LAYOUT_VERSION}"
+    const val COMPOSE_UI = "androidx.compose.ui:ui:1.1.0-rc01"
+    const val COIL_COMPOSE = "io.coil-kt:coil-compose:1.4.0"
+    const val COMPOSE_MATERIAL = "androidx.compose.material:material:1.1.0-rc01"
+    const val COMPOSE_TOOLING  = "androidx.compose.ui:ui-tooling-preview:1.1.0-rc01"
+    const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
     const val MATERIAL_DESIGN =
       "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
+    const val APPCOMPAT = "androidx.appcompat:appcompat:1.4.0"
     const val LIFECYCLE_VIEWMODEL_KTX =
       "androidx.lifecycle:lifecycle-viewmodel-ktx:${LIFECYCLE_VIEWMODEL_KTX_VERSION}"
     const val FRAGMENT =

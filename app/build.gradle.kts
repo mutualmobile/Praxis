@@ -38,6 +38,16 @@ android {
 
   buildFeatures {
     dataBinding = true
+    compose = true
+  }
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.1.0-rc02"
+  }
+  packagingOptions {
+    resources {
+      excludes += "/META-INF/{AL2.0,LGPL2.1}"
+    }
   }
 
   compileOptions {
@@ -64,16 +74,24 @@ dependencies {
   implementation(project(":common"))
   implementation(project(":commonui"))
 
-  /*Kotlin*/
+
   api(Lib.Kotlin.KT_STD)
   api(Lib.Kotlin.KTX_CORE)
-
   /* Android Designing and layout */
   api(Lib.Android.CONSTRAINT_LAYOUT)
   api(Lib.Android.FRAGMENT)
   api(Lib.Android.MATERIAL_DESIGN)
+  api(Lib.Android.APPCOMPAT)
   api(Lib.Android.LIFECYCLE_VIEWMODEL_KTX)
   api(Lib.Android.ACT_KTX)
+  api(Lib.Android.COMPOSE_UI)
+  api(Lib.Android.COIL_COMPOSE)
+  api(Lib.Android.COMPOSE_MATERIAL)
+  debugApi(Lib.Android.COMPOSE_TOOLING)
+  api(Lib.Android.LIFECYCLE_RUNTIME_KTX)
+  api(Lib.Android.ACT_COMPOSE)
+
+
 
   /*DI*/
   implementation(Lib.Di.DAGGER)
