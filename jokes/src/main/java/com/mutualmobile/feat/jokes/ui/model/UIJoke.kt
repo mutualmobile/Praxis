@@ -4,10 +4,10 @@ import android.os.Parcelable
 import com.mutualmobile.praxis.domain.mappers.UIModel
 import com.mutualmobile.praxis.domain.model.DOMJoke
 import com.mutualmobile.praxis.domain.mappers.UiModelMapper
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UIJoke(val jokeId: Int, val joke: String) : UIModel(),Parcelable
+data class UIJoke(val jokeId: Int, val joke: String) : UIModel(), Parcelable
 
 class UIJokeMapper : UiModelMapper<DOMJoke, UIJoke> {
   override fun mapToPresentation(model: DOMJoke): UIJoke {
