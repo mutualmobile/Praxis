@@ -57,18 +57,23 @@ kapt {
 }
 
 dependencies {
+  implementation(project(":jokes"))
+  implementation(project(":navigator"))
   implementation(project(":data"))
   implementation(project(":domain"))
+  implementation(project(":common"))
+  implementation(project(":commonui"))
+
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
   api(Lib.Kotlin.KTX_CORE)
 
   /* Android Designing and layout */
-  implementation(Lib.Android.CONSTRAINT_LAYOUT)
-  implementation(Lib.Android.FRAGMENT)
-  implementation(Lib.Android.MATERIAL_DESIGN)
-  implementation(Lib.Android.LIFECYCLE_VIEWMODEL_KTX)
-  implementation(Lib.Android.ACT_KTX)
+  api(Lib.Android.CONSTRAINT_LAYOUT)
+  api(Lib.Android.FRAGMENT)
+  api(Lib.Android.MATERIAL_DESIGN)
+  api(Lib.Android.LIFECYCLE_VIEWMODEL_KTX)
+  api(Lib.Android.ACT_KTX)
 
   /*DI*/
   implementation(Lib.Di.DAGGER)
