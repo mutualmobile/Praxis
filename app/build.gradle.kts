@@ -63,8 +63,8 @@ kapt {
 }
 
 dependencies {
-  implementation(project(":jokes"))
-  implementation(project(":authentication"))
+  implementation(project(":featjokes"))
+  implementation(project(":featauthentication"))
   implementation(project(":navigator"))
   implementation(project(":data"))
   implementation(project(":domain"))
