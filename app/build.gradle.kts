@@ -76,6 +76,8 @@ dependencies {
   implementation(Lib.Android.navigationCompose)
   implementation(Lib.Kotlin.KT_STD)
   implementation(Lib.Android.MATERIAL_DESIGN)
+  implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
+  implementation(Lib.Android.ACCOMPANIST_INSETS)
 
   implementation(Lib.Android.appCompat)
   implementation(Lib.Kotlin.KTX_CORE)

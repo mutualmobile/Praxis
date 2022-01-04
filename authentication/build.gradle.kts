@@ -63,39 +63,31 @@ dependencies {
     implementation(project(":navigator"))
     implementation(project(":commonui"))
 
-    implementation(Lib.Android.COMPOSE_UI)
-    implementation(Lib.Android.COIL_COMPOSE)
-    implementation(Lib.Android.COMPOSE_MATERIAL)
-    implementation(Lib.Android.COMPOSE_UI)
-    implementation(Lib.Android.COMPOSE_TOOLING)
-    debugImplementation(Lib.Android.COMPOSE_TOOLING)
-    implementation(Lib.Android.ACT_COMPOSE)
+    api(Lib.Android.COMPOSE_UI)
+    api(Lib.Android.COIL_COMPOSE)
+    api(Lib.Android.COMPOSE_MATERIAL)
+    api(Lib.Android.COMPOSE_UI)
+    api(Lib.Android.COMPOSE_TOOLING)
+    debugApi(Lib.Android.COMPOSE_TOOLING)
+    api(Lib.Android.ACT_COMPOSE)
 
-    implementation(Lib.Android.appCompat)
-    implementation(Lib.Kotlin.KTX_CORE)
+    api(Lib.Android.appCompat)
+    api(Lib.Kotlin.KTX_CORE)
 
+    api(Lib.Android.ACCOMPANIST_INSETS)
 
     /*DI*/
-    implementation(Lib.Di.hilt)
-    implementation(Lib.Di.hiltNavigationCompose)
-    implementation(Lib.Di.viewmodel)
+    api(Lib.Di.hilt)
+    api(Lib.Di.hiltNavigationCompose)
+    api(Lib.Di.viewmodel)
 
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
 
     /* Logger */
-    implementation(Lib.Logger.TIMBER)
+    api(Lib.Logger.TIMBER)
     /* Async */
-    implementation(Lib.Async.COROUTINES)
-    implementation(Lib.Async.COROUTINES_ANDROID)
-    /*Testing*/
-    testImplementation(TestLib.JUNIT)
-    testImplementation(TestLib.CORE_TEST)
-    testImplementation(TestLib.ANDROID_JUNIT)
-    testImplementation(TestLib.ARCH_CORE)
-    testImplementation(TestLib.MOCK_WEB_SERVER)
-    testImplementation(TestLib.ROBO_ELECTRIC)
-    testImplementation(TestLib.COROUTINES)
-    testImplementation(TestLib.MOCKK)
+    api(Lib.Async.COROUTINES)
+    api(Lib.Async.COROUTINES_ANDROID)
 
 }
