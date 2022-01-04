@@ -43,6 +43,6 @@ dependencies {
   api(Lib.Serialization.GSON)
 
   /* Dependency Injection */
-  api(Lib.Di.DAGGER)
-  kapt(Lib.Di.DAGGER_COMPILER)
+  api(Lib.Di.hilt)
+  kapt(Lib.Di.hiltAndroidCompiler)
 }

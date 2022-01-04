@@ -1,16 +1,17 @@
 package com.mutualmobile.praxis.navigator
 
-import android.content.Context
-import android.content.Intent
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentActivity
+import com.mutualmobile.praxis.navigator.directions.AuthenticationDirections
+import com.mutualmobile.praxis.navigator.directions.NavigationCommand
+import kotlinx.coroutines.flow.MutableStateFlow
 
-class Navigator(private val context: Context) {
-  fun startScreen(apply: Intent) {
-    context.startActivity(apply)
+class Navigator {
+  var commands = MutableStateFlow(AuthenticationDirections.Default)
+
+  fun navigate(
+    directions: NavigationCommand
+  ) {
+    commands.value = directions
   }
 
-  fun showFragmentDialog(newInstance: DialogFragment, tag: String) {
-    newInstance.show((context as FragmentActivity).supportFragmentManager, tag)
-  }
 }
+

@@ -1,5 +1,6 @@
 package com.mutualmobile.feat.jokes.ui.home
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.ArrayList
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,25 +21,39 @@ class HomeVM @Inject constructor(
   private val uiJokesMapper: UIJokeMapper
 ) : ViewModel() {
 
-  private var _viewState: MutableLiveData<HomeViewState> = MutableLiveData()
-  val viewState: LiveData<HomeViewState> = _viewState
+  var viewState = mutableStateOf<HomeViewState>(HomeViewState.Loading)
+    private set
+
+  init {
+    loadJokes()
+  }
+
+  private fun showJoke(DOMJokeList: List<UIJoke?>?): String {
+    var jokeString = ""
+    DOMJokeList?.let {
+      for (joke in DOMJokeList) {
+        jokeString = jokeString + joke?.joke?.replace("&quot;", "\"") + "\n\n"
+      }
+    }
+    return jokeString
+  }
 
   fun loadJokes() {
-    _viewState.value = HomeViewState.Loading
+    viewState.value = HomeViewState.Loading
     viewModelScope.launch {
       when (val result = getFiveRandomJokesUseCase.perform()) {
         is SafeResult.Success -> {
-          _viewState.value =
-            HomeViewState.ShowJokes(result.data.map {
+          viewState.value =
+            HomeViewState.ShowJokes(showJoke(result.data.map {
               uiJokesMapper.mapToPresentation(it)
-            })
+            }))
         }
         is SafeResult.Failure -> {
           Timber.e("onError")
-          _viewState.value = HomeViewState.Error(result.message)
+          viewState.value = HomeViewState.Error(result.message)
         }
         SafeResult.NetworkError -> {
-          _viewState.value = HomeViewState.Error("Network Error")
+          viewState.value = HomeViewState.Error("Network Error")
         }
       }
     }
@@ -46,6 +62,6 @@ class HomeVM @Inject constructor(
 
 sealed class HomeViewState {
   object Loading : HomeViewState()
-  class ShowJokes(val jokes: List<UIJoke>) : HomeViewState()
+  class ShowJokes(val jokes: String) : HomeViewState()
   class Error(val message: String) : HomeViewState()
 }
