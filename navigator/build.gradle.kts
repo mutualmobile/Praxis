@@ -1,39 +1,59 @@
 plugins {
-    id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
-    id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
-    id(BuildPlugins.KOTLIN_KAPT)
-    id(BuildPlugins.DAGGER_HILT)
+  id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
+  id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
+  id(BuildPlugins.KOTLIN_KAPT)
 }
 
 android {
-    compileSdk = ProjectProperties.COMPILE_SDK
+  compileSdk = ProjectProperties.COMPILE_SDK
 
-    defaultConfig {
-        minSdk = (ProjectProperties.MIN_SDK)
-        targetSdk = (ProjectProperties.TARGET_SDK)
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+  defaultConfig {
+    minSdk = (ProjectProperties.MIN_SDK)
+    targetSdk = (ProjectProperties.TARGET_SDK)
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
+  buildTypes {
+    getByName("release") {
+      isMinifyEnabled = false
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
+  }
+
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
+
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER
+  }
 }
 
 // Required for annotation processing plugins like Dagger
 kapt {
-    generateStubs = true
-    correctErrorTypes = true
+  generateStubs = true
+  correctErrorTypes = true
 }
 
 dependencies {
-    /*Kotlin*/
-    api(Lib.Kotlin.KT_STD)
+  /*Kotlin*/
+  implementation(Lib.Android.appCompat)
+  implementation(Lib.Kotlin.KTX_CORE)
+  api(Lib.Async.COROUTINES)
+  api(Lib.Async.COROUTINES_ANDROID)
 
-    /* Dependency Injection */
-    api(Lib.Di.DAGGER)
-    kapt(Lib.Di.DAGGER_COMPILER)
+
+  implementation(Lib.Kotlin.KT_STD)
+  implementation(Lib.Android.navigationCompose)
+
+  implementation(Lib.Android.navigationCompose)
+  implementation(Lib.Di.hiltNavigationCompose)
 
 }

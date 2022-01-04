@@ -33,7 +33,13 @@ dependencies {
     api(Lib.Kotlin.KT_STD)
 
     /* Dependency Injection */
-    api(Lib.Di.DAGGER)
-    kapt(Lib.Di.DAGGER_COMPILER)
+    implementation(Lib.Di.hilt)
+    implementation(Lib.Di.hiltNavigationCompose)
+    implementation(Lib.Di.viewmodel)
+
+    kapt(Lib.Di.hiltCompiler)
+    kaptTest(Lib.Di.hiltCompiler)
+    kapt(Lib.Di.hiltAndroidCompiler)
+    kaptTest(Lib.Di.hiltAndroidCompiler)
 
 }

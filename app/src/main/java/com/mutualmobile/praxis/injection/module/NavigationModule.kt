@@ -1,21 +1,20 @@
 package com.mutualmobile.praxis.injection.module
 
-import android.app.Activity
-import android.content.Context
 import com.mutualmobile.praxis.navigator.Navigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 class NavigationModule {
 
   @Provides
-  @ActivityScoped
-  fun provideNavigator(@ActivityContext context: Context): Navigator = Navigator(context)
+  @Singleton
+  fun provideNavigator(): Navigator = Navigator()
 
 }

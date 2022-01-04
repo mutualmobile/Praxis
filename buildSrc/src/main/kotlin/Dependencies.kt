@@ -33,36 +33,35 @@ object Lib {
   }
 
   object Android {
-    private const val CONSTRAINT_LAYOUT_VERSION = "1.1.3"
-    private const val MATERIAL_DESIGN_VERSION = "1.1.0"
-    private const val LIFECYCLE_VIEWMODEL_KTX_VERSION = "2.4.0"
-    private const val FRAGMENT_VERSION = "1.4.0"
+    private const val MATERIAL_DESIGN_VERSION = "1.4.0"
+    const val COMPOSE_VERSION = "1.1.0-rc01"
+    const val COMPOSE_COMPILER = "1.1.0-rc02"
 
-    const val CONSTRAINT_LAYOUT =
-      "androidx.constraintlayout:constraintlayout:${CONSTRAINT_LAYOUT_VERSION}"
-    const val MATERIAL_DESIGN =
-      "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
-    const val LIFECYCLE_VIEWMODEL_KTX =
-      "androidx.lifecycle:lifecycle-viewmodel-ktx:${LIFECYCLE_VIEWMODEL_KTX_VERSION}"
-    const val FRAGMENT =
-      "androidx.fragment:fragment-ktx:${FRAGMENT_VERSION}"
-    const val ACT_KTX = "androidx.activity:activity-ktx:1.4.0"
-  }
+    const val ACT_COMPOSE = "androidx.activity:activity-compose:1.4.0"
 
-  object Database {
-    private const val ROOM_VERSION = "2.2.5"
-    const val ROOM = "androidx.room:room-runtime:${ROOM_VERSION}"
-    const val ROOM_DATABASE_COMPILER = "androidx.room:room-compiler:${ROOM_VERSION}"
+    const val COMPOSE_UI = "androidx.compose.ui:ui:${COMPOSE_VERSION}"
+    const val COIL_COMPOSE = "io.coil-kt:coil-compose:1.4.0"
+    const val livedata = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
+    const val COMPOSE_MATERIAL = "androidx.compose.material:material:${COMPOSE_VERSION}"
+    const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling-preview:${COMPOSE_VERSION}"
+    const val navigationCompose = "androidx.navigation:navigation-compose:2.4.0-rc01"
+    const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
+    const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"
+
   }
 
   object Di {
-    private const val DAGGER_VERSION = "2.38.1"
-    const val DAGGER = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
-    const val DAGGER_COMPILER = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
+    private const val DAGGER_VERSION = "2.40.5"
+    const val hilt = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
+    const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
+
+    const val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    const val hiltCompiler = "androidx.hilt:hilt-compiler:1.0.0"
+    const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
   }
 
   object Async {
-    private const val COROUTINES_VERSION = "1.3.7"
+    private const val COROUTINES_VERSION = "1.6.0"
 
     const val COROUTINES =
       "org.jetbrains.kotlinx:kotlinx-coroutines-core:${COROUTINES_VERSION}"
