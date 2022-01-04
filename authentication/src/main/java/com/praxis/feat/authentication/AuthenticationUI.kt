@@ -60,7 +60,9 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
               contentDescription = "Email"
             )
           },
-          colors = textFieldColors()
+          colors = textFieldColors(),
+          maxLines = 1,
+          singleLine = true
         )
 
         TextField(
@@ -84,7 +86,9 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
               contentDescription = "email"
             )
           },
-          colors = textFieldColors()
+          colors = textFieldColors(),
+          maxLines = 1,
+          singleLine = true
         )
 
         Button(
