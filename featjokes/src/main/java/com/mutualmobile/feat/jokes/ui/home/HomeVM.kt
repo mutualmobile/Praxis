@@ -12,6 +12,7 @@ import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.ArrayList
@@ -24,7 +25,7 @@ class HomeVM @Inject constructor(
   private val navigator: Navigator
 ) : ViewModel() {
 
-  var viewState = mutableStateOf<HomeViewState>(HomeViewState.Loading)
+  var viewState = MutableStateFlow<HomeViewState>(HomeViewState.Loading)
     private set
 
   init {

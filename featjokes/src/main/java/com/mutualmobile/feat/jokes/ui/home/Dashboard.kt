@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -20,6 +22,7 @@ import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.mutualmobile.feat.jokes.ui.model.UIJoke
 import com.mutualmobile.praxis.commonui.theme.Typography
 
 @Composable
@@ -44,7 +47,8 @@ fun Dashboard(homeVM: HomeVM = hiltViewModel()) {
           .fillMaxHeight()
           .fillMaxWidth()
       ) {
-        when (homeVM.viewState.value) {
+        val state by homeVM.viewState.collectAsState()
+        when (state) {
           is HomeViewState.Loading -> {
             LinearProgressIndicator(
               color = PraxisTheme.colors.accent, modifier = Modifier
@@ -52,24 +56,8 @@ fun Dashboard(homeVM: HomeVM = hiltViewModel()) {
             )
           }
           is HomeViewState.ShowJokes -> {
-            val jokes = (homeVM.viewState.value as HomeViewState.ShowJokes).jokes
-            LazyColumn {
-              items(jokes.size) { item ->
-                ClickableText(text = buildAnnotatedString {
-                  withStyle(
-                    style = SpanStyle(
-                      color = PraxisTheme.colors.textPrimary,
-                      fontSize = Typography.body1.fontSize
-                    )
-                  ) {
-                    append(jokes[item].joke)
-                  }
-
-                }, onClick = {
-                  homeVM.showJoke(jokes[item].jokeId)
-                }, modifier = Modifier.padding(16.dp))
-              }
-            }
+            val jokes = (state as HomeViewState.ShowJokes).jokes
+            JokesList(jokes, homeVM)
 
           }
           is HomeViewState.Error -> {
@@ -81,4 +69,28 @@ fun Dashboard(homeVM: HomeVM = hiltViewModel()) {
   }
 
 
+}
+
+@Composable
+private fun JokesList(
+  jokes: List<UIJoke>,
+  homeVM: HomeVM
+) {
+  LazyColumn {
+    items(jokes.size) { item ->
+      ClickableText(text = buildAnnotatedString {
+        withStyle(
+          style = SpanStyle(
+            color = PraxisTheme.colors.textPrimary,
+            fontSize = Typography.body1.fontSize
+          )
+        ) {
+          append(jokes[item].joke)
+        }
+
+      }, onClick = {
+        homeVM.showJoke(jokes[item].jokeId)
+      }, modifier = Modifier.padding(16.dp))
+    }
+  }
 }
