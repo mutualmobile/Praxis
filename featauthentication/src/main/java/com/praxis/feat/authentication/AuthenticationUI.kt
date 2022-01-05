@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -19,10 +21,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
+import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
 import com.mutualmobile.praxis.commonui.theme.*
 
 @Composable
 fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
+  val scaffoldState = rememberScaffoldState()
   Scaffold(
     backgroundColor = PraxisTheme.colors.uiBackground,
     contentColor = PraxisTheme.colors.textSecondary,
@@ -31,14 +35,23 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
       .navigationBarsPadding(),
     topBar = {
       CommonTopAppBar(titleText = "Authentication")
-    }) {
-    AuthSurface(authVM)
+    }, scaffoldState = scaffoldState, snackbarHost = {
+      scaffoldState.snackbarHostState
+    }
+  ) { innerPadding ->
+    Box(modifier = Modifier.padding(innerPadding)) {
+      AuthSurface(authVM, scaffoldState)
+      DefaultSnackbar(scaffoldState.snackbarHostState, Modifier.padding(8.dp)) {
+        scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+      }
+    }
+
   }
 
 }
 
 @Composable
-private fun AuthSurface(authVM: AuthVM) {
+private fun AuthSurface(authVM: AuthVM, scaffoldState: ScaffoldState) {
   PraxisSurface(
     modifier = Modifier
       .fillMaxHeight()
@@ -52,6 +65,8 @@ private fun AuthSurface(authVM: AuthVM) {
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+      val resetPasswordState by authVM.passwordResetFlow.collectAsState()
       Image(
         painter = painterResource(id = R.mipmap.ic_launcher),
         contentDescription = "Logo", Modifier.size(128.dp)
@@ -64,6 +79,15 @@ private fun AuthSurface(authVM: AuthVM) {
       LoginButton(authVM)
 
       ForgotPasswordText(authVM)
+
+      if (resetPasswordState.isNotEmpty()) {
+        LaunchedEffect(scaffoldState) {
+          scaffoldState.snackbarHostState.showSnackbar(
+            message = resetPasswordState,
+            actionLabel = "Ok"
+          )
+        }
+      }
     }
   }
 }
@@ -81,7 +105,7 @@ fun ForgotPasswordText(authVM: AuthVM) {
     }
 
   }, onClick = {
-               authVM.navigateForgotPassword()
+    authVM.navigateForgotPassword()
   }, modifier = Modifier.padding(8.dp))
 }
 
@@ -102,8 +126,9 @@ private fun LoginButton(authVM: AuthVM) {
 
 @Composable
 private fun PasswordTF(authVM: AuthVM) {
+  val password by authVM.password.collectAsState()
   TextField(
-    value = authVM.password.value,
+    value = password,
     onValueChange = {
       authVM.password.value = it
     },
@@ -132,8 +157,9 @@ private fun PasswordTF(authVM: AuthVM) {
 
 @Composable
 private fun EmailTF(authVM: AuthVM) {
+  val email by authVM.email.collectAsState()
   TextField(
-    value = authVM.email.value, onValueChange = {
+    value = email, onValueChange = {
       authVM.email.value = it
     },
     Modifier

@@ -87,7 +87,7 @@ fun PraxisTheme(
   ProvidePraxisColors(colors) {
     MaterialTheme(
       colors = debugColors(darkTheme),
-      typography = Typography,
+      typography = PraxisTypography,
       shapes = PraxisShapes,
       content = content
     )

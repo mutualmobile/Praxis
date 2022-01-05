@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -23,7 +22,7 @@ import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.feat.jokes.ui.model.UIJoke
-import com.mutualmobile.praxis.commonui.theme.Typography
+import com.mutualmobile.praxis.commonui.theme.PraxisTypography
 
 @Composable
 fun Dashboard(homeVM: HomeVM = hiltViewModel()) {
@@ -82,7 +81,7 @@ private fun JokesList(
         withStyle(
           style = SpanStyle(
             color = PraxisTheme.colors.textPrimary,
-            fontSize = Typography.body1.fontSize
+            fontSize = PraxisTypography.body1.fontSize
           )
         ) {
           append(jokes[item].joke)
