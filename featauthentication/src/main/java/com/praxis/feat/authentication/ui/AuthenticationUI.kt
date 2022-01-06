@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication
+package com.praxis.feat.authentication.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -16,6 +16,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
@@ -23,6 +24,8 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
 import com.mutualmobile.praxis.commonui.theme.*
+import com.praxis.feat.authentication.R
+import com.praxis.feat.authentication.vm.AuthVM
 
 @Composable
 fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
@@ -42,7 +45,7 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
     Box(modifier = Modifier.padding(innerPadding)) {
       AuthSurface(authVM, scaffoldState)
       DefaultSnackbar(scaffoldState.snackbarHostState) {
-        authVM.passwordResetFlow.value = ""
+        authVM.snackBarState.value = ""
         scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
       }
     }
@@ -67,7 +70,7 @@ private fun AuthSurface(authVM: AuthVM, scaffoldState: ScaffoldState) {
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-      val resetPasswordState by authVM.passwordResetFlow.collectAsState()
+      val resetPasswordState by authVM.snackBarState.collectAsState()
       Image(
         painter = painterResource(id = R.mipmap.ic_launcher),
         contentDescription = "Logo", Modifier.size(128.dp)
@@ -114,7 +117,7 @@ fun ForgotPasswordText(authVM: AuthVM) {
 private fun LoginButton(authVM: AuthVM) {
   Button(
     onClick = {
-      authVM.navigateDashboard()
+      authVM.loginNow()
     }, Modifier.fillMaxWidth(),
     colors = ButtonDefaults.buttonColors(backgroundColor = PraxisTheme.colors.buttonColor)
   ) {
@@ -127,11 +130,11 @@ private fun LoginButton(authVM: AuthVM) {
 
 @Composable
 private fun PasswordTF(authVM: AuthVM) {
-  val password by authVM.password.collectAsState()
+  val credentials by authVM.credentials.collectAsState()
   TextField(
-    value = password,
+    value = credentials.password ?: "",
     onValueChange = {
-      authVM.password.value = it
+      authVM.credentials.value = credentials.copy(password = it)
     },
     Modifier
       .padding(16.dp)
@@ -158,10 +161,11 @@ private fun PasswordTF(authVM: AuthVM) {
 
 @Composable
 private fun EmailTF(authVM: AuthVM) {
-  val email by authVM.email.collectAsState()
+  val credentials by authVM.credentials.collectAsState()
   TextField(
-    value = email, onValueChange = {
-      authVM.email.value = it
+    value = credentials.email ?: "",
+    onValueChange = {
+      authVM.credentials.value = credentials.copy(email = it)
     },
     Modifier
       .padding(16.dp)
@@ -191,3 +195,12 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   unfocusedIndicatorColor = Color.Transparent,
   backgroundColor = PraxisTheme.colors.accent.copy(alpha = AlphaNearTransparent),
 )
+
+
+@Preview("Light+Dark")
+@Composable
+fun PreviewAuth() {
+  PraxisTheme(darkTheme = true) {
+    AuthenticationUI()
+  }
+}

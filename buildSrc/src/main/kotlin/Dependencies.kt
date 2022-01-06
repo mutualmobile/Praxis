@@ -46,6 +46,7 @@ object Lib {
     const val livedata = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${COMPOSE_VERSION}"
     const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling-preview:${COMPOSE_VERSION}"
+    const val DEBUG_TOOLING = "androidx.compose.ui:ui-tooling:${COMPOSE_VERSION}"
     const val navigationCompose = "androidx.navigation:navigation-compose:2.4.0-rc01"
     const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
     const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"

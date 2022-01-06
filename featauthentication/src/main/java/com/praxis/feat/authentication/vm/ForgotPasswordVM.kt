@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication
+package com.praxis.feat.authentication.vm
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

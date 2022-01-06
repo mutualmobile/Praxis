@@ -49,7 +49,8 @@ dependencies {
     api(Lib.Android.COMPOSE_UI)
     api(Lib.Android.COIL_COMPOSE)
     api(Lib.Android.COMPOSE_MATERIAL)
-    debugApi(Lib.Android.COMPOSE_TOOLING)
+    api(Lib.Android.COMPOSE_TOOLING)
+    debugApi(Lib.Android.DEBUG_TOOLING)
     api(Lib.Android.ACT_COMPOSE)
 
     /* Dependency Injection */

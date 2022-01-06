@@ -68,7 +68,7 @@ dependencies {
     api(Lib.Android.COMPOSE_MATERIAL)
     api(Lib.Android.COMPOSE_UI)
     api(Lib.Android.COMPOSE_TOOLING)
-    debugApi(Lib.Android.COMPOSE_TOOLING)
+    debugApi(Lib.Android.DEBUG_TOOLING)
     api(Lib.Android.ACT_COMPOSE)
     api(Lib.Android.ACCOMPANIST_INSETS)
 

@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication
+package com.praxis.feat.authentication.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -17,6 +17,8 @@ import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
 import com.mutualmobile.praxis.commonui.theme.PraxisShapes
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.praxis.feat.authentication.R
+import com.praxis.feat.authentication.vm.ForgotPasswordVM
 
 @Composable
 fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){
