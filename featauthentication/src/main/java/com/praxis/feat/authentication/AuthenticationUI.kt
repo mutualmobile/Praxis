@@ -41,7 +41,8 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
   ) { innerPadding ->
     Box(modifier = Modifier.padding(innerPadding)) {
       AuthSurface(authVM, scaffoldState)
-      DefaultSnackbar(scaffoldState.snackbarHostState, Modifier.padding(8.dp)) {
+      DefaultSnackbar(scaffoldState.snackbarHostState) {
+        authVM.passwordResetFlow.value = ""
         scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
       }
     }

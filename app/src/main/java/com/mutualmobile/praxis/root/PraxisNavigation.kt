@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.mutualmobile.feat.jokes.ui.home.Dashboard
 import com.mutualmobile.feat.jokes.ui.home.JokeDetailsScreen
+import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
 import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
@@ -24,7 +25,7 @@ import com.praxis.feat.authentication.AuthenticationUI
 fun PraxisNavigation(navigator: Navigator) {
   ProvideWindowInsets {
     PraxisSurface(
-      color = PraxisTheme.colors.statusBarColor.copy(alpha = AlphaNearTransparent),
+      color = PraxisTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
       modifier = Modifier.fillMaxSize()
     ) {
       val navController = rememberNavController()

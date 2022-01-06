@@ -21,7 +21,6 @@ fun DefaultSnackbar(
     hostState = snackbarHostState,
     snackbar = { data ->
       Snackbar(
-        modifier = Modifier.padding(16.dp),
         content = {
           Text(
             text = data.message,
