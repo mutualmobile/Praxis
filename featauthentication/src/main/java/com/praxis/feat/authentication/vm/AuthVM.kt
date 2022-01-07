@@ -45,7 +45,8 @@ class AuthVM @Inject constructor(
     try {
       val isValid = credentials.value.validate()
       if (isValid) {
-        navigator.navigateAndClearBackStack(Screen.Jokes.route)
+        snackBarState.value = ""
+        navigator.navigate(Screen.Jokes.route)
       }
     } catch (ex: FormValidationFailed) {
       uiState.value = UiState.ErrorState(throwable = ex)
