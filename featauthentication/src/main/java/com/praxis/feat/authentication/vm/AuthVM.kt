@@ -48,6 +48,7 @@ class AuthVM @Inject constructor(
         snackBarState.value = ""
         navigator.navigate(Screen.Jokes.route)
       }
+      uiState.value = UiState.SuccessState("some_jwt")
     } catch (ex: FormValidationFailed) {
       uiState.value = UiState.ErrorState(throwable = ex)
       snackBarState.value = ex.failType.message

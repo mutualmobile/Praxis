@@ -90,4 +90,12 @@ dependencies {
     api(Lib.Async.COROUTINES)
     api(Lib.Async.COROUTINES_ANDROID)
 
+    testImplementation(TestLib.JUNIT)
+    testImplementation(TestLib.CORE_TEST)
+    testImplementation(TestLib.ANDROID_JUNIT)
+    testImplementation(TestLib.ARCH_CORE)
+    testImplementation(TestLib.MOCK_WEB_SERVER)
+    testImplementation(TestLib.ROBO_ELECTRIC)
+    testImplementation(TestLib.COROUTINES)
+    testImplementation(TestLib.MOCKK)
 }
