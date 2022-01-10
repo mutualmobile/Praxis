@@ -1,5 +1,5 @@
 
-# Praxis
+# Praxis ❤️ Jetpack Compose
 
 This is a sample app written in Kotlin following clean architecture principles which fetches random jokes and displays it.
 
