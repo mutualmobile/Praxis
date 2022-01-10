@@ -23,8 +23,6 @@ The purpose of this app to showcase:
 ## Architecture
 Praxis follows the principles of Clean Architecture with Android Architecture Components.
 
-<img src="art/clean-architecture.jpg" />
-
 ### Architecture's layers & boundaries:
 
 <img src="art/architecture.jpeg" />
