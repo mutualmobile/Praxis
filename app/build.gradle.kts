@@ -26,7 +26,7 @@ android {
     targetSdk = (ProjectProperties.TARGET_SDK)
     versionCode = 1
     versionName = "1.0"
-    testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
   }
 
