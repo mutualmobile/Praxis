@@ -63,8 +63,8 @@ kapt {
 }
 
 dependencies {
-  implementation(project(":jokes"))
-  implementation(project(":authentication"))
+  implementation(project(":featjokes"))
+  implementation(project(":featauthentication"))
   implementation(project(":navigator"))
   implementation(project(":data"))
   implementation(project(":domain"))
@@ -76,6 +76,8 @@ dependencies {
   implementation(Lib.Android.navigationCompose)
   implementation(Lib.Kotlin.KT_STD)
   implementation(Lib.Android.MATERIAL_DESIGN)
+  implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
+  implementation(Lib.Android.ACCOMPANIST_INSETS)
 
   implementation(Lib.Android.appCompat)
   implementation(Lib.Kotlin.KTX_CORE)
@@ -103,4 +105,7 @@ dependencies {
   testImplementation(TestLib.ROBO_ELECTRIC)
   testImplementation(TestLib.COROUTINES)
   testImplementation(TestLib.MOCKK)
+
+  androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Lib.Android.COMPOSE_VERSION}")
+  debugImplementation("androidx.compose.ui:ui-test-manifest:${Lib.Android.COMPOSE_VERSION}")
 }

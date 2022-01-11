@@ -42,15 +42,16 @@ kapt {
 
 dependencies {
     /*Kotlin*/
-    implementation(Lib.Kotlin.KT_STD)
-    implementation(Lib.Kotlin.KTX_CORE)
+    api(Lib.Kotlin.KT_STD)
+    api(Lib.Kotlin.KTX_CORE)
     /* Android Designing and layout */
-    implementation(Lib.Android.MATERIAL_DESIGN)
-    implementation(Lib.Android.COMPOSE_UI)
-    implementation(Lib.Android.COIL_COMPOSE)
-    implementation(Lib.Android.COMPOSE_MATERIAL)
-    debugImplementation(Lib.Android.COMPOSE_TOOLING)
-    implementation(Lib.Android.ACT_COMPOSE)
+    api(Lib.Android.MATERIAL_DESIGN)
+    api(Lib.Android.COMPOSE_UI)
+    api(Lib.Android.COIL_COMPOSE)
+    api(Lib.Android.COMPOSE_MATERIAL)
+    api(Lib.Android.COMPOSE_TOOLING)
+    debugApi(Lib.Android.DEBUG_TOOLING)
+    api(Lib.Android.ACT_COMPOSE)
 
     /* Dependency Injection */
     api(Lib.Di.hilt)

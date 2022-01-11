@@ -33,9 +33,9 @@ dependencies {
     api(Lib.Kotlin.KT_STD)
 
     /* Dependency Injection */
-    implementation(Lib.Di.hilt)
-    implementation(Lib.Di.hiltNavigationCompose)
-    implementation(Lib.Di.viewmodel)
+    api(Lib.Di.hilt)
+    api(Lib.Di.hiltNavigationCompose)
+    api(Lib.Di.viewmodel)
 
     kapt(Lib.Di.hiltCompiler)
     kaptTest(Lib.Di.hiltCompiler)
