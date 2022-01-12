@@ -4,9 +4,11 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import com.mutualmobile.praxis.base.BaseComposeTest
+import com.mutualmobile.base.BaseComposeTest
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
+@HiltAndroidTest
 class AuthenticationUIShould: BaseComposeTest() {
 
     @Test

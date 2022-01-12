@@ -26,7 +26,7 @@ android {
     targetSdk = (ProjectProperties.TARGET_SDK)
     versionCode = 1
     versionName = "1.0"
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "com.mutualmobile.base.TextPraxisApplication"
     vectorDrawables.useSupportLibrary = true
   }
 
@@ -105,7 +105,12 @@ dependencies {
   testImplementation(TestLib.ROBO_ELECTRIC)
   testImplementation(TestLib.COROUTINES)
   testImplementation(TestLib.MOCKK)
+  androidTestImplementation(TestLib.MOCKK)
+  androidTestImplementation(TestLib.MOCK_WEB_SERVER)
 
   androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Lib.Android.COMPOSE_VERSION}")
   debugImplementation("androidx.compose.ui:ui-test-manifest:${Lib.Android.COMPOSE_VERSION}")
+  androidTestImplementation("com.google.dagger:hilt-android-testing:2.38.1")
+  kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.38.1")
+  androidTestImplementation("androidx.test:runner:1.4.0")
 }
