@@ -30,14 +30,20 @@ android {
     vectorDrawables.useSupportLibrary = true
   }
 
+
+
+  buildFeatures {
+    compose = true
+  }
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER
+  }
   packagingOptions {
     resources.excludes.add("META-INF/LICENSE.txt")
     resources.excludes.add("META-INF/NOTICE.txt")
     resources.excludes.add("LICENSE.txt")
-  }
-
-  buildFeatures {
-    dataBinding = true
+    resources.excludes.add( "/META-INF/{AL2.0,LGPL2.1}")
   }
 
   compileOptions {
@@ -57,37 +63,38 @@ kapt {
 }
 
 dependencies {
+  implementation(project(":featjokes"))
+  implementation(project(":featauthentication"))
+  implementation(project(":navigator"))
   implementation(project(":data"))
   implementation(project(":domain"))
-  /*Kotlin*/
-  api(Lib.Kotlin.KT_STD)
-  api(Lib.Kotlin.KTX_CORE)
+  implementation(project(":common"))
+  implementation(project(":commonui"))
 
   /* Android Designing and layout */
-  implementation(Lib.Android.CONSTRAINT_LAYOUT)
-  implementation(Lib.Android.FRAGMENT)
+  implementation(Lib.Android.livedata)
+  implementation(Lib.Android.navigationCompose)
+  implementation(Lib.Kotlin.KT_STD)
   implementation(Lib.Android.MATERIAL_DESIGN)
-  implementation(Lib.Android.LIFECYCLE_VIEWMODEL_KTX)
-  implementation(Lib.Android.ACT_KTX)
+  implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
+  implementation(Lib.Android.ACCOMPANIST_INSETS)
+
+  implementation(Lib.Android.appCompat)
+  implementation(Lib.Kotlin.KTX_CORE)
 
   /*DI*/
-  implementation(Lib.Di.DAGGER)
-  kapt(Lib.Di.DAGGER_COMPILER)
-  kaptTest(Lib.Di.DAGGER_COMPILER)
+  implementation(Lib.Di.hilt)
+  implementation(Lib.Di.hiltNavigationCompose)
+  implementation(Lib.Di.viewmodel)
 
-  /* PAGING */
-  implementation(Lib.Paging.PAGING_3)
-
-  /* GLIDE */
-  implementation(Lib.Glide.GLIDE)
-  kapt(Lib.Glide.GLIDE_COMPILER)
+  kapt(Lib.Di.hiltCompiler)
+  kapt(Lib.Di.hiltAndroidCompiler)
 
   /* Logger */
-  api(Lib.Logger.TIMBER)
-
+  implementation(Lib.Logger.TIMBER)
   /* Async */
-  api(Lib.Async.COROUTINES)
-  api(Lib.Async.COROUTINES_ANDROID)
+  implementation(Lib.Async.COROUTINES)
+  implementation(Lib.Async.COROUTINES_ANDROID)
 
   /*Testing*/
   testImplementation(TestLib.JUNIT)
@@ -98,4 +105,7 @@ dependencies {
   testImplementation(TestLib.ROBO_ELECTRIC)
   testImplementation(TestLib.COROUTINES)
   testImplementation(TestLib.MOCKK)
+
+  androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Lib.Android.COMPOSE_VERSION}")
+  debugImplementation("androidx.compose.ui:ui-test-manifest:${Lib.Android.COMPOSE_VERSION}")
 }

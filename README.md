@@ -1,5 +1,6 @@
 
-# Praxis
+# Praxis 
+2022 Hit Refresh! Praxis now loves ❤️ Jetpack Compose
 
 This is a sample app written in Kotlin following clean architecture principles which fetches random jokes and displays it.
 
@@ -21,8 +22,6 @@ The purpose of this app to showcase:
 
 ## Architecture
 Praxis follows the principles of Clean Architecture with Android Architecture Components.
-
-<img src="art/clean-architecture.jpg" />
 
 ### Architecture's layers & boundaries:
 
