@@ -8,15 +8,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.mutualmobile.feat.jokes.ui.home.Dashboard
-import com.mutualmobile.feat.jokes.ui.home.JokeDetailsScreen
+import com.mutualmobile.jokes.home.dashboard.Dashboard
+import com.mutualmobile.jokes.home.details.JokeDetailsScreen
 import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
-import com.praxis.feat.authentication.ui.ForgotPasswordUI
-import com.praxis.feat.authentication.ui.AuthenticationUI
+import com.praxis.authentication.forgotpassword.ForgotPasswordUI
+import com.praxis.authentication.login.AuthenticationUI
 
 @Composable
 fun PraxisNavigation(navigator: Navigator) {

@@ -2,7 +2,7 @@
 # Praxis 
 2022 Hit Refresh! Praxis now loves ❤️ Jetpack Compose
 
-This is a sample app written in Kotlin following clean architecture principles which fetches random jokes and displays it.
+This is a sample app written in Kotlin following clean architecture principles which fetches random jokeViews and displays it.
 
 The purpose of this app to showcase:
  - Implementation of Jetpack Android Architecture components with Dagger Android and Data Binding to minimize boilerplate code
@@ -41,6 +41,11 @@ Files are suffixed with be defined Class types.
  - UseCases are suffixed with **UseCase**. Ex: `LoginUseCase`
  - Sources are suffixed with **Source**. Ex: `LoginRemoteSource`, `LoginLocalSource`
  - Repositories are suffixed with **Repo**. Ex: `LoginRepo`
+ - Data Models are suffixed with **Entity**. Ex: `JokeEntity`
+ - Domain Models are written without any suffix or prefix. Ex: `Joke`
+ - Presentation Models are suffixed with **View**. Ex: `JokeView`
+ - UI classes are suffixed with **UI**. Ex. `JokeDetailsUI`
+ - Interfaces are prefixed with **I**. Ex. `IJokesRepo`
 
 ## Conclusion
 This project can be used as a template for new apps.

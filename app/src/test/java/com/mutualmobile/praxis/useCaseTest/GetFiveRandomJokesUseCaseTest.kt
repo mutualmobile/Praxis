@@ -1,7 +1,7 @@
 package com.mutualmobile.praxis.useCaseTest
 
 import com.mutualmobile.praxis.base.BaseTest
-import com.mutualmobile.praxis.data.SafeResult
+import com.mutualmobile.praxis.domain.SafeResult
 import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
 import com.mutualmobile.praxis.injection.component.TestAppComponent
 import com.mutualmobile.praxis.utils.enqueueResponse
@@ -24,7 +24,7 @@ class GetFiveRandomJokesUseCaseTest : BaseTest() {
     runBlocking {
       mockWebServer.enqueueResponse("jokes_response.json")
 
-      val result = getFiveRandomJokesUseCase.perform()
+      val result = getFiveRandomJokesUseCase.performAsync()
       assertEquals(1, mockWebServer.requestCount)
       assert(result is SafeResult.Success)
       assert((result as SafeResult.Success).data.isNotEmpty())

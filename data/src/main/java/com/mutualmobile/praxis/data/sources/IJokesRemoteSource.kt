@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.data.sources
 
-import com.mutualmobile.praxis.data.remote.model.NETJokeListData
+import com.mutualmobile.praxis.data.remote.model.JokeListEntity
 import com.mutualmobile.praxis.domain.SafeResult
 
 /**
@@ -8,5 +8,5 @@ import com.mutualmobile.praxis.domain.SafeResult
  */
 
 interface IJokesRemoteSource {
-  suspend fun getFiveRandomJokes(): SafeResult<NETJokeListData>
+  suspend fun getFiveRandomJokes(): SafeResult<JokeListEntity>
 }
