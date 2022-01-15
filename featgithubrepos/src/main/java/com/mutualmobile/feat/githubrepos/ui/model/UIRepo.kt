@@ -1,10 +1,10 @@
-package com.mutualmobile.praxis.ui.model
+package com.mutualmobile.feat.githubrepos.ui.model
 
 import android.os.Parcelable
+import com.mutualmobile.praxis.domain.mappers.UIModel
+import com.mutualmobile.praxis.domain.mappers.UiModelMapper
 import com.mutualmobile.praxis.domain.model.DOMOwner
 import com.mutualmobile.praxis.domain.model.DOMRepo
-import com.mutualmobile.praxis.mapper.UIModel
-import com.mutualmobile.praxis.mapper.UiModelMapper
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

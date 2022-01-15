@@ -30,7 +30,9 @@ android {
     vectorDrawables.useSupportLibrary = true
   }
 
-
+  buildFeatures {
+    dataBinding = true
+  }
 
   buildFeatures {
     compose = true
@@ -65,6 +67,8 @@ kapt {
 dependencies {
   implementation(project(":featjokes"))
   implementation(project(":featauthentication"))
+  implementation(project(":featgithubrepos"))
+
   implementation(project(":navigator"))
   implementation(project(":data"))
   implementation(project(":domain"))
@@ -80,6 +84,7 @@ dependencies {
   implementation(Lib.Android.ACCOMPANIST_INSETS)
 
   implementation(Lib.Android.appCompat)
+  implementation(Lib.Android.NAVIGATION_FRAGMENT)
   implementation(Lib.Kotlin.KTX_CORE)
 
   /*DI*/

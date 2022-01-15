@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.utils
+package com.mutualmobile.feat.githubrepos.utils
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable

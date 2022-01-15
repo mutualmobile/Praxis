@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.root
+package com.mutualmobile.praxis.root.joke
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

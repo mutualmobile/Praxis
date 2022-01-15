@@ -1,13 +1,13 @@
-package com.mutualmobile.praxis.ui.github
+package com.mutualmobile.feat.githubrepos.ui.github
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
+import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
+import com.mutualmobile.feat.githubrepos.ui.model.UIRepoMapper
 import com.mutualmobile.praxis.domain.model.DOMRepo
 import com.mutualmobile.praxis.domain.model.request.GithubReposSearchRequest
 import com.mutualmobile.praxis.domain.usecases.GetGithubTrendingReposUseCase
-import com.mutualmobile.praxis.ui.model.UIRepo
-import com.mutualmobile.praxis.ui.model.UIRepoMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

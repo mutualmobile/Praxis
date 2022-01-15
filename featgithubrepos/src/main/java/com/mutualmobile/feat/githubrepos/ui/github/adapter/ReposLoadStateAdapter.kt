@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.ui.github.adapter
+package com.mutualmobile.feat.githubrepos.ui.github.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mutualmobile.praxis.databinding.ReposLoadStateFooterBinding
+import com.mutualmobile.feat.githubrepos.databinding.ReposLoadStateFooterBinding
 
 class ReposLoadStateAdapter : LoadStateAdapter<ReposLoadStateAdapter.LoadStateViewHolder>() {
 

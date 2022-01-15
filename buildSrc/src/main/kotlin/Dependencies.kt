@@ -36,6 +36,8 @@ object Lib {
     private const val MATERIAL_DESIGN_VERSION = "1.4.0"
     const val COMPOSE_VERSION = "1.1.0-rc01"
     const val COMPOSE_COMPILER = "1.1.0-rc02"
+    private const val FRAGMENT_NAVIGATION_VERSION = "2.3.5"
+    private const val LIFECYCLE_VERSION = "2.4.0"
 
     const val ACT_COMPOSE = "androidx.activity:activity-compose:1.4.0"
 
@@ -50,8 +52,9 @@ object Lib {
     const val navigationCompose = "androidx.navigation:navigation-compose:2.4.0-rc01"
     const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
     const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"
+    const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${FRAGMENT_NAVIGATION_VERSION}"
+    const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.4.0"
     const val ACCOMPANIST_INSETS = "com.google.accompanist:accompanist-insets:0.22.0-rc"
-
   }
 
   object Di {

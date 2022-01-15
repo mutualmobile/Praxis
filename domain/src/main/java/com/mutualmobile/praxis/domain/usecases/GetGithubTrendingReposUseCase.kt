@@ -14,8 +14,6 @@ class GetGithubTrendingReposUseCase(private val githubRepo: IGithubRepo) :
   BaseUseCase<Flow<PagingData<DOMRepo>>, GithubReposSearchRequest> {
 
   override suspend fun perform(params: GithubReposSearchRequest): Flow<PagingData<DOMRepo>> {
-    return githubRepo.getTrendingRepos(
-      query = params.query
-    )
+    return githubRepo.getTrendingRepos(query = params.query)
   }
 }
