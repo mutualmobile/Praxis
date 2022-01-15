@@ -7,17 +7,6 @@
   <fragment
     android:id="@+id/view_pager_fragment"
     android:name="com.mutualmobile.praxis.root.PraxisViewPagerFragment"
-    tools:layout="@layout/fragment_view_pager">
-
-    <action
-      android:id="@+id/action_view_pager_fragment_to_joke_fragment"
-      app:destination="@id/fragment_joke" />
-
-  </fragment>
-
-  <fragment
-    android:id="@+id/fragment_joke"
-    android:name="com.mutualmobile.praxis.root.joke.JokeFragment"
-    android:label="@string/jokes" />
+    tools:layout="@layout/fragment_view_pager" />
 
 </navigation>

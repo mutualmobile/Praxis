@@ -1,4 +1,4 @@
-package com.mutualmobile.feat.githubrepos.ui.github.adapter
+package com.mutualmobile.feat.githubrepos.ui.github.repolist.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mutualmobile.feat.githubrepos.databinding.ItemTrendingRepoBinding
+import com.mutualmobile.feat.githubrepos.ui.github.repolist.adapter.ReposPagingAdapter.ViewHolder
 import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import com.mutualmobile.feat.githubrepos.utils.loadImageFromUrl
 
-class ReposPagingAdapter : PagingDataAdapter<UIRepo, ReposPagingAdapter.ViewHolder>(
+class ReposPagingAdapter : PagingDataAdapter<UIRepo, ViewHolder>(
   REPO_COMPARATOR
 ) {
 
