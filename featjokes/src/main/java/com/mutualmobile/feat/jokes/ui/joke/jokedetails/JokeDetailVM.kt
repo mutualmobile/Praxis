@@ -1,7 +1,8 @@
-package com.mutualmobile.feat.jokes.ui.home
+package com.mutualmobile.feat.jokes.ui.joke.jokedetails
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.mutualmobile.feat.jokes.ui.joke.InMemoryDataTemp
 import com.mutualmobile.feat.jokes.ui.model.UIJoke
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
@@ -34,5 +35,4 @@ class JokeDetailVM @Inject constructor(
 
     object ErrorState : UiState()
   }
-
 }

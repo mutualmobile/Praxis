@@ -44,16 +44,15 @@ kapt {
 
 dependencies {
   /*Kotlin*/
-  implementation(Lib.Android.appCompat)
+  implementation(Lib.Android.APP_COMPAT)
   implementation(Lib.Kotlin.KTX_CORE)
   api(Lib.Async.COROUTINES)
   api(Lib.Async.COROUTINES_ANDROID)
 
 
   implementation(Lib.Kotlin.KT_STD)
-  implementation(Lib.Android.navigationCompose)
+  implementation(Lib.Android.COMPOSE_NAVIGATION)
 
-  implementation(Lib.Android.navigationCompose)
+  implementation(Lib.Android.COMPOSE_NAVIGATION)
   implementation(Lib.Di.hiltNavigationCompose)
-
 }

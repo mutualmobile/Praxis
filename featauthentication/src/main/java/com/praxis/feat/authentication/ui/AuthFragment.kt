@@ -1,20 +1,22 @@
-package com.mutualmobile.praxis.root.joke
+package com.praxis.feat.authentication.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.navigator.Navigator
+import com.praxis.feat.authentication.nav.AuthNavigation
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
- * A fragment representing a single Joke detail screen.
+ * A fragment representing a single Auth screen.
  */
 @AndroidEntryPoint
-class JokeFragment : Fragment() {
+class AuthFragment : Fragment() {
 
   @Inject
   lateinit var navigator: Navigator
@@ -29,7 +31,10 @@ class JokeFragment : Fragment() {
       // Create a Compose MaterialTheme inheriting the existing colors, typography
       // and shapes of the current View system's theme
       PraxisTheme {
-        PraxisNavigation(navigator = navigator)
+        AuthNavigation(
+          navigator = navigator,
+          onLoginNavigate = { dest -> findNavController().navigate(dest) }
+        )
       }
     }
   }

@@ -7,6 +7,7 @@ import androidx.navigation.NavOptionsBuilder
 import com.mutualmobile.praxis.navigator.NavigationKeys
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
+import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,12 +42,13 @@ class AuthVM @Inject constructor(
       .launchIn(viewModelScope)
   }
 
-  fun loginNow() {
+  fun loginNow(onLoginNavigate: () -> Unit = {}) {
     try {
       val isValid = credentials.value.validate()
       if (isValid) {
         snackBarState.value = ""
-        navigator.navigate(Screen.Jokes.route)
+        onLoginNavigate()
+        //navigator.navigate(Screen.Jokes.route)
       }
       uiState.value = UiState.SuccessState("some_jwt")
     } catch (ex: FormValidationFailed) {

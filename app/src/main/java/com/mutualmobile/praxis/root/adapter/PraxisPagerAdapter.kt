@@ -3,7 +3,7 @@ package com.mutualmobile.praxis.root.adapter
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mutualmobile.feat.githubrepos.ui.github.repolist.GithubReposFragment
-import com.mutualmobile.praxis.root.joke.JokeFragment
+import com.mutualmobile.feat.jokes.ui.joke.JokeFragment
 
 const val JOKES_PAGE_INDEX = 0
 const val GITHUB_REPOS_PAGE_INDEX = 1

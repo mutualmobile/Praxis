@@ -11,7 +11,9 @@ import com.mutualmobile.feat.githubrepos.ui.github.repolist.adapter.ReposPagingA
 import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import com.mutualmobile.feat.githubrepos.utils.loadImageFromUrl
 
-class ReposPagingAdapter : PagingDataAdapter<UIRepo, ViewHolder>(
+class ReposPagingAdapter(
+  private val repoClickListener: RepoClickListener
+) : PagingDataAdapter<UIRepo, ViewHolder>(
   REPO_COMPARATOR
 ) {
 
@@ -27,6 +29,10 @@ class ReposPagingAdapter : PagingDataAdapter<UIRepo, ViewHolder>(
         newItem: UIRepo
       ) = oldItem == newItem
     }
+  }
+
+  interface RepoClickListener {
+    fun onRepoItemClicked(uiRepo: UIRepo)
   }
 
   override fun onCreateViewHolder(
@@ -57,6 +63,7 @@ class ReposPagingAdapter : PagingDataAdapter<UIRepo, ViewHolder>(
     repo: UIRepo
   ): View.OnClickListener {
     return View.OnClickListener {
+      repoClickListener.onRepoItemClicked(repo)
     }
   }
 

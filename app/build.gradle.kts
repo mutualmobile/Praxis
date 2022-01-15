@@ -66,7 +66,6 @@ kapt {
 
 dependencies {
   implementation(project(":featjokes"))
-  implementation(project(":featauthentication"))
   implementation(project(":featgithubrepos"))
 
   implementation(project(":navigator"))
@@ -76,14 +75,14 @@ dependencies {
   implementation(project(":commonui"))
 
   /* Android Designing and layout */
-  implementation(Lib.Android.livedata)
-  implementation(Lib.Android.navigationCompose)
+  implementation(Lib.Android.COMPOSE_LIVEDATA)
+  implementation(Lib.Android.COMPOSE_NAVIGATION)
   implementation(Lib.Kotlin.KT_STD)
   implementation(Lib.Android.MATERIAL_DESIGN)
   implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
   implementation(Lib.Android.ACCOMPANIST_INSETS)
 
-  implementation(Lib.Android.appCompat)
+  implementation(Lib.Android.APP_COMPAT)
   implementation(Lib.Android.NAVIGATION_FRAGMENT)
   implementation(Lib.Kotlin.KTX_CORE)
 

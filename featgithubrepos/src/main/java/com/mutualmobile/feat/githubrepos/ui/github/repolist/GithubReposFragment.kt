@@ -7,26 +7,30 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.LoadState.Error
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mutualmobile.feat.githubrepos.R
 import com.mutualmobile.feat.githubrepos.databinding.FragmentReposBinding
 import com.mutualmobile.feat.githubrepos.ui.github.repolist.adapter.ReposLoadStateAdapter
 import com.mutualmobile.feat.githubrepos.ui.github.repolist.adapter.ReposPagingAdapter
+import com.mutualmobile.feat.githubrepos.ui.github.repolist.adapter.ReposPagingAdapter.RepoClickListener
+import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class GithubReposFragment : Fragment() {
+class GithubReposFragment : Fragment(), RepoClickListener {
 
   private val viewModel by viewModels<GithubReposVM>()
   private lateinit var binding: FragmentReposBinding
 
-  private var reposPagingAdapter: ReposPagingAdapter = ReposPagingAdapter()
+  private var reposPagingAdapter: ReposPagingAdapter = ReposPagingAdapter(this)
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -81,5 +85,9 @@ class GithubReposFragment : Fragment() {
     viewLifecycleOwner.lifecycleScope.launch {
       viewModel.getGitHubTrendingRepos()
     }
+  }
+
+  override fun onRepoItemClicked(uiRepo: UIRepo) {
+    findNavController().navigate(R.id.action_reposFragment_to_repoDetailsFragment)
   }
 }

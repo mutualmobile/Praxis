@@ -27,7 +27,7 @@ class PraxisViewPagerFragment : Fragment() {
     val tabLayout = binding.tabs
     val viewPager = binding.viewPager
 
-    viewPager.adapter = PraxisPagerAdapter(this)
+    viewPager.adapter = PraxisPagerAdapter(fragment = this)
 
     // Set the text for each tab
     TabLayoutMediator(tabLayout, viewPager) { tab, position ->

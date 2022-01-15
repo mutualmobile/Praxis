@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.root.joke
+package com.mutualmobile.feat.githubrepos.nav
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -8,18 +8,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.mutualmobile.feat.jokes.ui.home.Dashboard
-import com.mutualmobile.feat.jokes.ui.home.JokeDetailsScreen
 import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
-import com.praxis.feat.authentication.ui.ForgotPasswordUI
-import com.praxis.feat.authentication.ui.AuthenticationUI
 
 @Composable
-fun PraxisNavigation(navigator: Navigator) {
+fun GithubNavigation(navigator: Navigator) {
   ProvideWindowInsets {
     PraxisSurface(
       color = PraxisTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
@@ -33,25 +29,13 @@ fun PraxisNavigation(navigator: Navigator) {
 
       NavHost(
         navController = navController,
-        startDestination = Screen.Auth.route
+        startDestination = Screen.RepoDetails.route
       ) {
-        composable(Screen.Auth.route) {
-          AuthenticationUI()
-        }
-        composable(Screen.ForgotPassword.route) {
-          ForgotPasswordUI()
-        }
-        composable(Screen.Jokes.route) {
-          Dashboard()
-        }
-        composable(Screen.JokeDetail.route,
-          arguments = Screen.JokeDetail.navArguments
-        ) {
-          JokeDetailsScreen()
+        composable(Screen.RepoDetails.route) {
+          //AuthenticationUI()
         }
       }
     }
   }
-
 }
 

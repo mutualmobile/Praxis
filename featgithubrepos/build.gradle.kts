@@ -37,6 +37,11 @@ android {
 
   buildFeatures {
     dataBinding = true
+    compose = true
+  }
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER
   }
 
   kotlinOptions {
@@ -56,10 +61,17 @@ dependencies {
   implementation(project(":domain"))
   implementation(project(":common"))
   implementation(project(":commonui"))
+  implementation(project(":navigator"))
 
-  api(Lib.Android.appCompat)
+  api(Lib.Android.APP_COMPAT)
   api(Lib.Kotlin.KTX_CORE)
   api(Lib.Android.FRAGMENT_KTX)
+  api(Lib.Android.NAVIGATION_FRAGMENT)
+
+  /* Compose */
+  implementation(Lib.Android.COMPOSE_NAVIGATION)
+  implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
+  implementation(Lib.Android.ACCOMPANIST_INSETS)
 
   /* DI */
   api(Lib.Di.hilt)

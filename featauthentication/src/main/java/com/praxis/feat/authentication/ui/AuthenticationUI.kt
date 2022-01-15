@@ -1,9 +1,23 @@
 package com.praxis.feat.authentication.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,12 +37,18 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
+import com.mutualmobile.praxis.commonui.theme.PraxisShapes
+import com.mutualmobile.praxis.commonui.theme.PraxisSurface
+import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
 
 @Composable
-fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
+fun AuthenticationUI(
+  authVM: AuthVM = hiltViewModel(),
+  onLoginNavigate: () -> Unit = {}
+) {
   val scaffoldState = rememberScaffoldState()
   Scaffold(
     backgroundColor = PraxisTheme.colors.uiBackground,
@@ -39,11 +59,14 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
     topBar = {
       CommonTopAppBar(titleText = "Authentication")
     }, scaffoldState = scaffoldState, snackbarHost = {
-      scaffoldState.snackbarHostState
-    }
+    scaffoldState.snackbarHostState
+  }
   ) { innerPadding ->
     Box(modifier = Modifier.padding(innerPadding)) {
-      AuthSurface(authVM, scaffoldState)
+      AuthSurface(
+        authVM = authVM, scaffoldState = scaffoldState,
+        onLoginNavigate = onLoginNavigate
+      )
       DefaultSnackbar(scaffoldState.snackbarHostState) {
         authVM.snackBarState.value = ""
         scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
@@ -51,11 +74,14 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
     }
 
   }
-
 }
 
 @Composable
-private fun AuthSurface(authVM: AuthVM, scaffoldState: ScaffoldState) {
+private fun AuthSurface(
+  authVM: AuthVM,
+  scaffoldState: ScaffoldState,
+  onLoginNavigate: () -> Unit = {}
+) {
   PraxisSurface(
     modifier = Modifier
       .fillMaxHeight()
@@ -80,7 +106,7 @@ private fun AuthSurface(authVM: AuthVM, scaffoldState: ScaffoldState) {
 
       PasswordTF(authVM)
 
-      LoginButton(authVM)
+      LoginButton(authVM = authVM, onLoginNavigate = onLoginNavigate)
 
       ForgotPasswordText(authVM)
 
@@ -114,10 +140,13 @@ fun ForgotPasswordText(authVM: AuthVM) {
 }
 
 @Composable
-private fun LoginButton(authVM: AuthVM) {
+private fun LoginButton(
+  authVM: AuthVM,
+  onLoginNavigate: () -> Unit = {}
+) {
   Button(
     onClick = {
-      authVM.loginNow()
+      authVM.loginNow(onLoginNavigate = onLoginNavigate)
     }, Modifier.fillMaxWidth(),
     colors = ButtonDefaults.buttonColors(backgroundColor = PraxisTheme.colors.buttonColor)
   ) {
@@ -170,11 +199,11 @@ private fun EmailTF(authVM: AuthVM) {
     Modifier
       .padding(16.dp)
       .fillMaxWidth(), label = {
-      Text(
-        text = "Email",
-        style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
-      )
-    },
+    Text(
+      text = "Email",
+      style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
+    )
+  },
     shape = PraxisShapes.large,
     leadingIcon = {
       Image(
@@ -195,7 +224,6 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   unfocusedIndicatorColor = Color.Transparent,
   backgroundColor = PraxisTheme.colors.accent.copy(alpha = AlphaNearTransparent),
 )
-
 
 @Preview("Light+Dark")
 @Composable
