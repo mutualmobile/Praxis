@@ -21,14 +21,14 @@ class GithubReposVM @Inject constructor(
   private val uiRepoMapper: UIRepoMapper
 ) : ViewModel() {
 
+  companion object {
+    private const val DEFAULT_QUERY = "flutter"
+  }
+
   private val currentQuery = MutableLiveData(DEFAULT_QUERY)
 
   private val _reposFlowLiveData = MutableLiveData<Flow<PagingData<DOMRepo>>>()
   val reposFlowLiveData: LiveData<Flow<PagingData<DOMRepo>>> = _reposFlowLiveData
-
-  companion object {
-    private const val DEFAULT_QUERY = "flutter"
-  }
 
   fun mapToUiRepo(domRepo: DOMRepo): UIRepo {
     return uiRepoMapper.mapToPresentation(domRepo)

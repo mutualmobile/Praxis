@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
 import androidx.fragment.app.Fragment
 import com.mutualmobile.feat.githubrepos.nav.GithubNavigation
+import com.mutualmobile.feat.githubrepos.ui.github.repolist.GithubReposFragment
 import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.navigator.Navigator
@@ -21,11 +23,20 @@ class RepoDetailsFragment : Fragment() {
   @Inject
   lateinit var navigator: Navigator
 
+  /**
+   * Include a ComposeView directly in a fragment if your full screen is built with Compose,
+   * which lets you avoid using an XML layout file entirely.
+   */
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ) = ComposeView(requireContext()).apply {
+
+    // Dispose of the Composition when the view's LifecycleOwner is destroyed
+    // DisposeOnViewTreeLifecycleDestroyed: ViewCompositionStrategy that disposes the composition
+    // when the ViewTreeLifecycleOwner of the next window the view is attached to is destroyed.
+    setViewCompositionStrategy(DisposeOnViewTreeLifecycleDestroyed)
 
     setContent {
       // Create a Compose MaterialTheme inheriting the existing colors, typography
@@ -33,7 +44,7 @@ class RepoDetailsFragment : Fragment() {
       PraxisTheme {
         GithubNavigation(
           navigator = navigator,
-          uiRepo = arguments?.getParcelable("uiRepoModel") as UIRepo?
+          uiRepo = arguments?.getParcelable(GithubReposFragment.ARG_UI_REPO_MODEL) as UIRepo?
         )
       }
     }

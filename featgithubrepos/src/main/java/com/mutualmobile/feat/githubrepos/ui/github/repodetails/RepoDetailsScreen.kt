@@ -50,7 +50,7 @@ fun RepoDetailsScreen(uiRepo: UIRepo) {
           overflow = TextOverflow.Ellipsis,
           maxLines = 1,
           modifier = Modifier
-            .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
+            .padding(8.dp)
         )
         Text(
           text = "Created: ${getFormattedCreateDate(uiRepo.createDate)}",
@@ -58,7 +58,7 @@ fun RepoDetailsScreen(uiRepo: UIRepo) {
           overflow = TextOverflow.Ellipsis,
           maxLines = 1,
           modifier = Modifier
-            .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
+            .padding(8.dp)
         )
         Text(
           text = "Duration: ~${getFormattedDuration(uiRepo.createDate)}",
@@ -66,7 +66,7 @@ fun RepoDetailsScreen(uiRepo: UIRepo) {
           overflow = TextOverflow.Ellipsis,
           maxLines = 1,
           modifier = Modifier
-            .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
+            .padding(8.dp)
         )
       }
     }
