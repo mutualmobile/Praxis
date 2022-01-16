@@ -14,12 +14,11 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
+import com.mutualmobile.feat.githubrepos.utils.getFormattedCreateDate
+import com.mutualmobile.feat.githubrepos.utils.getFormattedDuration
 import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
-import kotlinx.datetime.*
-import java.time.format.DateTimeFormatter
-import kotlin.time.DurationUnit
 
 const val DATE_TIME_DETAILS = "MMM d yyyy hh:mm a"
 
@@ -54,12 +53,7 @@ fun RepoDetailsScreen(uiRepo: UIRepo) {
             .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
         )
         Text(
-          text = "Created: ${
-            uiRepo.createDate.toInstant()
-              .toLocalDateTime(TimeZone.currentSystemDefault())
-              .toJavaLocalDateTime()
-              .format(DateTimeFormatter.ofPattern(DATE_TIME_DETAILS))
-          }",
+          text = "Created: ${getFormattedCreateDate(uiRepo.createDate)}",
           style = MaterialTheme.typography.body1,
           overflow = TextOverflow.Ellipsis,
           maxLines = 1,
@@ -67,27 +61,7 @@ fun RepoDetailsScreen(uiRepo: UIRepo) {
             .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
         )
         Text(
-          text = (Clock.System.now() - uiRepo.createDate.toInstant()).toInt(DurationUnit.SECONDS)
-            .let {
-              return@let "Duration: ~${
-                listOf(
-                  ":%02d".format(it % 60),
-                  ":%02d".format((it % 3600) / 60),
-                  "%d".format((it % 86400) / 3600),
-                  "%d days ".format((it % 31536000) / 86400),
-                  "%d years ".format(it / 31536000)
-                )
-                  .filter { t -> !t.contains("0 days") && !t.contains("0 years") }
-                  .reversed()
-                  .joinToString("") { t ->
-                    when (t) {
-                      "1 days" -> "1 day"
-                      "1 years" -> "1 year"
-                      else -> t
-                    }
-                  }
-              }"
-            },
+          text = "Duration: ~${getFormattedDuration(uiRepo.createDate)}",
           style = MaterialTheme.typography.body2,
           overflow = TextOverflow.Ellipsis,
           maxLines = 1,
