@@ -12,8 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
@@ -24,9 +22,7 @@ fun JokeDetailsScreen(jokeDetailVM: JokeDetailVM = hiltViewModel()) {
   Scaffold(
     backgroundColor = PraxisTheme.colors.uiBackground,
     contentColor = PraxisTheme.colors.textSecondary,
-    modifier = Modifier
-      .statusBarsPadding()
-      .navigationBarsPadding(),
+    modifier = Modifier,
     topBar = {
       CommonTopAppBar("Joke Detail")
     }) {

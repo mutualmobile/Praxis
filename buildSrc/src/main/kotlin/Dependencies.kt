@@ -20,6 +20,7 @@ object BuildPlugins {
   const val KOTLIN_PARCELABLE_PLUGIN = "kotlin-parcelize"
   const val KOTLIN_KAPT = "kotlin-kapt"
   const val DAGGER_HILT = "dagger.hilt.android.plugin"
+  const val SAFE_ARGS_KOTLIN = "androidx.navigation.safeargs.kotlin"
 }
 
 object Lib {
@@ -30,6 +31,7 @@ object Lib {
 
     const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
     const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
+    const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
   }
 
   object Android {

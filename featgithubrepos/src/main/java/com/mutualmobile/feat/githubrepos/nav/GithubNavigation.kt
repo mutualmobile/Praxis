@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.mutualmobile.feat.githubrepos.ui.github.repodetails.RepoDetailsScreen
+import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
@@ -15,7 +17,10 @@ import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
 
 @Composable
-fun GithubNavigation(navigator: Navigator) {
+fun GithubNavigation(
+  navigator: Navigator,
+  uiRepo: UIRepo?
+) {
   ProvideWindowInsets {
     PraxisSurface(
       color = PraxisTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
@@ -32,7 +37,9 @@ fun GithubNavigation(navigator: Navigator) {
         startDestination = Screen.RepoDetails.route
       ) {
         composable(Screen.RepoDetails.route) {
-          //AuthenticationUI()
+          uiRepo?.let { safeUiRepo ->
+            RepoDetailsScreen(uiRepo = safeUiRepo)
+          }
         }
       }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -88,6 +89,9 @@ class GithubReposFragment : Fragment(), RepoClickListener {
   }
 
   override fun onRepoItemClicked(uiRepo: UIRepo) {
-    findNavController().navigate(R.id.action_reposFragment_to_repoDetailsFragment)
+    findNavController().navigate(
+      resId = R.id.action_reposFragment_to_repoDetailsFragment,
+      args = bundleOf("uiRepoModel" to uiRepo)
+    )
   }
 }

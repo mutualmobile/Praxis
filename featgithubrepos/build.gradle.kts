@@ -4,6 +4,7 @@ plugins {
   id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
   id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
+  id(BuildPlugins.SAFE_ARGS_KOTLIN)
   id("org.jlleitschuh.gradle.ktlint")
 }
 
@@ -57,6 +58,7 @@ kapt {
 
 dependencies {
 
+  api(project(":featauthentication"))
   implementation(project(":data"))
   implementation(project(":domain"))
   implementation(project(":common"))
@@ -67,6 +69,7 @@ dependencies {
   api(Lib.Kotlin.KTX_CORE)
   api(Lib.Android.FRAGMENT_KTX)
   api(Lib.Android.NAVIGATION_FRAGMENT)
+  api(Lib.Kotlin.DATE_TIME)
 
   /* Compose */
   implementation(Lib.Android.COMPOSE_NAVIGATION)
