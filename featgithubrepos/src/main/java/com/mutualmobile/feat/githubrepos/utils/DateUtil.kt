@@ -1,5 +1,7 @@
 package com.mutualmobile.feat.githubrepos.utils
 
+import android.os.Build.VERSION_CODES
+import androidx.annotation.RequiresApi
 import com.mutualmobile.feat.githubrepos.ui.github.repodetails.DATE_TIME_DETAILS
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -31,6 +33,7 @@ fun getFormattedDuration(createDate: String): String {
     }
 }
 
+@RequiresApi(VERSION_CODES.O)
 fun getFormattedCreateDate(createDate: String): String {
   return createDate.toInstant()
     .toLocalDateTime(TimeZone.currentSystemDefault())

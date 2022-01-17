@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
 
     // Displaying edge-to-edge
+    // Turn off the decor fitting system windows, which allows us to handle insets, including IME animations
+    // This app draws behind the system bars, so we want to handle fitting system windows
     WindowCompat.setDecorFitsSystemWindows(window, false)
 
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
