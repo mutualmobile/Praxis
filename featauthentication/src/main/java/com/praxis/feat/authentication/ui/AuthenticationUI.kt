@@ -1,5 +1,6 @@
 package com.praxis.feat.authentication.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,25 +10,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,8 +57,8 @@ fun AuthenticationUI(
     topBar = {
       CommonTopAppBar(titleText = "Authentication")
     }, scaffoldState = scaffoldState, snackbarHost = {
-    scaffoldState.snackbarHostState
-  }
+      scaffoldState.snackbarHostState
+    }
   ) { innerPadding ->
     Box(modifier = Modifier.padding(innerPadding)) {
       AuthSurface(
@@ -76,6 +74,7 @@ fun AuthenticationUI(
   }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun AuthSurface(
   authVM: AuthVM,
@@ -101,14 +100,30 @@ private fun AuthSurface(
         painter = painterResource(id = R.mipmap.ic_launcher),
         contentDescription = "Logo", Modifier.size(128.dp)
       )
+      var formVisible by remember { authVM.formVisibility }
+      val (focusRequester) = FocusRequester.createRefs()
 
-      EmailTF(authVM)
+      AnimatedVisibility(visible = formVisible) {
+        EmailTF(authVM,focusRequester)
+      }
 
-      PasswordTF(authVM)
+      AnimatedVisibility(visible = formVisible) {
+        PasswordTF(authVM, focusRequester)
+      }
 
-      LoginButton(authVM = authVM, onLoginNavigate = onLoginNavigate)
+      AnimatedVisibility(visible = !formVisible) {
+        CircularProgressIndicator(modifier = Modifier.padding(8.dp))
+      }
 
-      ForgotPasswordText(authVM)
+      AnimatedVisibility(visible = formVisible){
+        LoginButton(authVM = authVM, onLoginNavigate = onLoginNavigate, {
+          formVisible = false
+        })
+      }
+
+      AnimatedVisibility(visible = formVisible) {
+        ForgotPasswordText(authVM)
+      }
 
       if (resetPasswordState.isNotEmpty()) {
         LaunchedEffect(scaffoldState) {
@@ -142,10 +157,12 @@ fun ForgotPasswordText(authVM: AuthVM) {
 @Composable
 private fun LoginButton(
   authVM: AuthVM,
-  onLoginNavigate: () -> Unit = {}
+  onLoginNavigate: () -> Unit = {},
+  onClick: () -> Unit
 ) {
   Button(
     onClick = {
+      onClick()
       authVM.loginNow(onLoginNavigate = onLoginNavigate)
     }, Modifier.fillMaxWidth(),
     colors = ButtonDefaults.buttonColors(backgroundColor = PraxisTheme.colors.buttonColor)
@@ -157,16 +174,19 @@ private fun LoginButton(
   }
 }
 
+@ExperimentalComposeUiApi
 @Composable
-private fun PasswordTF(authVM: AuthVM) {
+private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
   val credentials by authVM.credentials.collectAsState()
+  val keyboardController = LocalSoftwareKeyboardController.current
+
   TextField(
     value = credentials.password ?: "",
     onValueChange = {
       authVM.credentials.value = credentials.copy(password = it)
     },
-    Modifier
-      .padding(16.dp)
+    modifier = Modifier
+      .padding(16.dp).focusRequester(focusRequester)
       .fillMaxWidth(),
     label = {
       Text(
@@ -175,6 +195,9 @@ private fun PasswordTF(authVM: AuthVM) {
       )
     },
     shape = PraxisShapes.large,
+    keyboardActions = KeyboardActions(
+      onDone = { keyboardController?.hide() }),
+    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     leadingIcon = {
       Image(
         painter = painterResource(id = R.drawable.ic_eye),
@@ -188,9 +211,11 @@ private fun PasswordTF(authVM: AuthVM) {
   )
 }
 
+@ExperimentalComposeUiApi
 @Composable
-private fun EmailTF(authVM: AuthVM) {
+private fun EmailTF(authVM: AuthVM,focusRequester: FocusRequester) {
   val credentials by authVM.credentials.collectAsState()
+
   TextField(
     value = credentials.email ?: "",
     onValueChange = {
@@ -199,12 +224,20 @@ private fun EmailTF(authVM: AuthVM) {
     Modifier
       .padding(16.dp)
       .fillMaxWidth(), label = {
-    Text(
-      text = "Email",
-      style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
-    )
-  },
+      Text(
+        text = "Email",
+        style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
+      )
+    },
     shape = PraxisShapes.large,
+    keyboardOptions = KeyboardOptions(
+      imeAction = ImeAction.Next, keyboardType = KeyboardType.Email
+    ),
+    keyboardActions = KeyboardActions(
+      onNext = {
+        focusRequester.requestFocus()
+      },
+    ),
     leadingIcon = {
       Image(
         painter = painterResource(id = R.drawable.ic_email),

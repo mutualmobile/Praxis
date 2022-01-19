@@ -14,6 +14,7 @@ object BuildPlugins {
   const val SAFE_ARGS_GRADLE_PLUGIN =
     "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
   const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
+  const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
@@ -43,7 +44,8 @@ object Lib {
 
     const val ACT_COMPOSE = "androidx.activity:activity-compose:1.4.0"
 
-    const val CONSTRAINT_LAYOUT_COMPOSE = "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
+    const val CONSTRAINT_LAYOUT_COMPOSE =
+      "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
 
     const val COMPOSE_UI = "androidx.compose.ui:ui:${COMPOSE_VERSION}"
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:1.4.0"
@@ -54,7 +56,8 @@ object Lib {
     const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:2.4.0-rc01"
     const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
     const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
-    const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${FRAGMENT_NAVIGATION_VERSION}"
+    const val NAVIGATION_FRAGMENT =
+      "androidx.navigation:navigation-fragment-ktx:${FRAGMENT_NAVIGATION_VERSION}"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.4.0"
     const val ACCOMPANIST_INSETS = "com.google.accompanist:accompanist-insets:0.22.0-rc"
   }

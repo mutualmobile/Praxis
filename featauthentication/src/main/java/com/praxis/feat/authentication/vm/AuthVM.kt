@@ -1,5 +1,6 @@
 package com.praxis.feat.authentication.vm
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +12,9 @@ import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,12 +23,11 @@ class AuthVM @Inject constructor(
   private val navigator: Navigator
 ) : ViewModel() {
 
+  var formVisibility = mutableStateOf(true)
   var credentials = MutableStateFlow(LoginForm())
     private set
   var snackBarState = MutableStateFlow("")
     private set
-
-  var uiState = MutableStateFlow<UiState>(UiState.Empty)
 
   init {
     observePasswordReset()
@@ -43,16 +45,22 @@ class AuthVM @Inject constructor(
   }
 
   fun loginNow(onLoginNavigate: () -> Unit = {}) {
+    formVisibility.value = false
+
     try {
       val isValid = credentials.value.validate()
       if (isValid) {
         snackBarState.value = ""
-        onLoginNavigate()
+        viewModelScope.launch {
+          delay(1500)
+          onLoginNavigate()
+        }
         //navigator.navigate(Screen.Jokes.route)
+      }else{
+        formVisibility.value = true
       }
-      uiState.value = UiState.SuccessState("some_jwt")
     } catch (ex: FormValidationFailed) {
-      uiState.value = UiState.ErrorState(throwable = ex)
+      formVisibility.value = true
       snackBarState.value = ex.failType.message
     }
   }
