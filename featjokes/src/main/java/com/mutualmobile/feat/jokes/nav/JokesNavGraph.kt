@@ -26,7 +26,7 @@ fun JokesNavGraph(navigator: Navigator) {
       val navController = rememberNavController()
 
       LaunchedEffect(Unit) {
-        navigator.handleNavigationCommands(navController)
+        navigator.handleComposeNavigationCommands(navController)
       }
 
       NavHost(

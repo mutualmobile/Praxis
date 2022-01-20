@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mutualmobile.praxis.navigator.NavigationKeys
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
+import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,7 +52,7 @@ class AuthVM @Inject constructor(
         snackBarState.value = ""
         viewModelScope.launch {
           delay(1500)
-          navigator.navigate(Screen.Jokes.route)
+          navigator.navigateFragment(R.id.action_authFragment_to_viewPagerFragment)
         }
       } else {
         formVisibility.value = true

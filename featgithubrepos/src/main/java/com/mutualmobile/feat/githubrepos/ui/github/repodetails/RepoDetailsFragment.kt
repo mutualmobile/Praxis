@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
 import androidx.fragment.app.Fragment
-import com.mutualmobile.feat.githubrepos.nav.GithubNavigation
+import com.mutualmobile.feat.githubrepos.nav.GithubNavGraph
 import com.mutualmobile.feat.githubrepos.ui.github.repolist.GithubReposFragment
 import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
@@ -42,7 +42,7 @@ class RepoDetailsFragment : Fragment() {
       // Create a Compose MaterialTheme inheriting the existing colors, typography
       // and shapes of the current View system's theme
       PraxisTheme {
-        GithubNavigation(
+        GithubNavGraph(
           navigator = navigator,
           uiRepo = arguments?.getParcelable(GithubReposFragment.ARG_UI_REPO_MODEL) as UIRepo?
         )

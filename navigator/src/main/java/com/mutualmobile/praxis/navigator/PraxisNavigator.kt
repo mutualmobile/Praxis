@@ -6,31 +6,46 @@ import androidx.navigation.navOptions
 import kotlinx.coroutines.flow.*
 
 class PraxisNavigator : Navigator() {
+  // We use a StateFlow here to allow ViewModels to start observing navigation results before the initial composition,
+  // and still get the navigation result later
+  private val composeNavControllerFlow = MutableStateFlow<NavController?>(null)
+  private val fragmentNavControllerFlow = MutableStateFlow<NavController?>(null)
 
-  override suspend fun handleNavigationCommands(navController: NavController) {
-    navigationCommands
-      .onSubscription { this@PraxisNavigator.navControllerFlow.value = navController }
-      .onCompletion { this@PraxisNavigator.navControllerFlow.value = null }
+  override suspend fun handleComposeNavigationCommands(navController: NavController) {
+    composeNavigationCommands
+      .onSubscription { this@PraxisNavigator.composeNavControllerFlow.value = navController }
+      .onCompletion { this@PraxisNavigator.composeNavControllerFlow.value = null }
       .collect { navController.handleNavigationCommand(it) }
+  }
+
+  override suspend fun handleFragmentNavigationCommands(navController: NavController) {
+    fragmentNavigationCommands
+      .onSubscription { this@PraxisNavigator.fragmentNavControllerFlow.value = navController }
+      .onCompletion { this@PraxisNavigator.fragmentNavControllerFlow.value = null }
+      .collect { navController.handleNavigationCommand(it) }
+  }
+
+  override fun navigateFragment(id: Int) {
+    fragmentNavigationCommands.tryEmit(NavigationCommand.FragmentRoute(id))
   }
 
   override fun navigate(route: String, optionsBuilder: (NavOptionsBuilder.() -> Unit)?) {
     val options = optionsBuilder?.let { navOptions(it) }
-    navigationCommands.tryEmit(NavigationCommand.NavigateToRoute(route, options))
+    composeNavigationCommands.tryEmit(NavigationCommand.NavigateToRoute(route, options))
   }
 
   override fun navigateAndClearBackStack(route: String) {
-    navigationCommands.tryEmit(NavigationCommand.NavigateToRoute(route, navOptions {
+    composeNavigationCommands.tryEmit(NavigationCommand.NavigateToRoute(route, navOptions {
       popUpTo(0)
     }))
   }
 
   override fun navigateUp() {
-    navigationCommands.tryEmit(NavigationCommand.NavigateUp)
+    composeNavigationCommands.tryEmit(NavigationCommand.NavigateUp)
   }
 
   override fun popUpTo(route: String, inclusive: Boolean) {
-    navigationCommands.tryEmit(NavigationCommand.PopUpToRoute(route, inclusive))
+    composeNavigationCommands.tryEmit(NavigationCommand.PopUpToRoute(route, inclusive))
   }
 
   override fun <T> navigateBackWithResult(
@@ -38,7 +53,7 @@ class PraxisNavigator : Navigator() {
     result: T,
     destination: String?
   ) {
-    navigationCommands.tryEmit(
+    composeNavigationCommands.tryEmit(
       NavigationCommand.NavigateUpWithResult(
         key = key,
         result = result,
@@ -48,7 +63,7 @@ class PraxisNavigator : Navigator() {
   }
 
   override fun <T> observeResult(key: String, route: String?): Flow<T> {
-    return navControllerFlow
+    return composeNavControllerFlow
       .filterNotNull()
       .flatMapLatest { navController ->
         val backStackEntry = route?.let { navController.getBackStackEntry(it) }
@@ -68,6 +83,9 @@ class PraxisNavigator : Navigator() {
 
   private fun NavController.handleNavigationCommand(navigationCommand: NavigationCommand) {
     when (navigationCommand) {
+      is NavigationCommand.FragmentRoute -> {
+        navigate(navigationCommand.id)
+      }
       is NavigationCommand.NavigateToRoute -> navigate(
         navigationCommand.route,
         navigationCommand.options

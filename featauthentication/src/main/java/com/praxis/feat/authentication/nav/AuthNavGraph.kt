@@ -1,4 +1,4 @@
-package com.mutualmobile.feat.githubrepos.nav
+package com.praxis.feat.authentication.nav
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -8,18 +8,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.mutualmobile.feat.githubrepos.ui.github.repodetails.RepoDetailsScreen
-import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
+import com.praxis.feat.authentication.ui.AuthenticationUI
+import com.praxis.feat.authentication.ui.ForgotPasswordUI
 
 @Composable
-fun GithubNavigation(
-  navigator: Navigator,
-  uiRepo: UIRepo?
+fun AuthNavGraph(
+  navigator: Navigator
 ) {
   ProvideWindowInsets {
     PraxisSurface(
@@ -29,17 +28,17 @@ fun GithubNavigation(
       val navController = rememberNavController()
 
       LaunchedEffect(Unit) {
-        navigator.handleNavigationCommands(navController)
+        navigator.handleComposeNavigationCommands(navController)
       }
-
       NavHost(
         navController = navController,
-        startDestination = Screen.RepoDetails.route
+        startDestination = Screen.Auth.route
       ) {
-        composable(Screen.RepoDetails.route) {
-          uiRepo?.let { safeUiRepo ->
-            RepoDetailsScreen(uiRepo = safeUiRepo)
-          }
+        composable(Screen.Auth.route) {
+          AuthenticationUI()
+        }
+        composable(Screen.ForgotPassword.route) {
+          ForgotPasswordUI()
         }
       }
     }
