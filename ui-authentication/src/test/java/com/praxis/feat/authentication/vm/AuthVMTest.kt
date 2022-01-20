@@ -1,66 +1,82 @@
 package com.praxis.feat.authentication.vm
 
 import androidx.lifecycle.SavedStateHandle
-import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.praxis.feat.authentication.MainCoroutineRule
+import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
 import com.praxis.feat.authentication.ui.model.LoginForm
+import io.mockk.MockKAnnotations
 import io.mockk.coEvery
-import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
+import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.*
+import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 class AuthVMTest {
 
-  private var navigator: Navigator = ComposeNavigator<Any>()
+  @MockK
+  lateinit var navigator: ComposeNavigator
+  @MockK
+  lateinit var fragmentNavigator: FragmentNavGraphNavigator
+  @MockK
   private lateinit var savedStateHandle: SavedStateHandle
+
   private lateinit var authVM: AuthVM
-
-  @get:Rule
-  val coroutineRule = MainCoroutineRule()
-
 
   @Before
   fun setUp() {
-    savedStateHandle = mockk()
+    MockKAnnotations.init(this,  true)
+    Dispatchers.setMain(StandardTestDispatcher())
+  }
+
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
   }
 
   @Test
   fun `test that login now fails with validation exception`() {
-    runBlocking {
+    runTest {
+      launch {
+        coEvery {
+          navigator.observeResult<String>(any())
+        } returns emptyFlow()
 
-      coEvery {
-        savedStateHandle.get<String>(any())
-      } returns ""
+        coEvery {
+          savedStateHandle.get<String>(any())
+        } returns ""
 
-      authVM = AuthVM(savedStateHandle, navigator)
+        authVM = AuthVM(savedStateHandle, fragmentNavigator, navigator)
 
-      assert(authVM.uiState.value is AuthVM.UiState.Empty)
-      authVM.loginNow()
-      assert(authVM.uiState.value is AuthVM.UiState.ErrorState)
+        assert(authVM.uiState.value is AuthVM.UiState.Empty)
+        authVM.loginNow()
+        delay(1600)
+        assert(authVM.uiState.value is AuthVM.UiState.ErrorState)
+      }
     }
   }
 
   @Test
   fun `test that loginNow() completes with no exception`() {
-    runBlocking {
+    runTest {
+      launch {
+        coEvery {
+          navigator.observeResult<String>(any())
+        } returns emptyFlow()
+        coEvery {
+          savedStateHandle.get<String>(any())
+        } returns ""
 
-      coEvery {
-        savedStateHandle.get<String>(any())
-      } returns ""
-
-      authVM = AuthVM(savedStateHandle, navigator)
-      authVM.credentials.value = LoginForm("anmol@gmail.com","sdkfkjkjfdsjkfds")
-      assert(authVM.uiState.value is AuthVM.UiState.Empty)
-      authVM.loginNow()
-      assert(authVM.uiState.value is AuthVM.UiState.SuccessState)
+        authVM = AuthVM(savedStateHandle, fragmentNavigator, navigator)
+        authVM.credentials.value = LoginForm("anmol@gmail.com", "sdkfkjkjfdsjkfds")
+        assert(authVM.uiState.value is AuthVM.UiState.Empty)
+        authVM.loginNow()
+        assert(authVM.uiState.value is AuthVM.UiState.SuccessState)
+      }
     }
-  }
-
-  @Test
-  fun `navigateForgotPassword how ?`() {
-    TODO("how do we test navigation controller in unit test ?")
   }
 }

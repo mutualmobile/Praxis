@@ -97,26 +97,26 @@ private fun AuthSurface(
         painter = painterResource(id = R.mipmap.ic_launcher),
         contentDescription = "Logo", Modifier.size(128.dp)
       )
-      var formVisible by remember { authVM.formVisibility }
+      val formVisible by authVM.uiState.collectAsState()
       val (focusRequester) = FocusRequester.createRefs()
 
-      AnimatedVisibility(visible = formVisible) {
+      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
         EmailTF(authVM,focusRequester)
       }
 
-      AnimatedVisibility(visible = formVisible) {
+      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
         PasswordTF(authVM, focusRequester)
       }
 
-      AnimatedVisibility(visible = !formVisible) {
+      AnimatedVisibility(visible = (formVisible is AuthVM.UiState.LoadingState)) {
         CircularProgressIndicator(modifier = Modifier.padding(8.dp))
       }
 
-      AnimatedVisibility(visible = formVisible){
+      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty){
         LoginButton(authVM = authVM)
       }
 
-      AnimatedVisibility(visible = formVisible) {
+      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
         ForgotPasswordText(authVM)
       }
 
@@ -178,7 +178,8 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
       authVM.credentials.value = credentials.copy(password = it)
     },
     modifier = Modifier
-      .padding(16.dp).focusRequester(focusRequester)
+      .padding(16.dp)
+      .focusRequester(focusRequester)
       .fillMaxWidth(),
     label = {
       Text(

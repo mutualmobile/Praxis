@@ -7,7 +7,7 @@ import java.util.regex.Pattern
 
 
 data class LoginForm(val email: String = "", var password: String = "") : Validatable {
-  override fun validate(): Boolean {
+  override fun validate() {
     val pattern = emailRegex()
     if (!pattern.matcher(email).matches()) {
       throw FormValidationFailed(FailureType.EMAIL_NOT_VALID)
@@ -16,8 +16,6 @@ data class LoginForm(val email: String = "", var password: String = "") : Valida
     if (password.length < 6) {
       throw FormValidationFailed(FailureType.PASSWORD_NOT_VALID)
     }
-
-    return true
   }
 
   private fun emailRegex() = Pattern.compile(

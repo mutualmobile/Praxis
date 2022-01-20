@@ -1,6 +1,5 @@
 package com.praxis.feat.authentication.vm
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,10 +23,11 @@ class AuthVM @Inject constructor(
   private val composeNavigator: ComposeNavigator
 ) : ViewModel() {
 
-  var formVisibility = mutableStateOf(true)
   var credentials = MutableStateFlow(LoginForm())
     private set
   var snackBarState = MutableStateFlow("")
+    private set
+  var uiState = MutableStateFlow<UiState>(UiState.Empty)
     private set
 
   init {
@@ -35,7 +35,7 @@ class AuthVM @Inject constructor(
   }
 
   private fun observePasswordReset() {
-    fragmentNavGraphNavigator.observeResult<String>(NavigationKeys.ForgotPassword).onStart {
+    composeNavigator.observeResult<String>(NavigationKeys.ForgotPassword).onStart {
       val message = savedStateHandle.get<String>(NavigationKeys.ForgotPassword)
       message?.let {
         emit(it)
@@ -46,22 +46,19 @@ class AuthVM @Inject constructor(
   }
 
   fun loginNow() {
-    formVisibility.value = false
-
+    uiState.value = UiState.LoadingState
     try {
-      val isValid = credentials.value.validate()
-      if (isValid) {
-        snackBarState.value = ""
-        viewModelScope.launch {
-          delay(1500)
-          fragmentNavGraphNavigator.navigateFragment(R.id.action_authFragment_to_viewPagerFragment)
-        }
-      } else {
-        formVisibility.value = true
+      credentials.value.validate()
+      snackBarState.value = ""
+      uiState.value = UiState.SuccessState("sdff")
+
+      viewModelScope.launch {
+        delay(1500)
+        fragmentNavGraphNavigator.navigateFragment(R.id.action_authFragment_to_viewPagerFragment)
       }
     } catch (ex: FormValidationFailed) {
-      formVisibility.value = true
       snackBarState.value = ex.failType.message
+      uiState.value = UiState.ErrorState(ex)
     }
   }
 
