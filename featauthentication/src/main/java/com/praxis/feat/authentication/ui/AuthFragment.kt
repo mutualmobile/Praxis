@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.navigator.Navigator
 import com.praxis.feat.authentication.nav.AuthNavigation
@@ -41,8 +40,7 @@ class AuthFragment : Fragment() {
          * by finding the NavController and navigating to the destination:
          */
         AuthNavigation(
-          navigator = navigator,
-          onLoginNavigate = { dest -> findNavController().navigate(dest) }
+          navigator = navigator
         )
       }
     }

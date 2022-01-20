@@ -13,14 +13,12 @@ import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
-import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.ui.AuthenticationUI
 import com.praxis.feat.authentication.ui.ForgotPasswordUI
 
 @Composable
 fun AuthNavigation(
-  navigator: Navigator,
-  onLoginNavigate: (Int) -> Unit = {}
+  navigator: Navigator
 ) {
   ProvideWindowInsets {
     PraxisSurface(
@@ -37,11 +35,7 @@ fun AuthNavigation(
         startDestination = Screen.Auth.route
       ) {
         composable(Screen.Auth.route) {
-          AuthenticationUI(
-            onLoginNavigate = {
-              onLoginNavigate(R.id.action_authFragment_to_viewPagerFragment)
-            }
-          )
+          AuthenticationUI()
         }
         composable(Screen.ForgotPassword.route) {
           ForgotPasswordUI()

@@ -4,11 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavOptionsBuilder
 import com.mutualmobile.praxis.navigator.NavigationKeys
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
-import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,7 +42,7 @@ class AuthVM @Inject constructor(
       .launchIn(viewModelScope)
   }
 
-  fun loginNow(onLoginNavigate: () -> Unit = {}) {
+  fun loginNow() {
     formVisibility.value = false
 
     try {
@@ -53,10 +51,9 @@ class AuthVM @Inject constructor(
         snackBarState.value = ""
         viewModelScope.launch {
           delay(1500)
-          onLoginNavigate()
+          navigator.navigate(Screen.Jokes.route)
         }
-        //navigator.navigate(Screen.Jokes.route)
-      }else{
+      } else {
         formVisibility.value = true
       }
     } catch (ex: FormValidationFailed) {

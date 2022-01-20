@@ -44,8 +44,7 @@ import com.praxis.feat.authentication.vm.AuthVM
 
 @Composable
 fun AuthenticationUI(
-  authVM: AuthVM = hiltViewModel(),
-  onLoginNavigate: () -> Unit = {}
+  authVM: AuthVM = hiltViewModel()
 ) {
   val scaffoldState = rememberScaffoldState()
   Scaffold(
@@ -62,8 +61,7 @@ fun AuthenticationUI(
   ) { innerPadding ->
     Box(modifier = Modifier.padding(innerPadding)) {
       AuthSurface(
-        authVM = authVM, scaffoldState = scaffoldState,
-        onLoginNavigate = onLoginNavigate
+        authVM = authVM, scaffoldState = scaffoldState
       )
       DefaultSnackbar(scaffoldState.snackbarHostState) {
         authVM.snackBarState.value = ""
@@ -78,8 +76,7 @@ fun AuthenticationUI(
 @Composable
 private fun AuthSurface(
   authVM: AuthVM,
-  scaffoldState: ScaffoldState,
-  onLoginNavigate: () -> Unit = {}
+  scaffoldState: ScaffoldState
 ) {
   PraxisSurface(
     modifier = Modifier
@@ -116,9 +113,7 @@ private fun AuthSurface(
       }
 
       AnimatedVisibility(visible = formVisible){
-        LoginButton(authVM = authVM, onLoginNavigate = onLoginNavigate, {
-          formVisible = false
-        })
+        LoginButton(authVM = authVM)
       }
 
       AnimatedVisibility(visible = formVisible) {
@@ -157,13 +152,10 @@ fun ForgotPasswordText(authVM: AuthVM) {
 @Composable
 private fun LoginButton(
   authVM: AuthVM,
-  onLoginNavigate: () -> Unit = {},
-  onClick: () -> Unit
 ) {
   Button(
     onClick = {
-      onClick()
-      authVM.loginNow(onLoginNavigate = onLoginNavigate)
+      authVM.loginNow()
     }, Modifier.fillMaxWidth(),
     colors = ButtonDefaults.buttonColors(backgroundColor = PraxisTheme.colors.buttonColor)
   ) {
