@@ -1,6 +1,7 @@
 package com.praxis.feat.authentication.vm
 
 import androidx.lifecycle.SavedStateHandle
+import app.cash.turbine.test
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
 import com.praxis.feat.authentication.ui.model.LoginForm
@@ -52,10 +53,14 @@ class AuthVMTest {
 
         authVM = AuthVM(savedStateHandle, fragmentNavigator, navigator)
 
-        assert(authVM.uiState.value is AuthVM.UiState.Empty)
+
+        authVM.uiState.test {
+          assert(awaitItem() is AuthVM.UiState.Empty)
+        }
         authVM.loginNow()
-        delay(1600)
-        assert(authVM.uiState.value is AuthVM.UiState.ErrorState)
+        authVM.uiState.test {
+          assert(awaitItem() is AuthVM.UiState.ErrorState)
+        }
       }
     }
   }
@@ -67,15 +72,27 @@ class AuthVMTest {
         coEvery {
           navigator.observeResult<String>(any())
         } returns emptyFlow()
+
+        coEvery {
+          fragmentNavigator.navigateFragment(any())
+        } returns Unit
+
         coEvery {
           savedStateHandle.get<String>(any())
         } returns ""
 
         authVM = AuthVM(savedStateHandle, fragmentNavigator, navigator)
         authVM.credentials.value = LoginForm("anmol@gmail.com", "sdkfkjkjfdsjkfds")
-        assert(authVM.uiState.value is AuthVM.UiState.Empty)
+
+        authVM.uiState.test {
+          assert(awaitItem() is AuthVM.UiState.Empty)
+        }
+
         authVM.loginNow()
-        assert(authVM.uiState.value is AuthVM.UiState.SuccessState)
+
+        authVM.uiState.test {
+          assert(awaitItem() is AuthVM.UiState.SuccessState)
+        }
       }
     }
   }

@@ -115,6 +115,7 @@ object TestLib {
   private const val ARCH_CORE_VERSION = "2.1.0"
   private const val CORE_TEST_VERSION = "1.2.0"
   private const val JUNIT_VERSION = "4.13"
+  private const val nav_version = "2.3.5"
 
   const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${COROUTINES_VERSION}"
   const val ROBO_ELECTRIC = "org.robolectric:robolectric:${ROBO_ELECTRIC_VERSION}"
@@ -124,6 +125,8 @@ object TestLib {
   const val ANDROID_JUNIT = "androidx.test.ext:junit:${ANDROID_JUNIT_VERSION}"
   const val ARCH_CORE = "androidx.arch.core:core-testing:${ARCH_CORE_VERSION}"
   const val MOCKK = "io.mockk:mockk:1.10.5"
+  const val NAVIGATION_TESTING = "androidx.navigation:navigation-testing:$nav_version"
+  const val TURBINE = "app.cash.turbine:turbine:0.7.0"
 }
 
 object DebugLib {
