@@ -11,14 +11,14 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
-import com.mutualmobile.praxis.navigator.Navigator
+import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.Screen
 import com.praxis.feat.authentication.ui.AuthenticationUI
 import com.praxis.feat.authentication.ui.ForgotPasswordUI
 
 @Composable
 fun AuthNavGraph(
-  navigator: Navigator
+  navigator: ComposeNavigator
 ) {
   ProvideWindowInsets {
     PraxisSurface(
@@ -28,7 +28,7 @@ fun AuthNavGraph(
       val navController = rememberNavController()
 
       LaunchedEffect(Unit) {
-        navigator.handleComposeNavigationCommands(navController)
+        navigator.handleNavigationCommands(navController)
       }
       NavHost(
         navController = navController,

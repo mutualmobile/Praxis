@@ -8,7 +8,7 @@ import com.mutualmobile.feat.jokes.ui.model.UIJokeMapper
 import com.mutualmobile.praxis.domain.SafeResult
 import com.mutualmobile.praxis.domain.model.DOMJoke
 import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
-import com.mutualmobile.praxis.navigator.Navigator
+import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class HomeVM @Inject constructor(
   private val getFiveRandomJokesUseCase: GetFiveRandomJokesUseCase,
   private val uiJokesMapper: UIJokeMapper,
-  private val navigator: Navigator
+  private val navigator: ComposeNavigator
 ) : ViewModel() {
 
   var viewState = MutableStateFlow<HomeViewState>(HomeViewState.Loading)

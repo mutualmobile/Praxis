@@ -10,6 +10,7 @@ import com.mutualmobile.feat.githubrepos.nav.GithubNavGraph
 import com.mutualmobile.feat.githubrepos.ui.github.repolist.GithubReposFragment
 import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,7 +22,7 @@ import javax.inject.Inject
 class RepoDetailsFragment : Fragment() {
 
   @Inject
-  lateinit var navigator: Navigator
+  lateinit var navigator: ComposeNavigator
 
   /**
    * Include a ComposeView directly in a fragment if your full screen is built with Compose,

@@ -1,18 +1,25 @@
 package com.mutualmobile.praxis.di
 
-import com.mutualmobile.praxis.navigator.Navigator
-import com.mutualmobile.praxis.navigator.PraxisNavigator
+import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
+import com.mutualmobile.praxis.navigator.composenavigator.PraxisComposeNavigator
+import com.mutualmobile.praxis.navigator.fragmentnavigator.PraxisFragmentNavGraphNavigator
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NavigationModule {
+abstract class NavigationModule {
 
-  @Provides
+  @Binds
   @Singleton
-  fun provideNavigator(): Navigator = PraxisNavigator()
+  abstract fun provideComposeNavigator(praxisComposeNavigator: PraxisComposeNavigator): ComposeNavigator
+
+
+  @Binds
+  @Singleton
+  abstract fun provideFragmentNavGraphNavigator(praxisFragmentNavGraphNavigator: PraxisFragmentNavGraphNavigator): FragmentNavGraphNavigator
 }

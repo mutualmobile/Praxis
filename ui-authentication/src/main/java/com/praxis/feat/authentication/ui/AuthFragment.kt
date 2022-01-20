@@ -9,6 +9,8 @@ import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLif
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
 import com.mutualmobile.praxis.navigator.Navigator
 import com.praxis.feat.authentication.nav.AuthNavGraph
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +23,10 @@ import javax.inject.Inject
 class AuthFragment : Fragment() {
 
   @Inject
-  lateinit var navigator: Navigator
+  lateinit var navigatorFragment: FragmentNavGraphNavigator
+
+  @Inject
+  lateinit var composeNavigator: ComposeNavigator
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -37,14 +42,14 @@ class AuthFragment : Fragment() {
       // and shapes of the current View system's theme
       PraxisTheme {
         LaunchedEffect(Unit) {
-          navigator.handleFragmentNavigationCommands(findNavController())
+          navigatorFragment.handleNavigationCommands(findNavController())
         }
         /**
          * Make the bridge between Compose and the fragment-based Navigation component
          * by finding the NavController and navigating to the destination:
          */
         AuthNavGraph(
-          navigator = navigator
+          navigator = composeNavigator
         )
       }
     }

@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLif
 import androidx.fragment.app.Fragment
 import com.mutualmobile.feat.jokes.nav.JokesNavGraph
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class JokeFragment : Fragment() {
 
   @Inject
-  lateinit var navigator: Navigator
+  lateinit var navigator: ComposeNavigator
 
   override fun onCreateView(
     inflater: LayoutInflater,

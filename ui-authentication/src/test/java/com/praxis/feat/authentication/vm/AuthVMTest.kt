@@ -2,7 +2,7 @@ package com.praxis.feat.authentication.vm
 
 import androidx.lifecycle.SavedStateHandle
 import com.mutualmobile.praxis.navigator.Navigator
-import com.mutualmobile.praxis.navigator.PraxisNavigator
+import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.praxis.feat.authentication.MainCoroutineRule
 import com.praxis.feat.authentication.ui.model.LoginForm
 import io.mockk.coEvery
@@ -14,7 +14,7 @@ import org.junit.Test
 
 class AuthVMTest {
 
-  private var navigator: Navigator = PraxisNavigator()
+  private var navigator: Navigator = ComposeNavigator<Any>()
   private lateinit var savedStateHandle: SavedStateHandle
   private lateinit var authVM: AuthVM
 

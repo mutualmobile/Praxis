@@ -13,11 +13,12 @@ import com.mutualmobile.feat.jokes.ui.joke.jokedetails.JokeDetailsScreen
 import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
 
 @Composable
-fun JokesNavGraph(navigator: Navigator) {
+fun JokesNavGraph(navigator: ComposeNavigator) {
   ProvideWindowInsets {
     PraxisSurface(
       color = PraxisTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
@@ -26,7 +27,7 @@ fun JokesNavGraph(navigator: Navigator) {
       val navController = rememberNavController()
 
       LaunchedEffect(Unit) {
-        navigator.handleComposeNavigationCommands(navController)
+        navigator.handleNavigationCommands(navController)
       }
 
       NavHost(

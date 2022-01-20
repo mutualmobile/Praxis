@@ -13,12 +13,14 @@ import com.mutualmobile.feat.githubrepos.ui.model.UIRepo
 import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.navigator.ComposeNavigationCommand
+import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
 
 @Composable
 fun GithubNavGraph(
-  navigator: Navigator,
+  navigator: ComposeNavigator,
   uiRepo: UIRepo?
 ) {
   ProvideWindowInsets {
@@ -29,7 +31,7 @@ fun GithubNavGraph(
       val navController = rememberNavController()
 
       LaunchedEffect(Unit) {
-        navigator.handleComposeNavigationCommands(navController)
+        navigator.handleNavigationCommands(navController)
       }
 
       NavHost(
