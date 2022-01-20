@@ -2,9 +2,9 @@
 include(":app")
 
 // Feature modules
-include(":featjokes")
-include(":featauthentication")
-include(":featgithubrepos")
+include(":ui-jokes")
+include(":ui-authentication")
+include(":ui-githubrepos")
 
 // Other modules
 include(":domain")

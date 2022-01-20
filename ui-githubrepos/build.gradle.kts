@@ -58,7 +58,7 @@ kapt {
 
 dependencies {
 
-  api(project(":featauthentication"))
+  api(project(":ui-authentication"))
   implementation(project(":data"))
   implementation(project(":domain"))
   implementation(project(":common"))
