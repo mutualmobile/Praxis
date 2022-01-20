@@ -1,9 +1,8 @@
-package com.mutualmobile.feat.jokes.ui.home
+package com.mutualmobile.feat.jokes.ui.joke.home
 
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mutualmobile.feat.jokes.ui.joke.InMemoryDataTemp
 import com.mutualmobile.feat.jokes.ui.model.UIJoke
 import com.mutualmobile.feat.jokes.ui.model.UIJokeMapper
 import com.mutualmobile.praxis.domain.SafeResult
@@ -15,7 +14,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.ArrayList
 import javax.inject.Inject
 
 @HiltViewModel

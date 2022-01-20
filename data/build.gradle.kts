@@ -35,6 +35,9 @@ dependencies {
   api(Lib.Kotlin.KT_STD)
   api(Lib.Async.COROUTINES)
 
+  /* Paging */
+  implementation(Lib.Paging.PAGING_3)
+
   /* Networking */
   api(Lib.Networking.RETROFIT)
   api(Lib.Networking.RETROFIT_GSON)

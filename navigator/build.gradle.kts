@@ -20,7 +20,6 @@ android {
     }
   }
 
-
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -30,9 +29,8 @@ android {
     jvmTarget = "1.8"
   }
 
-
   composeOptions {
-    kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER
+    kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER_VERSION
   }
 }
 
@@ -44,16 +42,14 @@ kapt {
 
 dependencies {
   /*Kotlin*/
-  implementation(Lib.Android.appCompat)
+  implementation(Lib.Android.APP_COMPAT)
   implementation(Lib.Kotlin.KTX_CORE)
   api(Lib.Async.COROUTINES)
   api(Lib.Async.COROUTINES_ANDROID)
 
-
   implementation(Lib.Kotlin.KT_STD)
-  implementation(Lib.Android.navigationCompose)
+  implementation(Lib.Android.COMPOSE_NAVIGATION)
 
-  implementation(Lib.Android.navigationCompose)
+  implementation(Lib.Android.COMPOSE_NAVIGATION)
   implementation(Lib.Di.hiltNavigationCompose)
-
 }

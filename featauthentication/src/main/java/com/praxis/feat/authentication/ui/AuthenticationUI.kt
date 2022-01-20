@@ -1,19 +1,31 @@
 package com.praxis.feat.authentication.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,12 +35,17 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
+import com.mutualmobile.praxis.commonui.theme.PraxisShapes
+import com.mutualmobile.praxis.commonui.theme.PraxisSurface
+import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
 
 @Composable
-fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
+fun AuthenticationUI(
+  authVM: AuthVM = hiltViewModel()
+) {
   val scaffoldState = rememberScaffoldState()
   Scaffold(
     backgroundColor = PraxisTheme.colors.uiBackground,
@@ -43,7 +60,9 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
     }
   ) { innerPadding ->
     Box(modifier = Modifier.padding(innerPadding)) {
-      AuthSurface(authVM, scaffoldState)
+      AuthSurface(
+        authVM = authVM, scaffoldState = scaffoldState
+      )
       DefaultSnackbar(scaffoldState.snackbarHostState) {
         authVM.snackBarState.value = ""
         scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
@@ -51,11 +70,14 @@ fun AuthenticationUI(authVM: AuthVM = hiltViewModel()) {
     }
 
   }
-
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun AuthSurface(authVM: AuthVM, scaffoldState: ScaffoldState) {
+private fun AuthSurface(
+  authVM: AuthVM,
+  scaffoldState: ScaffoldState
+) {
   PraxisSurface(
     modifier = Modifier
       .fillMaxHeight()
@@ -75,14 +97,28 @@ private fun AuthSurface(authVM: AuthVM, scaffoldState: ScaffoldState) {
         painter = painterResource(id = R.mipmap.ic_launcher),
         contentDescription = "Logo", Modifier.size(128.dp)
       )
+      var formVisible by remember { authVM.formVisibility }
+      val (focusRequester) = FocusRequester.createRefs()
 
-      EmailTF(authVM)
+      AnimatedVisibility(visible = formVisible) {
+        EmailTF(authVM,focusRequester)
+      }
 
-      PasswordTF(authVM)
+      AnimatedVisibility(visible = formVisible) {
+        PasswordTF(authVM, focusRequester)
+      }
 
-      LoginButton(authVM)
+      AnimatedVisibility(visible = !formVisible) {
+        CircularProgressIndicator(modifier = Modifier.padding(8.dp))
+      }
 
-      ForgotPasswordText(authVM)
+      AnimatedVisibility(visible = formVisible){
+        LoginButton(authVM = authVM)
+      }
+
+      AnimatedVisibility(visible = formVisible) {
+        ForgotPasswordText(authVM)
+      }
 
       if (resetPasswordState.isNotEmpty()) {
         LaunchedEffect(scaffoldState) {
@@ -114,7 +150,9 @@ fun ForgotPasswordText(authVM: AuthVM) {
 }
 
 @Composable
-private fun LoginButton(authVM: AuthVM) {
+private fun LoginButton(
+  authVM: AuthVM,
+) {
   Button(
     onClick = {
       authVM.loginNow()
@@ -128,16 +166,19 @@ private fun LoginButton(authVM: AuthVM) {
   }
 }
 
+@ExperimentalComposeUiApi
 @Composable
-private fun PasswordTF(authVM: AuthVM) {
+private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
   val credentials by authVM.credentials.collectAsState()
+  val keyboardController = LocalSoftwareKeyboardController.current
+
   TextField(
     value = credentials.password ?: "",
     onValueChange = {
       authVM.credentials.value = credentials.copy(password = it)
     },
-    Modifier
-      .padding(16.dp)
+    modifier = Modifier
+      .padding(16.dp).focusRequester(focusRequester)
       .fillMaxWidth(),
     label = {
       Text(
@@ -146,6 +187,9 @@ private fun PasswordTF(authVM: AuthVM) {
       )
     },
     shape = PraxisShapes.large,
+    keyboardActions = KeyboardActions(
+      onDone = { keyboardController?.hide() }),
+    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     leadingIcon = {
       Image(
         painter = painterResource(id = R.drawable.ic_eye),
@@ -159,9 +203,11 @@ private fun PasswordTF(authVM: AuthVM) {
   )
 }
 
+@ExperimentalComposeUiApi
 @Composable
-private fun EmailTF(authVM: AuthVM) {
+private fun EmailTF(authVM: AuthVM,focusRequester: FocusRequester) {
   val credentials by authVM.credentials.collectAsState()
+
   TextField(
     value = credentials.email ?: "",
     onValueChange = {
@@ -176,6 +222,14 @@ private fun EmailTF(authVM: AuthVM) {
       )
     },
     shape = PraxisShapes.large,
+    keyboardOptions = KeyboardOptions(
+      imeAction = ImeAction.Next, keyboardType = KeyboardType.Email
+    ),
+    keyboardActions = KeyboardActions(
+      onNext = {
+        focusRequester.requestFocus()
+      },
+    ),
     leadingIcon = {
       Image(
         painter = painterResource(id = R.drawable.ic_email),
@@ -195,7 +249,6 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   unfocusedIndicatorColor = Color.Transparent,
   backgroundColor = PraxisTheme.colors.accent.copy(alpha = AlphaNearTransparent),
 )
-
 
 @Preview("Light+Dark")
 @Composable

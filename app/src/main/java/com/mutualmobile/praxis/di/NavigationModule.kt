@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.injection.module
+package com.mutualmobile.praxis.di
 
 import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.PraxisNavigator
@@ -15,5 +15,4 @@ class NavigationModule {
   @Provides
   @Singleton
   fun provideNavigator(): Navigator = PraxisNavigator()
-
 }

@@ -1,4 +1,4 @@
-package com.mutualmobile.feat.jokes.ui.home
+package com.mutualmobile.feat.jokes.ui.joke
 
 import com.mutualmobile.feat.jokes.ui.model.UIJoke
 
