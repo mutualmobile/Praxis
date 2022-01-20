@@ -23,7 +23,7 @@ abstract class Navigator {
   abstract suspend fun handleComposeNavigationCommands(navController: NavController)
   abstract suspend fun handleFragmentNavigationCommands(navController: NavController)
   abstract fun navigate(route: String, optionsBuilder: (NavOptionsBuilder.() -> Unit)? = null)
-  abstract fun navigateFragment(id: Int)
+  abstract fun navigateFragment(id: Int, optionsBuilder: (NavOptionsBuilder.() -> Unit)? = null)
   abstract fun navigateAndClearBackStack(route: String)
   abstract fun navigateUp()
   abstract fun popUpTo(route: String, inclusive: Boolean)

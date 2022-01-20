@@ -25,8 +25,9 @@ class PraxisNavigator : Navigator() {
       .collect { navController.handleNavigationCommand(it) }
   }
 
-  override fun navigateFragment(id: Int) {
-    fragmentNavigationCommands.tryEmit(NavigationCommand.FragmentRoute(id))
+  override fun navigateFragment(id: Int, optionsBuilder: (NavOptionsBuilder.() -> Unit)?) {
+    val options = optionsBuilder?.let { navOptions(it) }
+    fragmentNavigationCommands.tryEmit(NavigationCommand.FragmentRoute(id, options))
   }
 
   override fun navigate(route: String, optionsBuilder: (NavOptionsBuilder.() -> Unit)?) {
@@ -84,7 +85,7 @@ class PraxisNavigator : Navigator() {
   private fun NavController.handleNavigationCommand(navigationCommand: NavigationCommand) {
     when (navigationCommand) {
       is NavigationCommand.FragmentRoute -> {
-        navigate(navigationCommand.id)
+        navigate(navigationCommand.id, null, navigationCommand.options)
       }
       is NavigationCommand.NavigateToRoute -> navigate(
         navigationCommand.route,
