@@ -17,7 +17,7 @@ import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
 
 @Composable
-fun GithubNavigation(
+fun GithubNavGraph(
   navigator: Navigator,
   uiRepo: UIRepo?
 ) {
@@ -29,7 +29,7 @@ fun GithubNavigation(
       val navController = rememberNavController()
 
       LaunchedEffect(Unit) {
-        navigator.handleNavigationCommands(navController)
+        navigator.handleComposeNavigationCommands(navController)
       }
 
       NavHost(

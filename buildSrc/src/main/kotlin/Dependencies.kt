@@ -11,6 +11,7 @@ object BuildPlugins {
   const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
   const val SAFE_ARGS_GRADLE_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
   const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
+  const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"

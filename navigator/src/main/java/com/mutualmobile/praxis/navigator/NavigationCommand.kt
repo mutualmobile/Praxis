@@ -4,6 +4,7 @@ import androidx.navigation.NavOptions
 
 sealed class NavigationCommand {
   object NavigateUp : NavigationCommand()
+  data class FragmentRoute(val id: Int, val options: NavOptions? = null) : NavigationCommand()
   data class NavigateToRoute(val route: String, val options: NavOptions? = null) :
     NavigationCommand()
 

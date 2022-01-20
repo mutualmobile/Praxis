@@ -22,7 +22,7 @@ class PraxisViewPagerFragment : Fragment() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     binding = FragmentViewPagerBinding.inflate(inflater, container, false)
     val tabLayout = binding.tabs
     val viewPager = binding.viewPager
