@@ -23,13 +23,12 @@ android {
         }
     }
 
-
     buildFeatures {
         compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER
+        kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER_VERSION
     }
     packagingOptions {
         resources.excludes.add("META-INF/LICENSE.txt")
@@ -69,7 +68,7 @@ dependencies {
     api(Lib.Android.COMPOSE_UI)
     api(Lib.Android.COMPOSE_TOOLING)
     debugApi(Lib.Android.COMPOSE_DEBUG_TOOLING)
-    api(Lib.Android.ACT_COMPOSE)
+    api(Lib.Android.ACTIVITY_COMPOSE)
 
     api(Lib.Android.APP_COMPAT)
     api(Lib.Kotlin.KTX_CORE)

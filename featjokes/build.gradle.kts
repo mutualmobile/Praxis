@@ -23,14 +23,14 @@ android {
     }
   }
 
-
   buildFeatures {
     compose = true
   }
 
   composeOptions {
-    kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER
+    kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER_VERSION
   }
+
   packagingOptions {
     resources.excludes.add("META-INF/LICENSE.txt")
     resources.excludes.add("META-INF/NOTICE.txt")
@@ -46,7 +46,6 @@ android {
   kotlinOptions {
     jvmTarget = "1.8"
   }
-
 }
 
 // Required for annotation processing plugins like Dagger
@@ -70,7 +69,7 @@ dependencies {
   api(Lib.Android.COMPOSE_UI)
   api(Lib.Android.COMPOSE_TOOLING)
   debugApi(Lib.Android.COMPOSE_DEBUG_TOOLING)
-  api(Lib.Android.ACT_COMPOSE)
+  api(Lib.Android.ACTIVITY_COMPOSE)
   api(Lib.Android.ACCOMPANIST_INSETS)
 
   api(Lib.Android.APP_COMPAT)

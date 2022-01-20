@@ -24,14 +24,13 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER
+        kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER_VERSION
     }
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
 }
 
 // Required for annotation processing plugins like Dagger
@@ -51,11 +50,9 @@ dependencies {
     api(Lib.Android.COMPOSE_MATERIAL)
     api(Lib.Android.COMPOSE_TOOLING)
     debugApi(Lib.Android.COMPOSE_DEBUG_TOOLING)
-    api(Lib.Android.ACT_COMPOSE)
+    api(Lib.Android.ACTIVITY_COMPOSE)
 
     /* Dependency Injection */
     api(Lib.Di.hilt)
     kapt(Lib.Di.hiltAndroidCompiler)
-
-
 }
