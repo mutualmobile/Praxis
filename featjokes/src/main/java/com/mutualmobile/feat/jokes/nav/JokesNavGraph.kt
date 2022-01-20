@@ -17,7 +17,7 @@ import com.mutualmobile.praxis.navigator.Navigator
 import com.mutualmobile.praxis.navigator.Screen
 
 @Composable
-fun JokesNavigation(navigator: Navigator) {
+fun JokesNavGraph(navigator: Navigator) {
   ProvideWindowInsets {
     PraxisSurface(
       color = PraxisTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
