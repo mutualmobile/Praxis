@@ -86,6 +86,9 @@ dependencies {
   implementation(Lib.Android.NAVIGATION_FRAGMENT)
   implementation(Lib.Kotlin.KTX_CORE)
 
+  /* SplashScreen */
+  implementation(Lib.Android.SPLASH_SCREEN_API)
+
   /*DI*/
   implementation(Lib.Di.hilt)
   implementation(Lib.Di.hiltNavigationCompose)
