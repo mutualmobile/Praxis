@@ -29,7 +29,7 @@ fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){
       .statusBarsPadding()
       .navigationBarsPadding(),
     topBar = {
-      CommonTopAppBar(titleText = "ForgotPasswordentication")
+      CommonTopAppBar(titleText = "Forgot Password")
     }) {
     ForgotPasswordSurface(forgotPasswordVM)
   }

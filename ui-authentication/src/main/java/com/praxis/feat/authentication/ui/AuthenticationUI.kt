@@ -141,7 +141,7 @@ fun ForgotPasswordText(authVM: AuthVM) {
         color = PraxisTheme.colors.accent,
       )
     ) {
-      append("Forgot Password? ")
+      append("Forgot Password?")
     }
 
   }, onClick = {
@@ -194,7 +194,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
     leadingIcon = {
       Image(
         painter = painterResource(id = R.drawable.ic_eye),
-        contentDescription = "email"
+        contentDescription = "Password"
       )
     },
     colors = textFieldColors(),
