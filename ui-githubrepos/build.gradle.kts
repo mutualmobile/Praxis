@@ -106,4 +106,5 @@ dependencies {
   testImplementation(TestLib.ROBO_ELECTRIC)
   testImplementation(TestLib.COROUTINES)
   testImplementation(TestLib.MOCKK)
+  testImplementation(TestLib.TURBINE)
 }
