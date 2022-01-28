@@ -2,6 +2,7 @@ package com.mutualmobile.praxis.root
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import com.mutualmobile.praxis.R
@@ -16,11 +17,14 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    // Installing the Splash Screen here
+    installSplashScreen()
+
     // Displaying edge-to-edge
     // Turn off the decor fitting system windows, which allows us to handle insets, including IME animations
     // This app draws behind the system bars, so we want to handle fitting system windows
     WindowCompat.setDecorFitsSystemWindows(window, false)
-
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
   }
 }
