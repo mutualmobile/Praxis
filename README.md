@@ -28,7 +28,7 @@ The purpose of this app to showcase:
 | 🤖   Kotlin | [Kotlin](https://kotlinlang.org/) |
 | 🏛   Architecture Components | [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) |
 | ⛓   Data Binding | [Android Data Binding](https://developer.android.com/topic/libraries/data-binding) |
-| 💉   Dagger Hilt | [Dagger 2](https://developer.android.com/training/dependency-injection/hilt-android) |
+| 💉   Dagger Hilt | [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) |
 | 🌐   Retrofit | [Retrofit](http://square.github.io/retrofit/) |
 | 🚦   OkHttp | [OkHttp](http://square.github.io/okhttp/) |
 | 📄   Gson Parsing | [Gson](https://github.com/google/gson) |
@@ -56,13 +56,6 @@ The purpose of this app to showcase:
 Praxis now supports old XML and new Compose as well. 
 
 <img src = "art/hybrid_arch.jpeg" /> 
-
-# Multi Modular Navigation Architecture 
-
-Praxis follows the new modular Navigation arch for navigating between different screens. While having support for both XML and Compose layouts. 
-
-<img src = "art/navigation_arch.png" /> 
-
 
 ### Conventions:
 Files are suffixed with be defined Class types.
