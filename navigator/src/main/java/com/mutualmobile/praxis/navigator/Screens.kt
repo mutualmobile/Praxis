@@ -10,13 +10,10 @@ sealed class Screen(
 ) {
   val route: String = baseRoute.appendArguments(navArguments)
 
-  object Auth :
-    Screen("auth")
-
+  object Auth : Screen("auth")
   object ForgotPassword : Screen("forgotPassword")
-
-  object Jokes :
-    Screen("jokes")
+  object Jokes : Screen("jokes")
+  object RepoDetails : Screen("repoDetails")
 
   object JokeDetail : Screen(
     baseRoute = "jokeDetail",

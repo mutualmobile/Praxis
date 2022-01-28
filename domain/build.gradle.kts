@@ -36,6 +36,9 @@ dependencies {
   api(Lib.Kotlin.KT_STD)
   api(Lib.Async.COROUTINES)
 
+  /* Paging */
+  implementation(Lib.Paging.PAGING_3)
+
   /* Dependency Injection */
   api(Lib.Di.hilt)
   kapt(Lib.Di.hiltAndroidCompiler)
