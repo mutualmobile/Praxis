@@ -11,6 +11,7 @@ import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -30,6 +31,13 @@ class AuthVM @Inject constructor(
   var uiState = MutableStateFlow<UiState>(UiState.Empty)
     private set
 
+  private val exceptionHandler = CoroutineExceptionHandler { context, throwable ->
+    if (throwable is FormValidationFailed) {
+      snackBarState.value = throwable.failType.message
+    }
+    uiState.value = UiState.ErrorState(throwable)
+  }
+
   init {
     observePasswordReset()
   }
@@ -47,18 +55,12 @@ class AuthVM @Inject constructor(
 
   fun loginNow() {
     uiState.value = UiState.LoadingState
-    try {
+
+    viewModelScope.launch(exceptionHandler) {
       credentials.value.validate()
       snackBarState.value = ""
       uiState.value = UiState.SuccessState("sdff")
-
-      viewModelScope.launch {
-        delay(1500)
-        fragmentNavGraphNavigator.navigateFragment(R.id.action_authFragment_to_viewPagerFragment)
-      }
-    } catch (ex: FormValidationFailed) {
-      snackBarState.value = ex.failType.message
-      uiState.value = UiState.ErrorState(ex)
+      fragmentNavGraphNavigator.navigateFragment(R.id.action_authFragment_to_viewPagerFragment)
     }
   }
 

@@ -21,8 +21,10 @@ class AuthVMTest {
 
   @MockK
   lateinit var navigator: ComposeNavigator
+
   @MockK
   lateinit var fragmentNavigator: FragmentNavGraphNavigator
+
   @MockK
   private lateinit var savedStateHandle: SavedStateHandle
 
@@ -30,7 +32,7 @@ class AuthVMTest {
 
   @Before
   fun setUp() {
-    MockKAnnotations.init(this,  true)
+    MockKAnnotations.init(this, true)
     Dispatchers.setMain(StandardTestDispatcher())
   }
 
@@ -53,12 +55,10 @@ class AuthVMTest {
 
         authVM = AuthVM(savedStateHandle, fragmentNavigator, navigator)
 
-
         authVM.uiState.test {
           assert(awaitItem() is AuthVM.UiState.Empty)
-        }
-        authVM.loginNow()
-        authVM.uiState.test {
+          authVM.loginNow()
+          assert(awaitItem() is AuthVM.UiState.LoadingState)
           assert(awaitItem() is AuthVM.UiState.ErrorState)
         }
       }
@@ -86,11 +86,8 @@ class AuthVMTest {
 
         authVM.uiState.test {
           assert(awaitItem() is AuthVM.UiState.Empty)
-        }
-
-        authVM.loginNow()
-
-        authVM.uiState.test {
+          authVM.loginNow()
+          assert(awaitItem() is AuthVM.UiState.LoadingState)
           assert(awaitItem() is AuthVM.UiState.SuccessState)
         }
       }
