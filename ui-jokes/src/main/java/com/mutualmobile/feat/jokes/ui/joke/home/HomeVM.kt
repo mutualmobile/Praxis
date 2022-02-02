@@ -9,7 +9,7 @@ import com.mutualmobile.praxis.domain.SafeResult
 import com.mutualmobile.praxis.domain.model.DOMJoke
 import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
 import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.Screen
+import com.mutualmobile.praxis.navigator.PraxisScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -56,7 +56,7 @@ class HomeVM @Inject constructor(
     }
 
   fun showJoke(jokeId: Int) {
-    navigator.navigate(Screen.JokeDetail.createRoute(jokeId.toString()))
+    navigator.navigate(PraxisScreen.JokeDetail.createRoute(jokeId.toString()))
   }
 }
 

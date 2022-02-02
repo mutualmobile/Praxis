@@ -1,8 +1,8 @@
 package com.mutualmobile.praxis.domain.usecases
 
-/**
- * Created by Vipul Asri on 13/01/21.
- */
+import androidx.paging.PagingData
+import com.mutualmobile.praxis.domain.model.message.PraxisMessage
+import kotlinx.coroutines.flow.Flow
 
 interface BaseUseCase<out Result, in ExecutableParam> {
 
@@ -22,4 +22,6 @@ interface BaseUseCase<out Result, in ExecutableParam> {
    * @return
    */
   suspend fun perform(params: ExecutableParam): Result = throw NotImplementedError()
+
+  fun performStreaming(params: ExecutableParam?): Flow<Result> = throw NotImplementedError()
 }

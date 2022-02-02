@@ -4,10 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
 import com.mutualmobile.praxis.navigator.NavigationKeys
-import com.mutualmobile.praxis.navigator.Screen
-import com.praxis.feat.authentication.R
+import com.mutualmobile.praxis.navigator.PraxisRoute
+import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthVM @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
-  private val fragmentNavGraphNavigator: FragmentNavGraphNavigator,
   private val composeNavigator: ComposeNavigator
 ) : ViewModel() {
 
@@ -36,6 +34,7 @@ class AuthVM @Inject constructor(
       snackBarState.value = throwable.failType.message
     }
     uiState.value = UiState.ErrorState(throwable)
+    uiState.value = UiState.Empty
   }
 
   init {
@@ -59,13 +58,18 @@ class AuthVM @Inject constructor(
     viewModelScope.launch(exceptionHandler) {
       credentials.value.validate()
       snackBarState.value = ""
+      delay(1500)
       uiState.value = UiState.SuccessState("sdff")
-      fragmentNavGraphNavigator.navigateFragment(R.id.action_authFragment_to_viewPagerFragment)
+      composeNavigator.navigate(PraxisRoute.Dashboard.name){
+        this.popUpTo(PraxisScreen.Auth.route){
+          this.inclusive = true
+        }
+      }
     }
   }
 
   fun navigateForgotPassword() {
-    composeNavigator.navigate(Screen.ForgotPassword.route)
+    composeNavigator.navigate(PraxisScreen.ForgotPassword.route)
   }
 
   sealed class UiState {

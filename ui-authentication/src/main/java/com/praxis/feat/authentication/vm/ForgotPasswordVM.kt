@@ -4,8 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.NavigationKeys
-import com.mutualmobile.praxis.navigator.Navigator
-import com.mutualmobile.praxis.navigator.Screen
+import com.mutualmobile.praxis.navigator.PraxisScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,7 +15,7 @@ class ForgotPasswordVM @Inject constructor(private val navigator: ComposeNavigat
   fun navigateBack() {
     navigator.navigateBackWithResult(
       NavigationKeys.ForgotPassword, "Reset Password Done!",
-      Screen.Auth.route
+      PraxisScreen.Auth.route
     )
   }
 }

@@ -4,12 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 abstract class Navigator {
   val navigationCommands = MutableSharedFlow<NavigationCommand>(extraBufferCapacity = Int.MAX_VALUE)
@@ -60,73 +57,14 @@ abstract class ComposeNavigator : Navigator() {
 
   private fun NavController.navUpWithResult(navigationCommand: ComposeNavigationCommand.NavigateUpWithResult<*>) {
     val backStackEntry =
-      navigationCommand.destination?.let { getBackStackEntry(it) }
+      navigationCommand.route?.let { getBackStackEntry(it) }
         ?: previousBackStackEntry
     backStackEntry?.savedStateHandle?.set(
       navigationCommand.key,
       navigationCommand.result
     )
 
-    navigationCommand.destination?.let {
-      popBackStack(it, false)
-    } ?: run {
-      navigateUp()
-    }
-  }
-}
-
-abstract class FragmentNavGraphNavigator : Navigator() {
-  abstract fun navigateFragment(
-    destination: Int,
-    optionsBuilder: (NavOptionsBuilder.() -> Unit)? = null
-  )
-
-  abstract fun <T> observeResult(key: String, destination: Int? = null): Flow<T>
-  abstract fun <T> navigateBackWithResult(key: String, result: T, destination: Int?)
-
-  abstract fun popUpTo(destination: Int, inclusive: Boolean)
-  abstract fun navigateAndClearBackStack(destination: Int)
-
-  suspend fun handleNavigationCommands(navController: NavController) {
-    navigationCommands
-      .onSubscription { this@FragmentNavGraphNavigator.navControllerFlow.value = navController }
-      .onCompletion { this@FragmentNavGraphNavigator.navControllerFlow.value = null }
-      .collect { navController.handleFragmentNavigationCommand(it) }
-  }
-
-  private fun NavController.handleFragmentNavigationCommand(navigationCommand: NavigationCommand) {
-    when (navigationCommand) {
-      NavigationCommand.NavigateUp -> navigateUp()
-      is FragmentNavigationCommand.NavigateUpWithResult<*> -> {
-        navUpWithResult(navigationCommand)
-      }
-      is FragmentNavigationCommand.NavigateToFragmentDestination -> navigate(
-        navigationCommand.destination,
-        null,
-        navigationCommand.options
-      )
-      is FragmentNavigationCommand.PopUpToDestination -> {
-        popBackStack(
-          navigationCommand.destination,
-          navigationCommand.inclusive
-        )
-      }
-      else -> {
-        throw RuntimeException("can't handle this with FragmentNavGraphNavigator")
-      }
-    }
-  }
-
-  private fun NavController.navUpWithResult(navigationCommand: FragmentNavigationCommand.NavigateUpWithResult<*>) {
-    val backStackEntry =
-      navigationCommand.destination?.let { getBackStackEntry(it) }
-        ?: previousBackStackEntry
-    backStackEntry?.savedStateHandle?.set(
-      navigationCommand.key,
-      navigationCommand.result
-    )
-
-    navigationCommand.destination?.let {
+    navigationCommand.route?.let {
       popBackStack(it, false)
     } ?: run {
       navigateUp()
@@ -135,6 +73,7 @@ abstract class FragmentNavGraphNavigator : Navigator() {
 }
 
 
+@OptIn(DelicateCoroutinesApi::class)
 fun <T> LiveData<T>.asFlow(): Flow<T> = flow {
   val channel = Channel<T>(Channel.CONFLATED)
   val observer = Observer<T> {

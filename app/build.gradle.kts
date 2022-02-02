@@ -9,12 +9,6 @@ plugins {
   id("org.jlleitschuh.gradle.ktlint")
 }
 
-subprojects {
-  apply {
-    from("variants.gradle.kts")
-  }
-}
-
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
@@ -28,6 +22,45 @@ android {
     versionName = "1.0"
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
+  }
+
+  signingConfigs {
+
+    getByName("debug") {
+      keyAlias = "praxis-debug"
+      keyPassword = "utherNiC"
+      storeFile = file("keystore/praxis-debug.jks")
+      storePassword = "uRgeSCIt"
+    }
+
+    create("release") {
+      keyAlias = "praxis-release"
+      keyPassword = "ITHOmptI"
+      storeFile = file("keystore/praxis-release.jks")
+      storePassword = "PoTHatHR"
+    }
+
+  }
+  buildTypes {
+    getByName("release") {
+      isDebuggable = false
+      versionNameSuffix = "-release"
+
+      isMinifyEnabled = true
+      isShrinkResources = true
+
+      proguardFiles(
+        getDefaultProguardFile("proguard-android.txt"), "proguard-common.txt",
+        "proguard-specific.txt"
+      )
+      signingConfig = signingConfigs.getByName("release")
+    }
+    getByName("debug") {
+      isDebuggable = true
+      versionNameSuffix = "-debug"
+      applicationIdSuffix = ".debug"
+      signingConfig = signingConfigs.getByName("debug")
+    }
   }
 
   buildFeatures {
@@ -65,8 +98,12 @@ kapt {
 }
 
 dependencies {
-  implementation(project(":ui-jokes"))
-  implementation(project(":ui-githubrepos"))
+  api(project(":ui-onboarding"))
+  api(project(":ui-dashboard"))
+  api(project(":ui-chat"))
+  api(project(":ui-jokes"))
+  api(project(":ui-authentication"))
+
 
   implementation(project(":navigator"))
   implementation(project(":data"))
@@ -81,13 +118,11 @@ dependencies {
   implementation(Lib.Android.MATERIAL_DESIGN)
   implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
   implementation(Lib.Android.ACCOMPANIST_INSETS)
+  implementation(Lib.Android.SPLASH_SCREEN_API)
 
   implementation(Lib.Android.APP_COMPAT)
-  implementation(Lib.Android.NAVIGATION_FRAGMENT)
-  implementation(Lib.Kotlin.KTX_CORE)
 
-  /* SplashScreen */
-  implementation(Lib.Android.SPLASH_SCREEN_API)
+  implementation(Lib.Kotlin.KTX_CORE)
 
   /*DI*/
   implementation(Lib.Di.hilt)
@@ -102,6 +137,13 @@ dependencies {
   /* Async */
   implementation(Lib.Async.COROUTINES)
   implementation(Lib.Async.COROUTINES_ANDROID)
+
+  /* Room */
+  implementation(Lib.Room.roomRuntime)
+  kapt(Lib.Room.roomCompiler)
+  implementation(Lib.Room.roomKtx)
+  implementation(Lib.Room.roomPaging)
+
 
   /*Testing*/
   testImplementation(TestLib.JUNIT)

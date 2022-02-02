@@ -1,9 +1,7 @@
 package com.mutualmobile.praxis.di
 
 import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
-import com.mutualmobile.praxis.navigator.composenavigator.PraxisComposeNavigator
-import com.mutualmobile.praxis.navigator.fragmentnavigator.PraxisFragmentNavGraphNavigator
+import com.mutualmobile.praxis.navigator.composenavigator.PraxisCloneComposeNavigator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,10 +14,5 @@ abstract class NavigationModule {
 
   @Binds
   @Singleton
-  abstract fun provideComposeNavigator(praxisComposeNavigator: PraxisComposeNavigator): ComposeNavigator
-
-
-  @Binds
-  @Singleton
-  abstract fun provideFragmentNavGraphNavigator(praxisFragmentNavGraphNavigator: PraxisFragmentNavGraphNavigator): FragmentNavGraphNavigator
+  abstract fun provideComposeNavigator(praxisComposeNavigator: PraxisCloneComposeNavigator): ComposeNavigator
 }

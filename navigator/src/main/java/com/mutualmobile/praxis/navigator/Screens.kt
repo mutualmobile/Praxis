@@ -4,24 +4,40 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 
-sealed class Screen(
-  private val baseRoute: String,
+sealed class PraxisScreen(
+  val route: String,
   val navArguments: List<NamedNavArgument> = emptyList()
 ) {
-  val route: String = baseRoute.appendArguments(navArguments)
+  val name: String = route.appendArguments(navArguments)
 
-  object Auth : Screen("auth")
-  object ForgotPassword : Screen("forgotPassword")
-  object Jokes : Screen("jokes")
-  object RepoDetails : Screen("repoDetails")
+  // onboarding
+  object GettingStarted : PraxisScreen("gettingStarted")
+  object SkipTypingScreen : PraxisScreen("SkipTypingUI")
+  object EmailAddressInputUI : PraxisScreen("EmailAddressInputUI")
+  object WorkspaceInputUI : PraxisScreen("WorkspaceInputUI")
 
-  object JokeDetail : Screen(
-    baseRoute = "jokeDetail",
+  // dashboard
+  object Dashboard : PraxisScreen("Dashboard")
+
+  object Auth : PraxisScreen("auth")
+  object ForgotPassword : PraxisScreen("forgotPassword")
+  object Jokes : PraxisScreen("jokes")
+  object RepoDetails : PraxisScreen("repoDetails")
+  object JokeDetail : PraxisScreen(
+    route = "jokeDetail",
     navArguments = listOf(navArgument("jokeId") { type = NavType.LongType })
   ) {
     fun createRoute(jokeId: String) =
       route.replace("{${navArguments.first().name}}", jokeId)
   }
+
+}
+
+sealed class PraxisRoute(val name: String) {
+  object OnBoarding : PraxisRoute("onboardingRoute")
+  object Auth : PraxisRoute("authenticationRoute")
+  object Dashboard : PraxisRoute("dashboardRoute")
+  object Jokes : PraxisRoute("jokesRoute")
 }
 
 private fun String.appendArguments(navArguments: List<NamedNavArgument>): String {
