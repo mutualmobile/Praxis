@@ -36,7 +36,8 @@ dependencies {
     api(Lib.Di.hilt)
     api(Lib.Di.hiltNavigationCompose)
     api(Lib.Di.viewmodel)
-
+    testImplementation(TestLib.JUNIT)
+    testImplementation(TestLib.CORE_TEST)
     kapt(Lib.Di.hiltCompiler)
     kaptTest(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
