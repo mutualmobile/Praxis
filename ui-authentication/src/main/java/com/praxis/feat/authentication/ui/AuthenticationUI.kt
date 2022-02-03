@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
@@ -96,7 +97,7 @@ private fun AuthSurface(
   ) {
     Column(
       Modifier
-        .padding(16.dp)
+        .padding(16.dp).navigationBarsWithImePadding()
         .fillMaxWidth()
         .fillMaxHeight(),
       verticalArrangement = Arrangement.Center,
@@ -149,7 +150,7 @@ fun ForgotPasswordText(authVM: AuthVM) {
 
     withStyle(
       style = SpanStyle(
-        color = PraxisColorProvider.colors.accent,
+        color = PraxisColorProvider.colors.textPrimary,
       )
     ) {
       append("Forgot Password? ")
@@ -259,7 +260,7 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   focusedIndicatorColor = Color.Transparent,
   disabledIndicatorColor = Color.Transparent,
   unfocusedIndicatorColor = Color.Transparent,
-  backgroundColor = PraxisColorProvider.colors.accent,
+  backgroundColor = PraxisColorProvider.colors.uiBackground.copy(alpha = AlphaNearTransparent),
 )
 
 @Preview("Light+Dark")

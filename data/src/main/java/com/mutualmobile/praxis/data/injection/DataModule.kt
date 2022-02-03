@@ -21,11 +21,6 @@ object DataModule {
 
     @Provides
     @Singleton
-    @RepositoryCoroutineContext
-    fun provideCoroutineContext() : CoroutineContext = Dispatchers.IO
-
-    @Provides
-    @Singleton
     fun provideDatabase(@ApplicationContext context: Context): PraxisDatabase {
         return Room.inMemoryDatabaseBuilder(
             context,

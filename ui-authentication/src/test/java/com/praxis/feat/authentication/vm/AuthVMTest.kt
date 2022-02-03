@@ -3,13 +3,11 @@ package com.praxis.feat.authentication.vm
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
 import com.praxis.feat.authentication.ui.model.LoginForm
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.*
@@ -21,9 +19,6 @@ class AuthVMTest {
 
   @MockK
   lateinit var navigator: ComposeNavigator
-
-  @MockK
-  lateinit var fragmentNavigator: FragmentNavGraphNavigator
 
   @MockK
   private lateinit var savedStateHandle: SavedStateHandle
@@ -53,13 +48,15 @@ class AuthVMTest {
           savedStateHandle.get<String>(any())
         } returns ""
 
-        authVM = AuthVM(savedStateHandle, fragmentNavigator, navigator)
+        authVM = AuthVM(savedStateHandle, navigator)
 
         authVM.uiState.test {
           assert(awaitItem() is AuthVM.UiState.Empty)
           authVM.loginNow()
           assert(awaitItem() is AuthVM.UiState.LoadingState)
           assert(awaitItem() is AuthVM.UiState.ErrorState)
+          assert(awaitItem() is AuthVM.UiState.Empty)
+          awaitComplete()
         }
       }
     }
@@ -74,14 +71,10 @@ class AuthVMTest {
         } returns emptyFlow()
 
         coEvery {
-          fragmentNavigator.navigateFragment(any())
-        } returns Unit
-
-        coEvery {
           savedStateHandle.get<String>(any())
         } returns ""
 
-        authVM = AuthVM(savedStateHandle, fragmentNavigator, navigator)
+        authVM = AuthVM(savedStateHandle, navigator)
         authVM.credentials.value = LoginForm("anmol@gmail.com", "sdkfkjkjfdsjkfds")
 
         authVM.uiState.test {

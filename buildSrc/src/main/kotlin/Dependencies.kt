@@ -126,7 +126,7 @@ object Lib {
 }
 
 object TestLib {
-  private const val COROUTINES_VERSION = "1.3.7"
+  private const val COROUTINES_VERSION = "1.6.0"
   private const val ANDROID_JUNIT_VERSION = "1.0.0"
   private const val ROBO_ELECTRIC_VERSION = "4.3"
   private const val ARCH_CORE_VERSION = "2.1.0"

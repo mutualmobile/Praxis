@@ -40,7 +40,7 @@ private val LightColorPalette = PraxisCloneColorPalette(
 
 private val DarkColorPalette = PraxisCloneColorPalette(
   brand = PraxisCloneColor,
-  accent = PraxisCloneColor,
+  accent = DarkBackground,
   uiBackground = DarkBackground,
   textPrimary = Color.White,
   textSecondary = Color.White,

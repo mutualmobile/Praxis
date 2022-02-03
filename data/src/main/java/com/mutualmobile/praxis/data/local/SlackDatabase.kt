@@ -14,7 +14,8 @@ import java.util.*
 
 @Database(
     entities = [DBPraxisUser::class, DBPraxisChannel::class, DBPraxisMessage::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class PraxisDatabase : RoomDatabase() {
     abstract fun slackUserDao(): PraxisUserDao

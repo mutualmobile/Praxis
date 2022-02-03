@@ -53,9 +53,8 @@ class AuthVM @Inject constructor(
   }
 
   fun loginNow() {
-    uiState.value = UiState.LoadingState
-
     viewModelScope.launch(exceptionHandler) {
+      uiState.value = UiState.LoadingState
       credentials.value.validate()
       snackBarState.value = ""
       delay(1500)
