@@ -9,9 +9,7 @@ import com.mutualmobile.praxis.data.repository.PraxisChannelsRepositoryImpl
 import com.mutualmobile.praxis.data.repository.PraxisMessagesRepositoryImpl
 import com.mutualmobile.praxis.domain.repository.ChannelsRepository
 import com.mutualmobile.praxis.domain.repository.MessagesRepository
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
-import kotlin.coroutines.CoroutineContext
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.mutualmobile.praxis.data.injection.RepositoryCoroutineContext
+import com.mutualmobile.praxis.injection.dispatcher.CoroutineDispatcherProvider
 import com.mutualmobile.praxis.data.local.dao.PraxisMessageDao
 import com.mutualmobile.praxis.data.local.model.DBPraxisMessage
 import com.mutualmobile.praxis.data.mapper.EntityMapper
@@ -15,12 +15,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class PraxisMessagesRepositoryImpl @Inject constructor(
   private val slackMessageDao: PraxisMessageDao,
   private val entityMapper: EntityMapper<PraxisMessage, DBPraxisMessage>,
-  @RepositoryCoroutineContext private val coroutineContext: CoroutineContext
+  private val coroutineDispatcherProvider: CoroutineDispatcherProvider
 ) :
   MessagesRepository {
   private val chatPager = Pager(PagingConfig(pageSize = 20)) {
@@ -36,7 +35,7 @@ class PraxisMessagesRepositoryImpl @Inject constructor(
   }
 
   override suspend fun sendMessage(params: PraxisMessage) {
-    withContext(coroutineContext) {
+    withContext(coroutineDispatcherProvider.io) {
       slackMessageDao.insert(entityMapper.mapToData(params))
     }
   }

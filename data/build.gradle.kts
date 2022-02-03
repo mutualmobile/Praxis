@@ -29,7 +29,7 @@ kapt {
 }
 
 dependencies {
-
+  implementation(project(":common"))
   implementation(project(":domain"))
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
