@@ -38,7 +38,7 @@ fun DefaultSnackbar(
             }
           }
         },
-        backgroundColor = Color.White
+        backgroundColor = PraxisColorProvider.colors.uiBackground
       )
     },
     modifier = modifier
