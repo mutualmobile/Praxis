@@ -43,4 +43,6 @@ dependencies {
   /* Dependency Injection */
   api(Lib.Di.hilt)
   kapt(Lib.Di.hiltAndroidCompiler)
+  testImplementation(TestLib.JUNIT)
+  testImplementation(TestLib.CORE_TEST)
 }

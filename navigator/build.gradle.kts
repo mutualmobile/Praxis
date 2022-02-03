@@ -52,4 +52,6 @@ dependencies {
 
   implementation(Lib.Android.COMPOSE_NAVIGATION)
   implementation(Lib.Di.hiltNavigationCompose)
+  testImplementation(TestLib.JUNIT)
+  testImplementation(TestLib.CORE_TEST)
 }

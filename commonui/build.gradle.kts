@@ -52,7 +52,8 @@ dependencies {
     api(Lib.Android.COMPOSE_TOOLING)
     debugApi(Lib.Android.COMPOSE_DEBUG_TOOLING)
     api(Lib.Android.ACTIVITY_COMPOSE)
-
+    testImplementation(TestLib.JUNIT)
+    testImplementation(TestLib.CORE_TEST)
     /* Dependency Injection */
     api(Lib.Di.hilt)
     kapt(Lib.Di.hiltAndroidCompiler)
