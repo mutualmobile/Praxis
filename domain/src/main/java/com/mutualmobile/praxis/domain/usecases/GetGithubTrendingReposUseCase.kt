@@ -3,7 +3,7 @@ package com.mutualmobile.praxis.domain.usecases
 import androidx.paging.PagingData
 import com.mutualmobile.praxis.domain.model.DOMRepo
 import com.mutualmobile.praxis.domain.model.request.GithubReposSearchRequest
-import com.mutualmobile.praxis.domain.repository.IGithubRepo
+import com.mutualmobile.praxis.repository.IGithubRepo
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -21,8 +21,8 @@ sealed class PraxisScreen(
 
   object Auth : PraxisScreen("auth")
   object ForgotPassword : PraxisScreen("forgotPassword")
+
   object Jokes : PraxisScreen("jokes")
-  object RepoDetails : PraxisScreen("repoDetails")
   object JokeDetail : PraxisScreen(
     route = "jokeDetail",
     navArguments = listOf(navArgument("jokeId") { type = NavType.LongType })

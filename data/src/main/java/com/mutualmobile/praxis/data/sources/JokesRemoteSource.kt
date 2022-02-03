@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.data.sources
 
-import com.mutualmobile.praxis.data.remote.JokeApiService
+import com.mutualmobile.praxis.data.remote.services.JokeApiService
 import com.mutualmobile.praxis.data.remote.model.NETJokeListData
 import com.mutualmobile.praxis.data.remote.safeApiCall
 import com.mutualmobile.praxis.domain.SafeResult

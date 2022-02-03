@@ -3,9 +3,8 @@ package com.mutualmobile.praxis.data.injection
 import com.mutualmobile.praxis.data.AppConstants
 import com.mutualmobile.praxis.data.injection.qualifiers.GitHubRetrofitClient
 import com.mutualmobile.praxis.data.injection.qualifiers.JokesRetrofitClient
-import com.mutualmobile.praxis.data.remote.GithubApiService
-import com.mutualmobile.praxis.data.remote.JokeApiService
-import com.mutualmobile.praxis.data.remote.RetrofitHelper
+import com.mutualmobile.praxis.data.injection.qualifiers.RandomUserClient
+import com.mutualmobile.praxis.data.remote.services.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,12 +42,18 @@ object NetworkModule {
   }
 
   @Provides
+  @RandomUserClient
+  fun provideRandomUserRetrofit(okHttpClient: OkHttpClient) =
+    RetrofitHelper.createRetrofitClient(okHttpClient, UserApiService.baseUrl)
+
+
+  @Provides
   fun provideJokesApiService(@JokesRetrofitClient retrofit: Retrofit): JokeApiService {
-    return JokeApiService.createRetrofitService(retrofit)
+    return ApiService.createRetrofitService(retrofit)
   }
 
   @Provides
   fun provideGithubApiService(@GitHubRetrofitClient retrofit: Retrofit): GithubApiService {
-    return GithubApiService.createRetrofitService(retrofit)
+    return ApiService.createRetrofitService(retrofit)
   }
 }

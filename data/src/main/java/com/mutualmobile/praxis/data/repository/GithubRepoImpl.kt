@@ -9,7 +9,7 @@ import com.mutualmobile.praxis.data.repository.paging.GithubPagingSource
 import com.mutualmobile.praxis.data.sources.IGithubReposRemoteSource
 import com.mutualmobile.praxis.domain.model.DOMRepo
 import com.mutualmobile.praxis.domain.model.DOMRepoList
-import com.mutualmobile.praxis.domain.repository.IGithubRepo
+import com.mutualmobile.praxis.repository.IGithubRepo
 import kotlinx.coroutines.flow.Flow
 
 /**

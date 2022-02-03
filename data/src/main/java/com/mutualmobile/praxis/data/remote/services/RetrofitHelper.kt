@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.data.remote
+package com.mutualmobile.praxis.data.remote.services
 
 import com.mutualmobile.praxis.data.BuildConfig
 import okhttp3.OkHttpClient

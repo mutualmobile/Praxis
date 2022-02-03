@@ -4,8 +4,8 @@ open class DomainModel
 
 open class UIModel
 
-interface UiModelMapper<M : DomainModel, MI : UIModel> {
-  fun mapToPresentation(model: M): MI
+interface UiModelMapper<Dom : DomainModel, Ui : UIModel> {
+  fun mapToPresentation(model: Dom): Ui
 
-  fun mapToDomain(modelItem: MI): M
+  fun mapToDomain(modelItem: Ui): Dom
 }

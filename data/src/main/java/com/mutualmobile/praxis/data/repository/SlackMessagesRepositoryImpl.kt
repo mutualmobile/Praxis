@@ -10,7 +10,7 @@ import com.mutualmobile.praxis.data.local.model.DBPraxisMessage
 import com.mutualmobile.praxis.data.mapper.EntityMapper
 import com.mutualmobile.praxis.domain.model.channel.PraxisChannel
 import com.mutualmobile.praxis.domain.model.message.PraxisMessage
-import com.mutualmobile.praxis.domain.repository.MessagesRepository
+import com.mutualmobile.praxis.repository.MessagesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext

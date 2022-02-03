@@ -5,12 +5,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import com.mutualmobile.praxis.domain.repository.ChannelsRepository
-import com.mutualmobile.praxis.domain.repository.IGithubRepo
-import com.mutualmobile.praxis.domain.repository.IJokesRepo
-import com.mutualmobile.praxis.domain.repository.MessagesRepository
 import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
 import com.mutualmobile.praxis.domain.usecases.GetGithubTrendingReposUseCase
+import com.mutualmobile.praxis.domain.usecases.UseCaseFetchRandomUsers
+import com.mutualmobile.praxis.repository.*
 import com.mutualmobile.praxis.uichat.UseCaseSendMessage
 import com.mutualmobile.praxis.uichat.channels.UseCaseFetchChannels
 import com.mutualmobile.praxis.uichat.chat.UseCaseFetchMessages
@@ -45,4 +43,9 @@ object UseCaseModule {
   fun provideGithubTrendingRepos(repo: IGithubRepo): GetGithubTrendingReposUseCase {
     return GetGithubTrendingReposUseCase(repo)
   }
+
+  @Provides
+  @ViewModelScoped
+  fun provideUseCaseFetchRandomUsers(userRepository: UserRepository) =
+    UseCaseFetchRandomUsers(userRepository)
 }

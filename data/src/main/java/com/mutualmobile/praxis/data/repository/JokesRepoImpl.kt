@@ -5,7 +5,7 @@ import com.mutualmobile.praxis.data.remote.model.NETJokeListData
 import com.mutualmobile.praxis.data.sources.IJokesRemoteSource
 import com.mutualmobile.praxis.domain.SafeResult
 import com.mutualmobile.praxis.domain.model.DOMJokeList
-import com.mutualmobile.praxis.domain.repository.IJokesRepo
+import com.mutualmobile.praxis.repository.IJokesRepo
 import java.lang.RuntimeException
 
 /**

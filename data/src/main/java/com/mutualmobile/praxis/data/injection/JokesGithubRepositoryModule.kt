@@ -6,8 +6,8 @@ import com.mutualmobile.praxis.data.repository.GithubRepoImpl
 import com.mutualmobile.praxis.data.repository.JokesRepoImpl
 import com.mutualmobile.praxis.data.sources.IGithubReposRemoteSource
 import com.mutualmobile.praxis.data.sources.IJokesRemoteSource
-import com.mutualmobile.praxis.domain.repository.IGithubRepo
-import com.mutualmobile.praxis.domain.repository.IJokesRepo
+import com.mutualmobile.praxis.repository.IGithubRepo
+import com.mutualmobile.praxis.repository.IJokesRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

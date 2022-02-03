@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain.repository
+package com.mutualmobile.praxis.repository
 
 import androidx.paging.PagingData
 import com.mutualmobile.praxis.domain.model.channel.PraxisChannel

@@ -7,13 +7,9 @@ import com.mutualmobile.praxis.data.local.model.DBPraxisMessage
 import com.mutualmobile.praxis.data.mapper.EntityMapper
 import com.mutualmobile.praxis.domain.model.channel.PraxisChannel
 import com.mutualmobile.praxis.domain.model.channel.PraxisChannelType
-import com.mutualmobile.praxis.domain.repository.ChannelsRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
+import com.mutualmobile.praxis.repository.ChannelsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

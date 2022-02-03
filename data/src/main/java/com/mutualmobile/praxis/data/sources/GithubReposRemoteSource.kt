@@ -1,6 +1,6 @@
 package com.mutualmobile.praxis.data.sources
 
-import com.mutualmobile.praxis.data.remote.GithubApiService
+import com.mutualmobile.praxis.data.remote.services.GithubApiService
 import com.mutualmobile.praxis.data.remote.model.NETRepoListData
 import com.mutualmobile.praxis.data.remote.safeApiCall
 import com.mutualmobile.praxis.domain.SafeResult

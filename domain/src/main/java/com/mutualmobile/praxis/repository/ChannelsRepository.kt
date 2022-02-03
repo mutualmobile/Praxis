@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain.repository
+package com.mutualmobile.praxis.repository
 
 import com.mutualmobile.praxis.domain.model.channel.PraxisChannel
 import com.mutualmobile.praxis.domain.model.channel.PraxisChannelType

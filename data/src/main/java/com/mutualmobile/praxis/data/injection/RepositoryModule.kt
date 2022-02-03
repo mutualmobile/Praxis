@@ -2,13 +2,14 @@ package com.mutualmobile.praxis.data.injection
 
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import com.mutualmobile.praxis.data.repository.PraxisChannelsRepositoryImpl
 import com.mutualmobile.praxis.data.repository.PraxisMessagesRepositoryImpl
-import com.mutualmobile.praxis.domain.repository.ChannelsRepository
-import com.mutualmobile.praxis.domain.repository.MessagesRepository
+import com.mutualmobile.praxis.repository.ChannelsRepository
+import com.mutualmobile.praxis.repository.MessagesRepository
+import com.mutualmobile.praxis.repository.RandomUserRepository
+import com.mutualmobile.praxis.repository.UserRepository
 import javax.inject.Singleton
 
 @Module
@@ -22,4 +23,7 @@ abstract class RepositoryModule {
   @Singleton
   abstract fun bindMessagesRepository(slackMessagesRepositoryImpl: PraxisMessagesRepositoryImpl): MessagesRepository
 
+  @Binds
+  @Singleton
+  abstract fun bindUserRepository(randomUserRepository: RandomUserRepository): UserRepository
 }
