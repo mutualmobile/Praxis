@@ -5,10 +5,11 @@ import androidx.navigation.navOptions
 import com.mutualmobile.praxis.navigator.ComposeNavigationCommand
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.asFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class PraxisComposeNavigator @Inject constructor(): ComposeNavigator() {
+class PraxisCloneComposeNavigator @Inject constructor(): ComposeNavigator() {
 
   override fun navigate(route: String, optionsBuilder: (NavOptionsBuilder.() -> Unit)?) {
     val options = optionsBuilder?.let { navOptions(it) }
@@ -28,17 +29,18 @@ class PraxisComposeNavigator @Inject constructor(): ComposeNavigator() {
   override fun <T> navigateBackWithResult(
     key: String,
     result: T,
-    destination: String?
+    route: String?
   ) {
     navigationCommands.tryEmit(
       ComposeNavigationCommand.NavigateUpWithResult(
         key = key,
         result = result,
-        destination = destination
+        route = route
       )
     )
   }
 
+  @OptIn(ExperimentalCoroutinesApi::class)
   override fun <T> observeResult(key: String, route: String?): Flow<T> {
     return navControllerFlow
       .filterNotNull()

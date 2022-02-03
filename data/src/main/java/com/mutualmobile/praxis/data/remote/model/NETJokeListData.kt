@@ -25,8 +25,7 @@ class JokesListResponseMapper : EntityMapper<DOMJokeList, NETJokeListData> {
     return DOMJokeList(entity.type, entity.value.map { DOMJoke(it.id, it.joke) })
   }
 
-  override fun mapToEntity(model: DOMJokeList): NETJokeListData {
+  override fun mapToData(model: DOMJokeList): NETJokeListData {
     return NETJokeListData(model.type, model.DOMJokes.map { NETJokeData(it.id, it.joke) })
   }
-
 }

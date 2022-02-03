@@ -8,28 +8,37 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
-import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
-import com.mutualmobile.praxis.commonui.theme.PraxisShapes
-import com.mutualmobile.praxis.commonui.theme.PraxisSurface
-import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
+import com.mutualmobile.praxis.commonui.theme.*
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.ForgotPasswordVM
 
 @Composable
 fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){
   Scaffold(
-    backgroundColor = PraxisTheme.colors.uiBackground,
-    contentColor = PraxisTheme.colors.textSecondary,
+    backgroundColor = PraxisColorProvider.colors.uiBackground,
+    contentColor = PraxisColorProvider.colors.textSecondary,
     modifier = Modifier
       .statusBarsPadding()
       .navigationBarsPadding(),
     topBar = {
-      CommonTopAppBar(titleText = "ForgotPasswordentication")
+      PraxisSurfaceAppBar(
+        title = {
+          Text(
+            text = "Forgot password",
+            style = PraxisTypography.h5.copy(
+              color = Color.White,
+              fontWeight = FontWeight.Bold
+            )
+          )
+        },
+        backgroundColor = PraxisColorProvider.colors.appBarColor,
+      )
     }) {
     ForgotPasswordSurface(forgotPasswordVM)
   }
@@ -70,11 +79,11 @@ private fun ForgotPasswordButton(forgotPasswordVM: ForgotPasswordVM) {
     onClick = {
       forgotPasswordVM.navigateBack()
     }, Modifier.fillMaxWidth(),
-    colors = ButtonDefaults.buttonColors(backgroundColor = PraxisTheme.colors.buttonColor)
+    colors = ButtonDefaults.buttonColors(backgroundColor = PraxisColorProvider.colors.buttonColor)
   ) {
     Text(
       text = "Reset Password",
-      style = MaterialTheme.typography.body1.copy(color = PraxisTheme.colors.buttonTextColor)
+      style = MaterialTheme.typography.body1.copy(color = PraxisColorProvider.colors.buttonTextColor)
     )
   }
 }
@@ -90,7 +99,7 @@ private fun EmailTF(forgotPasswordVM: ForgotPasswordVM) {
       .fillMaxWidth(), label = {
       Text(
         text = "Email",
-        style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
+        style = MaterialTheme.typography.body2.copy(color = PraxisColorProvider.colors.textPrimary)
       )
     },
     shape = PraxisShapes.large,
@@ -111,5 +120,5 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   focusedIndicatorColor = Color.Transparent,
   disabledIndicatorColor = Color.Transparent,
   unfocusedIndicatorColor = Color.Transparent,
-  backgroundColor = PraxisTheme.colors.accent.copy(alpha = AlphaNearTransparent),
+  backgroundColor = PraxisColorProvider.colors.accent.copy(alpha = AlphaNearTransparent),
 )

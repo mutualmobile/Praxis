@@ -1,5 +1,5 @@
 
-# Praxis 
+# Praxis
 2022 Hit Refresh! Praxis now loves ❤️ Jetpack Compose
 
 <div align="left">
@@ -12,14 +12,14 @@
 This is a sample app written in Kotlin following clean architecture principles which fetches random jokes, trending Github repository and displays it.
 
 The purpose of this app to showcase:
- - Implementation of Jetpack Android Architecture components with Dagger Hilt and Data Binding to minimize boilerplate code.
- - Implementation of an architecture that will support both XML and the new Compose.
- - Implementation of Modular Multi Module Navigation Architecture. 
- - Performing background task with Kotlin Coroutines
+- Implementation of Jetpack Android Architecture components with Dagger Hilt and Data Binding to minimize boilerplate code.
+- Implementation of an architecture that will support both XML and the new Compose.
+- Implementation of Modular Multi Module Navigation Architecture.
+- Performing background task with Kotlin Coroutines
 
 # Requirements
 1. Android Studio : Arctic Fox | 2020.3.1	3.1 or higher
-2. Android Emulator or Physical android device 
+2. Android Emulator or Physical android device
 
 # Built With 🏗
 
@@ -51,18 +51,18 @@ The purpose of this app to showcase:
 
 **Notes:** Mapping between response models and transformed models will happen via extension functions defined in transformed model file
 
-# Hybrid Architecture ( XML + Compose ) 
+# Hybrid Architecture ( XML + Compose )
 
-Praxis now supports old XML and new Compose as well. 
+Praxis now supports old XML and new Compose as well.
 
 <img src = "art/hybrid_arch.jpeg" /> 
 
 ### Conventions:
 Files are suffixed with be defined Class types.
- - ViewModels are suffixed with **VM**. Ex: `LoginVM`
- - UseCases are suffixed with **UseCase**. Ex: `LoginUseCase`
- - Sources are suffixed with **Source**. Ex: `LoginRemoteSource`, `LoginLocalSource`
- - Repositories are suffixed with **Repo**. Ex: `LoginRepo`
+- ViewModels are suffixed with **VM**. Ex: `LoginVM`
+- UseCases are suffixed with **UseCase**. Ex: `LoginUseCase`
+- Sources are suffixed with **Source**. Ex: `LoginRemoteSource`, `LoginLocalSource`
+- Repositories are suffixed with **Repo**. Ex: `LoginRepo`
 
 ## Conclusion
 This project can be used as a template for new apps.

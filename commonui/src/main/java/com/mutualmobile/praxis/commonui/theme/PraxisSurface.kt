@@ -26,8 +26,8 @@ import kotlin.math.ln
 fun PraxisSurface(
   modifier: Modifier = Modifier,
   shape: Shape = RectangleShape,
-  color: Color = PraxisTheme.colors.uiBackground,
-  contentColor: Color = PraxisTheme.colors.textSecondary,
+  color: Color = PraxisColorProvider.colors.uiBackground,
+  contentColor: Color = PraxisColorProvider.colors.textSecondary,
   border: BorderStroke? = null,
   elevation: Dp = 0.dp,
   content: @Composable () -> Unit

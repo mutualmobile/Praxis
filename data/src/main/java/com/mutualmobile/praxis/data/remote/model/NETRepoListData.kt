@@ -80,7 +80,7 @@ class RepoListResponseMapper : EntityMapper<DOMRepoList, NETRepoListData> {
       })
   }
 
-  override fun mapToEntity(model: DOMRepoList): NETRepoListData {
+  override fun mapToData(model: DOMRepoList): NETRepoListData {
     return NETRepoListData(
       repos = model.domRepos.map { domRepo ->
         with(domRepo) {

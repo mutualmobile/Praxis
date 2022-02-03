@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -32,13 +33,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
-import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
-import com.mutualmobile.praxis.commonui.theme.PraxisShapes
-import com.mutualmobile.praxis.commonui.theme.PraxisSurface
-import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
+import com.mutualmobile.praxis.commonui.theme.*
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
 
@@ -46,29 +45,42 @@ import com.praxis.feat.authentication.vm.AuthVM
 fun AuthenticationUI(
   authVM: AuthVM = hiltViewModel()
 ) {
-  val scaffoldState = rememberScaffoldState()
-  Scaffold(
-    backgroundColor = PraxisTheme.colors.uiBackground,
-    contentColor = PraxisTheme.colors.textSecondary,
-    modifier = Modifier
-      .statusBarsPadding()
-      .navigationBarsPadding(),
-    topBar = {
-      CommonTopAppBar(titleText = "Authentication")
-    }, scaffoldState = scaffoldState, snackbarHost = {
-      scaffoldState.snackbarHostState
-    }
-  ) { innerPadding ->
-    Box(modifier = Modifier.padding(innerPadding)) {
-      AuthSurface(
-        authVM = authVM, scaffoldState = scaffoldState
-      )
-      DefaultSnackbar(scaffoldState.snackbarHostState) {
-        authVM.snackBarState.value = ""
-        scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+  PraxisTheme {
+    val scaffoldState = rememberScaffoldState()
+    Scaffold(
+      backgroundColor = PraxisColorProvider.colors.uiBackground,
+      contentColor = PraxisColorProvider.colors.textSecondary,
+      modifier = Modifier
+        .statusBarsPadding()
+        .navigationBarsPadding(),
+      topBar = {
+        PraxisSurfaceAppBar(
+          title = {
+            Text(
+              text = "Authentication",
+              style = PraxisTypography.h5.copy(
+                color = Color.White,
+                fontWeight = FontWeight.Bold
+              )
+            )
+          },
+          backgroundColor = PraxisColorProvider.colors.appBarColor,
+        )
+      }, scaffoldState = scaffoldState, snackbarHost = {
+        scaffoldState.snackbarHostState
       }
-    }
+    ) { innerPadding ->
+      Box(modifier = Modifier.padding(innerPadding)) {
+        AuthSurface(
+          authVM = authVM, scaffoldState = scaffoldState
+        )
+        DefaultSnackbar(scaffoldState.snackbarHostState) {
+          authVM.snackBarState.value = ""
+          scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+        }
+      }
 
+    }
   }
 }
 
@@ -85,7 +97,7 @@ private fun AuthSurface(
   ) {
     Column(
       Modifier
-        .padding(16.dp)
+        .padding(16.dp).navigationBarsWithImePadding()
         .fillMaxWidth()
         .fillMaxHeight(),
       verticalArrangement = Arrangement.Center,
@@ -101,7 +113,7 @@ private fun AuthSurface(
       val (focusRequester) = FocusRequester.createRefs()
 
       AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
-        EmailTF(authVM,focusRequester)
+        EmailTF(authVM, focusRequester)
       }
 
       AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
@@ -112,7 +124,7 @@ private fun AuthSurface(
         CircularProgressIndicator(modifier = Modifier.padding(8.dp))
       }
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty){
+      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
         LoginButton(authVM = authVM)
       }
 
@@ -138,7 +150,7 @@ fun ForgotPasswordText(authVM: AuthVM) {
 
     withStyle(
       style = SpanStyle(
-        color = PraxisTheme.colors.accent,
+        color = PraxisColorProvider.colors.textPrimary,
       )
     ) {
       append("Forgot Password? ")
@@ -157,11 +169,11 @@ private fun LoginButton(
     onClick = {
       authVM.loginNow()
     }, Modifier.fillMaxWidth(),
-    colors = ButtonDefaults.buttonColors(backgroundColor = PraxisTheme.colors.buttonColor)
+    colors = ButtonDefaults.buttonColors(backgroundColor = PraxisColorProvider.colors.buttonColor)
   ) {
     Text(
       text = "Login",
-      style = MaterialTheme.typography.body1.copy(color = PraxisTheme.colors.buttonTextColor)
+      style = MaterialTheme.typography.body1.copy(color = PraxisColorProvider.colors.buttonTextColor)
     )
   }
 }
@@ -184,7 +196,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
     label = {
       Text(
         text = "Password",
-        style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
+        style = MaterialTheme.typography.body2.copy(color = PraxisColorProvider.colors.textPrimary)
       )
     },
     shape = PraxisShapes.large,
@@ -206,7 +218,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
 
 @ExperimentalComposeUiApi
 @Composable
-private fun EmailTF(authVM: AuthVM,focusRequester: FocusRequester) {
+private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
   val credentials by authVM.credentials.collectAsState()
 
   TextField(
@@ -219,7 +231,7 @@ private fun EmailTF(authVM: AuthVM,focusRequester: FocusRequester) {
       .fillMaxWidth(), label = {
       Text(
         text = "Email",
-        style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
+        style = MaterialTheme.typography.body2.copy(color = PraxisColorProvider.colors.textPrimary)
       )
     },
     shape = PraxisShapes.large,
@@ -248,13 +260,13 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   focusedIndicatorColor = Color.Transparent,
   disabledIndicatorColor = Color.Transparent,
   unfocusedIndicatorColor = Color.Transparent,
-  backgroundColor = PraxisTheme.colors.accent.copy(alpha = AlphaNearTransparent),
+  backgroundColor = PraxisColorProvider.colors.uiBackground.copy(alpha = AlphaNearTransparent),
 )
 
 @Preview("Light+Dark")
 @Composable
 fun PreviewAuth() {
-  PraxisTheme(darkTheme = true) {
+  PraxisTheme(isDarkTheme = true) {
     AuthenticationUI()
   }
 }

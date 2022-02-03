@@ -1,30 +1,58 @@
 package com.mutualmobile.praxis.root
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.LaunchedEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.databinding.DataBindingUtil
-import com.mutualmobile.praxis.R
-import com.mutualmobile.praxis.databinding.ActivityMainBinding
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.mutualmobile.feat.jokes.nav.jokesNavGraph
 import dagger.hilt.android.AndroidEntryPoint
+import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.PraxisRoute
+import com.mutualmobile.praxis.uidashboard.nav.dashboardNavigation
+import com.mutualmobile.praxis.uionboarding.nav.onboardingNavigation
+import com.praxis.feat.authentication.nav.authNavGraph
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-  private lateinit var binding: ActivityMainBinding
+  @Inject
+  lateinit var composeNavigator: ComposeNavigator
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
-    // Installing the Splash Screen here
-    installSplashScreen()
-
-    // Displaying edge-to-edge
-    // Turn off the decor fitting system windows, which allows us to handle insets, including IME animations
-    // This app draws behind the system bars, so we want to handle fitting system windows
     WindowCompat.setDecorFitsSystemWindows(window, false)
-    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+    installSplashScreen()
+    setContent {
+      val navController = rememberNavController()
+
+      LaunchedEffect(Unit) {
+        composeNavigator.handleNavigationCommands(navController)
+      }
+
+      ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
+        NavHost(
+          navController = navController,
+          startDestination = PraxisRoute.OnBoarding.name,
+        ) {
+          onboardingNavigation(
+            composeNavigator = composeNavigator,
+          )
+          dashboardNavigation(
+            composeNavigator = composeNavigator
+          )
+          authNavGraph()
+          jokesNavGraph()
+        }
+      }
+
+
+    }
   }
 }
