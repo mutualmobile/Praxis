@@ -30,6 +30,7 @@ sealed class PraxisScreen(
     fun createRoute(jokeId: String) =
       route.replace("{${navArguments.first().name}}", jokeId)
   }
+  object RandomUsers : PraxisScreen("randomUsersUI")
 
 }
 
@@ -38,6 +39,7 @@ sealed class PraxisRoute(val name: String) {
   object Auth : PraxisRoute("authenticationRoute")
   object Dashboard : PraxisRoute("dashboardRoute")
   object Jokes : PraxisRoute("jokesRoute")
+  object RandomUsers : PraxisScreen("randomUsersRoute")
 }
 
 private fun String.appendArguments(navArguments: List<NamedNavArgument>): String {

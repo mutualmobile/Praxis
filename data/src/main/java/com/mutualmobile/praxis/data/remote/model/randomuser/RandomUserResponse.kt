@@ -3,7 +3,6 @@ package com.mutualmobile.praxis.data.remote.model.randomuser
 import com.google.gson.annotations.SerializedName
 import com.mutualmobile.praxis.data.mapper.DataModel
 
-
 interface DataLayer {
   data class RandomUserResponse(
     @SerializedName("info")
@@ -25,29 +24,29 @@ interface DataLayer {
 
   data class Result(
     @SerializedName("cell")
-    val cell: String?,
+    val cell: String? = null,
     @SerializedName("dob")
-    val dob: Dob?,
+    val dob: Dob? = null,
     @SerializedName("email")
-    val email: String?,
+    val email: String? = null,
     @SerializedName("gender")
-    val gender: String?,
+    val gender: String? = null,
     @SerializedName("id")
-    val id: Id?,
+    val id: Id? = null,
     @SerializedName("location")
-    val location: Location?,
+    val location: Location? = null,
     @SerializedName("login")
-    val login: Login?,
+    val login: Login? = null,
     @SerializedName("name")
-    val name: Name?,
+    val name: Name? = null,
     @SerializedName("nat")
-    val nat: String?,
+    val nat: String? = null,
     @SerializedName("phone")
-    val phone: String?,
+    val phone: String? = null,
     @SerializedName("picture")
-    val picture: Picture?,
+    val picture: Picture? = null,
     @SerializedName("registered")
-    val registered: Registered?
+    val registered: Registered? = null
   ) : DataModel()
 
   data class Dob(
@@ -66,19 +65,19 @@ interface DataLayer {
 
   data class Location(
     @SerializedName("city")
-    val city: String?,
+    val city: String? = null,
     @SerializedName("coordinates")
-    val coordinates: Coordinates?,
+    val coordinates: Coordinates? = null,
     @SerializedName("country")
-    val country: String?,
+    val country: String? = null,
     @SerializedName("postcode")
-    val postcode: Any?,
+    val postcode: Any? = null,
     @SerializedName("state")
-    val state: String?,
+    val state: String? = null,
     @SerializedName("street")
-    val street: Street?,
+    val street: Street? = null,
     @SerializedName("timezone")
-    val timezone: Timezone?
+    val timezone: Timezone? = null
   ) : DataModel()
 
   data class Login(
@@ -100,27 +99,27 @@ interface DataLayer {
 
   data class Name(
     @SerializedName("first")
-    val first: String?,
+    val first: String? = null,
     @SerializedName("last")
-    val last: String?,
+    val last: String? = null,
     @SerializedName("title")
-    val title: String?
+    val title: String? = null
   ) : DataModel()
 
   data class Picture(
     @SerializedName("large")
-    val large: String?,
+    val large: String? = null,
     @SerializedName("medium")
-    val medium: String?,
+    val medium: String? = null,
     @SerializedName("thumbnail")
-    val thumbnail: String?
+    val thumbnail: String? = null
   ) : DataModel()
 
   data class Registered(
     @SerializedName("age")
-    val age: Int?,
+    val age: Int? = null,
     @SerializedName("date")
-    val date: String?
+    val date: String? = null
   ) : DataModel()
 
   data class Coordinates(

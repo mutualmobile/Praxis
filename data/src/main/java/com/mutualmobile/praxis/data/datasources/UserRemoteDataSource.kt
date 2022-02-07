@@ -5,5 +5,5 @@ import com.mutualmobile.praxis.domain.SafeResult
 import retrofit2.Response
 
 interface UserRemoteDataSource {
-  suspend fun fetchUsers(queryMap: Map<String, Any>): SafeResult<Response<DataLayer.RandomUserResponse>>
+  suspend fun fetchUsers(queryMap: Map<String, Int?>): SafeResult<Response<DataLayer.RandomUserResponse>>
 }

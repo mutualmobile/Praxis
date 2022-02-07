@@ -103,6 +103,7 @@ dependencies {
   api(project(":ui-chat"))
   api(project(":ui-jokes"))
   api(project(":ui-authentication"))
+  api(project(":ui-randomusers"))
 
 
   implementation(project(":navigator"))

@@ -9,18 +9,18 @@ interface UiLayer {
   ) : UIModel()
 
   data class RandomUser(
-    val cell: String?,
-    val dob: Dob?,
-    val email: String?,
-    val gender: String?,
-    val id: Id?,
-    val location: Location?,
-    val login: Login?,
-    val name: Name?,
-    val nat: String?,
-    val phone: String?,
-    val picture: Picture?,
-    val registered: Registered?
+    val cell: String? = null,
+    val dob: Dob? = null,
+    val email: String? = null,
+    val gender: String? = null,
+    val id: Id? = null,
+    val location: Location? = null,
+    val login: Login? = null,
+    val name: Name? = null,
+    val nat: String? = null,
+    val phone: String? = null,
+    val picture: Picture? = null,
+    val registered: Registered? = null
   ) : UIModel()
 }
 
@@ -30,7 +30,6 @@ data class Info(
   val seed: String?,
   val version: String?
 ) : UIModel()
-
 
 data class Dob(
   val age: Int?,
@@ -43,13 +42,13 @@ data class Id(
 ) : UIModel()
 
 data class Location(
-  val city: String?,
-  val coordinates: Coordinates?,
-  val country: String?,
-  val postcode: Any?,
-  val state: String?,
-  val street: Street?,
-  val timezone: Timezone?
+  val city: String? = null,
+  val coordinates: Coordinates? = null,
+  val country: String? = null,
+  val postcode: Any? = null,
+  val state: String? = null,
+  val street: Street? = null,
+  val timezone: Timezone? = null
 ) : UIModel()
 
 data class Login(
@@ -69,9 +68,9 @@ data class Name(
 ) : UIModel()
 
 data class Picture(
-  val large: String?,
-  val medium: String?,
-  val thumbnail: String?
+  val large: String? = null,
+  val medium: String? = null,
+  val thumbnail: String? = null
 ) : UIModel()
 
 data class Registered(

@@ -3,11 +3,11 @@ package com.mutualmobile.uirandomusers
 import app.cash.turbine.test
 import com.mutualmobile.praxis.domain.mappers.UiModelMapper
 import com.mutualmobile.praxis.domain.model.randomuser.DomainLayer
-import com.mutualmobile.praxis.domain.usecases.BaseUseCase
 import com.mutualmobile.praxis.domain.usecases.UseCaseFetchRandomUsers
 import com.mutualmobile.praxis.repository.UserRepository
-import com.mutualmobile.uirandomusers.model.RandomUser
 import com.mutualmobile.uirandomusers.model.UiLayer
+import com.mutualmobile.uirandomusers.randomusers.RandomUsersVM
+import com.mutualmobile.uirandomusers.randomusers.UiState
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every

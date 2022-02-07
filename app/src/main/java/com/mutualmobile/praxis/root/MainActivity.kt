@@ -15,6 +15,7 @@ import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisRoute
 import com.mutualmobile.praxis.uidashboard.nav.dashboardNavigation
 import com.mutualmobile.praxis.uionboarding.nav.onboardingNavigation
+import com.mutualmobile.uirandomusers.nav.randomUsersNavGraph
 import com.praxis.feat.authentication.nav.authNavGraph
 import javax.inject.Inject
 
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
       ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
         NavHost(
           navController = navController,
-          startDestination = PraxisRoute.OnBoarding.name,
+          startDestination = PraxisRoute.RandomUsers.name,
         ) {
           onboardingNavigation(
             composeNavigator = composeNavigator,
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
           )
           authNavGraph()
           jokesNavGraph()
+          randomUsersNavGraph()
         }
       }
 

@@ -56,4 +56,9 @@ object NetworkModule {
   fun provideGithubApiService(@GitHubRetrofitClient retrofit: Retrofit): GithubApiService {
     return ApiService.createRetrofitService(retrofit)
   }
+
+  @Provides
+  fun provideRandomUsersApiService(@RandomUserClient retrofit: Retrofit): UserApiService {
+    return ApiService.createRetrofitService(retrofit)
+  }
 }

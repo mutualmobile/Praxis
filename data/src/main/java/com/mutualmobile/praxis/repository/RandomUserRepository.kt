@@ -19,7 +19,7 @@ class RandomUserRepository @Inject constructor(
 
 ) : UserRepository {
   override suspend fun fetchUsers(numOfResults: Int): DomainLayer.RandomUserResponse {
-    val result = userRemoteDataSource.fetchUsers(hashMapOf<String, Any>().apply {
+    val result = userRemoteDataSource.fetchUsers(hashMapOf<String, Int?>().apply {
       UserApiService.RESULTS to 50
     })
     when (result) {
