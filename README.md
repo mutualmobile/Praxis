@@ -51,11 +51,6 @@ The purpose of this app to showcase:
 
 **Notes:** Mapping between response models and transformed models will happen via extension functions defined in transformed model file
 
-# Hybrid Architecture ( XML + Compose )
-
-Praxis now supports old XML and new Compose as well.
-
-<img src = "art/hybrid_arch.jpeg" /> 
 
 ### Conventions:
 Files are suffixed with be defined Class types.
