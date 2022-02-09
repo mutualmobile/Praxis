@@ -7,7 +7,7 @@ import com.mutualmobile.praxis.domain.usecases.UseCaseFetchRandomUsers
 import com.mutualmobile.praxis.repository.UserRepository
 import com.mutualmobile.uirandomusers.model.UiLayer
 import com.mutualmobile.uirandomusers.randomusers.RandomUsersVM
-import com.mutualmobile.uirandomusers.randomusers.UiState
+import com.mutualmobile.uirandomusers.randomusers.RandomUsersVM.UiState
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
@@ -66,7 +66,7 @@ class RandomUsersVMShould {
         assert(awaitItem() is UiState.Empty)
         randomUsersVM.fetchRandomUsers()
         assert(awaitItem() is UiState.Loading)
-        assert(awaitItem() is UiState.Data<*>)
+        assert(awaitItem() is UiState.Data)
       }
     }
   }
