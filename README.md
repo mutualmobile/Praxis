@@ -9,7 +9,7 @@
 </div>
 <br>
 
-This is a sample app written in Kotlin following clean architecture principles which fetches random jokes, trending Github repository and displays it.
+This is a sample app written in Kotlin following clean architecture principles which uses slack app features as an example.
 
 The purpose of this app to showcase:
 - Implementation of Jetpack Android Architecture components with Dagger Hilt and Data Binding to minimize boilerplate code.
