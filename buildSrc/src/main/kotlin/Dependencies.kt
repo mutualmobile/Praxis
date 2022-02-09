@@ -129,6 +129,9 @@ object TestLib {
   const val MOCKK = "io.mockk:mockk:1.10.5"
   const val NAVIGATION_TESTING = "androidx.navigation:navigation-testing:$nav_version"
   const val TURBINE = "app.cash.turbine:turbine:0.7.0"
+  const val HILT = "com.google.dagger:hilt-android-testing:2.38.1"
+
+
 }
 
 object DebugLib {
