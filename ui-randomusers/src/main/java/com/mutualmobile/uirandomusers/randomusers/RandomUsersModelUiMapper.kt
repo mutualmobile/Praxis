@@ -27,7 +27,9 @@ fun List<RandomUser>.mapToPresentation(): List<UiLayer.RandomUser> {
   return this.map { result ->
     UiLayer.RandomUser(
         name = Name(result.name?.first,result.name?.last,result.name?.title),
+        gender = result.gender,
         email = result.email,
+        phone=result.phone,
         dob = com.mutualmobile.uirandomusers.model.Dob(result.dob?.age, result.dob?.date),
         location = com.mutualmobile.uirandomusers.model.Location(
             city = result.location?.city,

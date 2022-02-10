@@ -82,6 +82,7 @@ android {
   }
 
   compileOptions {
+    isCoreLibraryDesugaringEnabled = true
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
   }
@@ -155,6 +156,8 @@ dependencies {
   testImplementation(TestLib.ROBO_ELECTRIC)
   testImplementation(TestLib.COROUTINES)
   testImplementation(TestLib.MOCKK)
+
+  coreLibraryDesugaring(Lib.Android.DESUGARING_LIBS)
 
   androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Lib.Android.COMPOSE_VERSION}")
   debugImplementation("androidx.compose.ui:ui-test-manifest:${Lib.Android.COMPOSE_VERSION}")

@@ -1,6 +1,5 @@
 package com.mutualmobile.uirandomusers.randomusers
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mutualmobile.praxis.domain.mappers.UiModelMapper
@@ -29,6 +28,11 @@ class RandomUsersVM @Inject constructor(
   val uiState: StateFlow<UiState>
     get() = _uiState
 
+  init {
+    fetchRandomUsers()
+  }
+
+  //accompanist insets
   fun fetchRandomUsers() {
     viewModelScope.launch(CoroutineExceptionHandler { context, throwable ->
       _uiState.value = UiState.Error

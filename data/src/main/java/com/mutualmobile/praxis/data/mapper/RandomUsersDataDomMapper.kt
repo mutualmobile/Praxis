@@ -36,7 +36,8 @@ fun List<Result>.mapToDomain(): List<RandomUser> {
   return this.map { result ->
     RandomUser(
         name = Name(result.name?.first, result.name?.last, result.name?.title),
-
+        gender = result.gender,
+        phone=result.phone,
         email = result.email, dob = Dob(result.dob?.age, result.dob?.date), location = Location(
         city = result.location?.city,
         country = result.location?.country, state = result.location?.state,
@@ -52,6 +53,8 @@ fun List<RandomUser>.mapToData(): List<Result> {
   return this.map { result ->
     Result(
         name = DataLayer.Name(result.name?.first, result.name?.last, result.name?.title),
+        gender = result.gender,
+        phone=result.phone,
         email = result.email, dob = DataLayer.Dob(result.dob?.age, result.dob?.date),
         location = DataLayer.Location(
             city = result.location?.city,

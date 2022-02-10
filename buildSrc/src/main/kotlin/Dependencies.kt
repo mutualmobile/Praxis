@@ -62,6 +62,7 @@ object Lib {
     const val ACCOMPANIST_INSETS =
       "com.google.accompanist:accompanist-insets:${ACCOMPANIST_VERSION}"
     const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:${SPLASH_SCREEN_VERSION}"
+    const val DESUGARING_LIBS="com.android.tools:desugar_jdk_libs:1.1.5"
   }
 
   object Di {
