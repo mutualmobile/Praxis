@@ -9,11 +9,9 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.mutualmobile.feat.jokes.nav.jokesNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisRoute
-import com.mutualmobile.praxis.uidashboard.nav.dashboardNavigation
 import com.mutualmobile.praxis.uionboarding.nav.onboardingNavigation
 import com.praxis.feat.authentication.nav.authNavGraph
 import javax.inject.Inject
@@ -44,11 +42,7 @@ class MainActivity : AppCompatActivity() {
           onboardingNavigation(
             composeNavigator = composeNavigator,
           )
-          dashboardNavigation(
-            composeNavigator = composeNavigator
-          )
           authNavGraph()
-          jokesNavGraph()
         }
       }
 

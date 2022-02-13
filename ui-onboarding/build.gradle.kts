@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    compileSdk = ProjectProperties.COMPILE_SDK
+    compileSdk = AppVersions.COMPILE_SDK
 
     defaultConfig {
-        minSdk = (ProjectProperties.MIN_SDK)
-        targetSdk = (ProjectProperties.TARGET_SDK)
+        minSdk = (AppVersions.MIN_SDK)
+        targetSdk = (AppVersions.TARGET_SDK)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,7 +28,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER_VERSION
+        kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
     }
     packagingOptions {
         resources.excludes.add("META-INF/LICENSE.txt")
@@ -55,6 +55,8 @@ kapt {
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar", "*.aar"))))
+
     /*Kotlin*/
     implementation(project(":data"))
     implementation(project(":domain"))
@@ -62,42 +64,28 @@ dependencies {
     implementation(project(":navigator"))
     implementation(project(":commonui"))
 
-    api(Lib.Android.COMPOSE_UI)
-    api(Lib.Android.COIL_COMPOSE)
-    api(Lib.Android.COMPOSE_MATERIAL)
-    implementation(Lib.Android.ACCOMPANIST_SYSTEM_UI_CONTROLLER)
-    api(Lib.Android.COMPOSE_UI)
-    api(Lib.Android.COMPOSE_TOOLING)
-    debugApi(Lib.Android.COMPOSE_DEBUG_TOOLING)
-    api(Lib.Android.ACTIVITY_COMPOSE)
-    api(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
 
-    api(Lib.Android.APP_COMPAT)
-    api(Lib.Kotlin.KTX_CORE)
-
-    api(Lib.Android.ACCOMPANIST_INSETS)
+    Lib.Androidx.list.forEach(::implementation)
+    Lib.Androidx.Compose.list.forEach(::implementation)
+    Lib.ThirdParty.list.forEach(::implementation)
+    Lib.Accompanist.list.forEach(::implementation)
+    Lib.Google.list.forEach(::implementation)
+    Lib.Kotlin.list.forEach(::implementation)
 
     /*DI*/
-    api(Lib.Di.hilt)
-    api(Lib.Di.hiltNavigationCompose)
-    api(Lib.Di.viewmodel)
-
+    implementation(Lib.Di.hilt)
+    implementation(Lib.Di.hiltNavigationCompose)
+    implementation(Lib.Di.viewmodel)
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
 
-    /* Logger */
-    api(Lib.Logger.TIMBER)
-    /* Async */
-    api(Lib.Async.COROUTINES)
-    api(Lib.Async.COROUTINES_ANDROID)
+    // Room
+    implementation(Lib.Room.roomKtx)
+    implementation(Lib.Room.roomRuntime)
+    add("kapt", Lib.Room.roomCompiler)
+    testImplementation(Lib.Room.testing)
 
-    testImplementation(TestLib.JUNIT)
-    testImplementation(TestLib.CORE_TEST)
-    testImplementation(TestLib.ANDROID_JUNIT)
-    testImplementation(TestLib.ARCH_CORE)
-    testImplementation(TestLib.MOCK_WEB_SERVER)
-    testImplementation(TestLib.ROBO_ELECTRIC)
-    testImplementation(TestLib.COROUTINES)
-    testImplementation(TestLib.MOCKK)
-    testImplementation(TestLib.TURBINE)
+    UnitTesting.list.forEach(::testImplementation)
+    DevDependencies.debugList.forEach(::debugImplementation)
+    DevDependencies.list.forEach(::implementation)
 }

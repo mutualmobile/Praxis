@@ -59,11 +59,6 @@ class AuthVM @Inject constructor(
       snackBarState.value = ""
       delay(1500)
       uiState.value = UiState.SuccessState("sdff")
-      composeNavigator.navigate(PraxisRoute.Dashboard.name){
-        this.popUpTo(PraxisScreen.Auth.route){
-          this.inclusive = true
-        }
-      }
     }
   }
 

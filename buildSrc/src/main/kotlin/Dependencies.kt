@@ -19,6 +19,7 @@ object BuildPlugins {
   const val KOTLIN_PARCELABLE_PLUGIN = "kotlin-parcelize"
   const val KOTLIN_KAPT = "kotlin-kapt"
   const val DAGGER_HILT = "dagger.hilt.android.plugin"
+  const val ktLint = "org.jlleitschuh.gradle.ktlint"
   const val SAFE_ARGS_KOTLIN = "androidx.navigation.safeargs.kotlin"
 }
 
@@ -27,41 +28,69 @@ object Lib {
     const val KOTLIN_VERSION = "1.6.0"
     private const val KTX_CORE_VERSION = "1.2.0"
     const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
-    const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
-    const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
+    private const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
+    private const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
+
+    private const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${KOTLIN_VERSION}"
+    private const val COROUTINES_ANDROID =
+      "org.jetbrains.kotlinx:kotlinx-coroutines-android:${KOTLIN_VERSION}"
+
+    val list = listOf(KT_STD, KTX_CORE, DATE_TIME, COROUTINES, COROUTINES_ANDROID)
   }
 
-  object Android {
-    const val COMPOSE_VERSION = "1.2.0-alpha02"
-    const val COMPOSE_COMPILER_VERSION = "1.2.0-alpha02"
-    private const val MATERIAL_DESIGN_VERSION = "1.4.0"
-    private const val COMPOSE_ACTIVITY_VERSION = "1.4.0"
-    private const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.0"
-    private const val COMPOSE_NAVIGATION_VERSION = "2.5.0-alpha01"
-    private const val COMPOSE_COIL_VERSION = "1.4.0"
-    private const val ACCOMPANIST_VERSION = "0.24.1-alpha"
-    private const val SPLASH_SCREEN_VERSION = "1.0.0-beta01"
+  object Google {
+    const val MATERIAL_DESIGN = "com.google.android.material:material:1.4.0"
 
-    const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
+    val list = listOf(
+      MATERIAL_DESIGN,
+    )
 
+  }
+
+  object Androidx {
     // Compose
-    const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${COMPOSE_ACTIVITY_VERSION}"
-    const val CONSTRAINT_LAYOUT_COMPOSE =
-      "androidx.constraintlayout:constraintlayout-compose:${COMPOSE_CONSTRAINT_LAYOUT_VERSION}"
-    const val COMPOSE_UI = "androidx.compose.ui:ui:${COMPOSE_VERSION}"
-    const val ACCOMPANIST_SYSTEM_UI_CONTROLLER =
-      "com.google.accompanist:accompanist-systemuicontroller:${ACCOMPANIST_VERSION}"
-    const val COIL_COMPOSE = "io.coil-kt:coil-compose:${COMPOSE_COIL_VERSION}"
-    const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
-    const val COMPOSE_MATERIAL = "androidx.compose.material:material:${COMPOSE_VERSION}"
-    const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling-preview:${COMPOSE_VERSION}"
-    const val COMPOSE_DEBUG_TOOLING = "androidx.compose.ui:ui-tooling:${COMPOSE_VERSION}"
-    const val COMPOSE_NAVIGATION =
-      "androidx.navigation:navigation-compose:${COMPOSE_NAVIGATION_VERSION}"
-    const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
-    const val ACCOMPANIST_INSETS =
-      "com.google.accompanist:accompanist-insets:${ACCOMPANIST_VERSION}"
-    const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:${SPLASH_SCREEN_VERSION}"
+    const val composeVersion = "1.2.0-alpha02"
+    private const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:1.0.0-beta01"
+    private const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
+
+    val list = listOf(
+      APP_COMPAT,
+      SPLASH_SCREEN_API
+    )
+
+    object Compose {
+      private const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${composeVersion}"
+      private const val CONSTRAINT_LAYOUT_COMPOSE =
+        "androidx.constraintlayout:constraintlayout-compose:1.0.0"
+      private const val COMPOSE_UI = "androidx.compose.ui:ui:${composeVersion}"
+      private const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata:${composeVersion}"
+      private const val COMPOSE_MATERIAL = "androidx.compose.material:material:${composeVersion}"
+      private const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling-preview:${composeVersion}"
+      private const val COMPOSE_DEBUG_TOOLING = "androidx.compose.ui:ui-tooling:${composeVersion}"
+      private const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:2.5.0-alpha01"
+
+      val list = listOf(
+        CONSTRAINT_LAYOUT_COMPOSE,
+        COMPOSE_UI,
+        ACTIVITY_COMPOSE,
+        COMPOSE_LIVEDATA,
+        COMPOSE_MATERIAL,
+        COMPOSE_TOOLING,
+        COMPOSE_DEBUG_TOOLING,
+        COMPOSE_NAVIGATION,
+      )
+    }
+  }
+
+
+  object Accompanist {
+    const val insets = "com.google.accompanist:accompanist-insets:0.24.1-alpha"
+    const val coil = "com.google.accompanist:accompanist-coil:0.24.1-alpha"
+    const val pager = "com.google.accompanist:accompanist-pager:0.24.1-alpha"
+    const val pagerIndicators = "com.google.accompanist:accompanist-pager-indicators:0.24.1-alpha"
+    const val systemuicontroller =
+      "com.google.accompanist:accompanist-systemuicontroller:0.24.1-alpha"
+    val list = listOf(insets, coil, pager, pagerIndicators, systemuicontroller)
   }
 
   object Di {
@@ -84,26 +113,15 @@ object Lib {
     private const val roomVersion = "2.4.1"
     const val roomRuntime = "androidx.room:room-runtime:$roomVersion"
     const val roomCompiler = "androidx.room:room-compiler:$roomVersion"
-
-    // optional - Kotlin Extensions and Coroutines support for Room
     const val roomKtx = "androidx.room:room-ktx:$roomVersion"
-
-    // optional - Paging 3 Integration
     const val roomPaging = "androidx.room:room-paging:2.4.1"
+    const val testing = "androidx.room:room-testing:$roomVersion"
   }
 
-  object Glide {
-    private const val GLIDE_VERSION = "4.12.0"
-    const val GLIDE = "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
-    const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
-  }
+  object ThirdParty {
+    private const val COIL_COMPOSE = "io.coil-kt:coil-compose:1.4.0"
 
-  object Async {
-    private const val COROUTINES_VERSION = "1.6.0"
-
-    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${COROUTINES_VERSION}"
-    const val COROUTINES_ANDROID =
-      "org.jetbrains.kotlinx:kotlinx-coroutines-android:${COROUTINES_VERSION}"
+    val list = listOf(COIL_COMPOSE)
   }
 
   object Networking {
@@ -119,34 +137,22 @@ object Lib {
     const val GSON = "com.google.code.gson:gson:${GSON_VERSION}"
   }
 
-  object Logger {
-    private const val TIMBER_VERSION = "4.7.1"
-    const val TIMBER = "com.jakewharton.timber:timber:${TIMBER_VERSION}"
-  }
 }
 
-object TestLib {
-  private const val COROUTINES_VERSION = "1.6.0"
-  private const val ANDROID_JUNIT_VERSION = "1.0.0"
-  private const val ROBO_ELECTRIC_VERSION = "4.3"
-  private const val ARCH_CORE_VERSION = "2.1.0"
-  private const val CORE_TEST_VERSION = "1.2.0"
-  private const val JUNIT_VERSION = "4.13"
-  private const val nav_version = "2.3.5"
-
-  const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${COROUTINES_VERSION}"
-  const val ROBO_ELECTRIC = "org.robolectric:robolectric:${ROBO_ELECTRIC_VERSION}"
-  const val MOCK_WEB_SERVER = "com.squareup.okhttp3:mockwebserver:${Networking.OKHTTP_VERSION}"
-  const val CORE_TEST = "androidx.test:core-ktx:${CORE_TEST_VERSION}"
-  const val JUNIT = "junit:junit:${JUNIT_VERSION}"
-  const val ANDROID_JUNIT = "androidx.test.ext:junit:${ANDROID_JUNIT_VERSION}"
-  const val ARCH_CORE = "androidx.arch.core:core-testing:${ARCH_CORE_VERSION}"
+object UnitTesting {
+  const val junit = "junit:junit:4.13.2"
   const val MOCKK = "io.mockk:mockk:1.10.5"
-  const val NAVIGATION_TESTING = "androidx.navigation:navigation-testing:$nav_version"
-  const val TURBINE = "app.cash.turbine:turbine:0.7.0"
+  const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
+  const val turbin = "app.cash.turbine:turbine:0.7.0"
+
+  val list = listOf(junit, MOCKK, coroutineTest, turbin)
 }
 
-object DebugLib {
+object DevDependencies {
   private const val LEAK_CANARY_VERSION = "2.3"
   const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_VERSION}"
+  private const val TIMBER_VERSION = "4.7.1"
+  const val TIMBER = "com.jakewharton.timber:timber:${TIMBER_VERSION}"
+  val debugList = listOf(LEAK_CANARY)
+  val list = listOf(TIMBER)
 }

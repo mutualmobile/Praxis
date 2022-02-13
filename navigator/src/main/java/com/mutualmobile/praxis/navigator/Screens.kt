@@ -16,28 +16,13 @@ sealed class PraxisScreen(
   object EmailAddressInputUI : PraxisScreen("EmailAddressInputUI")
   object WorkspaceInputUI : PraxisScreen("WorkspaceInputUI")
 
-  // dashboard
-  object Dashboard : PraxisScreen("Dashboard")
-
   object Auth : PraxisScreen("auth")
   object ForgotPassword : PraxisScreen("forgotPassword")
-  object Jokes : PraxisScreen("jokes")
-  object RepoDetails : PraxisScreen("repoDetails")
-  object JokeDetail : PraxisScreen(
-    route = "jokeDetail",
-    navArguments = listOf(navArgument("jokeId") { type = NavType.LongType })
-  ) {
-    fun createRoute(jokeId: String) =
-      route.replace("{${navArguments.first().name}}", jokeId)
-  }
-
 }
 
 sealed class PraxisRoute(val name: String) {
   object OnBoarding : PraxisRoute("onboardingRoute")
   object Auth : PraxisRoute("authenticationRoute")
-  object Dashboard : PraxisRoute("dashboardRoute")
-  object Jokes : PraxisRoute("jokesRoute")
 }
 
 private fun String.appendArguments(navArguments: List<NamedNavArgument>): String {

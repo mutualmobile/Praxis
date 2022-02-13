@@ -1,7 +1,5 @@
 package com.mutualmobile.praxis.domain.usecases
 
-import androidx.paging.PagingData
-import com.mutualmobile.praxis.domain.model.message.PraxisMessage
 import kotlinx.coroutines.flow.Flow
 
 interface BaseUseCase<out Result, in ExecutableParam> {

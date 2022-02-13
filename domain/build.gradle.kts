@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-  compileSdk = (ProjectProperties.COMPILE_SDK)
+  compileSdk = (AppVersions.COMPILE_SDK)
 
   defaultConfig {
-    minSdk = (ProjectProperties.MIN_SDK)
-    targetSdk = (ProjectProperties.TARGET_SDK)
+    minSdk = (AppVersions.MIN_SDK)
+    targetSdk = (AppVersions.TARGET_SDK)
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -31,18 +31,29 @@ kapt {
 }
 
 dependencies {
+  implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar", "*.aar"))))
 
-  /*Kotlin*/
-  api(Lib.Kotlin.KT_STD)
-  api(Lib.Async.COROUTINES)
-  api(Lib.Logger.TIMBER)
+  Lib.Androidx.list.forEach(::implementation)
+  Lib.Androidx.Compose.list.forEach(::implementation)
+  Lib.ThirdParty.list.forEach(::implementation)
+  Lib.Accompanist.list.forEach(::implementation)
+  Lib.Google.list.forEach(::implementation)
+  Lib.Kotlin.list.forEach(::implementation)
 
-  /* Paging */
-  implementation(Lib.Paging.PAGING_3)
-
-  /* Dependency Injection */
-  api(Lib.Di.hilt)
+  /*DI*/
+  implementation(Lib.Di.hilt)
+  implementation(Lib.Di.hiltNavigationCompose)
+  implementation(Lib.Di.viewmodel)
+  kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
-  testImplementation(TestLib.JUNIT)
-  testImplementation(TestLib.CORE_TEST)
+
+  // Room
+  implementation(Lib.Room.roomKtx)
+  implementation(Lib.Room.roomRuntime)
+  add("kapt", Lib.Room.roomCompiler)
+  testImplementation(Lib.Room.testing)
+
+  UnitTesting.list.forEach(::testImplementation)
+  DevDependencies.debugList.forEach(::debugImplementation)
+  DevDependencies.list.forEach(::implementation)
 }

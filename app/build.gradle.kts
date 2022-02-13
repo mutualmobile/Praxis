@@ -6,22 +6,32 @@ plugins {
   id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
-  id("org.jlleitschuh.gradle.ktlint")
+  id(BuildPlugins.ktLint)
 }
 
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
-  compileSdk = (ProjectProperties.COMPILE_SDK)
+  compileSdk = (AppVersions.COMPILE_SDK)
 
   defaultConfig {
-    applicationId = (ProjectProperties.APPLICATION_ID)
-    minSdk = (ProjectProperties.MIN_SDK)
-    targetSdk = (ProjectProperties.TARGET_SDK)
-    versionCode = 1
-    versionName = "1.0"
+    applicationId = (AppVersions.APPLICATION_ID)
+    minSdk = (AppVersions.MIN_SDK)
+    targetSdk = (AppVersions.TARGET_SDK)
+    versionCode = AppVersions.versionCode
+    versionName = AppVersions.versionName
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
+
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments += mapOf(
+          "room.schemaLocation" to "$projectDir/schemas",
+          "room.incremental" to "true",
+          "room.expandProjection" to "true"
+        )
+      }
+    }
   }
 
   signingConfigs {
@@ -72,8 +82,9 @@ android {
   }
 
   composeOptions {
-    kotlinCompilerExtensionVersion = Lib.Android.COMPOSE_COMPILER_VERSION
+    kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
   }
+
   packagingOptions {
     resources.excludes.add("META-INF/LICENSE.txt")
     resources.excludes.add("META-INF/NOTICE.txt")
@@ -97,64 +108,51 @@ kapt {
   correctErrorTypes = true
 }
 
+
+hilt {
+  // The Hilt configuration option 'enableTransformForLocalTests'
+  // is no longer necessary when com.android.tools.build:gradle:4.2.0+ is used.
+  // enableTransformForLocalTests = true
+  enableAggregatingTask = true
+
+  // see
+  // https://github.com/google/dagger/issues/1991
+  // https://github.com/google/dagger/issues/970
+  enableExperimentalClasspathAggregation = true
+}
+
 dependencies {
+  implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar", "*.aar"))))
+
+  Lib.Androidx.list.forEach(::implementation)
+  Lib.Androidx.Compose.list.forEach(::implementation)
+  Lib.ThirdParty.list.forEach(::implementation)
+  Lib.Accompanist.list.forEach(::implementation)
+  Lib.Google.list.forEach(::implementation)
+  Lib.Kotlin.list.forEach(::implementation)
+
   api(project(":ui-onboarding"))
-  api(project(":ui-dashboard"))
-  api(project(":ui-chat"))
-  api(project(":ui-jokes"))
   api(project(":ui-authentication"))
-
-
   implementation(project(":navigator"))
   implementation(project(":data"))
   implementation(project(":domain"))
   implementation(project(":common"))
   implementation(project(":commonui"))
 
-  /* Android Designing and layout */
-  implementation(Lib.Android.COMPOSE_LIVEDATA)
-  implementation(Lib.Android.COMPOSE_NAVIGATION)
-  implementation(Lib.Kotlin.KT_STD)
-  implementation(Lib.Android.MATERIAL_DESIGN)
-  implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
-  implementation(Lib.Android.ACCOMPANIST_INSETS)
-  implementation(Lib.Android.SPLASH_SCREEN_API)
-
-  implementation(Lib.Android.APP_COMPAT)
-
-  implementation(Lib.Kotlin.KTX_CORE)
-
   /*DI*/
   implementation(Lib.Di.hilt)
   implementation(Lib.Di.hiltNavigationCompose)
   implementation(Lib.Di.viewmodel)
-
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 
-  /* Logger */
-  implementation(Lib.Logger.TIMBER)
-  /* Async */
-  implementation(Lib.Async.COROUTINES)
-  implementation(Lib.Async.COROUTINES_ANDROID)
-
-  /* Room */
-  implementation(Lib.Room.roomRuntime)
-  kapt(Lib.Room.roomCompiler)
+  // Room
   implementation(Lib.Room.roomKtx)
-  implementation(Lib.Room.roomPaging)
+  implementation(Lib.Room.roomRuntime)
+  add("kapt", Lib.Room.roomCompiler)
+  testImplementation(Lib.Room.testing)
 
-
-  /*Testing*/
-  testImplementation(TestLib.JUNIT)
-  testImplementation(TestLib.CORE_TEST)
-  testImplementation(TestLib.ANDROID_JUNIT)
-  testImplementation(TestLib.ARCH_CORE)
-  testImplementation(TestLib.MOCK_WEB_SERVER)
-  testImplementation(TestLib.ROBO_ELECTRIC)
-  testImplementation(TestLib.COROUTINES)
-  testImplementation(TestLib.MOCKK)
-
-  androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Lib.Android.COMPOSE_VERSION}")
-  debugImplementation("androidx.compose.ui:ui-test-manifest:${Lib.Android.COMPOSE_VERSION}")
+  UnitTesting.list.forEach(::testImplementation)
+  DevDependencies.debugList.forEach(::debugImplementation)
+  DevDependencies.list.forEach(::implementation)
 }

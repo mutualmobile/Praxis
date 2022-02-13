@@ -3,14 +3,15 @@ plugins {
     id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
     id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.DAGGER_HILT)
+    id(BuildPlugins.ktLint)
 }
 
 android {
-    compileSdk = ProjectProperties.COMPILE_SDK
+    compileSdk = AppVersions.COMPILE_SDK
 
     defaultConfig {
-        minSdk = (ProjectProperties.MIN_SDK)
-        targetSdk = (ProjectProperties.TARGET_SDK)
+        minSdk = (AppVersions.MIN_SDK)
+        targetSdk = (AppVersions.TARGET_SDK)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,17 +30,29 @@ kapt {
 }
 
 dependencies {
-    /*Kotlin*/
-    api(Lib.Kotlin.KT_STD)
+    implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar", "*.aar"))))
 
-    /* Dependency Injection */
-    api(Lib.Di.hilt)
-    api(Lib.Di.hiltNavigationCompose)
-    api(Lib.Di.viewmodel)
-    testImplementation(TestLib.JUNIT)
-    testImplementation(TestLib.CORE_TEST)
+    Lib.Androidx.list.forEach(::implementation)
+    Lib.Androidx.Compose.list.forEach(::implementation)
+    Lib.ThirdParty.list.forEach(::implementation)
+    Lib.Accompanist.list.forEach(::implementation)
+    Lib.Google.list.forEach(::implementation)
+    Lib.Kotlin.list.forEach(::implementation)
+
+    /*DI*/
+    implementation(Lib.Di.hilt)
+    implementation(Lib.Di.hiltNavigationCompose)
+    implementation(Lib.Di.viewmodel)
     kapt(Lib.Di.hiltCompiler)
-    kaptTest(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
-    kaptTest(Lib.Di.hiltAndroidCompiler)
+
+    // Room
+    implementation(Lib.Room.roomKtx)
+    implementation(Lib.Room.roomRuntime)
+    add("kapt", Lib.Room.roomCompiler)
+    testImplementation(Lib.Room.testing)
+
+    UnitTesting.list.forEach(::testImplementation)
+    DevDependencies.debugList.forEach(::debugImplementation)
+    DevDependencies.list.forEach(::implementation)
 }
