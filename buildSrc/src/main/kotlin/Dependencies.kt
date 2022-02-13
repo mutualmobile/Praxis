@@ -61,7 +61,8 @@ object Lib {
       private const val CONSTRAINT_LAYOUT_COMPOSE =
         "androidx.constraintlayout:constraintlayout-compose:1.0.0"
       private const val COMPOSE_UI = "androidx.compose.ui:ui:${composeVersion}"
-      private const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata:${composeVersion}"
+      private const val COMPOSE_LIVEDATA =
+        "androidx.compose.runtime:runtime-livedata:${composeVersion}"
       private const val COMPOSE_MATERIAL = "androidx.compose.material:material:${composeVersion}"
       private const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling-preview:${composeVersion}"
       private const val COMPOSE_DEBUG_TOOLING = "androidx.compose.ui:ui-tooling:${composeVersion}"
@@ -113,6 +114,13 @@ object Lib {
     const val roomKtx = "androidx.room:room-ktx:$roomVersion"
     const val roomPaging = "androidx.room:room-paging:2.4.1"
     const val testing = "androidx.room:room-testing:$roomVersion"
+  }
+
+  object Networking {
+    const val KTOR = "io.ktor:ktor-client-android:1.6.7"
+    const val KTOR_LOGGING = "io.ktor:ktor-client-logging-jvm:1.6.7"
+
+    val ktorList = listOf(KTOR, KTOR_LOGGING)
   }
 
   object ThirdParty {

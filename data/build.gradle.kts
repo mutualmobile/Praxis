@@ -33,7 +33,7 @@ dependencies {
   implementation(project(":domain"))
 
   Lib.Kotlin.list.forEach(::implementation)
-
+  Lib.Networking.ktorList.forEach(::implementation)
   /*DI*/
   implementation(Lib.Di.hilt)
   implementation(Lib.Di.hiltNavigationCompose)
