@@ -15,7 +15,7 @@
         android:theme="@style/Theme.App.SplashScreenTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".root.MainActivity"
+            android:name=".root.OnboardingActivity"
             android:exported="true"
             android:theme="@style/Theme.App.SplashScreenTheme">
             <intent-filter>
@@ -24,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity-alias
             android:name="leakcanary.internal.activity.LeakLauncherActivity"
             android:exported="true"

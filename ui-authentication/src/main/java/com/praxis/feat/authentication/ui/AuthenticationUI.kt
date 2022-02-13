@@ -2,13 +2,8 @@ package com.praxis.feat.authentication.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -32,6 +27,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
@@ -40,10 +36,12 @@ import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
 import com.mutualmobile.praxis.commonui.theme.*
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
+import com.praxis.feat.authentication.vm.streamProgress
+import com.praxis.feat.authentication.vm.uri
 
 @Composable
 fun AuthenticationUI(
-  authVM: AuthVM = hiltViewModel()
+  authVM: AuthVM = hiltViewModel(),
 ) {
   PraxisTheme {
     val scaffoldState = rememberScaffoldState()
@@ -88,7 +86,7 @@ fun AuthenticationUI(
 @Composable
 private fun AuthSurface(
   authVM: AuthVM,
-  scaffoldState: ScaffoldState
+  scaffoldState: ScaffoldState,
 ) {
   PraxisSurface(
     modifier = Modifier
@@ -106,12 +104,18 @@ private fun AuthSurface(
     ) {
 
       val resetPasswordState by authVM.snackBarState.collectAsState()
-      Image(
-        painter = painterResource(id = R.mipmap.ic_launcher),
-        contentDescription = "Logo", Modifier.size(128.dp)
-      )
-      val uiState by authVM.uiState.collectAsState()
+
+      val uiState by authVM.formUiState.collectAsState()
+      val randomPhotoState by authVM.randomPhotoState.collectAsState()
+
       val (focusRequester) = FocusRequester.createRefs()
+
+      AnimatedVisibility(visible = randomPhotoState !is AuthVM.UiState.Streaming) {
+        Image(
+          painter = painterResource(id = R.mipmap.ic_launcher),
+          contentDescription = "Logo", Modifier.size(128.dp)
+        )
+      }
 
       AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
         EmailTF(authVM, focusRequester)
@@ -127,6 +131,24 @@ private fun AuthSurface(
 
       AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
         LoginButton(authVM = authVM)
+      }
+
+      AnimatedVisibility(visible = uiState is AuthVM.UiState.SuccessState || randomPhotoState is AuthVM.UiState.Streaming) {
+        Column(
+          verticalArrangement = Arrangement.Center,
+          horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+          Box(Modifier.background(Color.Black)) {
+            Image(
+              painter = rememberImagePainter(randomPhotoState.uri()),
+              contentDescription = null, modifier = Modifier.size(256.dp),
+            )
+          }
+
+          Text(text = randomPhotoState.streamProgress() ?: "")
+
+          RandomPhotoButton(authVM)
+        }
       }
 
       AnimatedVisibility(visible = uiState is AuthVM.UiState.SuccessState) {
@@ -146,6 +168,22 @@ private fun AuthSurface(
         }
       }
     }
+  }
+}
+
+
+@Composable
+fun RandomPhotoButton(authVM: AuthVM) {
+  Button(
+    onClick = {
+      authVM.fetchRandomPhoto()
+    }, Modifier.fillMaxWidth(),
+    colors = ButtonDefaults.buttonColors(backgroundColor = PraxisColorProvider.colors.buttonColor)
+  ) {
+    Text(
+      text = "Load Random Photo",
+      style = MaterialTheme.typography.body1.copy(color = PraxisColorProvider.colors.buttonTextColor)
+    )
   }
 }
 

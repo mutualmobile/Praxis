@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/photoView"
+        android:layout_width="@dimen/random_photo_size"
+        android:layout_height="@dimen/random_photo_size"
+        android:background="@android:color/black"
+        android:padding="@dimen/padding_small" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/progressText"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/randomPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small"
+        android:text="@string/random_photo">
+
+    </androidx.appcompat.widget.AppCompatButton>
+</LinearLayout>

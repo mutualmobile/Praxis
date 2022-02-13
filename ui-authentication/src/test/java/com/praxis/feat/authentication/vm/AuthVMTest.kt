@@ -50,7 +50,7 @@ class AuthVMTest {
 
         authVM = AuthVM(savedStateHandle, navigator)
 
-        authVM.uiState.test {
+        authVM.formUiState.test {
           assert(awaitItem() is AuthVM.UiState.Empty)
           authVM.loginNow()
           assert(awaitItem() is AuthVM.UiState.LoadingState)
@@ -77,7 +77,7 @@ class AuthVMTest {
         authVM = AuthVM(savedStateHandle, navigator)
         authVM.credentials.value = LoginForm("anmol@gmail.com", "sdkfkjkjfdsjkfds")
 
-        authVM.uiState.test {
+        authVM.formUiState.test {
           assert(awaitItem() is AuthVM.UiState.Empty)
           authVM.loginNow()
           assert(awaitItem() is AuthVM.UiState.LoadingState)

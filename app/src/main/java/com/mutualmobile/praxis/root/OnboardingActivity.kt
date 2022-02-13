@@ -17,7 +17,7 @@ import com.praxis.feat.authentication.nav.authNavGraph
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class OnboardingActivity : AppCompatActivity() {
 
   @Inject
   lateinit var composeNavigator: ComposeNavigator
