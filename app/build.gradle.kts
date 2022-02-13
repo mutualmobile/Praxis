@@ -122,37 +122,37 @@ hilt {
 }
 
 dependencies {
-  implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar", "*.aar"))))
+  
 
-  Lib.Androidx.list.forEach(::implementation)
-  Lib.Androidx.Compose.list.forEach(::implementation)
-  Lib.ThirdParty.list.forEach(::implementation)
-  Lib.Accompanist.list.forEach(::implementation)
-  Lib.Google.list.forEach(::implementation)
-  Lib.Kotlin.list.forEach(::implementation)
+  Lib.Androidx.list.forEach(::api)
+  Lib.Androidx.Compose.list.forEach(::api)
+  Lib.ThirdParty.list.forEach(::api)
+  Lib.Accompanist.list.forEach(::api)
+  Lib.Google.list.forEach(::api)
+  Lib.Kotlin.list.forEach(::api)
 
   api(project(":ui-onboarding"))
   api(project(":ui-authentication"))
-  implementation(project(":navigator"))
-  implementation(project(":data"))
-  implementation(project(":domain"))
-  implementation(project(":common"))
-  implementation(project(":commonui"))
+  api(project(":navigator"))
+  api(project(":data"))
+  api(project(":domain"))
+  api(project(":common"))
+  api(project(":commonui"))
 
   /*DI*/
-  implementation(Lib.Di.hilt)
-  implementation(Lib.Di.hiltNavigationCompose)
-  implementation(Lib.Di.viewmodel)
+  api(Lib.Di.hilt)
+  api(Lib.Di.hiltNavigationCompose)
+  api(Lib.Di.viewmodel)
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 
   // Room
-  implementation(Lib.Room.roomKtx)
-  implementation(Lib.Room.roomRuntime)
+  api(Lib.Room.roomKtx)
+  api(Lib.Room.roomRuntime)
   add("kapt", Lib.Room.roomCompiler)
-  testImplementation(Lib.Room.testing)
+  testApi(Lib.Room.testing)
 
-  UnitTesting.list.forEach(::testImplementation)
-  DevDependencies.debugList.forEach(::debugImplementation)
-  DevDependencies.list.forEach(::implementation)
+  UnitTesting.list.forEach(::testApi)
+  DevDependencies.debugList.forEach(::debugApi)
+  DevDependencies.list.forEach(::api)
 }

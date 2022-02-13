@@ -62,7 +62,7 @@ dependencies {
     implementation(project(":navigator"))
     implementation(project(":commonui"))
 
-    implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar", "*.aar"))))
+    
 
     Lib.Androidx.list.forEach(::implementation)
     Lib.Androidx.Compose.list.forEach(::implementation)

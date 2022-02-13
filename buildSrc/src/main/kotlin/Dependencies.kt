@@ -1,5 +1,3 @@
-import Lib.Networking
-
 /** This file contains versions of all the dependencies used in the module  */
 
 object BuildPlugins {
@@ -49,7 +47,7 @@ object Lib {
 
   object Androidx {
     // Compose
-    const val composeVersion = "1.2.0-alpha02"
+    const val composeVersion = "1.1.0"
     private const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:1.0.0-beta01"
     private const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
 
@@ -84,13 +82,12 @@ object Lib {
 
 
   object Accompanist {
-    const val insets = "com.google.accompanist:accompanist-insets:0.24.1-alpha"
-    const val coil = "com.google.accompanist:accompanist-coil:0.24.1-alpha"
-    const val pager = "com.google.accompanist:accompanist-pager:0.24.1-alpha"
-    const val pagerIndicators = "com.google.accompanist:accompanist-pager-indicators:0.24.1-alpha"
+    const val insets = "com.google.accompanist:accompanist-insets:0.23.0"
+    const val pager = "com.google.accompanist:accompanist-pager:0.23.0"
+    const val pagerIndicators = "com.google.accompanist:accompanist-pager-indicators:0.23.0"
     const val systemuicontroller =
-      "com.google.accompanist:accompanist-systemuicontroller:0.24.1-alpha"
-    val list = listOf(insets, coil, pager, pagerIndicators, systemuicontroller)
+      "com.google.accompanist:accompanist-systemuicontroller:0.23.0"
+    val list = listOf(insets, pager, pagerIndicators, systemuicontroller)
   }
 
   object Di {
@@ -124,19 +121,6 @@ object Lib {
     val list = listOf(COIL_COMPOSE)
   }
 
-  object Networking {
-    private const val RETROFIT_VERSION = "2.9.0"
-    const val OKHTTP_VERSION = "4.7.2"
-    const val RETROFIT = "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
-    const val RETROFIT_GSON = "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
-    const val LOGGING = "com.squareup.okhttp3:logging-interceptor:${OKHTTP_VERSION}"
-  }
-
-  object Serialization {
-    private const val GSON_VERSION = "2.8.8"
-    const val GSON = "com.google.code.gson:gson:${GSON_VERSION}"
-  }
-
 }
 
 object UnitTesting {
@@ -149,7 +133,7 @@ object UnitTesting {
 }
 
 object DevDependencies {
-  private const val LEAK_CANARY_VERSION = "2.3"
+  private const val LEAK_CANARY_VERSION = "2.8.1"
   const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_VERSION}"
   private const val TIMBER_VERSION = "4.7.1"
   const val TIMBER = "com.jakewharton.timber:timber:${TIMBER_VERSION}"

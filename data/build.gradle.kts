@@ -31,13 +31,7 @@ kapt {
 dependencies {
   implementation(project(":common"))
   implementation(project(":domain"))
-  implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar", "*.aar"))))
 
-  Lib.Androidx.list.forEach(::implementation)
-  Lib.Androidx.Compose.list.forEach(::implementation)
-  Lib.ThirdParty.list.forEach(::implementation)
-  Lib.Accompanist.list.forEach(::implementation)
-  Lib.Google.list.forEach(::implementation)
   Lib.Kotlin.list.forEach(::implementation)
 
   /*DI*/

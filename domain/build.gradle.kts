@@ -4,6 +4,7 @@ plugins {
   id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
+  id(BuildPlugins.ktLint)
 }
 
 android {
@@ -31,13 +32,6 @@ kapt {
 }
 
 dependencies {
-  implementation(fileTree(mapOf("dir" to "../libs", "include" to listOf("*.jar", "*.aar"))))
-
-  Lib.Androidx.list.forEach(::implementation)
-  Lib.Androidx.Compose.list.forEach(::implementation)
-  Lib.ThirdParty.list.forEach(::implementation)
-  Lib.Accompanist.list.forEach(::implementation)
-  Lib.Google.list.forEach(::implementation)
   Lib.Kotlin.list.forEach(::implementation)
 
   /*DI*/
@@ -47,13 +41,4 @@ dependencies {
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 
-  // Room
-  implementation(Lib.Room.roomKtx)
-  implementation(Lib.Room.roomRuntime)
-  add("kapt", Lib.Room.roomCompiler)
-  testImplementation(Lib.Room.testing)
-
-  UnitTesting.list.forEach(::testImplementation)
-  DevDependencies.debugList.forEach(::debugImplementation)
-  DevDependencies.list.forEach(::implementation)
 }

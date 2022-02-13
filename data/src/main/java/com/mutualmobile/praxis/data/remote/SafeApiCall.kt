@@ -1,10 +1,9 @@
 package com.mutualmobile.praxis.data.remote
 
-import android.util.Log
 import com.mutualmobile.praxis.domain.SafeResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 
 internal suspend fun <T> safeApiCall(
@@ -15,10 +14,9 @@ internal suspend fun <T> safeApiCall(
     try {
       SafeResult.Success(apiCall.invoke())
     } catch (throwable: Throwable) {
-      Log.e("safeApiCall", throwable.message.toString())
+      Timber.e(throwable.message.toString())
       when (throwable) {
         is IOException -> SafeResult.NetworkError
-        is HttpException -> SafeResult.Failure(throwable)
         else -> SafeResult.Failure(Exception(throwable))
       }
     }
