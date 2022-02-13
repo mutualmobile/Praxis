@@ -280,7 +280,7 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   focusedIndicatorColor = Color.Transparent,
   disabledIndicatorColor = Color.Transparent,
   unfocusedIndicatorColor = Color.Transparent,
-  backgroundColor = PraxisColorProvider.colors.uiBackground.copy(alpha = AlphaNearTransparent),
+  backgroundColor = PraxisColorProvider.colors.accent.copy(alpha = AlphaNearTransparent),
 )
 
 @Preview("Light+Dark")

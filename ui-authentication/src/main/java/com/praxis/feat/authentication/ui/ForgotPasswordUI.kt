@@ -20,27 +20,29 @@ import com.praxis.feat.authentication.vm.ForgotPasswordVM
 
 @Composable
 fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){
-  Scaffold(
-    backgroundColor = PraxisColorProvider.colors.uiBackground,
-    contentColor = PraxisColorProvider.colors.textSecondary,
-    modifier = Modifier
-      .statusBarsPadding()
-      .navigationBarsPadding(),
-    topBar = {
-      PraxisSurfaceAppBar(
-        title = {
-          Text(
-            text = "Forgot password",
-            style = PraxisTypography.h5.copy(
-              color = Color.White,
-              fontWeight = FontWeight.Bold
+  PraxisTheme() {
+    Scaffold(
+      backgroundColor = PraxisColorProvider.colors.uiBackground,
+      contentColor = PraxisColorProvider.colors.textSecondary,
+      modifier = Modifier
+        .statusBarsPadding()
+        .navigationBarsPadding(),
+      topBar = {
+        PraxisSurfaceAppBar(
+          title = {
+            Text(
+              text = "Forgot password",
+              style = PraxisTypography.h5.copy(
+                color = Color.White,
+                fontWeight = FontWeight.Bold
+              )
             )
-          )
-        },
-        backgroundColor = PraxisColorProvider.colors.appBarColor,
-      )
-    }) {
-    ForgotPasswordSurface(forgotPasswordVM)
+          },
+          backgroundColor = PraxisColorProvider.colors.appBarColor,
+        )
+      }) {
+      ForgotPasswordSurface(forgotPasswordVM)
+    }
   }
 
 }
