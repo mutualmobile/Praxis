@@ -97,7 +97,8 @@ private fun AuthSurface(
   ) {
     Column(
       Modifier
-        .padding(16.dp).navigationBarsWithImePadding()
+        .padding(16.dp)
+        .navigationBarsWithImePadding()
         .fillMaxWidth()
         .fillMaxHeight(),
       verticalArrangement = Arrangement.Center,
@@ -109,26 +110,30 @@ private fun AuthSurface(
         painter = painterResource(id = R.mipmap.ic_launcher),
         contentDescription = "Logo", Modifier.size(128.dp)
       )
-      val formVisible by authVM.uiState.collectAsState()
+      val uiState by authVM.uiState.collectAsState()
       val (focusRequester) = FocusRequester.createRefs()
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
+      AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
         EmailTF(authVM, focusRequester)
       }
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
+      AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
         PasswordTF(authVM, focusRequester)
       }
 
-      AnimatedVisibility(visible = (formVisible is AuthVM.UiState.LoadingState)) {
+      AnimatedVisibility(visible = (uiState is AuthVM.UiState.LoadingState)) {
         CircularProgressIndicator(modifier = Modifier.padding(8.dp))
       }
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
+      AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
         LoginButton(authVM = authVM)
       }
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
+      AnimatedVisibility(visible = uiState is AuthVM.UiState.SuccessState) {
+        LogoutButton(authVM)
+      }
+
+      AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
         ForgotPasswordText(authVM)
       }
 
@@ -141,6 +146,21 @@ private fun AuthSurface(
         }
       }
     }
+  }
+}
+
+@Composable
+fun LogoutButton(authVM: AuthVM) {
+  Button(
+    onClick = {
+      authVM.logout()
+    }, Modifier.fillMaxWidth(),
+    colors = ButtonDefaults.buttonColors(backgroundColor = PraxisColorProvider.colors.buttonColor)
+  ) {
+    Text(
+      text = "Logout",
+      style = MaterialTheme.typography.body1.copy(color = PraxisColorProvider.colors.buttonTextColor)
+    )
   }
 }
 

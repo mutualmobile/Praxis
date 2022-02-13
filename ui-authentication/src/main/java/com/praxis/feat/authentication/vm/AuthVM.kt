@@ -58,12 +58,21 @@ class AuthVM @Inject constructor(
       credentials.value.validate()
       snackBarState.value = ""
       delay(1500)
-      uiState.value = UiState.SuccessState("sdff")
+      uiState.value = UiState.SuccessState("some-token")
     }
   }
 
   fun navigateForgotPassword() {
     composeNavigator.navigate(PraxisScreen.ForgotPassword.route)
+  }
+
+  fun logout() {
+    viewModelScope.launch(exceptionHandler) {
+      uiState.value = UiState.LoadingState
+      delay(1500)
+      snackBarState.value = "Logged out!"
+      uiState.value = UiState.Empty
+    }
   }
 
   sealed class UiState {
