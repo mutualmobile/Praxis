@@ -27,4 +27,6 @@
     <string name="browse_channels">Browse Channels</string>
     <string name="recent_searches">Recent Searches</string>
     <string name="narrow_your_search">Narrow Your Search</string>
+    <string name="chat_mssg_dummy">Hello</string>
+
 </resources>

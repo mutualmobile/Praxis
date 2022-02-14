@@ -1,4 +1,5 @@
 <resources>
     <string name="title_activity_main">MainActivity</string>
+    <string name="chat_mssg_dummy">Dummy Chat Message</string>
 
 </resources>

@@ -7,13 +7,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mutualmobile.praxis.commonui.R
 import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
+import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.commonui.theme.PraxisTypography
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -59,4 +66,14 @@ fun PraxisListItem(
       )
     }
   }
+}
+
+@Preview("Light+Dark")
+@Composable
+fun PraxisListItemPreview(){
+    PraxisTheme(isDarkTheme = true) {
+       PraxisListItem(Icons.Default.Notifications, stringResource(R.string.app_name))
+   }
+
+
 }
