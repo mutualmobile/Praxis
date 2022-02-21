@@ -4,11 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,37 +29,55 @@ fun DirectMessagesUI() {
             DMTopAppBar()
             JumpToText()
             PraxisDMListItem(
-                "https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U",
+                listOf(
+                    "https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U",
+                    "https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"
+                ),
                 "Anmol",
                 stringResource(R.string.chat_mssg_dummy),
                 "8h"
             )
             PraxisDMListItem(
-                "https://picsum.photos/seed/picsum/200/300",
+                listOf(
+                    "https://picsum.photos/seed/picsum/200/300",
+                    ""
+                ),
                 "Hari",
                 stringResource(R.string.chat_mssg_dummy),
                 "4h"
             )
             PraxisDMListItem(
-                "https://picsum.photos/200/300?grayscale",
+                listOf(
+                    "https://picsum.photos/200/300?grayscale",
+                    ""
+                ),
                 "Google Calendar",
                 stringResource(R.string.chat_mssg_dummy),
                 "Feb 9"
             )
             PraxisDMListItem(
-                "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ",
+                listOf(
+                    "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ",
+                    ""
+                ),
                 "Kristin Moore",
                 stringResource(R.string.chat_mssg_dummy),
                 "Feb 9"
             )
             PraxisDMListItem(
-                "https://i.picsum.photos/id/100/2500/1656.jpg?hmac=gWyN-7ZB32rkAjMhKXQgdHOIBRHyTSgzuOK6U0vXb1w",
+                listOf(
+                    "https://i.picsum.photos/id/100/2500/1656.jpg?hmac=gWyN-7ZB32rkAjMhKXQgdHOIBRHyTSgzuOK6U0vXb1w",
+                    ""
+                ),
                 "Pushpal Roy",
                 stringResource(R.string.chat_mssg_dummy),
                 "Jan 8"
             )
             PraxisDMListItem(
-                "https://i.picsum.photos/id/1025/4951/3301.jpg?hmac=_aGh5AtoOChip_iaMo8ZvvytfEojcgqbCH7dzaz-H8Y",
+                listOf(
+                    "https://i.picsum.photos/id/1025/4951/3301.jpg?hmac=_aGh5AtoOChip_iaMo8ZvvytfEojcgqbCH7dzaz-H8Y",
+                    ""
+                ),
                 "Kamal Kishore",
                 stringResource(R.string.chat_mssg_dummy),
                 "Jan 1"
