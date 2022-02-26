@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -93,46 +94,12 @@ private fun AuthSurface(
       .fillMaxHeight()
       .fillMaxWidth()
   ) {
-    Column(
-      Modifier
-        .padding(16.dp)
-        .navigationBarsWithImePadding()
-        .fillMaxWidth()
-        .fillMaxHeight(),
-      verticalArrangement = Arrangement.Center,
-      horizontalAlignment = Alignment.CenterHorizontally
-    ) {
 
-      val resetPasswordState by authVM.snackBarState.collectAsState()
+    val resetPasswordState by authVM.snackBarState.collectAsState()
+    val uiState by authVM.formUiState.collectAsState()
+    val randomPhotoState by authVM.randomPhotoState.collectAsState()
 
-      val uiState by authVM.formUiState.collectAsState()
-      val randomPhotoState by authVM.randomPhotoState.collectAsState()
-
-      val (focusRequester) = FocusRequester.createRefs()
-
-      AnimatedVisibility(visible = randomPhotoState !is AuthVM.UiState.Streaming) {
-        Image(
-          painter = painterResource(id = R.mipmap.ic_launcher),
-          contentDescription = "Logo", Modifier.size(128.dp)
-        )
-      }
-
-      AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
-        EmailTF(authVM, focusRequester)
-      }
-
-      AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
-        PasswordTF(authVM, focusRequester)
-      }
-
-      AnimatedVisibility(visible = (uiState is AuthVM.UiState.LoadingState)) {
-        CircularProgressIndicator(modifier = Modifier.padding(8.dp))
-      }
-
-      AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
-        LoginButton(authVM = authVM)
-      }
-
+    Box() {
       AnimatedVisibility(visible = uiState is AuthVM.UiState.SuccessState || randomPhotoState is AuthVM.UiState.Streaming) {
         Column(
           verticalArrangement = Arrangement.Center,
@@ -141,33 +108,79 @@ private fun AuthSurface(
           Box(Modifier.background(Color.Black)) {
             Image(
               painter = rememberImagePainter(randomPhotoState.uri()),
-              contentDescription = null, modifier = Modifier.size(256.dp),
+              contentScale = ContentScale.Crop,
+              contentDescription = null, modifier = Modifier.fillMaxSize(),
             )
+
+            Column(
+              Modifier.align(Alignment.BottomCenter),
+              verticalArrangement = Arrangement.Center,
+              horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+              Text(
+                text = randomPhotoState.streamProgress() ?: "",
+                style = PraxisTypography.subtitle1.copy(color = PraxisColorProvider.colors.appBarTextTitleColor)
+              )
+
+              RandomPhotoButton(authVM)
+
+              LogoutButton(authVM)
+            }
           }
 
-          Text(text = randomPhotoState.streamProgress() ?: "")
 
-          RandomPhotoButton(authVM)
         }
       }
+      Column(
+        Modifier
+          .padding(16.dp)
+          .navigationBarsWithImePadding()
+          .fillMaxWidth()
+          .fillMaxHeight(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+      ) {
 
-      AnimatedVisibility(visible = uiState is AuthVM.UiState.SuccessState) {
-        LogoutButton(authVM)
-      }
+        val (focusRequester) = FocusRequester.createRefs()
 
-      AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
-        ForgotPasswordText(authVM)
-      }
-
-      if (resetPasswordState.isNotEmpty()) {
-        LaunchedEffect(scaffoldState) {
-          scaffoldState.snackbarHostState.showSnackbar(
-            message = resetPasswordState,
-            actionLabel = "Ok"
+        AnimatedVisibility(visible = randomPhotoState !is AuthVM.UiState.Streaming) {
+          Image(
+            painter = painterResource(id = R.mipmap.ic_launcher),
+            contentDescription = "Logo", Modifier.size(128.dp)
           )
+        }
+
+        AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
+          EmailTF(authVM, focusRequester)
+        }
+
+        AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
+          PasswordTF(authVM, focusRequester)
+        }
+
+        AnimatedVisibility(visible = (uiState is AuthVM.UiState.LoadingState)) {
+          CircularProgressIndicator(modifier = Modifier.padding(8.dp))
+        }
+
+        AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
+          LoginButton(authVM = authVM)
+        }
+
+        AnimatedVisibility(visible = uiState is AuthVM.UiState.Empty) {
+          ForgotPasswordText(authVM)
+        }
+
+        if (resetPasswordState.isNotEmpty()) {
+          LaunchedEffect(scaffoldState) {
+            scaffoldState.snackbarHostState.showSnackbar(
+              message = resetPasswordState,
+              actionLabel = "Ok"
+            )
+          }
         }
       }
     }
+
   }
 }
 
@@ -177,7 +190,7 @@ fun RandomPhotoButton(authVM: AuthVM) {
   Button(
     onClick = {
       authVM.fetchRandomPhoto()
-    }, Modifier.fillMaxWidth(),
+    }, Modifier.wrapContentWidth(),
     colors = ButtonDefaults.buttonColors(backgroundColor = PraxisColorProvider.colors.buttonColor)
   ) {
     Text(
@@ -192,7 +205,7 @@ fun LogoutButton(authVM: AuthVM) {
   Button(
     onClick = {
       authVM.logout()
-    }, Modifier.fillMaxWidth(),
+    }, Modifier.wrapContentWidth(),
     colors = ButtonDefaults.buttonColors(backgroundColor = PraxisColorProvider.colors.buttonColor)
   ) {
     Text(

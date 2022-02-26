@@ -82,7 +82,7 @@ dependencies {
     // Room
     implementation(Lib.Room.roomKtx)
     implementation(Lib.Room.roomRuntime)
-    add("kapt", Lib.Room.roomCompiler)
+    kapt(Lib.Room.roomCompiler)
     testImplementation(Lib.Room.testing)
 
     UnitTesting.list.forEach(::testImplementation)
