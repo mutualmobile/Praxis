@@ -1,22 +1,5 @@
-import com.android.build.gradle.BaseExtension
-import org.gradle.api.JavaVersion
-import org.gradle.api.Plugin
-import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByType
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 object BuildPlugins {
-  private const val TOOLS_BUILD = "7.1.1"
-  private const val KT_LINT = "9.2.1"
-  private const val SAFE_ARGS = "2.3.5"
-
-  const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
-  const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
-  const val SAFE_ARGS_GRADLE_PLUGIN =
-    "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
-  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
-  const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
@@ -24,7 +7,6 @@ object BuildPlugins {
   const val KOTLIN_KAPT = "kotlin-kapt"
   const val DAGGER_HILT = "dagger.hilt.android.plugin"
   const val ktLint = "org.jlleitschuh.gradle.ktlint"
-  const val SAFE_ARGS_KOTLIN = "androidx.navigation.safeargs.kotlin"
 }
 
 object Lib {
