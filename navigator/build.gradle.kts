@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-  compileSdk = AppVersions.COMPILE_SDK
+  compileSdk = 31
 
   defaultConfig {
     minSdk = (AppVersions.MIN_SDK)
@@ -42,7 +42,7 @@ kapt {
 
 dependencies {
   /*Kotlin*/
-  
+
 
   Lib.Androidx.list.forEach(::implementation)
   Lib.Androidx.Compose.list.forEach(::implementation)
@@ -54,7 +54,7 @@ dependencies {
   /*DI*/
   implementation(Lib.Di.hilt)
   implementation(Lib.Di.hiltNavigationCompose)
-  implementation(Lib.Di.viewmodel)
+  implementation(Lib.Di.hiltViewModel)
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 

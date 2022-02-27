@@ -2,6 +2,7 @@ package com.praxis.feat.authentication.vm
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
+import com.mutualmobile.praxis.domain.usecases.FetchRandomPhotoUseCase
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.praxis.feat.authentication.ui.model.LoginForm
 import io.mockk.MockKAnnotations
@@ -24,6 +25,9 @@ class AuthVMTest {
   private lateinit var savedStateHandle: SavedStateHandle
 
   private lateinit var authVM: AuthVM
+
+  @MockK
+  private lateinit var photoUseCase: FetchRandomPhotoUseCase
 
   @Before
   fun setUp() {
@@ -48,7 +52,7 @@ class AuthVMTest {
           savedStateHandle.get<String>(any())
         } returns ""
 
-        authVM = AuthVM(savedStateHandle, navigator)
+        authVM = AuthVM(savedStateHandle, navigator, photoUseCase)
 
         authVM.formUiState.test {
           assert(awaitItem() is AuthVM.UiState.Empty)
@@ -74,7 +78,7 @@ class AuthVMTest {
           savedStateHandle.get<String>(any())
         } returns ""
 
-        authVM = AuthVM(savedStateHandle, navigator)
+        authVM = AuthVM(savedStateHandle, navigator, photoUseCase)
         authVM.credentials.value = LoginForm("anmol@gmail.com", "sdkfkjkjfdsjkfds")
 
         authVM.formUiState.test {

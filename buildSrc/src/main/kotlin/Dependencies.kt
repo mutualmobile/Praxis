@@ -1,7 +1,13 @@
-/** This file contains versions of all the dependencies used in the module  */
+import com.android.build.gradle.BaseExtension
+import org.gradle.api.JavaVersion
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 object BuildPlugins {
-  private const val TOOLS_BUILD = "7.1.0"
+  private const val TOOLS_BUILD = "7.1.1"
   private const val KT_LINT = "9.2.1"
   private const val SAFE_ARGS = "2.3.5"
 
@@ -96,7 +102,7 @@ object Lib {
     const val hilt = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
     const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
 
-    const val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    const val hiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     const val hiltCompiler = "androidx.hilt:hilt-compiler:1.0.0"
     const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
   }

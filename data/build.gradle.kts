@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-  compileSdk = AppVersions.COMPILE_SDK
+  compileSdk = 31
 
   defaultConfig {
     minSdk = (AppVersions.MIN_SDK)
@@ -37,7 +37,7 @@ dependencies {
   /*DI*/
   implementation(Lib.Di.hilt)
   implementation(Lib.Di.hiltNavigationCompose)
-  implementation(Lib.Di.viewmodel)
+  implementation(Lib.Di.hiltViewModel)
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 
