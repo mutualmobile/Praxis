@@ -9,6 +9,5 @@ include(":ui-authentication")
 include(":domain")
 include(":data")
 include(":common")
-include(":commonui")
 include(":navigator")
 

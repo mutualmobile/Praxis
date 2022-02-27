@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.theme
+package com.mutualmobile.praxis.theme
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

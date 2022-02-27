@@ -11,8 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
-import com.mutualmobile.praxis.commonui.theme.PraxisTypography
+import com.mutualmobile.praxis.theme.PraxisColorProvider
+import com.mutualmobile.praxis.theme.PraxisTypography
 
 @Composable
 fun WorkspaceInputView(modifier: Modifier) {

@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.reusable
+package com.mutualmobile.praxis.reusable
 
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable

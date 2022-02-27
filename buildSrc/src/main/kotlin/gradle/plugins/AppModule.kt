@@ -14,15 +14,18 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 class AppModule : BaseAndroidPlugin() {
 
   override fun apply(project: Project) {
-    project.apply(plugin = BuildPlugins.ANDROID_APPLICATION_PLUGIN)
-    project.apply(plugin = BuildPlugins.KOTLIN_ANDROID_PLUGIN)
-    project.apply(plugin = BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
-    project.apply(plugin = BuildPlugins.KOTLIN_KAPT)
-    project.apply(plugin = BuildPlugins.DAGGER_HILT)
-    project.apply(plugin = BuildPlugins.ktLint)
+    appPlugins(project)
 
     super.apply(project)
 
+    dependencies(project)
+
+    project.extensions.getByType<AppExtension>().apply {
+      configureAndroidAppBlock(project)
+    }
+  }
+
+  private fun dependencies(project: Project) {
     project.implementationProjectsFrom(
       listOf(
         ":ui-onboarding",
@@ -31,7 +34,7 @@ class AppModule : BaseAndroidPlugin() {
         ":data",
         ":domain",
         ":common",
-        ":commonui",
+
       )
     )
 
@@ -46,10 +49,15 @@ class AppModule : BaseAndroidPlugin() {
     project.annotationProcessors(
       hiltKapt + listOf(Lib.Room.roomCompiler)
     )
+  }
 
-    project.extensions.getByType<AppExtension>().apply {
-      configureAndroidAppBlock(project)
-    }
+  private fun appPlugins(project: Project) {
+    project.apply(plugin = BuildPlugins.ANDROID_APPLICATION_PLUGIN)
+    project.apply(plugin = BuildPlugins.KOTLIN_ANDROID_PLUGIN)
+    project.apply(plugin = BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
+    project.apply(plugin = BuildPlugins.KOTLIN_KAPT)
+    project.apply(plugin = BuildPlugins.DAGGER_HILT)
+    project.apply(plugin = BuildPlugins.ktLint)
   }
 
 
@@ -59,6 +67,23 @@ fun AppExtension.configureAndroidAppBlock(project: Project) {
   buildToolsVersion = (AppVersions.BUILD_TOOLS)
   compileSdkVersion = AppVersions.COMPILE_SDK
 
+  defaultConfig(project)
+
+  kotlinCompileJVMVersion(project)
+
+  signingConfig(project)
+
+  buildTypes()
+
+  buildFeatures()
+
+  packagingOptions()
+
+  compileOptions()
+
+}
+
+private fun AppExtension.defaultConfig(project: Project) {
   defaultConfig {
     applicationId = (AppVersions.APPLICATION_ID)
     minSdk = (AppVersions.MIN_SDK)
@@ -78,29 +103,42 @@ fun AppExtension.configureAndroidAppBlock(project: Project) {
       }
     }
   }
+}
 
+private fun kotlinCompileJVMVersion(project: Project) {
   project.tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
       jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
   }
+}
 
-  signingConfigs {
-    getByName("debug") {
-      keyAlias = "praxis-debug"
-      keyPassword = "utherNiC"
-      storeFile = project.file("keystore/praxis-debug.jks")
-      storePassword = "uRgeSCIt"
-    }
-
-    create("release") {
-      keyAlias = "praxis-release"
-      keyPassword = "ITHOmptI"
-      storeFile = project.file("keystore/praxis-release.jks")
-      storePassword = "PoTHatHR"
-    }
+private fun AppExtension.compileOptions() {
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
   }
+}
 
+private fun AppExtension.packagingOptions() {
+  packagingOptions {
+    resources.excludes.add("META-INF/LICENSE.txt")
+    resources.excludes.add("META-INF/NOTICE.txt")
+    resources.excludes.add("LICENSE.txt")
+    resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+  }
+}
+
+private fun AppExtension.buildFeatures() {
+  buildFeatures.viewBinding = true
+  buildFeatures.compose = true
+  dataBinding.isEnabled = true
+  composeOptions {
+    kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
+  }
+}
+
+private fun AppExtension.buildTypes() {
   buildTypes.apply {
     this.getByName("release").apply {
       isDebuggable = false
@@ -119,27 +157,24 @@ fun AppExtension.configureAndroidAppBlock(project: Project) {
       signingConfig = signingConfigs.getByName("debug")
     }
   }
+}
 
-  buildFeatures.viewBinding = true
-  buildFeatures.compose = true
+private fun AppExtension.signingConfig(project: Project) {
+  signingConfigs {
+    getByName("debug") {
+      keyAlias = "praxis-debug"
+      keyPassword = "utherNiC"
+      storeFile = project.file("keystore/praxis-debug.jks")
+      storePassword = "uRgeSCIt"
+    }
 
-  composeOptions {
-    kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
+    create("release") {
+      keyAlias = "praxis-release"
+      keyPassword = "ITHOmptI"
+      storeFile = project.file("keystore/praxis-release.jks")
+      storePassword = "PoTHatHR"
+    }
   }
-
-  packagingOptions {
-    resources.excludes.add("META-INF/LICENSE.txt")
-    resources.excludes.add("META-INF/NOTICE.txt")
-    resources.excludes.add("LICENSE.txt")
-    resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-  }
-
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-  }
-
-  dataBinding.isEnabled = true
 }
 
 val hiltKapt = listOf(

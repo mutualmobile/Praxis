@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.keyboard
+package com.mutualmobile.praxis.keyboard
 
 import android.graphics.Rect
 import android.view.ViewTreeObserver

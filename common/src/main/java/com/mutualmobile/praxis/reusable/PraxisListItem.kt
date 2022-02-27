@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.reusable
+package com.mutualmobile.praxis.reusable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
-import com.mutualmobile.praxis.commonui.theme.PraxisTypography
+import com.mutualmobile.praxis.theme.PraxisColorProvider
+import com.mutualmobile.praxis.theme.PraxisTypography
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

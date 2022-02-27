@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.theme
+package com.mutualmobile.praxis.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors

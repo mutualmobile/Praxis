@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.theme
+package com.mutualmobile.praxis.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.mutualmobile.praxis.commonui.R
+import com.mutualmobile.praxis.common.R
 
 // Set of Material typography styles to start with
 

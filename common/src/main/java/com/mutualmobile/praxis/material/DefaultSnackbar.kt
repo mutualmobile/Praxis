@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.material
+package com.mutualmobile.praxis.material
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
-import com.mutualmobile.praxis.commonui.theme.PraxisTypography
+import com.mutualmobile.praxis.theme.PraxisColorProvider
+import com.mutualmobile.praxis.theme.PraxisTypography
 
 @Composable
 fun DefaultSnackbar(

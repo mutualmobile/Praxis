@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.material
+package com.mutualmobile.praxis.material
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.mutualmobile.praxis.commonui.theme.PraxisSurface
+import com.mutualmobile.praxis.theme.PraxisSurface
 
 @Composable
 fun PraxisSurfaceAppBar(

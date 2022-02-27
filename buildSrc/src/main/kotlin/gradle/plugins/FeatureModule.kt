@@ -13,21 +13,23 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class FeatureModule : BaseAndroidPlugin() {
   override fun apply(project: Project) {
-    project.apply(plugin = BuildPlugins.ANDROID_LIBRARY_PLUGIN)
-    project.apply(plugin = BuildPlugins.KOTLIN_ANDROID_PLUGIN)
-    project.apply(plugin = BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
-    project.apply(plugin = BuildPlugins.KOTLIN_KAPT)
-    project.apply(plugin = BuildPlugins.DAGGER_HILT)
-    project.apply(plugin = BuildPlugins.ktLint)
+    featureLibPlugins(project)
     super.apply(project)
 
+    dependencies(project)
+
+    project.extensions.getByType<LibraryExtension>().apply {
+      configureAndroidLibraryBlock(project)
+    }
+  }
+
+  private fun dependencies(project: Project) {
     project.implementationProjectsFrom(
       listOf(
         ":navigator",
         ":data",
         ":domain",
         ":common",
-        ":commonui",
       )
     )
 
@@ -43,10 +45,15 @@ class FeatureModule : BaseAndroidPlugin() {
     project.annotationProcessors(
       hiltKapt
     )
+  }
 
-    project.extensions.getByType<LibraryExtension>().apply {
-      configureAndroidLibraryBlock(project)
-    }
+  private fun featureLibPlugins(project: Project) {
+    project.apply(plugin = BuildPlugins.ANDROID_LIBRARY_PLUGIN)
+    project.apply(plugin = BuildPlugins.KOTLIN_ANDROID_PLUGIN)
+    project.apply(plugin = BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
+    project.apply(plugin = BuildPlugins.KOTLIN_KAPT)
+    project.apply(plugin = BuildPlugins.DAGGER_HILT)
+    project.apply(plugin = BuildPlugins.ktLint)
   }
 }
 

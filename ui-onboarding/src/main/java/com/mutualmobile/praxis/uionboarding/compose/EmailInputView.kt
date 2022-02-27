@@ -20,8 +20,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
-import com.mutualmobile.praxis.commonui.theme.PraxisTypography
+import com.mutualmobile.praxis.theme.PraxisColorProvider
+import com.mutualmobile.praxis.theme.PraxisTypography
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

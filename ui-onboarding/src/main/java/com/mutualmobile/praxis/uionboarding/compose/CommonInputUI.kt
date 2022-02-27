@@ -12,10 +12,10 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.mutualmobile.praxis.commonui.theme.PraxisSurface
-import com.mutualmobile.praxis.commonui.theme.PraxisTheme
-import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
-import com.mutualmobile.praxis.commonui.theme.PraxisTypography
+import com.mutualmobile.praxis.theme.PraxisSurface
+import com.mutualmobile.praxis.theme.PraxisTheme
+import com.mutualmobile.praxis.theme.PraxisColorProvider
+import com.mutualmobile.praxis.theme.PraxisTypography
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisRoute
 import com.mutualmobile.praxis.navigator.PraxisScreen
