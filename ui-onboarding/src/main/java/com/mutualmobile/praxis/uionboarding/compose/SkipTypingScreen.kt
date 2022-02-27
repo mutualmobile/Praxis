@@ -20,8 +20,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.material.PraxisSurfaceAppBar
+import com.mutualmobile.praxis.theme.*
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.mutualmobile.praxis.uionboarding.R

@@ -32,9 +32,9 @@ import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
-import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.material.DefaultSnackbar
+import com.mutualmobile.praxis.material.PraxisSurfaceAppBar
+import com.mutualmobile.praxis.theme.*
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
 import com.praxis.feat.authentication.vm.streamProgress

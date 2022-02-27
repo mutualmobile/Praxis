@@ -6,7 +6,8 @@ object AppVersions {
   const val versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
   const val versionName = "$versionMajor.$versionMinor.$versionPatch"
 
-  const val COMPILE_SDK = 31
+  const val COMPILE_SDK = "android-31"
+  const val BUILD_TOOLS = "31.0.0"
   const val MIN_SDK = 21
   const val TARGET_SDK = 31
   const val APPLICATION_ID = "com.mutualmobile.praxis"

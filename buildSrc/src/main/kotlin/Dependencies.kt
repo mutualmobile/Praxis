@@ -1,16 +1,4 @@
-/** This file contains versions of all the dependencies used in the module  */
-
 object BuildPlugins {
-  private const val TOOLS_BUILD = "7.1.0"
-  private const val KT_LINT = "9.2.1"
-  private const val SAFE_ARGS = "2.3.5"
-
-  const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
-  const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
-  const val SAFE_ARGS_GRADLE_PLUGIN =
-    "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
-  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
-  const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
@@ -18,7 +6,8 @@ object BuildPlugins {
   const val KOTLIN_KAPT = "kotlin-kapt"
   const val DAGGER_HILT = "dagger.hilt.android.plugin"
   const val ktLint = "org.jlleitschuh.gradle.ktlint"
-  const val SAFE_ARGS_KOTLIN = "androidx.navigation.safeargs.kotlin"
+  const val JAVA_LIB = "java-library"
+  const val KOTLIN_JVM = "org.jetbrains.kotlin.jvm"
 }
 
 object Lib {
@@ -29,11 +18,13 @@ object Lib {
     private const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
     private const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
 
-    private const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${KOTLIN_VERSION}"
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${KOTLIN_VERSION}"
     private const val COROUTINES_ANDROID =
       "org.jetbrains.kotlinx:kotlinx-coroutines-android:${KOTLIN_VERSION}"
 
-    val list = listOf(KT_STD, KTX_CORE, DATE_TIME, COROUTINES, COROUTINES_ANDROID)
+    val kotlinList = listOf(KT_STD, KTX_CORE, DATE_TIME, COROUTINES)
+    val androidList = kotlinList + listOf(COROUTINES_ANDROID)
+
   }
 
   object Google {
@@ -96,7 +87,7 @@ object Lib {
     const val hilt = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
     const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
 
-    const val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    const val hiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     const val hiltCompiler = "androidx.hilt:hilt-compiler:1.0.0"
     const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
   }
@@ -105,6 +96,7 @@ object Lib {
     private const val PAGING_VERSION = "3.1.0"
     const val PAGING_3 = "androidx.paging:paging-runtime:${PAGING_VERSION}"
     const val PAGING_COMPOSE = "androidx.paging:paging-compose:1.0.0-alpha14"
+    const val PAGING_COMMON = "androidx.paging:paging-common-ktx:${PAGING_VERSION}"
   }
 
   object Room {

@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.material.PraxisSurfaceAppBar
+import com.mutualmobile.praxis.theme.*
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.ForgotPasswordVM
 

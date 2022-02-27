@@ -2,7 +2,7 @@ package com.mutualmobile.praxis.uionboarding.compose
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
-import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.theme.PraxisTheme
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.uionboarding.R
 
