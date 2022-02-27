@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain.injection
+package com.mutualmobile.praxis.data.injection
 
 import dagger.Module
 import dagger.hilt.InstallIn

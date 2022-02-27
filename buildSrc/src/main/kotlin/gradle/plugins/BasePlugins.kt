@@ -5,6 +5,7 @@ import implementationDependenciesFrom
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.getByType
 
 open class BaseAndroidPlugin : Plugin<Project> {
@@ -12,17 +13,17 @@ open class BaseAndroidPlugin : Plugin<Project> {
         project.plugins.all {
             when (this) {
                 is JavaPlugin -> {
-                    project.extensions.getByType<BaseExtension>().apply {
+                    project.extensions.getByType<JavaPluginExtension>().apply {
                         configureJava()
                     }
                 }
                 is LibraryPlugin -> {
                     project.configureRepositories()
-                        .implementationDependenciesFrom(Lib.Kotlin.list)
+                        .implementationDependenciesFrom(Lib.Kotlin.androidList)
                 }
                 is AppPlugin -> {
                     project.configureRepositories()
-                        .implementationDependenciesFrom(Lib.Kotlin.list)
+                        .implementationDependenciesFrom(Lib.Kotlin.androidList)
                 }
             }
         }

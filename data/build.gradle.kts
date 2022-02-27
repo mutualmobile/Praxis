@@ -32,7 +32,7 @@ dependencies {
   implementation(project(":common"))
   implementation(project(":domain"))
 
-  Lib.Kotlin.list.forEach(::implementation)
+  Lib.Kotlin.androidList.forEach(::implementation)
   Lib.Networking.ktorList.forEach(::implementation)
   /*DI*/
   implementation(Lib.Di.hilt)

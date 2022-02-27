@@ -1,4 +1,3 @@
-
 object BuildPlugins {
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
@@ -7,6 +6,8 @@ object BuildPlugins {
   const val KOTLIN_KAPT = "kotlin-kapt"
   const val DAGGER_HILT = "dagger.hilt.android.plugin"
   const val ktLint = "org.jlleitschuh.gradle.ktlint"
+  const val JAVA_LIB = "java-library"
+  const val KOTLIN_JVM = "org.jetbrains.kotlin.jvm"
 }
 
 object Lib {
@@ -17,11 +18,13 @@ object Lib {
     private const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
     private const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
 
-    private const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${KOTLIN_VERSION}"
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${KOTLIN_VERSION}"
     private const val COROUTINES_ANDROID =
       "org.jetbrains.kotlinx:kotlinx-coroutines-android:${KOTLIN_VERSION}"
 
-    val list = listOf(KT_STD, KTX_CORE, DATE_TIME, COROUTINES, COROUTINES_ANDROID)
+    val kotlinList = listOf(KT_STD, KTX_CORE, DATE_TIME, COROUTINES)
+    val androidList = kotlinList + listOf(COROUTINES_ANDROID)
+
   }
 
   object Google {
@@ -93,6 +96,7 @@ object Lib {
     private const val PAGING_VERSION = "3.1.0"
     const val PAGING_3 = "androidx.paging:paging-runtime:${PAGING_VERSION}"
     const val PAGING_COMPOSE = "androidx.paging:paging-compose:1.0.0-alpha14"
+    const val PAGING_COMMON = "androidx.paging:paging-common-ktx:${PAGING_VERSION}"
   }
 
   object Room {

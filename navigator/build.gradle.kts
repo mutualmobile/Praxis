@@ -49,7 +49,7 @@ dependencies {
   Lib.ThirdParty.list.forEach(::implementation)
   Lib.Accompanist.list.forEach(::implementation)
   Lib.Google.list.forEach(::implementation)
-  Lib.Kotlin.list.forEach(::implementation)
+  Lib.Kotlin.androidList.forEach(::implementation)
 
   /*DI*/
   implementation(Lib.Di.hilt)
