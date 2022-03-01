@@ -67,6 +67,7 @@ dependencies {
 
     Lib.Androidx.list.forEach(::implementation)
     Lib.Androidx.Compose.list.forEach(::implementation)
+    Lib.Androidx.Navigation.list.forEach(::implementation)
     Lib.ThirdParty.list.forEach(::implementation)
     Lib.Accompanist.list.forEach(::implementation)
     Lib.Google.list.forEach(::implementation)

@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.*
 import com.mutualmobile.praxis.domain.model.StreamingFile
 import com.mutualmobile.praxis.domain.usecases.FetchRandomPhotoUseCase
-import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.AbsComposeNavigator
 import com.mutualmobile.praxis.navigator.NavigationKeys
 import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthVM @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
-  private val composeNavigator: ComposeNavigator,
+  private val absComposeNavigator: AbsComposeNavigator,
   private val fetchPhotoUseCase: FetchRandomPhotoUseCase
 ) : ViewModel() {
 
@@ -66,7 +66,7 @@ class AuthVM @Inject constructor(
   }
 
   private fun observePasswordReset() {
-    composeNavigator.observeResult<String>(NavigationKeys.ForgotPassword).onStart {
+    absComposeNavigator.observeResult<String>(NavigationKeys.ForgotPassword).onStart {
       val message = savedStateHandle.get<String>(NavigationKeys.ForgotPassword)
       message?.let {
         emit(it)
@@ -88,7 +88,7 @@ class AuthVM @Inject constructor(
   }
 
   fun navigateForgotPassword() {
-    composeNavigator.navigate(PraxisScreen.ForgotPassword.route)
+    absComposeNavigator.navigate(PraxisScreen.ForgotPassword.route)
   }
 
   fun logout() {

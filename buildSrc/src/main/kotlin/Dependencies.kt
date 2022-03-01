@@ -56,6 +56,22 @@ object Lib {
       SPLASH_SCREEN_API
     )
 
+    object Navigation {
+      private const val nav_version = "2.4.1"
+
+      // Kotlin
+      private const val NAV_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$nav_version"
+      private const val NAV_UI_KTX = "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+      // Feature module Support
+      private const val NAV_DYNAMIC_MODULES =
+        "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+      private const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:2.5.0-alpha01"
+
+      val list = listOf(NAV_FRAGMENT, NAV_UI_KTX, NAV_DYNAMIC_MODULES, COMPOSE_NAVIGATION)
+
+    }
+
     object Compose {
       private const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${composeVersion}"
       private const val CONSTRAINT_LAYOUT_COMPOSE =
@@ -66,7 +82,6 @@ object Lib {
       private const val COMPOSE_MATERIAL = "androidx.compose.material:material:${composeVersion}"
       private const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling-preview:${composeVersion}"
       private const val COMPOSE_DEBUG_TOOLING = "androidx.compose.ui:ui-tooling:${composeVersion}"
-      private const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:2.5.0-alpha01"
 
       val list = listOf(
         CONSTRAINT_LAYOUT_COMPOSE,
@@ -76,7 +91,6 @@ object Lib {
         COMPOSE_MATERIAL,
         COMPOSE_TOOLING,
         COMPOSE_DEBUG_TOOLING,
-        COMPOSE_NAVIGATION,
       )
     }
   }

@@ -1,15 +1,15 @@
-package com.mutualmobile.praxis.navigator.composenavigator
+package com.mutualmobile.praxis.navigator.navigators
 
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.navOptions
 import com.mutualmobile.praxis.navigator.ComposeNavigationCommand
-import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.AbsComposeNavigator
 import com.mutualmobile.praxis.navigator.asFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class PraxisCloneComposeNavigator @Inject constructor(): ComposeNavigator() {
+class PraxisComposeNavigator @Inject constructor(): AbsComposeNavigator() {
 
   override fun navigate(route: String, optionsBuilder: (NavOptionsBuilder.() -> Unit)?) {
     val options = optionsBuilder?.let { navOptions(it) }

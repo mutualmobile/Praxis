@@ -126,6 +126,8 @@ dependencies {
 
   Lib.Androidx.list.forEach(::api)
   Lib.Androidx.Compose.list.forEach(::api)
+  Lib.Androidx.Navigation.list.forEach(::api)
+
   Lib.ThirdParty.list.forEach(::api)
   Lib.Accompanist.list.forEach(::api)
   Lib.Google.list.forEach(::api)

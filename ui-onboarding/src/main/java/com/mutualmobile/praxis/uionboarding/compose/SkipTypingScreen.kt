@@ -22,12 +22,12 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
 import com.mutualmobile.praxis.commonui.theme.*
-import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.AbsComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.mutualmobile.praxis.uionboarding.R
 
 @Composable
-fun SkipTypingUI(composeNavigator: ComposeNavigator) {
+fun SkipTypingUI(absComposeNavigator: AbsComposeNavigator) {
   PraxisTheme() {
     val scaffoldState = rememberScaffoldState()
     val sysUiController = rememberSystemUiController()
@@ -46,7 +46,7 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
           },
           navigationIcon = {
             IconButton(onClick = {
-              composeNavigator.navigateUp()
+              absComposeNavigator.navigateUp()
             }) {
               Icon(
                 imageVector = Icons.Filled.Clear,
@@ -84,9 +84,9 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
             TitleSubtitleText()
             Spacer(Modifier.padding(8.dp))
             Column {
-              EmailMeMagicLink(composeNavigator)
+              EmailMeMagicLink(absComposeNavigator)
               Box(modifier = Modifier.height(12.dp))
-              IWillSignInManually(composeNavigator)
+              IWillSignInManually(absComposeNavigator)
             }
 
           }
@@ -101,10 +101,10 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
 }
 
 @Composable
-fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
+fun EmailMeMagicLink(absComposeNavigator: AbsComposeNavigator) {
   OutlinedButton(
     onClick = {
-      composeNavigator.navigate(PraxisScreen.EmailAddressInputUI.name)
+      absComposeNavigator.navigate(PraxisScreen.EmailAddressInputUI.name)
     },
     border = BorderStroke(1.dp, color = Color.White),
     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
@@ -120,10 +120,10 @@ fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
 }
 
 @Composable
-private fun IWillSignInManually(composeNavigator: ComposeNavigator) {
+private fun IWillSignInManually(absComposeNavigator: AbsComposeNavigator) {
   Button(
     onClick = {
-      composeNavigator.navigate(PraxisScreen.WorkspaceInputUI.name)
+      absComposeNavigator.navigate(PraxisScreen.WorkspaceInputUI.name)
     },
     Modifier
       .fillMaxWidth()
