@@ -1,44 +1,15 @@
 plugins {
-  id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
-  id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
-  id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
-  id(BuildPlugins.KOTLIN_KAPT)
-  id(BuildPlugins.DAGGER_HILT)
-  id(BuildPlugins.ktLint)
+  id("java-library")
+  id("org.jetbrains.kotlin.jvm")
 }
 
-android {
-  compileSdk = (AppVersions.COMPILE_SDK)
-
-  defaultConfig {
-    minSdk = (AppVersions.MIN_SDK)
-    targetSdk = (AppVersions.TARGET_SDK)
-
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  buildTypes {
-    getByName("release") {
-      isMinifyEnabled = false
-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-    }
-  }
-}
-
-// Required for annotation processing plugins like Dagger
-kapt {
-  generateStubs = true
-  correctErrorTypes = true
+java {
+  sourceCompatibility = JavaVersion.VERSION_1_8
+  targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
-  Lib.Kotlin.list.forEach(::implementation)
-
-  /*DI*/
-  implementation(Lib.Di.hilt)
-  implementation(Lib.Di.hiltNavigationCompose)
-  implementation(Lib.Di.viewmodel)
-  kapt(Lib.Di.hiltCompiler)
-  kapt(Lib.Di.hiltAndroidCompiler)
-
+  api(Lib.Kotlin.KT_STD)
+  api(Lib.Kotlin.COROUTINES)
+  implementation(Lib.Paging.PAGING_COMMON)
 }
