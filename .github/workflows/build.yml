@@ -12,8 +12,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Kt-lint Code Check
-        run: ./gradlew ktlint --stacktrace
+      - name: Ktlint Code Check
+        run: ./gradlew ktlintCheck --stacktrace
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
 
