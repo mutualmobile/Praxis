@@ -1,9 +1,6 @@
 name: Minimal Android CI Workflow
 
-on:
-  push:
-    branches:
-      - master
+on: pull_request
 
 jobs:
   test:
@@ -15,21 +12,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Kt-lint Code Check
+        run: ./gradlew ktlint --stacktrace
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'beta'
-      - run: |
-          sudo apt-get update -y
-          sudo apt-get install -y ninja-build libgtk-3-dev
-      - run: flutter config --enable-linux-desktop
-      - run: flutter build linux
 
   build_apk:
     name: Generate APK
