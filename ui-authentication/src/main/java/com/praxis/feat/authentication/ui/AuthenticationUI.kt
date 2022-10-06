@@ -3,12 +3,32 @@ package com.praxis.feat.authentication.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -34,7 +54,12 @@ import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
+import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
+import com.mutualmobile.praxis.commonui.theme.PraxisShapes
+import com.mutualmobile.praxis.commonui.theme.PraxisSurface
+import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.commonui.theme.PraxisTypography
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
 import com.praxis.feat.authentication.vm.streamProgress
@@ -170,12 +195,14 @@ private fun AuthSurface(
           ForgotPasswordText(authVM)
         }
 
-        if (resetPasswordState.isNotEmpty()) {
-          LaunchedEffect(scaffoldState) {
-            scaffoldState.snackbarHostState.showSnackbar(
-              message = resetPasswordState,
-              actionLabel = "Ok"
-            )
+        resetPasswordState?.let { nnResetPasswordState ->
+          if (nnResetPasswordState.isNotEmpty()) {
+            LaunchedEffect(scaffoldState) {
+              scaffoldState.snackbarHostState.showSnackbar(
+                message = nnResetPasswordState,
+                actionLabel = "Ok"
+              )
+            }
           }
         }
       }

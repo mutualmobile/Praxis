@@ -4,7 +4,7 @@ plugins {
     id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.DAGGER_HILT)
     id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
-    id("org.jlleitschuh.gradle.ktlint")
+    id(BuildPlugins.ktLint)
 }
 
 android {
@@ -28,7 +28,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
+        kotlinCompilerExtensionVersion = Lib.Androidx.COMPOSE_COMPILER_VERSION
     }
     packagingOptions {
         resources.excludes.add("META-INF/LICENSE.txt")
@@ -74,7 +74,6 @@ dependencies {
     /*DI*/
     implementation(Lib.Di.hilt)
     implementation(Lib.Di.hiltNavigationCompose)
-    implementation(Lib.Di.viewmodel)
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
 

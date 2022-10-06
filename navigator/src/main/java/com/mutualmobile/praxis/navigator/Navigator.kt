@@ -4,9 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
-import kotlinx.coroutines.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onSubscription
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class Navigator {
   val navigationCommands = MutableSharedFlow<NavigationCommand>(extraBufferCapacity = Int.MAX_VALUE)
@@ -23,7 +32,7 @@ abstract class Navigator {
 
 abstract class ComposeNavigator : Navigator() {
   abstract fun navigate(route: String, optionsBuilder: (NavOptionsBuilder.() -> Unit)? = null)
-  abstract fun <T> observeResult(key: String, route: String? = null): Flow<T>
+  abstract fun <T> observeResult(key: String, route: String? = null): Flow<T?>
   abstract fun <T> navigateBackWithResult(key: String, result: T, route: String?)
 
   abstract fun popUpTo(route: String, inclusive: Boolean)

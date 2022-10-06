@@ -1,7 +1,9 @@
 package com.praxis.feat.authentication.vm
 
 import android.net.Uri
-import androidx.lifecycle.*
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mutualmobile.praxis.domain.model.StreamingFile
 import com.mutualmobile.praxis.domain.usecases.FetchRandomPhotoUseCase
 import com.mutualmobile.praxis.navigator.ComposeNavigator
@@ -10,11 +12,20 @@ import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
 import java.io.FileNotFoundException
 import java.net.UnknownHostException
 import javax.inject.Inject
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class AuthVM @Inject constructor(
@@ -27,7 +38,7 @@ class AuthVM @Inject constructor(
 
   var credentials = MutableStateFlow(LoginForm())
     private set
-  var snackBarState = MutableStateFlow("")
+  var snackBarState: MutableStateFlow<String?> = MutableStateFlow("")
     private set
   var formUiState = MutableStateFlow<UiState>(UiState.Empty)
     private set
