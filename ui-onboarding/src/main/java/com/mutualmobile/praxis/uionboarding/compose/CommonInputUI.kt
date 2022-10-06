@@ -9,9 +9,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.navigationBarsWithImePadding
-import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
@@ -48,7 +45,7 @@ fun CommonInputUI(
           ConstraintLayout(
             modifier = Modifier
               .padding(12.dp)
-              .navigationBarsWithImePadding()
+              .navigationBarsPadding().imePadding()
               .fillMaxHeight()
               .fillMaxWidth()
           ) {

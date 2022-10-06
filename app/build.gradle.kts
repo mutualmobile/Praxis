@@ -4,9 +4,9 @@ plugins {
   id(BuildPlugins.ANDROID_APPLICATION_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
   id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
-  id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
   id(BuildPlugins.ktLint)
+  id(BuildPlugins.KOTLIN_KAPT)
 }
 
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
@@ -104,7 +104,6 @@ android {
 
 // Required for annotation processing plugins like Dagger
 kapt {
-  generateStubs = true
   correctErrorTypes = true
 }
 

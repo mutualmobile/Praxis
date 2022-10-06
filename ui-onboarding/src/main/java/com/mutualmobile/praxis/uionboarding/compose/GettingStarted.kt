@@ -1,10 +1,41 @@
 package com.mutualmobile.praxis.uionboarding.compose
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
+import androidx.compose.animation.shrinkOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,9 +48,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.commonui.theme.PraxisCloneColor
+import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
+import com.mutualmobile.praxis.commonui.theme.PraxisLogoYellow
+import com.mutualmobile.praxis.commonui.theme.PraxisSurface
+import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.commonui.theme.PraxisTypography
+import com.mutualmobile.praxis.commonui.theme.praxisFontFamily
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.mutualmobile.praxis.uionboarding.R
@@ -35,36 +71,36 @@ fun GettingStartedUI(composeNavigator: ComposeNavigator) {
      sysUiController.setSystemBarsColor(color = PraxisCloneColor)
    }
 
-   Scaffold(
-     backgroundColor = PraxisCloneColor,
-     contentColor = PraxisColorProvider.colors.textSecondary,
-     modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
-       scaffoldState.snackbarHostState
-     }
-   ) { innerPadding ->
-     Box(modifier = Modifier.padding(innerPadding)) {
-       PraxisSurface(
-         color = PraxisCloneColor,
-         modifier = Modifier
-           .padding(28.dp)
-       ) {
-         Column(
-           verticalArrangement = Arrangement.SpaceAround,
-           horizontalAlignment = Alignment.CenterHorizontally,
-           modifier = Modifier
-             .fillMaxHeight()
-             .fillMaxWidth()
-         ) {
-           IntroText(modifier = Modifier.padding(top = 12.dp))
-           CenterImage()
-           Spacer(Modifier.padding(8.dp))
-           GetStartedButton(composeNavigator)
+     Scaffold(
+         backgroundColor = PraxisCloneColor,
+         contentColor = PraxisColorProvider.colors.textSecondary,
+         modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
+             scaffoldState.snackbarHostState
+         }
+     ) { innerPadding ->
+         Box(modifier = Modifier.padding(innerPadding)) {
+             PraxisSurface(
+                 color = PraxisCloneColor,
+                 modifier = Modifier
+                     .padding(28.dp)
+             ) {
+                 Column(
+                     verticalArrangement = Arrangement.SpaceAround,
+                     horizontalAlignment = Alignment.CenterHorizontally,
+                     modifier = Modifier
+                         .fillMaxHeight()
+                         .fillMaxWidth()
+                 ) {
+                     IntroText(modifier = Modifier.padding(top = 12.dp))
+                     CenterImage()
+                     Spacer(Modifier.padding(8.dp))
+                     GetStartedButton(composeNavigator)
+                 }
+
+             }
          }
 
-       }
      }
-
-   }
  }
 }
 

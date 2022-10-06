@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
@@ -48,10 +51,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.navigationBarsWithImePadding
-import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
 import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
@@ -132,7 +133,7 @@ private fun AuthSurface(
         ) {
           Box(Modifier.background(Color.Black)) {
             Image(
-              painter = rememberImagePainter(randomPhotoState.uri()),
+              painter = rememberAsyncImagePainter(randomPhotoState.uri()),
               contentScale = ContentScale.Crop,
               contentDescription = null, modifier = Modifier.fillMaxSize(),
             )
@@ -159,7 +160,7 @@ private fun AuthSurface(
       Column(
         Modifier
           .padding(16.dp)
-          .navigationBarsWithImePadding()
+          .navigationBarsPadding().imePadding()
           .fillMaxWidth()
           .fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
@@ -283,7 +284,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
   val keyboardController = LocalSoftwareKeyboardController.current
 
   TextField(
-    value = credentials.password ?: "",
+    value = credentials.password,
     onValueChange = {
       authVM.credentials.value = credentials.copy(password = it)
     },
@@ -320,7 +321,7 @@ private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
   val credentials by authVM.credentials.collectAsState()
 
   TextField(
-    value = credentials.email ?: "",
+    value = credentials.email,
     onValueChange = {
       authVM.credentials.value = credentials.copy(email = it)
     },

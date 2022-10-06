@@ -24,7 +24,6 @@ android {
 
 // Required for annotation processing plugins like Dagger
 kapt {
-  generateStubs = true
   correctErrorTypes = true
 }
 

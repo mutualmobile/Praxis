@@ -1,10 +1,10 @@
 plugins {
     id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
     id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
-    id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.DAGGER_HILT)
     id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
     id(BuildPlugins.ktLint)
+    id(BuildPlugins.KOTLIN_KAPT)
 }
 
 android {
@@ -50,7 +50,6 @@ android {
 
 // Required for annotation processing plugins like Dagger
 kapt {
-    generateStubs = true
     correctErrorTypes = true
 }
 

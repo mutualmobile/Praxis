@@ -14,7 +14,7 @@ import kotlin.coroutines.cancellation.CancellationException
 class FetchRandomPhotoUseCase(private val photoFetchRepository: PhotoFetchRepository) :
   BaseUseCase< StreamingFile,String> {
 
-  override fun performStreaming(input: String?): Flow<StreamingFile> {
+  override fun performStreaming(params: String?): Flow<StreamingFile> {
     return callbackFlow {
       val listener = photoFetchListener()
       photoFetchRepository.setListener(listener)

@@ -58,9 +58,6 @@ abstract class ComposeNavigator : Navigator() {
       is ComposeNavigationCommand.NavigateUpWithResult<*> -> {
         navUpWithResult(navigationCommand)
       }
-      else -> {
-        throw RuntimeException("can't handle this with ComposeNavigator")
-      }
     }
   }
 
