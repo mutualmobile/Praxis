@@ -1,10 +1,6 @@
 package com.mutualmobile.praxis.domain.mappers
 
-open class DomainModel
-
-open class UIModel
-
-interface UiModelMapper<M : DomainModel, MI : UIModel> {
+interface UiModelMapper<M, MI> {
   fun mapToPresentation(model: M): MI
 
   fun mapToDomain(modelItem: MI): M
