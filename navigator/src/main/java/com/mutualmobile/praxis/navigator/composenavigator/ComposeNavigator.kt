@@ -5,9 +5,14 @@ import androidx.navigation.navOptions
 import com.mutualmobile.praxis.navigator.ComposeNavigationCommand
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.asFlow
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
 
 class PraxisCloneComposeNavigator @Inject constructor(): ComposeNavigator() {
 
@@ -41,7 +46,7 @@ class PraxisCloneComposeNavigator @Inject constructor(): ComposeNavigator() {
   }
 
   @OptIn(ExperimentalCoroutinesApi::class)
-  override fun <T> observeResult(key: String, route: String?): Flow<T> {
+  override fun <T> observeResult(key: String, route: String?): Flow<T?> {
     return navControllerFlow
       .filterNotNull()
       .flatMapLatest { navController ->

@@ -5,15 +5,15 @@ import com.mutualmobile.praxis.domain.repositories.PhotoFetchListener
 import com.mutualmobile.praxis.domain.repositories.PhotoFetchRepository
 import com.mutualmobile.praxis.domain.repositories.RandomFileService
 import com.mutualmobile.praxis.injection.dispatcher.CoroutineDispatcherProvider
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.features.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import kotlinx.coroutines.withContext
-import timber.log.Timber
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.onDownload
+import io.ktor.client.request.get
+import io.ktor.client.statement.HttpResponse
 import java.io.File
 import javax.inject.Inject
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class PicSumPhotoFetchRepositoryImpl @Inject constructor(
   private val coroutineContext: CoroutineDispatcherProvider,
@@ -40,7 +40,7 @@ class PicSumPhotoFetchRepositoryImpl @Inject constructor(
       try {
         val file = fileCreationService.getTempFile()
         val response: HttpResponse = responseWithListener(PIC_SUM_URL, file)
-        val bytes = response.receive<ByteArray>()
+        val bytes = response.body<ByteArray>()
         file.writeBytes(bytes)
         notifyFileDownloaded(file)
       } catch (ex: Exception) {

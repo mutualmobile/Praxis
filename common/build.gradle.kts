@@ -26,7 +26,6 @@ android {
 
 // Required for annotation processing plugins like Dagger
 kapt {
-    generateStubs = true
     correctErrorTypes = true
 }
 
@@ -43,7 +42,6 @@ dependencies {
     /*DI*/
     implementation(Lib.Di.hilt)
     implementation(Lib.Di.hiltNavigationCompose)
-    implementation(Lib.Di.viewmodel)
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
 

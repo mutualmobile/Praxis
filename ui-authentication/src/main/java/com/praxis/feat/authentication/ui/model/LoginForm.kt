@@ -1,12 +1,13 @@
 package com.praxis.feat.authentication.ui.model
 
+import androidx.compose.runtime.Immutable
 import com.praxis.feat.authentication.services.Validatable
-import android.util.Patterns
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import java.util.regex.Pattern
 
 
-data class LoginForm(val email: String = "", var password: String = "") : Validatable {
+@Immutable
+data class LoginForm(val email: String = "", val password: String = "") : Validatable {
   override fun validate() {
     val pattern = emailRegex()
     if (!pattern.matcher(email).matches()) {

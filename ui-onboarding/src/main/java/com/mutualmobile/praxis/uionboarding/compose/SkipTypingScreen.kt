@@ -2,10 +2,25 @@ package com.mutualmobile.praxis.uionboarding.compose
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
@@ -18,10 +33,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.commonui.theme.PraxisCloneColor
+import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
+import com.mutualmobile.praxis.commonui.theme.PraxisSurface
+import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.commonui.theme.PraxisTypography
+import com.mutualmobile.praxis.commonui.theme.praxisFontFamily
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.mutualmobile.praxis.uionboarding.R
@@ -35,66 +54,66 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
       sysUiController.setNavigationBarColor(color = PraxisCloneColor)
       sysUiController.setSystemBarsColor(color = PraxisCloneColor)
     }
-    Scaffold(
-      backgroundColor = PraxisCloneColor,
-      contentColor = PraxisColorProvider.colors.textSecondary,
-      modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState,
-      topBar = {
-        PraxisSurfaceAppBar(
-          title = {
-
-          },
-          navigationIcon = {
-            IconButton(onClick = {
-              composeNavigator.navigateUp()
-            }) {
-              Icon(
-                imageVector = Icons.Filled.Clear,
-                contentDescription = "Clear",
-                modifier = Modifier.padding(start = 8.dp), tint = Color.White
-              )
-            }
-          },
+      Scaffold(
           backgroundColor = PraxisCloneColor,
-          elevation = 0.dp
-        )
-      },
-      snackbarHost = {
-        scaffoldState.snackbarHostState
-      }
-    ) { innerPadding ->
-      Box(modifier = Modifier.padding(innerPadding)) {
-        PraxisSurface(
-          color = PraxisCloneColor,
-          modifier = Modifier
-            .padding(28.dp)
-        ) {
-          Column(
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-              .fillMaxHeight()
-              .fillMaxWidth()
-          ) {
-            Image(
-              painter = painterResource(id = R.drawable.gettingstarted),
-              contentDescription = "Logo",
-              Modifier
-            )
-            TitleSubtitleText()
-            Spacer(Modifier.padding(8.dp))
-            Column {
-              EmailMeMagicLink(composeNavigator)
-              Box(modifier = Modifier.height(12.dp))
-              IWillSignInManually(composeNavigator)
-            }
+          contentColor = PraxisColorProvider.colors.textSecondary,
+          modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState,
+          topBar = {
+              PraxisSurfaceAppBar(
+                  title = {
 
+                  },
+                  navigationIcon = {
+                      IconButton(onClick = {
+                          composeNavigator.navigateUp()
+                      }) {
+                          Icon(
+                              imageVector = Icons.Filled.Clear,
+                              contentDescription = "Clear",
+                              modifier = Modifier.padding(start = 8.dp), tint = Color.White
+                          )
+                      }
+                  },
+                  backgroundColor = PraxisCloneColor,
+                  elevation = 0.dp
+              )
+          },
+          snackbarHost = {
+              scaffoldState.snackbarHostState
+          }
+      ) { innerPadding ->
+          Box(modifier = Modifier.padding(innerPadding)) {
+              PraxisSurface(
+                  color = PraxisCloneColor,
+                  modifier = Modifier
+                      .padding(28.dp)
+              ) {
+                  Column(
+                      verticalArrangement = Arrangement.SpaceAround,
+                      horizontalAlignment = Alignment.CenterHorizontally,
+                      modifier = Modifier
+                          .fillMaxHeight()
+                          .fillMaxWidth()
+                  ) {
+                      Image(
+                          painter = painterResource(id = R.drawable.gettingstarted),
+                          contentDescription = "Logo",
+                          Modifier
+                      )
+                      TitleSubtitleText()
+                      Spacer(Modifier.padding(8.dp))
+                      Column {
+                          EmailMeMagicLink(composeNavigator)
+                          Box(modifier = Modifier.height(12.dp))
+                          IWillSignInManually(composeNavigator)
+                      }
+
+                  }
+
+              }
           }
 
-        }
       }
-
-    }
   }
 
 

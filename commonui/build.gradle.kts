@@ -2,9 +2,9 @@ plugins {
     id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
     id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
     id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
-    id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.DAGGER_HILT)
     id(BuildPlugins.ktLint)
+    id(BuildPlugins.KOTLIN_KAPT)
 }
 
 android {
@@ -27,7 +27,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
+        kotlinCompilerExtensionVersion = Lib.Androidx.COMPOSE_COMPILER_VERSION
     }
     packagingOptions {
         resources {
@@ -38,7 +38,6 @@ android {
 
 // Required for annotation processing plugins like Dagger
 kapt {
-    generateStubs = true
     correctErrorTypes = true
 }
 
@@ -55,7 +54,6 @@ dependencies {
     /*DI*/
     implementation(Lib.Di.hilt)
     implementation(Lib.Di.hiltNavigationCompose)
-    implementation(Lib.Di.viewmodel)
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
 

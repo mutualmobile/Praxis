@@ -1,8 +1,21 @@
 package com.praxis.feat.authentication.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,38 +24,41 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
-import com.mutualmobile.praxis.commonui.theme.*
+import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
+import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
+import com.mutualmobile.praxis.commonui.theme.PraxisShapes
+import com.mutualmobile.praxis.commonui.theme.PraxisSurface
+import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import com.mutualmobile.praxis.commonui.theme.PraxisTypography
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.ForgotPasswordVM
 
 @Composable
 fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){
   PraxisTheme() {
-    Scaffold(
-      backgroundColor = PraxisColorProvider.colors.uiBackground,
-      contentColor = PraxisColorProvider.colors.textSecondary,
-      modifier = Modifier
-        .statusBarsPadding()
-        .navigationBarsPadding(),
-      topBar = {
-        PraxisSurfaceAppBar(
-          title = {
-            Text(
-              text = "Forgot password",
-              style = PraxisTypography.h5.copy(
-                color = Color.White,
-                fontWeight = FontWeight.Bold
+      Scaffold(
+          backgroundColor = PraxisColorProvider.colors.uiBackground,
+          contentColor = PraxisColorProvider.colors.textSecondary,
+          modifier = Modifier
+              .statusBarsPadding()
+              .navigationBarsPadding(),
+          topBar = {
+              PraxisSurfaceAppBar(
+                  title = {
+                      Text(
+                          text = "Forgot password",
+                          style = PraxisTypography.h5.copy(
+                              color = Color.White,
+                              fontWeight = FontWeight.Bold
+                          )
+                      )
+                  },
+                  backgroundColor = PraxisColorProvider.colors.appBarColor,
               )
-            )
-          },
-          backgroundColor = PraxisColorProvider.colors.appBarColor,
-        )
-      }) {
-      ForgotPasswordSurface(forgotPasswordVM)
-    }
+          }) {
+          ForgotPasswordSurface(forgotPasswordVM)
+      }
   }
 
 }

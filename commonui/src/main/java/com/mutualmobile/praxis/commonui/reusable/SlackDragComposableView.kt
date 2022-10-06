@@ -9,8 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.PointerInputChange
-import androidx.compose.ui.input.pointer.consumePositionChange
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
@@ -125,7 +125,7 @@ private fun chatScreenModifier(
             // this moves the chat view left/right
             val summedMain = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
             val newDragValueMain = Offset(x = summedMain.x.coerceIn(0f, requiredOffset), y = 0f)
-            change.consumePositionChange()
+            if (change.positionChange() != Offset.Zero) change.consume()
             coroutineScope.launch {
                 offsetX.animateTo(newDragValueMain.x, animationSpec = tween(50))
             }
@@ -232,7 +232,7 @@ private fun mainAnimateOffset(
     if (offsetX.targetValue <= 0f) {
         val summedChat = Offset(x = chatViewOffX.targetValue + dragAmount, y = 0f)
         val chatNewDragValueMain = Offset(x = summedChat.x.coerceIn(0f, chatScreenOffset), y = 0f)
-        change.consumePositionChange()
+        if (change.positionChange() != Offset.Zero) change.consume()
         coroutineScope.launch {
             chatViewOffX.animateTo(chatNewDragValueMain.x, animationSpec = tween(50))
         }
@@ -241,7 +241,7 @@ private fun mainAnimateOffset(
     // this moved the main view left/right
     val summedMain = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
     val newDragValueMain = Offset(x = summedMain.x.coerceIn(0f, mainDragOffset), y = 0f)
-    change.consumePositionChange()
+    if (change.positionChange() != Offset.Zero) change.consume()
     coroutineScope.launch {
         offsetX.animateTo(newDragValueMain.x, animationSpec = tween(50))
     }
