@@ -1,6 +1,7 @@
 package com.praxis.feat.authentication.vm
 
 import android.net.Uri
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -132,13 +133,13 @@ class AuthVM @Inject constructor(
 
   sealed class UiState {
     object Empty : UiState()
-    data class Streaming(val result: StreamingFile) : UiState()
+    @Immutable data class Streaming(val result: StreamingFile) : UiState()
     object LoadingState : UiState()
-    data class SuccessState(
+    @Immutable data class SuccessState(
       val authToken: String,
     ) : UiState()
 
-    data class ErrorState(val throwable: Throwable) : UiState()
+    @Immutable data class ErrorState(val throwable: Throwable) : UiState()
   }
 }
 

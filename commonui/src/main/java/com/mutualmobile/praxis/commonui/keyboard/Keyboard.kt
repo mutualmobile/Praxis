@@ -2,12 +2,18 @@ package com.mutualmobile.praxis.commonui.keyboard
 
 import android.graphics.Rect
 import android.view.ViewTreeObserver
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalView
 
+@Immutable
 sealed class Keyboard {
-  data class Opened(var height: Int) : Keyboard()
-  object Closed : Keyboard()
+  @Immutable data class Opened(val height: Int) : Keyboard()
+  @Immutable object Closed : Keyboard()
 }
 
 @Composable
