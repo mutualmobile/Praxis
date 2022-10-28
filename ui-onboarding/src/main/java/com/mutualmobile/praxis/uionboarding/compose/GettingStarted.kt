@@ -20,12 +20,12 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mutualmobile.praxis.commonui.theme.*
-import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.AbsComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.mutualmobile.praxis.uionboarding.R
 
 @Composable
-fun GettingStartedUI(composeNavigator: ComposeNavigator) {
+fun GettingStartedUI(absComposeNavigator: AbsComposeNavigator) {
  PraxisTheme {
    val scaffoldState = rememberScaffoldState()
    val sysUiController = rememberSystemUiController()
@@ -58,7 +58,7 @@ fun GettingStartedUI(composeNavigator: ComposeNavigator) {
            IntroText(modifier = Modifier.padding(top = 12.dp))
            CenterImage()
            Spacer(Modifier.padding(8.dp))
-           GetStartedButton(composeNavigator)
+           GetStartedButton(absComposeNavigator)
          }
 
        }
@@ -101,7 +101,7 @@ private fun ImageEnterTransition() = expandIn(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-private fun GetStartedButton(composeNavigator: ComposeNavigator) {
+private fun GetStartedButton(absComposeNavigator: AbsComposeNavigator) {
   var expanded by remember { mutableStateOf(false) }
 
   LaunchedEffect(Unit) {
@@ -115,7 +115,7 @@ private fun GetStartedButton(composeNavigator: ComposeNavigator) {
   ) {
     Button(
       onClick = {
-        composeNavigator.navigate(PraxisScreen.SkipTypingScreen.name)
+        absComposeNavigator.navigate(PraxisScreen.SkipTypingScreen.name)
       },
       Modifier
         .fillMaxWidth()

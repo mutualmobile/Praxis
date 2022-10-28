@@ -3,14 +3,14 @@ package com.mutualmobile.praxis.uionboarding.compose
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
-import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.AbsComposeNavigator
 import com.mutualmobile.praxis.uionboarding.R
 
 @Composable
-fun EmailAddressInputUI(composeNavigator: ComposeNavigator) {
+fun EmailAddressInputUI(absComposeNavigator: AbsComposeNavigator) {
   PraxisTheme() {
     CommonInputUI(
-      composeNavigator,
+      absComposeNavigator,
       { modifier ->
         EmailInputView(modifier)
       },
@@ -20,10 +20,10 @@ fun EmailAddressInputUI(composeNavigator: ComposeNavigator) {
 }
 
 @Composable
-fun WorkspaceInputUI(composeNavigator: ComposeNavigator) {
+fun WorkspaceInputUI(absComposeNavigator: AbsComposeNavigator) {
   PraxisTheme() {
     CommonInputUI(
-      composeNavigator,
+      absComposeNavigator,
       {
         WorkspaceInputView(it)
       },

@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
-import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.AbsComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisRoute
 import com.mutualmobile.praxis.uionboarding.nav.onboardingNavigation
 import com.praxis.feat.authentication.nav.authNavGraph
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class OnboardingActivity : AppCompatActivity() {
 
   @Inject
-  lateinit var composeNavigator: ComposeNavigator
+  lateinit var absComposeNavigator: AbsComposeNavigator
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class OnboardingActivity : AppCompatActivity() {
       val navController = rememberNavController()
 
       LaunchedEffect(Unit) {
-        composeNavigator.handleNavigationCommands(navController)
+        absComposeNavigator.handleNavigationCommands(navController)
       }
 
       ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
@@ -40,7 +40,7 @@ class OnboardingActivity : AppCompatActivity() {
           startDestination = PraxisRoute.OnBoarding.name,
         ) {
           onboardingNavigation(
-            composeNavigator = composeNavigator,
+            absComposeNavigator = absComposeNavigator,
           )
           authNavGraph()
         }

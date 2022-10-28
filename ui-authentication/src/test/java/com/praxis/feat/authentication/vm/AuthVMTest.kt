@@ -2,7 +2,7 @@ package com.praxis.feat.authentication.vm
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.AbsComposeNavigator
 import com.praxis.feat.authentication.ui.model.LoginForm
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -18,7 +18,7 @@ import org.junit.Test
 class AuthVMTest {
 
   @MockK
-  lateinit var navigator: ComposeNavigator
+  lateinit var navigatorAbs: AbsComposeNavigator
 
   @MockK
   private lateinit var savedStateHandle: SavedStateHandle
@@ -41,14 +41,14 @@ class AuthVMTest {
     runTest {
       launch {
         coEvery {
-          navigator.observeResult<String>(any())
+          navigatorAbs.observeResult<String>(any())
         } returns emptyFlow()
 
         coEvery {
           savedStateHandle.get<String>(any())
         } returns ""
 
-        authVM = AuthVM(savedStateHandle, navigator)
+        authVM = AuthVM(savedStateHandle, navigatorAbs)
 
         authVM.formUiState.test {
           assert(awaitItem() is AuthVM.UiState.Empty)
@@ -67,14 +67,14 @@ class AuthVMTest {
     runTest {
       launch {
         coEvery {
-          navigator.observeResult<String>(any())
+          navigatorAbs.observeResult<String>(any())
         } returns emptyFlow()
 
         coEvery {
           savedStateHandle.get<String>(any())
         } returns ""
 
-        authVM = AuthVM(savedStateHandle, navigator)
+        authVM = AuthVM(savedStateHandle, navigatorAbs)
         authVM.credentials.value = LoginForm("anmol@gmail.com", "sdkfkjkjfdsjkfds")
 
         authVM.formUiState.test {

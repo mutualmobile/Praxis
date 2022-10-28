@@ -16,13 +16,12 @@ import com.mutualmobile.praxis.commonui.theme.PraxisSurface
 import com.mutualmobile.praxis.commonui.theme.PraxisTheme
 import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
 import com.mutualmobile.praxis.commonui.theme.PraxisTypography
-import com.mutualmobile.praxis.navigator.ComposeNavigator
+import com.mutualmobile.praxis.navigator.AbsComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisRoute
-import com.mutualmobile.praxis.navigator.PraxisScreen
 
 @Composable
 fun CommonInputUI(
-  composeNavigator: ComposeNavigator,
+  absComposeNavigator: AbsComposeNavigator,
   TopView: @Composable (modifier: Modifier) -> Unit,
   subtitleText: String
 ) {
@@ -68,7 +67,7 @@ fun CommonInputUI(
               bottom.linkTo(parent.bottom)
               start.linkTo(parent.start)
               end.linkTo(parent.end)
-            }, composeNavigator)
+            }, absComposeNavigator)
           }
         }
       }
@@ -78,10 +77,10 @@ fun CommonInputUI(
 }
 
 @Composable
-fun NextButton(modifier: Modifier = Modifier, composeNavigator: ComposeNavigator) {
+fun NextButton(modifier: Modifier = Modifier, absComposeNavigator: AbsComposeNavigator) {
   Button(
     onClick = {
-      composeNavigator.navigate(PraxisRoute.Auth.name) {
+      absComposeNavigator.navigate(PraxisRoute.Auth.name) {
         this.popUpTo(PraxisRoute.OnBoarding.name) {
           this.inclusive = true
         }
