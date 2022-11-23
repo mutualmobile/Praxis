@@ -100,6 +100,7 @@ android {
   kotlinOptions {
     jvmTarget = "1.8"
   }
+    dynamicFeatures += setOf(":sample")
 }
 
 // Required for annotation processing plugins like Dagger
@@ -149,6 +150,7 @@ dependencies {
   // Room
   api(Lib.Room.roomKtx)
   api(Lib.Room.roomRuntime)
+  api("com.google.android.play:core:1.10.3")
   add("kapt", Lib.Room.roomCompiler)
   testApi(Lib.Room.testing)
 

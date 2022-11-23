@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
 import com.mutualmobile.praxis.commonui.theme.PraxisTypography
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PraxisListItem(
   icon: ImageVector,
