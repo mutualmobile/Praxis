@@ -25,6 +25,7 @@
 -dontwarn android.webkit.WebView
 -dontwarn android.net.http.SslError
 -dontwarn android.webkit.WebViewClient
+-dontwarn org.slf4j.impl.StaticLoggerBinder
 
 #This will print mappings - very useful for troubleshooting.
 -dump ./build/class_files.txt

@@ -63,7 +63,7 @@ private fun ForgotPasswordSurface(forgotPasswordVM: ForgotPasswordVM) {
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
       Image(
-        painter = painterResource(id = R.mipmap.ic_launcher),
+        painter = painterResource(id = com.mutualmobile.praxis.commonui.R.mipmap.ic_launcher),
         contentDescription = "Logo", Modifier.size(128.dp)
       )
 
@@ -107,7 +107,7 @@ private fun EmailTF(forgotPasswordVM: ForgotPasswordVM) {
     shape = PraxisShapes.large,
     leadingIcon = {
       Image(
-        painter = painterResource(id = R.drawable.ic_email),
+        painter = painterResource(id = com.mutualmobile.praxis.commonui.R.drawable.ic_email),
         contentDescription = "Email"
       )
     },

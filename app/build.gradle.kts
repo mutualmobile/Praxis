@@ -13,7 +13,7 @@ plugins {
 
 android {
   compileSdk = (AppVersions.COMPILE_SDK)
-
+  namespace = "com.mutualmobile.praxis"
   defaultConfig {
     applicationId = (AppVersions.APPLICATION_ID)
     minSdk = (AppVersions.MIN_SDK)

@@ -145,7 +145,7 @@ private fun AuthSurface(
 
         AnimatedVisibility(visible = randomPhotoState !is AuthVM.UiState.Streaming) {
           Image(
-            painter = painterResource(id = R.mipmap.ic_launcher),
+            painter = painterResource(id = com.mutualmobile.praxis.commonui.R.mipmap.ic_launcher),
             contentDescription = "Logo", Modifier.size(128.dp)
           )
         }
@@ -276,7 +276,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     leadingIcon = {
       Image(
-        painter = painterResource(id = R.drawable.ic_eye),
+        painter = painterResource(id = com.mutualmobile.praxis.commonui.R.drawable.ic_eye),
         contentDescription = "email"
       )
     },
@@ -316,7 +316,7 @@ private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
     ),
     leadingIcon = {
       Image(
-        painter = painterResource(id = R.drawable.ic_email),
+        painter = painterResource(id = com.mutualmobile.praxis.commonui.R.drawable.ic_email),
         contentDescription = "Email"
       )
     },

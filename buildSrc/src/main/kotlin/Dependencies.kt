@@ -3,7 +3,7 @@
 object BuildPlugins {
   private const val TOOLS_BUILD = "7.1.1"
   private const val KT_LINT = "9.2.1"
-  private const val SAFE_ARGS = "2.3.5"
+  private const val SAFE_ARGS = "2.5.0"
 
   const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
   const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
@@ -47,9 +47,9 @@ object Lib {
 
   object Androidx {
     // Compose
-    const val composeVersion = "1.1.0"
+    const val composeVersion = "1.2.0-rc02"
     private const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:1.0.0-beta01"
-    const val APP_COMPAT = "androidx.appcompat:appcompat:1.4.2"
+    const val APP_COMPAT = "androidx.appcompat:appcompat:1.4.1"
 
     val list = listOf(
       APP_COMPAT,
