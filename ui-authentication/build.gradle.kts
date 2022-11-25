@@ -62,8 +62,6 @@ dependencies {
     implementation(project(":navigator"))
     implementation(project(":commonui"))
 
-    
-
     Lib.Androidx.list.forEach(::implementation)
     Lib.Androidx.Compose.list.forEach(::implementation)
     Lib.ThirdParty.list.forEach(::implementation)

@@ -38,9 +38,10 @@ object Lib {
 
   object Google {
     const val MATERIAL_DESIGN = "com.google.android.material:material:1.4.0"
-
+    const val PLAY_FEATURE_DELIVERY = "com.google.android.play:feature-delivery-ktx:2.0.1"
     val list = listOf(
       MATERIAL_DESIGN,
+      PLAY_FEATURE_DELIVERY
     )
 
   }
