@@ -3,12 +3,9 @@ package com.praxis.feat.authentication.vm
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
-import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
-import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import com.mutualmobile.praxis.domain.model.StreamingFile
 import com.mutualmobile.praxis.domain.usecases.FetchRandomPhotoUseCase
 import com.mutualmobile.praxis.navigator.ComposeNavigator
@@ -48,7 +45,7 @@ class AuthVM @Inject constructor(
   var dynamicFeatureNameState = MutableStateFlow<String>("")
     private set
 
-  private lateinit var manager: SplitInstallManager
+  private var manager: SplitInstallManager
 
   private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
     when (throwable) {
@@ -111,8 +108,8 @@ class AuthVM @Inject constructor(
   fun checkDynamicFeatureInstallation(moduleName: String) {
       if (manager.installedModules.contains(moduleName)) {
         viewModelScope.launch {
-          dynamicUiState.value = UiState.LaunchDynamicModule(moduleName)
           dynamicFeatureNameState.value = moduleName
+          dynamicUiState.value = UiState.LaunchDynamicModule(moduleName)
         }
       } else {
         installDynamicModule(moduleName)
@@ -123,26 +120,6 @@ class AuthVM @Inject constructor(
             .addModule(moduleName)
             .build()
     manager.startInstall(request)
-  }
-
-  private val listener = SplitInstallStateUpdatedListener { state ->
-    when (state.status()) {
-      SplitInstallSessionStatus.INSTALLING -> {
-        dynamicUiState.value = UiState.LoadingState
-      }
-
-      SplitInstallSessionStatus.INSTALLED -> {
-          dynamicUiState.value = UiState.LaunchDynamicModule(dynamicFeatureNameState.value)
-      }
-
-      SplitInstallSessionStatus.DOWNLOADING -> {
-        dynamicUiState.value = UiState.LoadingState
-      }
-
-      SplitInstallSessionStatus.FAILED -> {
-        dynamicUiState.value = UiState.LoadingState
-      }
-    }
   }
 
   fun logout() {
@@ -180,7 +157,6 @@ class AuthVM @Inject constructor(
     data class SuccessState(
       val authToken: String,
     ) : UiState()
-
     data class LaunchDynamicModule(val moduleName: String) : UiState()
 
     data class ErrorState(val throwable: Throwable) : UiState()

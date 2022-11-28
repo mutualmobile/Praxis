@@ -36,9 +36,6 @@ import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.google.android.play.core.splitinstall.SplitInstallManager
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
-import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
@@ -192,12 +189,16 @@ private fun AuthSurface(
           }
         }
 
-        if(dynamicFeatureUiState is AuthVM.UiState.LaunchDynamicModule) {
-          launchDynamicModule(LocalContext.current)
+        if(dynamicFeatureUiState is AuthVM.UiState.ErrorState) {
+          LaunchedEffect(scaffoldState) {
+            scaffoldState.snackbarHostState.showSnackbar(
+                    message = "Something went wrong",
+                    actionLabel = "Ok"
+            )
+          }
         }
       }
     }
-
   }
 }
 
@@ -219,6 +220,35 @@ fun RandomPhotoButton(authVM: AuthVM) {
 
 @Composable
 fun LoadDynamicFeature(authVM: AuthVM) {
+  val context = LocalContext.current
+  LaunchedEffect(key1 = true) {
+    SplitInstallStateUpdatedListener { state ->
+      when (state.status()) {
+        SplitInstallSessionStatus.INSTALLING -> {
+          authVM.dynamicUiState.value = AuthVM.UiState.LoadingState
+        }
+
+        SplitInstallSessionStatus.INSTALLED -> {
+          authVM.dynamicUiState.value =
+                  AuthVM.UiState.LaunchDynamicModule(authVM.dynamicFeatureNameState.value)
+          launchDynamicModule(context)
+        }
+
+        SplitInstallSessionStatus.DOWNLOADING -> {
+          authVM.dynamicUiState.value = AuthVM.UiState.LoadingState
+        }
+
+        SplitInstallSessionStatus.FAILED -> {
+          authVM.dynamicUiState.value = AuthVM.UiState.ErrorState(Throwable("Something went wrong"))
+        }
+
+        else -> {
+          authVM.dynamicUiState.value = AuthVM.UiState.ErrorState(Throwable("Something went wrong"))
+        }
+      }
+    }
+  }
+  
   Button(
           onClick = {
             authVM.checkDynamicFeatureInstallation("Sample")
