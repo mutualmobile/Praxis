@@ -13,7 +13,7 @@ plugins {
 
 android {
   compileSdk = (AppVersions.COMPILE_SDK)
-
+  namespace = "com.mutualmobile.praxis"
   defaultConfig {
     applicationId = (AppVersions.APPLICATION_ID)
     minSdk = (AppVersions.MIN_SDK)
@@ -100,6 +100,7 @@ android {
   kotlinOptions {
     jvmTarget = "1.8"
   }
+    dynamicFeatures += setOf(":sample")
 }
 
 // Required for annotation processing plugins like Dagger

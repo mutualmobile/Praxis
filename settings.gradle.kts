@@ -12,3 +12,4 @@ include(":common")
 include(":commonui")
 include(":navigator")
 
+include(":sample")

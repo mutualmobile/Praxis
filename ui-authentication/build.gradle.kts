@@ -9,7 +9,7 @@ plugins {
 
 android {
     compileSdk = AppVersions.COMPILE_SDK
-
+    namespace = "com.praxis.feat.authentication"
     defaultConfig {
         minSdk = (AppVersions.MIN_SDK)
         targetSdk = (AppVersions.TARGET_SDK)
@@ -61,8 +61,6 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":navigator"))
     implementation(project(":commonui"))
-
-    
 
     Lib.Androidx.list.forEach(::implementation)
     Lib.Androidx.Compose.list.forEach(::implementation)

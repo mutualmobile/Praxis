@@ -1,5 +1,7 @@
 package com.praxis.feat.authentication.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,6 +18,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -27,15 +30,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
+import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
 import com.mutualmobile.praxis.commonui.theme.*
-import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
 import com.praxis.feat.authentication.vm.streamProgress
 import com.praxis.feat.authentication.vm.uri
@@ -50,8 +55,8 @@ fun AuthenticationUI(
       backgroundColor = PraxisColorProvider.colors.uiBackground,
       contentColor = PraxisColorProvider.colors.textSecondary,
       modifier = Modifier
-        .statusBarsPadding()
-        .navigationBarsPadding(),
+              .statusBarsPadding()
+              .navigationBarsPadding(),
       topBar = {
         PraxisSurfaceAppBar(
           title = {
@@ -91,16 +96,17 @@ private fun AuthSurface(
 ) {
   PraxisSurface(
     modifier = Modifier
-      .fillMaxHeight()
-      .fillMaxWidth()
+            .fillMaxHeight()
+            .fillMaxWidth()
   ) {
 
     val resetPasswordState by authVM.snackBarState.collectAsState()
     val uiState by authVM.formUiState.collectAsState()
     val randomPhotoState by authVM.randomPhotoState.collectAsState()
+    val dynamicFeatureUiState by authVM.dynamicUiState.collectAsState()
 
     Box() {
-      AnimatedVisibility(visible = uiState is AuthVM.UiState.SuccessState || randomPhotoState is AuthVM.UiState.Streaming) {
+      AnimatedVisibility(visible = uiState is AuthVM.UiState.SuccessState || randomPhotoState is AuthVM.UiState.Streaming ) {
         Column(
           verticalArrangement = Arrangement.Center,
           horizontalAlignment = Alignment.CenterHorizontally
@@ -123,7 +129,7 @@ private fun AuthSurface(
               )
 
               RandomPhotoButton(authVM)
-
+              LoadDynamicFeature(authVM)
               LogoutButton(authVM)
             }
           }
@@ -132,11 +138,11 @@ private fun AuthSurface(
         }
       }
       Column(
-        Modifier
-          .padding(16.dp)
-          .navigationBarsWithImePadding()
-          .fillMaxWidth()
-          .fillMaxHeight(),
+              Modifier
+                      .padding(16.dp)
+                      .navigationBarsWithImePadding()
+                      .fillMaxWidth()
+                      .fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
@@ -145,7 +151,7 @@ private fun AuthSurface(
 
         AnimatedVisibility(visible = randomPhotoState !is AuthVM.UiState.Streaming) {
           Image(
-            painter = painterResource(id = R.mipmap.ic_launcher),
+            painter = painterResource(id = com.mutualmobile.praxis.commonui.R.mipmap.ic_launcher),
             contentDescription = "Logo", Modifier.size(128.dp)
           )
         }
@@ -159,6 +165,10 @@ private fun AuthSurface(
         }
 
         AnimatedVisibility(visible = (uiState is AuthVM.UiState.LoadingState)) {
+          CircularProgressIndicator(modifier = Modifier.padding(8.dp))
+        }
+
+        AnimatedVisibility(visible = (dynamicFeatureUiState is AuthVM.UiState.LoadingState)) {
           CircularProgressIndicator(modifier = Modifier.padding(8.dp))
         }
 
@@ -178,9 +188,17 @@ private fun AuthSurface(
             )
           }
         }
+
+        if(dynamicFeatureUiState is AuthVM.UiState.ErrorState) {
+          LaunchedEffect(scaffoldState) {
+            scaffoldState.snackbarHostState.showSnackbar(
+                    message = "Something went wrong",
+                    actionLabel = "Ok"
+            )
+          }
+        }
       }
     }
-
   }
 }
 
@@ -196,6 +214,50 @@ fun RandomPhotoButton(authVM: AuthVM) {
     Text(
       text = "Load Random Photo",
       style = MaterialTheme.typography.body1.copy(color = PraxisColorProvider.colors.buttonTextColor)
+    )
+  }
+}
+
+@Composable
+fun LoadDynamicFeature(authVM: AuthVM) {
+  val context = LocalContext.current
+  LaunchedEffect(key1 = true) {
+    SplitInstallStateUpdatedListener { state ->
+      when (state.status()) {
+        SplitInstallSessionStatus.INSTALLING -> {
+          authVM.dynamicUiState.value = AuthVM.UiState.LoadingState
+        }
+
+        SplitInstallSessionStatus.INSTALLED -> {
+          authVM.dynamicUiState.value =
+                  AuthVM.UiState.LaunchDynamicModule(authVM.dynamicFeatureNameState.value)
+          launchDynamicModule(context)
+        }
+
+        SplitInstallSessionStatus.DOWNLOADING -> {
+          authVM.dynamicUiState.value = AuthVM.UiState.LoadingState
+        }
+
+        SplitInstallSessionStatus.FAILED -> {
+          authVM.dynamicUiState.value = AuthVM.UiState.ErrorState(Throwable("Something went wrong"))
+        }
+
+        else -> {
+          authVM.dynamicUiState.value = AuthVM.UiState.ErrorState(Throwable("Something went wrong"))
+        }
+      }
+    }
+  }
+  
+  Button(
+          onClick = {
+            authVM.checkDynamicFeatureInstallation("Sample")
+          }, Modifier.wrapContentWidth(),
+          colors = ButtonDefaults.buttonColors(backgroundColor = PraxisColorProvider.colors.buttonColor)
+  ) {
+    Text(
+            text = "Load Dynamic Module",
+            style = MaterialTheme.typography.body1.copy(color = PraxisColorProvider.colors.buttonTextColor)
     )
   }
 }
@@ -261,9 +323,9 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
       authVM.credentials.value = credentials.copy(password = it)
     },
     modifier = Modifier
-      .padding(16.dp)
-      .focusRequester(focusRequester)
-      .fillMaxWidth(),
+            .padding(16.dp)
+            .focusRequester(focusRequester)
+            .fillMaxWidth(),
     label = {
       Text(
         text = "Password",
@@ -276,7 +338,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     leadingIcon = {
       Image(
-        painter = painterResource(id = R.drawable.ic_eye),
+        painter = painterResource(id = com.mutualmobile.praxis.commonui.R.drawable.ic_eye),
         contentDescription = "email"
       )
     },
@@ -297,9 +359,9 @@ private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
     onValueChange = {
       authVM.credentials.value = credentials.copy(email = it)
     },
-    Modifier
-      .padding(16.dp)
-      .fillMaxWidth(), label = {
+          Modifier
+                  .padding(16.dp)
+                  .fillMaxWidth(), label = {
       Text(
         text = "Email",
         style = MaterialTheme.typography.body2.copy(color = PraxisColorProvider.colors.textPrimary)
@@ -316,7 +378,7 @@ private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
     ),
     leadingIcon = {
       Image(
-        painter = painterResource(id = R.drawable.ic_email),
+        painter = painterResource(id = com.mutualmobile.praxis.commonui.R.drawable.ic_email),
         contentDescription = "Email"
       )
     },
@@ -341,3 +403,12 @@ fun PreviewAuth() {
     AuthenticationUI()
   }
 }
+private fun launchDynamicModule(context: Context){
+  val packageName = "com.mutualmobile.praxis.sample"
+  val kotlinSampleClassname = "$packageName.SampleActivity"
+  Intent().setClassName(packageName, kotlinSampleClassname)
+          .also {
+            startActivity(context, it, null)
+          }
+}
+

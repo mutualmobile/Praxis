@@ -1,7 +1,11 @@
 package com.praxis.feat.authentication.vm
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.mutualmobile.praxis.domain.model.StreamingFile
 import com.mutualmobile.praxis.domain.usecases.FetchRandomPhotoUseCase
 import com.mutualmobile.praxis.navigator.ComposeNavigator
@@ -10,6 +14,7 @@ import com.mutualmobile.praxis.navigator.PraxisScreen
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.io.FileNotFoundException
@@ -20,11 +25,11 @@ import javax.inject.Inject
 class AuthVM @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val composeNavigator: ComposeNavigator,
-  private val fetchPhotoUseCase: FetchRandomPhotoUseCase
+  private val fetchPhotoUseCase: FetchRandomPhotoUseCase,
+  @ApplicationContext val context: Context
 ) : ViewModel() {
 
   private var fetchJob: Job? = null
-
   var credentials = MutableStateFlow(LoginForm())
     private set
   var snackBarState = MutableStateFlow("")
@@ -33,6 +38,14 @@ class AuthVM @Inject constructor(
     private set
   var randomPhotoState = MutableStateFlow<UiState>(UiState.Empty)
     private set
+
+  var dynamicUiState = MutableStateFlow<UiState>(UiState.Empty)
+    private set
+
+  var dynamicFeatureNameState = MutableStateFlow<String>("")
+    private set
+
+  private var manager: SplitInstallManager
 
   private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
     when (throwable) {
@@ -63,6 +76,7 @@ class AuthVM @Inject constructor(
 
   init {
     observePasswordReset()
+    manager = SplitInstallManagerFactory.create(context)
   }
 
   private fun observePasswordReset() {
@@ -89,6 +103,23 @@ class AuthVM @Inject constructor(
 
   fun navigateForgotPassword() {
     composeNavigator.navigate(PraxisScreen.ForgotPassword.route)
+  }
+
+  fun checkDynamicFeatureInstallation(moduleName: String) {
+      if (manager.installedModules.contains(moduleName)) {
+        viewModelScope.launch {
+          dynamicFeatureNameState.value = moduleName
+          dynamicUiState.value = UiState.LaunchDynamicModule(moduleName)
+        }
+      } else {
+        installDynamicModule(moduleName)
+      }
+  }
+  private fun installDynamicModule(moduleName: String) {
+    val request: SplitInstallRequest = SplitInstallRequest.newBuilder()
+            .addModule(moduleName)
+            .build()
+    manager.startInstall(request)
   }
 
   fun logout() {
@@ -126,6 +157,7 @@ class AuthVM @Inject constructor(
     data class SuccessState(
       val authToken: String,
     ) : UiState()
+    data class LaunchDynamicModule(val moduleName: String) : UiState()
 
     data class ErrorState(val throwable: Throwable) : UiState()
   }

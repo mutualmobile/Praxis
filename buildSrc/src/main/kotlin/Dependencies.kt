@@ -3,7 +3,7 @@
 object BuildPlugins {
   private const val TOOLS_BUILD = "7.1.1"
   private const val KT_LINT = "9.2.1"
-  private const val SAFE_ARGS = "2.3.5"
+  private const val SAFE_ARGS = "2.5.0"
 
   const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
   const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
@@ -26,7 +26,7 @@ object Lib {
     const val KOTLIN_VERSION = "1.6.0"
     private const val KTX_CORE_VERSION = "1.2.0"
     const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
-    private const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
+    const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
     private const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
 
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${KOTLIN_VERSION}"
@@ -38,18 +38,19 @@ object Lib {
 
   object Google {
     const val MATERIAL_DESIGN = "com.google.android.material:material:1.4.0"
-
+    const val PLAY_FEATURE_DELIVERY = "com.google.android.play:feature-delivery-ktx:2.0.1"
     val list = listOf(
       MATERIAL_DESIGN,
+      PLAY_FEATURE_DELIVERY
     )
 
   }
 
   object Androidx {
     // Compose
-    const val composeVersion = "1.1.0"
+    const val composeVersion = "1.2.0-rc02"
     private const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:1.0.0-beta01"
-    private const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
+    const val APP_COMPAT = "androidx.appcompat:appcompat:1.4.1"
 
     val list = listOf(
       APP_COMPAT,

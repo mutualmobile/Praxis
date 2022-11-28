@@ -9,7 +9,7 @@ plugins {
 
 android {
     compileSdk = AppVersions.COMPILE_SDK
-
+    namespace = "com.mutualmobile.praxis.commonui"
     defaultConfig {
         minSdk = (AppVersions.MIN_SDK)
         targetSdk = (AppVersions.TARGET_SDK)

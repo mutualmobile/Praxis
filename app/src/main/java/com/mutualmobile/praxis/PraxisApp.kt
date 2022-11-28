@@ -1,11 +1,11 @@
 package com.mutualmobile.praxis
 
-import android.app.Application
+import com.google.android.play.core.splitcompat.SplitCompatApplication
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class PraxisCloneApp : Application() {
+class PraxisCloneApp : SplitCompatApplication() {
 
   override fun onCreate() {
     super.onCreate()

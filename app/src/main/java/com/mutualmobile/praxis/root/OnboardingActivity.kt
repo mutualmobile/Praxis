@@ -3,6 +3,7 @@ package com.mutualmobile.praxis.root
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.LaunchedEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -24,6 +25,7 @@ class OnboardingActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     WindowCompat.setDecorFitsSystemWindows(window, false)
 
     installSplashScreen()
