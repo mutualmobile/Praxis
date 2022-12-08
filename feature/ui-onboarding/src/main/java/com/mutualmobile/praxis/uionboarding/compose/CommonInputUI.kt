@@ -18,7 +18,6 @@ import com.mutualmobile.praxis.commonui.theme.PraxisColorProvider
 import com.mutualmobile.praxis.commonui.theme.PraxisTypography
 import com.mutualmobile.praxis.navigator.ComposeNavigator
 import com.mutualmobile.praxis.navigator.PraxisRoute
-import com.mutualmobile.praxis.navigator.PraxisScreen
 
 @Composable
 fun CommonInputUI(

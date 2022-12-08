@@ -131,13 +131,13 @@ dependencies {
   Lib.Google.list.forEach(::api)
   Lib.Kotlin.list.forEach(::api)
 
-  api(project(":ui-onboarding"))
-  api(project(":ui-authentication"))
-  api(project(":navigator"))
-  api(project(":data"))
-  api(project(":domain"))
-  api(project(":common"))
-  api(project(":commonui"))
+  api(project(":feature:ui-onboarding"))
+  api(project(":feature:ui-authentication"))
+  api(project(":core:navigator"))
+  api(project(":core:data"))
+  api(project(":core:domain"))
+  api(project(":core:common"))
+  api(project(":feature:commonui"))
 
   /*DI*/
   api(Lib.Di.hilt)

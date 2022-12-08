@@ -29,8 +29,8 @@ kapt {
 }
 
 dependencies {
-  implementation(project(":common"))
-  implementation(project(":domain"))
+  implementation(project(":core:common"))
+  implementation(project(":core:domain"))
 
   Lib.Kotlin.list.forEach(::implementation)
   Lib.Networking.ktorList.forEach(::implementation)

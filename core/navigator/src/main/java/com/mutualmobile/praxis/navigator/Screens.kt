@@ -1,8 +1,6 @@
 package com.mutualmobile.praxis.navigator
 
 import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 
 sealed class PraxisScreen(
   val route: String,

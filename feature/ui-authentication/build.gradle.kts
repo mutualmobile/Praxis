@@ -55,15 +55,14 @@ kapt {
 }
 
 dependencies {
-    
-
     /*Kotlin*/
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":common"))
-    implementation(project(":navigator"))
-    implementation(project(":commonui"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:common"))
+    implementation(project(":core:navigator"))
+    implementation(project(":feature:commonui"))
 
+    
 
     Lib.Androidx.list.forEach(::implementation)
     Lib.Androidx.Compose.list.forEach(::implementation)
@@ -82,7 +81,7 @@ dependencies {
     // Room
     implementation(Lib.Room.roomKtx)
     implementation(Lib.Room.roomRuntime)
-    kapt(Lib.Room.roomCompiler)
+    add("kapt", Lib.Room.roomCompiler)
     testImplementation(Lib.Room.testing)
 
     UnitTesting.list.forEach(::testImplementation)
