@@ -1,0 +1,2 @@
+[*.{kt,kts}]
+twitter_compose_allowed_composition_locals = LocalPraxisCloneColor

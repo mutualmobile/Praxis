@@ -2,8 +2,10 @@
 
 object BuildPlugins {
   private const val TOOLS_BUILD = "7.1.1"
-  private const val KT_LINT = "9.2.1"
   private const val SAFE_ARGS = "2.3.5"
+  private const val KT_LINT = "11.0.0"
+  private const val TWITTER_COMPOSE_RULES_VER = "0.0.22"
+  const val KOTLINTER_PLUGIN_VERSION = "3.12.0"
 
   const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
   const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
@@ -19,6 +21,8 @@ object BuildPlugins {
   const val DAGGER_HILT = "dagger.hilt.android.plugin"
   const val ktLint = "org.jlleitschuh.gradle.ktlint"
   const val SAFE_ARGS_KOTLIN = "androidx.navigation.safeargs.kotlin"
+  const val TWITTER_COMPOSE_RULES = "com.twitter.compose.rules:ktlint:$TWITTER_COMPOSE_RULES_VER"
+  const val KOTLINTER = "org.jmailen.kotlinter"
 }
 
 object Lib {
