@@ -54,5 +54,4 @@ kotlinter {
   reporters = arrayOf("checkstyle", "html", "plain")
   experimentalRules = true
   disabledRules = emptyArray()
-  // disabledRules = arrayOf("experimental:argument-list-wrapping", "no-wildcard-imports")
 }
