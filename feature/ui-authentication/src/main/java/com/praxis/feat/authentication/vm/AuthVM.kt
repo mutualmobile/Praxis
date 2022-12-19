@@ -66,13 +66,15 @@ class AuthVM @Inject constructor(
   }
 
   private fun observePasswordReset() {
-    composeNavigator.observeResult<String>(NavigationKeys.ForgotPassword).onStart {
-      val message = savedStateHandle.get<String>(NavigationKeys.ForgotPassword)
+    composeNavigator.observeResult<String?>(NavigationKeys.ForgotPassword).onStart {
+      val message = savedStateHandle.get<String?>(NavigationKeys.ForgotPassword)
       message?.let {
         emit(it)
       }
     }
-      .onEach { snackBarState.value = it }
+      .onEach {
+        snackBarState.value = it?:""
+      }
       .launchIn(viewModelScope)
   }
 

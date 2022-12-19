@@ -55,7 +55,6 @@ dependencies {
     /*DI*/
     implementation(Lib.Di.hilt)
     implementation(Lib.Di.hiltNavigationCompose)
-    implementation(Lib.Di.viewmodel)
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
 

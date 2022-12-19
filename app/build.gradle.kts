@@ -142,7 +142,6 @@ dependencies {
   /*DI*/
   api(Lib.Di.hilt)
   api(Lib.Di.hiltNavigationCompose)
-  api(Lib.Di.viewmodel)
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 

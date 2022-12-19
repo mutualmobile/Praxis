@@ -23,7 +23,7 @@ abstract class Navigator {
 
 abstract class ComposeNavigator : Navigator() {
   abstract fun navigate(route: String, optionsBuilder: (NavOptionsBuilder.() -> Unit)? = null)
-  abstract fun <T> observeResult(key: String, route: String? = null): Flow<T>
+  abstract fun <T> observeResult(key: String, route: String? = null): Flow<T?>
   abstract fun <T> navigateBackWithResult(key: String, result: T, route: String?)
 
   abstract fun popUpTo(route: String, inclusive: Boolean)
@@ -48,9 +48,6 @@ abstract class ComposeNavigator : Navigator() {
       )
       is ComposeNavigationCommand.NavigateUpWithResult<*> -> {
         navUpWithResult(navigationCommand)
-      }
-      else -> {
-        throw RuntimeException("can't handle this with ComposeNavigator")
       }
     }
   }
