@@ -6,14 +6,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:name=".PraxisCloneApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.App.SplashScreenTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <profileable
+            android:shell="true"
+            tools:targetApi="33" />
+
         <activity
             android:name=".root.OnboardingActivity"
             android:exported="true"
@@ -24,12 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity-alias
-            android:name="leakcanary.internal.activity.LeakLauncherActivity"
-            android:exported="true"
-            android:targetActivity="leakcanary.internal.activity.LeakActivity"
-            tools:node="merge" />
     </application>
 
 </manifest>

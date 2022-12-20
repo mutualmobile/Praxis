@@ -23,6 +23,8 @@ object BuildPlugins {
   const val SAFE_ARGS_KOTLIN = "androidx.navigation.safeargs.kotlin"
   const val TWITTER_COMPOSE_RULES = "com.twitter.compose.rules:ktlint:$TWITTER_COMPOSE_RULES_VER"
   const val KOTLINTER = "org.jmailen.kotlinter"
+  const val ANDROID_TEST = "com.android.test"
+  const val JETBRAINS_KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
 }
 
 object Lib {
@@ -140,10 +142,21 @@ object Lib {
 }
 
 object UnitTesting {
+  private const val ANDROID_JUNIT_VERSION = "1.1.4"
+  private const val ESPRESSO_VERSION = "3.5.0"
+  private const val UI_AUTOMATOR_VERSION = "2.2.0"
+  private const val BENCHMARK_VERSION = "1.2.0-alpha08"
+  private const val PROFILE_INSTALLER_VERSION = "1.2.1"
+
   const val junit = "junit:junit:4.13.2"
   const val MOCKK = "io.mockk:mockk:1.10.5"
   const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
   const val turbin = "app.cash.turbine:turbine:0.7.0"
+  const val ESPRESSO = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
+  const val ANDROID_JUNIT = "androidx.test.ext:junit:$ANDROID_JUNIT_VERSION"
+  const val UI_AUTOMATOR = "androidx.test.uiautomator:uiautomator:$UI_AUTOMATOR_VERSION"
+  const val BENCHMARK = "androidx.benchmark:benchmark-macro-junit4:$BENCHMARK_VERSION"
+  const val PROFILE_INSTALLER = "androidx.profileinstaller:profileinstaller:$PROFILE_INSTALLER_VERSION"
 
   val list = listOf(junit, MOCKK, coroutineTest, turbin)
 }

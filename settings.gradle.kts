@@ -12,3 +12,4 @@ include(":core:data")
 include(":core:common")
 include(":core:navigator")
 
+include(":macrobenchmark")

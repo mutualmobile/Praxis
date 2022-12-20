@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
   id(BuildPlugins.KOTLINTER) version BuildPlugins.KOTLINTER_PLUGIN_VERSION apply true
+  id(BuildPlugins.JETBRAINS_KOTLIN_ANDROID) version Lib.Kotlin.KOTLIN_VERSION apply false
 }
 
 buildscript {

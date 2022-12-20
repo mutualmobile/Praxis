@@ -71,6 +71,12 @@ android {
       applicationIdSuffix = ".debug"
       signingConfig = signingConfigs.getByName("debug")
     }
+    create("benchmark") {
+      initWith(getByName("release"))
+      signingConfig = signingConfigs.getByName("debug")
+      matchingFallbacks += listOf("release")
+      isDebuggable = false
+    }
   }
 
   buildFeatures {
@@ -154,4 +160,5 @@ dependencies {
   UnitTesting.list.forEach(::testApi)
   DevDependencies.debugList.forEach(::debugApi)
   DevDependencies.list.forEach(::api)
+  implementation(UnitTesting.PROFILE_INSTALLER)
 }
