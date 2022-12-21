@@ -2,7 +2,7 @@ name: Build and Deploy
 on: pull_request
 
 jobs:
-  build_and_deploy_dev_release:
+  build_and_deploy_release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,6 +16,15 @@ jobs:
           distribution: "zulu"
           java-version: 11
 
+      - name: Decode Keystore
+        id: decode_keystore
+        env:
+            APP_CENTER_SECRET_DEVELOPMENT: ${{ secrets.APP_CENTER_SECRET_DEVELOPMENT }}
+        run: |
+            touch ./local.properties
+            echo APP_CENTER_SECRET_DEVELOPMENT=\"APP_CENTER_SECRET_DEVELOPMENT\" >> ./local.properties
+            cat ./local.properties
+
       - uses: actions/cache@v3
         name: Cache Gradle for quicker builds
         id: caching_gradle
@@ -23,15 +32,15 @@ jobs:
           path: |
               ~/.gradle/caches
               ~/.gradle/wrapper
-              key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
-              restore-keys: |
-              ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Generate Relase Build
-        id: generate_release_build
+      - name: Generate Build
+        id: generate_build
         if: always()
         run: ./gradlew assembleRelease --stacktrace --info
 
