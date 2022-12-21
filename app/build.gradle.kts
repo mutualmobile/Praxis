@@ -7,6 +7,7 @@ plugins {
   id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
   id(BuildPlugins.ktLint)
+  id(BuildPlugins.SECRETS_GRADLE_PLUGIN)
 }
 
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
@@ -34,23 +35,23 @@ android {
     }
   }
 
-  signingConfigs {
-
-    getByName("debug") {
-      keyAlias = "praxis-debug"
-      keyPassword = "utherNiC"
-      storeFile = file("keystore/praxis-debug.jks")
-      storePassword = "uRgeSCIt"
-    }
-
-    create("release") {
-      keyAlias = "praxis-release"
-      keyPassword = "ITHOmptI"
-      storeFile = file("keystore/praxis-release.jks")
-      storePassword = "PoTHatHR"
-    }
-
-  }
+//  signingConfigs {
+//
+//    getByName("debug") {
+//      keyAlias = "praxis-debug"
+//      keyPassword = "utherNiC"
+//      storeFile = file("keystore/praxis-debug.jks")
+//      storePassword = "uRgeSCIt"
+//    }
+//
+//    create("release") {
+//      keyAlias = "praxis-release"
+//      keyPassword = "ITHOmptI"
+//      storeFile = file("keystore/praxis-release.jks")
+//      storePassword = "PoTHatHR"
+//    }
+//
+//  }
   buildTypes {
     getByName("release") {
       isDebuggable = false
@@ -63,7 +64,7 @@ android {
         getDefaultProguardFile("proguard-android.txt"), "proguard-common.txt",
         "proguard-specific.txt"
       )
-      signingConfig = signingConfigs.getByName("release")
+      //signingConfig = signingConfigs.getByName("release")
     }
     getByName("debug") {
       isDebuggable = true
@@ -156,6 +157,10 @@ dependencies {
   api(Lib.Room.roomRuntime)
   add("kapt", Lib.Room.roomCompiler)
   testApi(Lib.Room.testing)
+
+  //App center analytics
+  api(Lib.Crash.APP_CENTER_CRASHES)
+  api(Lib.Crash.APP_CENTER_ANALYSIS)
 
   UnitTesting.list.forEach(::testApi)
   DevDependencies.debugList.forEach(::debugApi)

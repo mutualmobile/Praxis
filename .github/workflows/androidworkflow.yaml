@@ -1,0 +1,59 @@
+name: Build and Deploy
+on: pull_request
+
+jobs:
+  build_and_deploy_dev_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        id: checkout_code
+        uses: actions/checkout@v2
+
+      - name: Setup JDK 11
+        id: setup_jdk
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: 11
+
+      - uses: actions/cache@v3
+        name: Cache Gradle for quicker builds
+        id: caching_gradle
+        with:
+          path: |
+              ~/.gradle/caches
+              ~/.gradle/wrapper
+              key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+              restore-keys: |
+              ${{ runner.os }}-gradle-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Generate Relase Build
+        id: generate_release_build
+        if: always()
+        run: ./gradlew assembleRelease --stacktrace --info
+
+      - name: Sign APK
+        id: sign_app
+        if: always()
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release/
+          signingKeyBase64: ${{ secrets.SIGNING_KEY_BASE_64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Upload to App Center and distribute
+        id: upload_to_app_center_and_distribute
+        if: always()
+        uses: wzieba/AppCenter-Github-Action@v1
+        with:
+          appName: Mutual-Mobile-Organization/MM-Praxis
+          token: ${{ secrets.APP_CENTER_TOKEN_DEVELOPMENT }}
+          group: Internal
+          file: ${{ steps.sign_app.outputs.signedReleaseFile }}
+          notifyTesters: true
+          debug: false

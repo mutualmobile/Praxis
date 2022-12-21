@@ -25,6 +25,8 @@ object BuildPlugins {
   const val KOTLINTER = "org.jmailen.kotlinter"
   const val ANDROID_TEST = "com.android.test"
   const val JETBRAINS_KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
+  const val SECRETS_GRADLE_PLUGIN =
+    "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 }
 
 object Lib {
@@ -135,10 +137,19 @@ object Lib {
 
   object ThirdParty {
     private const val COIL_COMPOSE = "io.coil-kt:coil-compose:1.4.0"
+    private const val SECRETS_GRADLE_VERSION = "2.0.1"
+
+    const val SECRETS_GRADLE =
+      "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:$SECRETS_GRADLE_VERSION"
 
     val list = listOf(COIL_COMPOSE)
   }
 
+  object Crash {
+      private const val APP_CENTER_SDK_VERSION = "4.4.5"
+      const val APP_CENTER_ANALYSIS = "com.microsoft.appcenter:appcenter-analytics:${APP_CENTER_SDK_VERSION}"
+      const val APP_CENTER_CRASHES = "com.microsoft.appcenter:appcenter-crashes:${APP_CENTER_SDK_VERSION}"
+  }
 }
 
 object UnitTesting {
