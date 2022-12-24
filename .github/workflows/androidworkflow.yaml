@@ -50,10 +50,10 @@ jobs:
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app/build/outputs/apk/release/
-          signingKeyBase64: ${{ secrets.SIGNING_KEY_BASE_64 }}
-          alias: ${{ secrets.KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          signingKeyBase64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          alias: ${{ secrets.RELEASE_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.RELEASE_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.RELEASE_KEY_PASSWORD }}
 
       - name: Upload to App Center and distribute
         id: upload_to_app_center_and_distribute
@@ -61,7 +61,7 @@ jobs:
         uses: wzieba/AppCenter-Github-Action@v1
         with:
           appName: Mutual-Mobile-Organization/MM-Praxis
-          token: ${{ secrets.APP_CENTER_TOKEN_DEVELOPMENT }}
+          token: ${{ secrets.APP_CENTER_TOKEN_SECRET }}
           group: Internal
           file: ${{ steps.sign_app.outputs.signedReleaseFile }}
           notifyTesters: true
