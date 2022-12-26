@@ -35,23 +35,6 @@ android {
     }
   }
 
-//  signingConfigs {
-//
-//    getByName("debug") {
-//      keyAlias = "praxis-debug"
-//      keyPassword = "utherNiC"
-//      storeFile = file("keystore/praxis-debug.jks")
-//      storePassword = "uRgeSCIt"
-//    }
-//
-//    create("release") {
-//      keyAlias = "praxis-release"
-//      keyPassword = "ITHOmptI"
-//      storeFile = file("keystore/praxis-release.jks")
-//      storePassword = "PoTHatHR"
-//    }
-//
-//  }
   buildTypes {
     getByName("release") {
       isDebuggable = false

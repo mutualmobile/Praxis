@@ -4,7 +4,18 @@ on: pull_request
 jobs:
   build_and_deploy_release:
     runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
     steps:
+      - name: Send CI/CD start message on slack
+        uses: act10ns/slack@v1
+        id: slack_message_start
+        with:
+            status: starting
+            message: Starting to generate Release build for `build number {{ env.GITHUB_RUN_NUMBER }}` on branch `{{env.GITHUB_HEAD_REF}}`
+        if: always()
+
       - name: Checkout code
         id: checkout_code
         uses: actions/checkout@v2
@@ -66,3 +77,11 @@ jobs:
           file: ${{ steps.sign_app.outputs.signedReleaseFile }}
           notifyTesters: true
           debug: true
+
+      - name: Send CI/CD end message on slack
+        uses: act10ns/slack@v1
+        id: slack_message_end
+        with:
+            status: ${{ job.status }}
+            steps: ${{ toJson(steps) }}
+        if: always()
