@@ -7,6 +7,7 @@ plugins {
   id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
   id(BuildPlugins.ktLint)
+  id(BuildPlugins.SECRETS_GRADLE_PLUGIN)
 }
 
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
@@ -34,23 +35,6 @@ android {
     }
   }
 
-  signingConfigs {
-
-    getByName("debug") {
-      keyAlias = "praxis-debug"
-      keyPassword = "utherNiC"
-      storeFile = file("keystore/praxis-debug.jks")
-      storePassword = "uRgeSCIt"
-    }
-
-    create("release") {
-      keyAlias = "praxis-release"
-      keyPassword = "ITHOmptI"
-      storeFile = file("keystore/praxis-release.jks")
-      storePassword = "PoTHatHR"
-    }
-
-  }
   buildTypes {
     getByName("release") {
       isDebuggable = false
@@ -63,13 +47,19 @@ android {
         getDefaultProguardFile("proguard-android.txt"), "proguard-common.txt",
         "proguard-specific.txt"
       )
-      signingConfig = signingConfigs.getByName("release")
+      //signingConfig = signingConfigs.getByName("release")
     }
     getByName("debug") {
       isDebuggable = true
       versionNameSuffix = "-debug"
       applicationIdSuffix = ".debug"
       signingConfig = signingConfigs.getByName("debug")
+    }
+    create("benchmark") {
+      initWith(getByName("release"))
+      signingConfig = signingConfigs.getByName("debug")
+      matchingFallbacks += listOf("release")
+      isDebuggable = false
     }
   }
 
@@ -131,18 +121,17 @@ dependencies {
   Lib.Google.list.forEach(::api)
   Lib.Kotlin.list.forEach(::api)
 
-  api(project(":ui-onboarding"))
-  api(project(":ui-authentication"))
-  api(project(":navigator"))
-  api(project(":data"))
-  api(project(":domain"))
-  api(project(":common"))
-  api(project(":commonui"))
+  api(project(":feature:ui-onboarding"))
+  api(project(":feature:ui-authentication"))
+  api(project(":core:navigator"))
+  api(project(":core:data"))
+  api(project(":core:domain"))
+  api(project(":core:common"))
+  api(project(":feature:commonui"))
 
   /*DI*/
   api(Lib.Di.hilt)
   api(Lib.Di.hiltNavigationCompose)
-  api(Lib.Di.viewmodel)
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 
@@ -152,7 +141,12 @@ dependencies {
   add("kapt", Lib.Room.roomCompiler)
   testApi(Lib.Room.testing)
 
+  //App center analytics
+  api(Lib.Crash.APP_CENTER_CRASHES)
+  api(Lib.Crash.APP_CENTER_ANALYSIS)
+
   UnitTesting.list.forEach(::testApi)
   DevDependencies.debugList.forEach(::debugApi)
   DevDependencies.list.forEach(::api)
+  implementation(UnitTesting.PROFILE_INSTALLER)
 }

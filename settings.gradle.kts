@@ -2,13 +2,14 @@
 include(":app")
 
 // Feature modules
-include(":ui-onboarding")
-include(":ui-authentication")
+include(":feature:ui-onboarding")
+include(":feature:ui-authentication")
+include(":feature:commonui")
 
 // Other modules
-include(":domain")
-include(":data")
-include(":common")
-include(":commonui")
-include(":navigator")
+include(":core:domain")
+include(":core:data")
+include(":core:common")
+include(":core:navigator")
 
+include(":macrobenchmark")
