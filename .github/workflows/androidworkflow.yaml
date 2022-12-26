@@ -1,5 +1,8 @@
 name: Build and Deploy
-on: pull_request
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build_and_deploy_release:
