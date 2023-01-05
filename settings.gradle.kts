@@ -1,5 +1,6 @@
 // Root module
 include(":app")
+includeBuild("dependencies")
 
 // Feature modules
 include(":ui-onboarding")

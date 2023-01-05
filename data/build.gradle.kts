@@ -9,7 +9,6 @@ kapt {
 }
 
 dependencies {
-
   UnitTesting.list.forEach(::testImplementation)
   DevDependencies.debugList.forEach(::debugImplementation)
   DevDependencies.list.forEach(::implementation)

@@ -34,7 +34,6 @@ class AppModule : BaseAndroidPlugin() {
         ":data",
         ":domain",
         ":common",
-
       )
     )
 

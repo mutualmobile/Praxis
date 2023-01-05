@@ -20,7 +20,7 @@ class DataModule : BaseAndroidPlugin() {
         project.implementationProjectsFrom(
             listOf(
                 ":domain",
-                ":common",
+                ":common"
             )
         )
 
