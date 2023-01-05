@@ -1,6 +1,7 @@
 package gradle.plugins
 
-import com.android.build.gradle.*
+import com.android.build.gradle.AppPlugin
+import com.android.build.gradle.LibraryPlugin
 import implementationDependenciesFrom
 import org.gradle.api.Plugin
 import org.gradle.api.Project
