@@ -2,13 +2,11 @@
 include(":app")
 
 // Feature modules
-include(":ui-onboarding")
-include(":ui-authentication")
+include(":ui-feature1")
 
 // Other modules
 include(":domain")
 include(":data")
 include(":common")
 include(":commonui")
-include(":navigator")
 

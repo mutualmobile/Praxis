@@ -77,14 +77,6 @@ android {
     dataBinding = true
   }
 
-  buildFeatures {
-    compose = true
-  }
-
-  composeOptions {
-    kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
-  }
-
   packagingOptions {
     resources.excludes.add("META-INF/LICENSE.txt")
     resources.excludes.add("META-INF/NOTICE.txt")
@@ -122,18 +114,11 @@ hilt {
 }
 
 dependencies {
-  
-
   Lib.Androidx.list.forEach(::api)
-  Lib.Androidx.Compose.list.forEach(::api)
-  Lib.ThirdParty.list.forEach(::api)
-  Lib.Accompanist.list.forEach(::api)
   Lib.Google.list.forEach(::api)
   Lib.Kotlin.list.forEach(::api)
+  api(project(":ui-feature1"))
 
-  api(project(":ui-onboarding"))
-  api(project(":ui-authentication"))
-  api(project(":navigator"))
   api(project(":data"))
   api(project(":domain"))
   api(project(":common"))
