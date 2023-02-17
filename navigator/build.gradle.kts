@@ -36,7 +36,6 @@ android {
 
 // Required for annotation processing plugins like Dagger
 kapt {
-  generateStubs = true
   correctErrorTypes = true
 }
 
@@ -45,6 +44,7 @@ dependencies {
   
 
   Lib.Androidx.list.forEach(::implementation)
+  implementation(platform(Lib.Androidx.Compose.COMPOSE_BOM))
   Lib.Androidx.Compose.list.forEach(::implementation)
   Lib.ThirdParty.list.forEach(::implementation)
   Lib.Accompanist.list.forEach(::implementation)
@@ -54,7 +54,7 @@ dependencies {
   /*DI*/
   implementation(Lib.Di.hilt)
   implementation(Lib.Di.hiltNavigationCompose)
-  implementation(Lib.Di.viewmodel)
+//  implementation(Lib.Di.viewmodel)
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 
