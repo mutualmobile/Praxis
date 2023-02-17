@@ -6,7 +6,7 @@ plugins {
   id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
-  id(BuildPlugins.ktLint)
+  id(BuildPlugins.ktLint) version "11.2.0"
 }
 
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
@@ -75,14 +75,11 @@ android {
 
   buildFeatures {
     dataBinding = true
-  }
-
-  buildFeatures {
     compose = true
   }
 
   composeOptions {
-    kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
+    kotlinCompilerExtensionVersion = Lib.Androidx.Compose.composeCompilerVersion
   }
 
   packagingOptions {
@@ -93,18 +90,17 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
   }
 
   kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "11"
   }
 }
 
 // Required for annotation processing plugins like Dagger
 kapt {
-  generateStubs = true
   correctErrorTypes = true
 }
 
@@ -125,6 +121,7 @@ dependencies {
   
 
   Lib.Androidx.list.forEach(::api)
+  implementation(platform(Lib.Androidx.Compose.COMPOSE_BOM))
   Lib.Androidx.Compose.list.forEach(::api)
   Lib.ThirdParty.list.forEach(::api)
   Lib.Accompanist.list.forEach(::api)
@@ -142,7 +139,7 @@ dependencies {
   /*DI*/
   api(Lib.Di.hilt)
   api(Lib.Di.hiltNavigationCompose)
-  api(Lib.Di.viewmodel)
+//  api(Lib.Di.viewmodel)
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 

@@ -9,7 +9,6 @@ java {
 }
 
 dependencies {
-  api(Lib.Kotlin.KT_STD)
   api(Lib.Kotlin.COROUTINES)
   implementation(Lib.Paging.PAGING_COMMON)
 }
