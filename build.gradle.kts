@@ -10,7 +10,6 @@ buildscript {
     classpath(BuildPlugins.SAFE_ARGS_GRADLE_PLUGIN)
     classpath(BuildPlugins.DAGGER_HILT_PLUGIN)
     classpath(BuildPlugins.KOTLIN_GRADLE_PLUGIN)
-    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }
