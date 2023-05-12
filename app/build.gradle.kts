@@ -4,14 +4,15 @@ plugins {
   id(BuildPlugins.ANDROID_APPLICATION_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
   id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
-  id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
+  id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.ktLint)
 }
 
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
+  namespace = "com.mutualmobile.praxis"
   compileSdk = (AppVersions.COMPILE_SDK)
 
   defaultConfig {
@@ -81,6 +82,10 @@ android {
     compose = true
   }
 
+  hilt {
+    enableAggregatingTask = true
+  }
+
   composeOptions {
     kotlinCompilerExtensionVersion = Lib.Androidx.composeVersion
   }
@@ -142,7 +147,6 @@ dependencies {
   /*DI*/
   api(Lib.Di.hilt)
   api(Lib.Di.hiltNavigationCompose)
-  api(Lib.Di.viewmodel)
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 

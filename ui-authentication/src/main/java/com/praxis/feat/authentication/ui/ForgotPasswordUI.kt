@@ -1,5 +1,6 @@
 package com.praxis.feat.authentication.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -15,11 +16,11 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
 import com.mutualmobile.praxis.commonui.theme.*
-import com.praxis.feat.authentication.R
+import com.mutualmobile.praxis.commonui.R
 import com.praxis.feat.authentication.vm.ForgotPasswordVM
 
 @Composable
-fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){
+fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()) {
   PraxisTheme() {
     Scaffold(
       backgroundColor = PraxisColorProvider.colors.uiBackground,
