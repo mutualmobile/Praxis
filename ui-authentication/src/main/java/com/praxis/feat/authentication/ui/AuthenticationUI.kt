@@ -35,7 +35,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
 import com.mutualmobile.praxis.commonui.material.PraxisSurfaceAppBar
 import com.mutualmobile.praxis.commonui.theme.*
-import com.praxis.feat.authentication.R
+import com.mutualmobile.praxis.commonui.R
 import com.praxis.feat.authentication.vm.AuthVM
 import com.praxis.feat.authentication.vm.streamProgress
 import com.praxis.feat.authentication.vm.uri
@@ -256,7 +256,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
   val keyboardController = LocalSoftwareKeyboardController.current
 
   TextField(
-    value = credentials.password ?: "",
+    value = credentials.password,
     onValueChange = {
       authVM.credentials.value = credentials.copy(password = it)
     },
@@ -293,7 +293,7 @@ private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
   val credentials by authVM.credentials.collectAsState()
 
   TextField(
-    value = credentials.email ?: "",
+    value = credentials.email,
     onValueChange = {
       authVM.credentials.value = credentials.copy(email = it)
     },
