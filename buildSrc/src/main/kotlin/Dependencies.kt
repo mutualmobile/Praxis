@@ -1,15 +1,15 @@
 /** This file contains versions of all the dependencies used in the module  */
 
 object BuildPlugins {
-  private const val TOOLS_BUILD = "7.1.1"
+  private const val TOOLS_BUILD = "8.0.1"
   private const val KT_LINT = "9.2.1"
-  private const val SAFE_ARGS = "2.3.5"
+  private const val SAFE_ARGS = "2.5.0"
 
   const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
   const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
   const val SAFE_ARGS_GRADLE_PLUGIN =
     "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
-  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
+  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.42"
   const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
@@ -23,7 +23,7 @@ object BuildPlugins {
 
 object Lib {
   object Kotlin {
-    const val KOTLIN_VERSION = "1.6.0"
+    const val KOTLIN_VERSION = "1.7.0"
     private const val KTX_CORE_VERSION = "1.2.0"
     const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
     private const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
@@ -47,7 +47,7 @@ object Lib {
 
   object Androidx {
     // Compose
-    const val composeVersion = "1.1.0"
+    const val composeVersion = "1.2.0"
     private const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:1.0.0-beta01"
     private const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
 
@@ -92,11 +92,10 @@ object Lib {
   }
 
   object Di {
-    private const val DAGGER_VERSION = "2.40.5"
+    private const val DAGGER_VERSION = "2.42"
     const val hilt = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
     const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
 
-    const val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     const val hiltCompiler = "androidx.hilt:hilt-compiler:1.0.0"
     const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
   }

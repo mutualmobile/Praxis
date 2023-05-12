@@ -2,13 +2,14 @@ plugins {
     id(BuildPlugins.ANDROID_LIBRARY_PLUGIN)
     id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
     id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
-    id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.DAGGER_HILT)
+    id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.ktLint)
 }
 
 android {
     compileSdk = AppVersions.COMPILE_SDK
+    namespace = "com.mutualmobile.praxis.common"
 
     defaultConfig {
         minSdk = (AppVersions.MIN_SDK)
@@ -43,7 +44,6 @@ dependencies {
     /*DI*/
     implementation(Lib.Di.hilt)
     implementation(Lib.Di.hiltNavigationCompose)
-    implementation(Lib.Di.viewmodel)
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
 
